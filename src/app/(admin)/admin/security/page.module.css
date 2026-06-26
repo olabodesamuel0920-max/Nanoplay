@@ -1,0 +1,404 @@
+/* src/app/(admin)/admin/security/page.module.css */
+
+.main {
+  flex: 1;
+  background: var(--bg-obsidian);
+  padding: 40px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.adminHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 32px;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--foreground-secondary);
+  margin-top: 4px;
+}
+
+.tabNav {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.tabItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: var(--foreground-secondary);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.tabItem:hover {
+  color: var(--foreground-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tabActive {
+  color: var(--accent-lime) !important;
+  background: rgba(204, 255, 0, 0.05) !important;
+  border: 1px solid rgba(204, 255, 0, 0.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.searchRow {
+  margin-bottom: 12px;
+}
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--foreground-muted);
+}
+
+.searchInput {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  color: var(--foreground-primary);
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  padding: 12px 16px 12px 48px;
+  border-radius: 8px;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.searchInput:focus {
+  border-color: var(--accent-lime);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.usersList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.noUsers {
+  padding: 32px;
+  text-align: center;
+  color: var(--foreground-muted);
+  font-size: 14px;
+}
+
+.userItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-glass);
+  padding: 16px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.userItem:hover {
+  border-color: var(--border-glass-hover);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.userItemSelected {
+  border-color: var(--accent-lime) !important;
+  background: rgba(204, 255, 0, 0.02) !important;
+}
+
+.userItemHighRisk {
+  border-left: 4px solid var(--status-error);
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.userUsername {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminTag {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.userStatusRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flaggedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--status-error);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.userRiskScore {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.riskHighText {
+  color: var(--status-error);
+}
+
+.riskLowText {
+  color: var(--status-success);
+}
+
+.noAuditCard {
+  text-align: center;
+  padding: 64px 32px !important;
+}
+
+.noAuditIcon {
+  color: var(--foreground-muted);
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.noAuditCard h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.noAuditCard p {
+  font-size: 14px;
+  color: var(--foreground-secondary);
+}
+
+.auditCard {
+  padding: 32px !important;
+}
+
+.auditCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 16px;
+}
+
+.cardHeaderIcon {
+  color: var(--accent-lime);
+}
+
+.auditSub {
+  font-size: 12px;
+  color: var(--foreground-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.indicatorsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.indicatorItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-glass);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.indicatorItem span {
+  font-size: 11px;
+  color: var(--foreground-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.indicatorItem strong {
+  font-size: 14px;
+  color: var(--foreground-primary);
+}
+
+.codeText {
+  font-family: var(--font-data), monospace;
+  font-size: 12px !important;
+  word-break: break-all;
+}
+
+.flaggedAlertBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--status-error);
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.auditNotesBox {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--foreground-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.actionForm {
+  margin-top: 16px;
+}
+
+.sectionHeader {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-lime);
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 6px;
+}
+
+.notesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.notesLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground-secondary);
+}
+
+.notesTextArea {
+  width: 100%;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-glass);
+  color: var(--foreground-primary);
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  padding: 12px;
+  border-radius: 8px;
+  outline: none;
+  resize: none;
+  transition: var(--transition-smooth);
+}
+
+.notesTextArea:focus {
+  border-color: var(--accent-lime);
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.actionBtn {
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+  height: 40px !important;
+}
+
+.successAlert {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: var(--status-success);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.errorAlert {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--status-error);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

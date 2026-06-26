@@ -1,0 +1,275 @@
+/* src/app/(dashboard)/wallet/page.module.css */
+
+.main {
+  flex: 1;
+  background: var(--bg-obsidian);
+  padding: 40px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 32px;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--foreground-secondary);
+}
+
+.balanceGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.balanceCard {
+  padding: 32px !important;
+}
+
+.balanceInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.balanceLabel {
+  font-size: 13px;
+  color: var(--foreground-secondary);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.balanceValue {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--accent-lime);
+  text-shadow: 0 0 20px rgba(204, 255, 0, 0.15);
+}
+
+.balanceDesc {
+  font-size: 12px;
+  color: var(--foreground-muted);
+  margin-top: 8px;
+}
+
+.kycWarningCard {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  color: var(--status-error);
+}
+
+.warningIcon {
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+}
+
+.warningTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--foreground-primary);
+}
+
+.warningDesc {
+  font-size: 13px;
+  color: var(--foreground-secondary);
+  line-height: 1.5;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.actionCard {
+  padding: 32px !important;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.cardHeaderIcon {
+  color: var(--accent-lime);
+}
+
+.cardDesc {
+  font-size: 14px;
+  color: var(--foreground-secondary);
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.bankDetailsBox {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bankDetailItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--foreground-secondary);
+}
+
+.bankDetailsMissing {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--foreground-muted);
+  text-align: center;
+}
+
+.ledgerSection {
+  margin-bottom: 60px;
+}
+
+.ledgerHeader {
+  margin-bottom: 20px;
+}
+
+.ledgerSub {
+  font-size: 13px;
+  color: var(--foreground-muted);
+}
+
+.tableCard {
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.noTxs {
+  padding: 40px;
+  text-align: center;
+  color: var(--foreground-muted);
+  font-size: 14px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: 16px 24px;
+  font-size: 14px;
+}
+
+.table th {
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 700;
+  color: var(--foreground-secondary);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.tdDate {
+  color: var(--foreground-secondary);
+}
+
+.tdRef {
+  color: var(--foreground-primary);
+}
+
+.tdType {
+  font-weight: 600;
+}
+
+.tdAmount {
+  font-weight: 700;
+}
+
+.creditText {
+  color: var(--status-success);
+}
+
+.debitText {
+  color: var(--status-error);
+}
+
+.successAlert {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: var(--status-success);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.errorAlert {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--status-error);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .balanceGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actionsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

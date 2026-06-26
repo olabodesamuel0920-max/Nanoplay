@@ -1,0 +1,216 @@
+/* src/app/(admin)/admin/kyc-payouts/page.module.css */
+
+.main {
+  flex: 1;
+  background: var(--bg-obsidian);
+  padding: 40px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.adminHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 32px;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--foreground-secondary);
+  margin-top: 4px;
+}
+
+.tabNav {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.tabItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: var(--foreground-secondary);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.tabItem:hover {
+  color: var(--foreground-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tabActive {
+  color: var(--accent-lime) !important;
+  background: rgba(204, 255, 0, 0.05) !important;
+  border: 1px solid rgba(204, 255, 0, 0.1);
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground-primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.noItems {
+  padding: 32px;
+  text-align: center;
+  color: var(--foreground-muted);
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+}
+
+.queueGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.queueCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  padding: 24px !important;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+}
+
+.cardHeaderIcon {
+  color: var(--accent-lime);
+}
+
+.cardSub {
+  font-size: 12px;
+  color: var(--foreground-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--foreground-secondary);
+}
+
+.riskHigh {
+  color: var(--status-error);
+  font-weight: 700;
+}
+
+.riskLow {
+  color: var(--status-success);
+  font-weight: 700;
+}
+
+.notesInputArea {
+  margin-bottom: 16px;
+}
+
+.notesInput {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-glass);
+  color: var(--foreground-primary);
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.notesInput:focus {
+  border-color: var(--accent-lime);
+}
+
+.actionRow {
+  margin-top: 12px;
+}
+
+.actionBtn {
+  width: 100%;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.approveBtn {
+  width: 100%;
+}
+
+.rejectBtn {
+  width: 100%;
+}
+
+.successAlert {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: var(--status-success);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.errorAlert {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--status-error);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .queueGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -49,7 +49,7 @@ export default function TiersPage() {
           <div className={styles.header}>
             <AwardBadge size={40} className={styles.icon} />
             <h1 className={styles.title}>Challenge Tiers</h1>
-            <p className={styles.subtitle}>Select a tier to begin. Complete your 3-match prediction streak to win pool rewards on our secure ledger.</p>
+            <p className={styles.subtitle}>Select a tier to begin. Complete your 3-match prediction streak to win pool rewards securely.</p>
           </div>
 
           {loading ? (
@@ -77,7 +77,7 @@ export default function TiersPage() {
                     </li>
                     <li className={styles.perkItem}>
                       <Check size={14} className={styles.checkIcon} />
-                      <span>Secure reward ledger tracking</span>
+                      <span>Secure reward tracking</span>
                     </li>
                     {tier.perks?.priority && (
                       <li className={styles.perkItem}>
@@ -104,7 +104,7 @@ export default function TiersPage() {
           <div className={styles.infoAlert}>
             <Info size={16} className={styles.infoIcon} />
             <p>
-              Rewards are settled on passing manual winner review checks. Every transaction is transparently recorded in the challenge wallet balance ledger.
+              Rewards are credited upon passing manual winner review checks. Transactions are transparently recorded in your wallet history.
             </p>
           </div>
         </div>

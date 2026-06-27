@@ -250,8 +250,8 @@
 }
 
 .successAlert {
-  background: rgba(0, 255, 135, 0.05);
-  border: 1px solid rgba(0, 255, 135, 0.2);
+  background: rgba(0, 184, 110, 0.05);
+  border: 1px solid rgba(0, 184, 110, 0.15);
   color: var(--status-success);
   padding: 14px 20px;
   border-radius: 8px;

@@ -14,7 +14,7 @@ export default function SecurityPage() {
           <div className={styles.header}>
             <ShieldAlert size={40} className={styles.icon} />
             <h1 className={styles.title}>Security & Transparency Hub</h1>
-            <p className={styles.subtitle}>Explore the technical guardrails that protect the prediction pool and secure player rewards.</p>
+            <p className={styles.subtitle}>Explore the guardrails that protect the challenge pool and secure player rewards.</p>
           </div>
 
           <div className={styles.grid}>
@@ -24,37 +24,37 @@ export default function SecurityPage() {
                 <h3>Verified Phone Access</h3>
               </div>
               <p className={styles.cardText}>
-                We enforce a strict 1-to-1 association between users and normalized phone numbers. Predictions are restricted unless the phone number is verified via SMS OTP, blocking bulk automated account creation.
+                We enforce a strict 1-to-1 association between users and phone numbers. Predictions are restricted unless the phone number is verified via SMS OTP, preventing automated bulk accounts.
               </p>
             </GlassCard>
 
             <GlassCard className={styles.card} hoverEffect={true}>
               <div className={styles.cardHeader}>
                 <Fingerprint className={styles.cardIcon} />
-                <h3>Duplicate Account Shield</h3>
+                <h3>Account Safety Check</h3>
               </div>
               <p className={styles.cardText}>
-                Our database automatically flags user profiles sharing bank accounts, browser fingerprints, or IP patterns. Winnings release remains suspended for flagged users pending manual security review.
+                Our system flags profiles sharing bank accounts or security device checks. Winnings remain suspended for flagged accounts pending security review.
               </p>
             </GlassCard>
 
             <GlassCard className={styles.card} hoverEffect={true}>
               <div className={styles.cardHeader}>
                 <Lock className={styles.cardIcon} />
-                <h3>Kickoff Enforcement Lock</h3>
+                <h3>Kickoff Lock</h3>
               </div>
               <p className={styles.cardText}>
-                Predictions are locked at kickoff time by immutable database triggers. Picks cannot be submitted or modified post-kickoff, preventing retrospective prediction edits.
+                Predictions are locked at kickoff time by our automated system. Picks cannot be submitted or modified post-kickoff, preventing retrospective prediction edits.
               </p>
             </GlassCard>
 
             <GlassCard className={styles.card} hoverEffect={true}>
               <div className={styles.cardHeader}>
                 <Database className={styles.cardIcon} />
-                <h3>Secure Wallet Ledger</h3>
+                <h3>Secure Wallet History</h3>
               </div>
               <p className={styles.cardText}>
-                Player balances are computed solely as the sum of confirmed, chronological transaction ledger entries. This ledger-based architecture prevents arbitrary balance updates and keeps records transparent.
+                Player balances are computed solely as the sum of confirmed transactions. This transaction history prevents arbitrary balance updates and keeps records transparent.
               </p>
             </GlassCard>
           </div>
@@ -62,7 +62,7 @@ export default function SecurityPage() {
           <GlassCard className={styles.auditBox} hoverEffect={false}>
             <h3>Manual Winner Review</h3>
             <p>
-              When a player completes a correct match prediction streak, the system routes the entry to the pending winners review queue. Admins audit access parameters and device history to verify fair play before releasing rewards to the wallet.
+              When a player completes a correct match prediction streak, the system routes the entry to the pending winners review queue. Admins audit access parameters to verify fair play before releasing rewards to the wallet.
             </p>
           </GlassCard>
         </div>

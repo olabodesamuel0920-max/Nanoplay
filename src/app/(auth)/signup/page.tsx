@@ -114,7 +114,7 @@ export default function SignupPage() {
             JOIN THE ARENA.
           </h1>
           <p className={styles.panelSubtitle}>
-            Create your NanoPlay account, verify your phone, and start building your football streak.
+            Create your account, verify your phone, and start building your football streak.
           </p>
         </div>
 

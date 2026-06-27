@@ -8,6 +8,8 @@ import { createClient } from "@/lib/supabase/client";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
+import Logo from "@/components/ui/logo";
+import { ShieldCheck } from "lucide-react";
 import styles from "./page.module.css";
 
 export default function SignupPage() {
@@ -17,6 +19,7 @@ export default function SignupPage() {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [referralCode, setReferralCode] = useState("");
   
@@ -28,11 +31,17 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
+    // Basic phone validation check (required for fraud control)
+    if (!phone || phone.trim().length < 8) {
+      setError("A valid phone number is required for account creation.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      // 1. Client-side browser metadata collection (Anti-abuse)
       const fingerprint = btoa(navigator.userAgent + (navigator.language || "") + screen.width);
 
-      // 2. Perform Supabase Sign Up with custom metadata
+      // 1. Sign up user and pass phone to metadata so trigger inserts it to profiles table
       const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
@@ -40,6 +49,7 @@ export default function SignupPage() {
           data: {
             full_name: fullName,
             username: username,
+            phone: phone.trim(),
             device_fingerprint: fingerprint,
           },
         },
@@ -54,9 +64,7 @@ export default function SignupPage() {
       if (authData?.user) {
         const userId = authData.user.id;
 
-        // 3. Update device fingerprint & IP details on public.profiles (via client RPC or standard update if allowed by policy)
-        // Note: The public.profiles table has an insert trigger `on_auth_user_created` that runs on sign up.
-        // We'll update the extra metadata fields right after signup.
+        // 2. Extra audit indicators updates
         await supabase
           .from("profiles")
           .update({
@@ -64,9 +72,8 @@ export default function SignupPage() {
           })
           .eq("id", userId);
 
-        // 4. Handle Referral Code if provided
+        // 3. Process referral if valid
         if (referralCode.trim() !== "") {
-          // Find referrer profile by referral_code or username
           const { data: referrer } = await supabase
             .from("profiles")
             .select("id")
@@ -74,18 +81,16 @@ export default function SignupPage() {
             .single();
 
           if (referrer) {
-            // Call atomic RPC to process the referral securely
             await supabase.rpc("process_referral_reward_atomic", {
               p_referrer_id: referrer.id,
               p_referred_user_id: userId,
               p_referral_code: referralCode.trim(),
-              p_reward_amount: 1000, // ₦1,000 Referral Reward
+              p_reward_amount: 1000,
             });
           }
         }
       }
 
-      // Automatically route to settings/verification page to prompt for phone OTP
       router.push("/settings");
       router.refresh();
     } catch (err: any) {
@@ -95,81 +100,124 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="container-center" style={{ minHeight: "100vh", background: "var(--bg-obsidian)" }}>
-      <GlassCard className={styles.signupCard} accent={true}>
-        <div className={styles.header}>
-          <Link href="/" className={styles.logo}>
-            NANO<span className={styles.accent}>PLAY</span>
-          </Link>
-          <h2 className={styles.title}>Join the Arena</h2>
-          <p className={styles.subtitle}>Build your streak and claim your predictions</p>
+    <div className={styles.splitLayout}>
+      {/* Left panel: Massive luxury branding & trust */}
+      <div className={styles.leftPanel}>
+        <div className={styles.panelHeader}>
+          <Logo size={36} showText={true} />
         </div>
 
-        {error && (
-          <div className={styles.errorAlert}>
-            <span>{error}</span>
-          </div>
-        )}
-
-        <form onSubmit={handleSignup} className={styles.form}>
-          <Input
-            label="Full Legal Name"
-            type="text"
-            placeholder="John Doe"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-          />
-
-          <Input
-            label="Username"
-            type="text"
-            placeholder="johndoe"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-
-          <Input
-            label="Email Address"
-            type="email"
-            placeholder="name@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <Input
-            label="Password"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <Input
-            label="Referral Code (Optional)"
-            type="text"
-            placeholder="Enter referrer username"
-            value={referralCode}
-            onChange={(e) => setReferralCode(e.target.value)}
-          />
-
-          <Button type="submit" variant="premium" loading={loading} className={styles.submitBtn}>
-            Create Account
-          </Button>
-        </form>
-
-        <div className={styles.footer}>
-          <p>
-            Already have an account?{" "}
-            <Link href="/login" className={styles.link}>
-              Sign in instead
-            </Link>
+        <div className={styles.panelMiddle}>
+          <h1 className={styles.panelTitle}>
+            JOIN THE ARENA.<br />
+            BUILD YOUR <span className={styles.editorialItalic}>STREAK.</span>
+          </h1>
+          <p className={styles.panelSubtitle}>
+            Create your account to start. Verify your phone, select your entry tier, and predict matches to unlock pool rewards on a secure transaction ledger.
           </p>
         </div>
-      </GlassCard>
+
+        <div className={styles.panelFooter}>
+          <div className={styles.trustStrip}>
+            <div className={styles.trustStripItem}>
+              <ShieldCheck size={16} className={styles.trustIcon} />
+              <span>1 Phone = 1 Account</span>
+            </div>
+            <div className={styles.trustStripItem}>
+              <ShieldCheck size={16} className={styles.trustIcon} />
+              <span>Fraud Shield Active</span>
+            </div>
+          </div>
+          <p className={styles.copyright}>&copy; {new Date().getFullYear()} NanoPlay. All rights reserved.</p>
+        </div>
+      </div>
+
+      {/* Right panel: Grid Form input area */}
+      <div className={styles.rightPanel}>
+        <GlassCard className={styles.signupCard} accent={true} hoverEffect={false}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Create Account</h2>
+            <p className={styles.subtitle}>Enter your details to join the streak challenge</p>
+          </div>
+
+          {error && (
+            <div className={styles.errorAlert}>
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSignup} className={styles.form}>
+            {/* Form grid layout */}
+            <div className={styles.formGrid}>
+              <Input
+                label="Full Legal Name"
+                type="text"
+                placeholder="John Doe"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+
+              <Input
+                label="Username"
+                type="text"
+                placeholder="johndoe"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+
+              <Input
+                label="Phone Number"
+                type="tel"
+                placeholder="+2348031234567"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+
+              <Input
+                label="Email Address"
+                type="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <Input
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <Input
+                label="Referral Code (Optional)"
+                type="text"
+                placeholder="Referrer username"
+                value={referralCode}
+                onChange={(e) => setReferralCode(e.target.value)}
+              />
+            </div>
+
+            <Button type="submit" variant="premium" loading={loading} className={styles.submitBtn}>
+              Create Account ↗
+            </Button>
+          </form>
+
+          <div className={styles.footer}>
+            <p>
+              Already have an account?{" "}
+              <Link href="/login" className={styles.link}>
+                Sign in instead
+              </Link>
+            </p>
+          </div>
+        </GlassCard>
+      </div>
     </div>
   );
 }

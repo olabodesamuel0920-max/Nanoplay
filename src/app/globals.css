@@ -3,47 +3,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-  /* Design Tokens - Obsidian & Neon Luxury Sports-Tech */
+  /* Design Tokens - Obsidian & Gold/Cyan Luxury Sports-Tech */
   --bg-obsidian: #050507;
   --bg-charcoal: #0b0b0e;
-  --bg-card: rgba(11, 11, 14, 0.65);
-  --bg-card-hover: rgba(16, 16, 21, 0.85);
+  --bg-card: rgba(11, 11, 14, 0.7);
+  --bg-card-hover: rgba(16, 16, 21, 0.9);
   
   --foreground-primary: #ffffff;
   --foreground-secondary: #94a3b8;
   --foreground-muted: #64748b;
   
-  /* Accent Neon Palettes */
-  --accent-lime: #bfff00;
-  --accent-lime-hover: #a6df00;
-  --accent-lime-glow: rgba(191, 255, 0, 0.25);
-  --accent-lime-glow-strong: rgba(191, 255, 0, 0.5);
-  
-  --accent-cyan: #00f0ff;
-  --accent-cyan-hover: #00d8e6;
-  --accent-cyan-glow: rgba(0, 240, 255, 0.25);
+  /* Champagne Gold Accent Palette */
+  --accent-gold: #dfba6b;
+  --accent-gold-hover: #f1d28c;
+  --accent-gold-glow: rgba(223, 186, 107, 0.15);
+  --accent-gold-glow-strong: rgba(223, 186, 107, 0.3);
+  --border-gold: rgba(223, 186, 107, 0.18);
+  --shadow-gold: 0 0 30px 0 rgba(223, 186, 107, 0.08);
+
+  /* Ice Cyan Accent Palette */
+  --accent-cyan: #7dd3fc;
+  --accent-cyan-hover: #38bdf8;
+  --accent-cyan-glow: rgba(125, 211, 252, 0.15);
+  --border-cyan: rgba(125, 211, 252, 0.18);
+  --shadow-cyan: 0 0 30px 0 rgba(125, 211, 252, 0.08);
+
+  /* Map primary accents to luxury Gold */
+  --accent-lime: var(--accent-gold);
+  --accent-lime-hover: var(--accent-gold-hover);
+  --accent-lime-glow: var(--accent-gold-glow);
+  --accent-lime-glow-strong: var(--accent-gold-glow-strong);
+  --border-lime: var(--border-gold);
+  --shadow-lime: var(--shadow-gold);
   
   /* Glassmorphism & High-Fi Borders */
-  --border-glass: rgba(255, 255, 255, 0.05);
-  --border-glass-hover: rgba(255, 255, 255, 0.12);
-  --border-lime: rgba(191, 255, 0, 0.2);
-  --border-cyan: rgba(0, 240, 255, 0.2);
+  --border-glass: rgba(255, 255, 255, 0.04);
+  --border-glass-hover: rgba(255, 255, 255, 0.1);
+  --border-accent: var(--border-gold);
+  --shadow-accent: var(--shadow-gold);
   
   /* Shadows & Depth */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
-  --shadow-lime: 0 0 30px 0 rgba(191, 255, 0, 0.12);
-  --shadow-cyan: 0 0 30px 0 rgba(0, 240, 255, 0.12);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
   
   /* System States */
-  --status-success: #00ff87;
+  --status-success: #00ff87; /* kept green for status only */
   --status-error: #ff2a5f;
   --status-warning: #ffb700;
-  --status-info: #00b0ff;
+  --status-info: #38bdf8;
 
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
   --font-data: 'JetBrains Mono', monospace;
+  --font-editorial: var(--font-playfair-display), serif;
 
   /* Transitions */
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);

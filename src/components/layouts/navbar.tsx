@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Trophy, Wallet, Users, Award, BookOpen, Shield, LogOut, Menu, X, User } from "lucide-react";
+import Logo from "@/components/ui/logo";
 import styles from "./navbar.module.css";
 
 export default function Navbar() {
@@ -62,8 +63,8 @@ export default function Navbar() {
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Logo */}
-        <Link href="/" className={styles.logo}>
-          NANO<span className={styles.accent}>PLAY</span>
+        <Link href="/" className={styles.logoContainer}>
+          <Logo size={28} />
         </Link>
 
         {/* Desktop Nav */}
@@ -120,7 +121,7 @@ export default function Navbar() {
                 Sign In
               </Link>
               <Link href="/signup" className={styles.signupBtn}>
-                Play Now
+                Join Arena ↗
               </Link>
             </div>
           )}

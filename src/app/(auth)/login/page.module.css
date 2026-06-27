@@ -1,34 +1,110 @@
 /* src/app/(auth)/login/page.module.css */
 
+.splitLayout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-obsidian);
+}
+
+.leftPanel {
+  flex: 1.2;
+  background: radial-gradient(circle at 10% 20%, rgba(223, 186, 107, 0.05) 0%, var(--bg-obsidian) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px;
+  border-right: 1px solid var(--border-glass);
+}
+
+.panelMiddle {
+  margin: auto 0;
+  max-width: 480px;
+}
+
+.panelTitle {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--foreground-primary);
+  margin-bottom: 20px;
+}
+
+.editorialItalic {
+  font-family: var(--font-editorial), serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-gold);
+  text-shadow: 0 0 20px var(--accent-gold-glow);
+}
+
+.panelSubtitle {
+  font-family: var(--font-body), sans-serif;
+  font-size: 16px;
+  color: var(--foreground-secondary);
+  line-height: 1.6;
+}
+
+.panelFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.trustStrip {
+  display: flex;
+  gap: 24px;
+}
+
+.trustStripItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-cyan);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.trustIcon {
+  color: var(--accent-cyan);
+}
+
+.copyright {
+  font-size: 12px;
+  color: var(--foreground-muted);
+}
+
+.rightPanel {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+}
+
 .loginCard {
   width: 100%;
-  max-width: 440px;
-  padding: 40px !important;
+  max-width: 420px;
+  background: rgba(11, 11, 14, 0.75) !important;
+  border: 1px solid var(--border-glass) !important;
+  box-shadow: var(--shadow-glass) !important;
+  padding: 36px !important;
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.logo {
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 900;
-  font-size: 24px;
-  letter-spacing: -0.03em;
-  color: var(--foreground-primary);
-  display: inline-flex;
-  margin-bottom: 24px;
-}
-
-.accent {
-  color: var(--accent-lime);
-  text-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+  margin-bottom: 28px;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 900;
   margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
 .subtitle {
@@ -39,40 +115,85 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.forgotLink {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 11px;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.forgotLink:hover {
+  color: var(--accent-cyan-hover);
 }
 
 .submitBtn {
-  margin-top: 16px;
+  margin-top: 8px;
   width: 100%;
 }
 
 .errorAlert {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(255, 42, 95, 0.05);
+  border: 1px solid rgba(255, 42, 95, 0.15);
   color: var(--status-error);
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 13px;
-  font-family: var(--font-body), sans-serif;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .footer {
   text-align: center;
-  margin-top: 32px;
-  font-size: 14px;
+  margin-top: 28px;
+  font-size: 13px;
   color: var(--foreground-secondary);
 }
 
 .link {
-  color: var(--accent-lime);
-  font-weight: 600;
+  color: var(--accent-gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-decoration: none;
   transition: var(--transition-smooth);
 }
 
 .link:hover {
-  color: var(--accent-lime-hover);
-  text-shadow: 0 0 10px rgba(204, 255, 0, 0.2);
+  color: var(--accent-gold-hover);
+  text-shadow: 0 0 10px var(--accent-gold-glow);
+}
+
+@media (max-width: 900px) {
+  .splitLayout {
+    flex-direction: column;
+  }
+  .leftPanel {
+    padding: 40px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-glass);
+    flex: none;
+  }
+  .panelMiddle {
+    margin: 32px 0;
+  }
+  .panelTitle {
+    font-size: 38px;
+  }
+  .rightPanel {
+    padding: 40px 20px;
+    flex: 1;
+  }
 }

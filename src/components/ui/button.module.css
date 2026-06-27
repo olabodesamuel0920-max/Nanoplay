@@ -3,9 +3,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   font-family: var(--font-heading), sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 14px;
   padding: 12px 24px;
   border-radius: 8px;
@@ -15,18 +15,36 @@
   outline: none;
   user-select: none;
   height: 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Diagonal arrow slide effect on hover */
+.btn::after {
+  content: '\2197'; /* Unicode North East Arrow ↗ */
+  display: inline-block;
+  opacity: 0;
+  transform: translate(-8px, 8px);
+  transition: var(--transition-smooth);
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.btn:hover:not(:disabled)::after {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 .premium {
-  background: var(--accent-lime);
+  background: var(--accent-gold);
   color: #000;
-  box-shadow: 0 4px 14px 0 rgba(204, 255, 0, 0.2);
+  box-shadow: 0 4px 14px 0 var(--accent-gold-glow);
 }
 
 .premium:hover:not(:disabled) {
-  background: var(--accent-lime-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px 0 rgba(204, 255, 0, 0.3);
+  background: var(--accent-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 var(--accent-gold-glow-strong);
 }
 
 .premium:active:not(:disabled) {
@@ -34,15 +52,16 @@
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   color: var(--foreground-primary);
   border: 1px solid var(--border-glass);
 }
 
 .glass:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--border-glass-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .glass:active:not(:disabled) {
@@ -50,19 +69,20 @@
 }
 
 .danger {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(255, 42, 95, 0.05);
   color: var(--status-error);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(255, 42, 95, 0.15);
 }
 
 .danger:hover:not(:disabled) {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(255, 42, 95, 0.12);
   border-color: var(--status-error);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 42, 95, 0.05);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;

@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Outfit, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Outfit, Space_Grotesk, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -21,12 +21,19 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair-display",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "NanoPlay | Premium Football Prediction Streak Arena",
-  description: "Enter the elite sports-tech football prediction challenge. Verify your phone, build your winning streak, and claim your verified rewards through an immutable transaction ledger.",
-  metadataBase: new URL("https://nanoplay.com"),
+  title: "NanoPlay | Elite Football Prediction Arena",
+  description: "Enter the elite sports-tech football prediction challenge. Verify your phone, build your winning streak, and claim your rewards through our secure ledger.",
+  metadataBase: new URL("https://nanoplay.vercel.app"),
   openGraph: {
-    title: "NanoPlay | Premium Football Prediction Streak Arena",
+    title: "NanoPlay | Elite Football Prediction Arena",
     description: "Enter the elite sports-tech football prediction challenge.",
     type: "website",
     locale: "en_US",
@@ -48,11 +55,12 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}
       style={{
         "--font-heading": "var(--font-outfit)",
         "--font-body": "var(--font-space-grotesk)",
         "--font-data": "var(--font-jetbrains-mono)",
+        "--font-editorial": "var(--font-playfair-display)",
       } as React.CSSProperties}
     >
       <body>

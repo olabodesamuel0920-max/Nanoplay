@@ -1,0 +1,88 @@
+/* src/app/faq/page.module.css */
+.main {
+  flex: 1;
+  background: var(--bg-obsidian);
+  padding: 80px 24px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.icon {
+  color: var(--accent-gold);
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 10px var(--accent-gold-glow));
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--foreground-secondary);
+  line-height: 1.6;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faqCard {
+  background: rgba(11, 11, 14, 0.75) !important;
+  border: 1px solid var(--border-glass) !important;
+  box-shadow: var(--shadow-glass) !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.questionRow {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-smooth);
+}
+
+.questionRow:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.question {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--foreground-primary);
+  text-transform: none;
+}
+
+.arrow {
+  color: var(--accent-cyan);
+}
+
+.answerContainer {
+  padding: 0 24px 24px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.answer {
+  font-size: 14px;
+  color: var(--foreground-secondary);
+  line-height: 1.6;
+  padding-top: 16px;
+}

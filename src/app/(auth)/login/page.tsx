@@ -8,6 +8,8 @@ import { createClient } from "@/lib/supabase/client";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
+import Logo from "@/components/ui/logo";
+import { Trophy, ShieldCheck, HelpCircle } from "lucide-react";
 import styles from "./page.module.css";
 
 export default function LoginPage() {
@@ -44,55 +46,92 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container-center" style={{ minHeight: "100vh", background: "var(--bg-obsidian)" }}>
-      <GlassCard className={styles.loginCard} accent={true}>
-        <div className={styles.header}>
-          <Link href="/" className={styles.logo}>
-            NANO<span className={styles.accent}>PLAY</span>
-          </Link>
-          <h2 className={styles.title}>Welcome Back</h2>
-          <p className={styles.subtitle}>Enter your credentials to access the Arena</p>
+    <div className={styles.splitLayout}>
+      {/* Left panel: Massive luxury sports branding & trust */}
+      <div className={styles.leftPanel}>
+        <div className={styles.panelHeader}>
+          <Logo size={36} showText={true} />
         </div>
 
-        {error && (
-          <div className={styles.errorAlert}>
-            <span>{error}</span>
-          </div>
-        )}
-
-        <form onSubmit={handleLogin} className={styles.form}>
-          <Input
-            label="Email Address"
-            type="email"
-            placeholder="name@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <Input
-            label="Password"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <Button type="submit" variant="premium" loading={loading} className={styles.submitBtn}>
-            Sign In
-          </Button>
-        </form>
-
-        <div className={styles.footer}>
-          <p>
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className={styles.link}>
-              Create one now
-            </Link>
+        <div className={styles.panelMiddle}>
+          <h1 className={styles.panelTitle}>
+            PREDICT.<br />
+            PERFORM.<br />
+            <span className={styles.editorialItalic}>WIN.</span>
+          </h1>
+          <p className={styles.panelSubtitle}>
+            Access the elite football prediction arena. Verify your predictions, follow correct pick streaks, and monitor the secure reward ledger.
           </p>
         </div>
-      </GlassCard>
+
+        <div className={styles.panelFooter}>
+          <div className={styles.trustStrip}>
+            <div className={styles.trustStripItem}>
+              <ShieldCheck size={16} className={styles.trustIcon} />
+              <span>Verified Phone Access</span>
+            </div>
+            <div className={styles.trustStripItem}>
+              <ShieldCheck size={16} className={styles.trustIcon} />
+              <span>Duplicate Bank Detection</span>
+            </div>
+          </div>
+          <p className={styles.copyright}>&copy; {new Date().getFullYear()} NanoPlay. All rights reserved.</p>
+        </div>
+      </div>
+
+      {/* Right panel: Form input area */}
+      <div className={styles.rightPanel}>
+        <GlassCard className={styles.loginCard} accent={true} hoverEffect={false}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Welcome Back</h2>
+            <p className={styles.subtitle}>Enter credentials to access your dashboard</p>
+          </div>
+
+          {error && (
+            <div className={styles.errorAlert}>
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className={styles.form}>
+            <Input
+              label="Email Address"
+              type="email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <div className={styles.passwordWrapper}>
+              <Input
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <Link href="/faq" className={styles.forgotLink}>
+                Forgot password?
+              </Link>
+            </div>
+
+            <Button type="submit" variant="premium" loading={loading} className={styles.submitBtn}>
+              Sign In ↗
+            </Button>
+          </form>
+
+          <div className={styles.footer}>
+            <p>
+              Don&apos;t have an account?{" "}
+              <Link href="/signup" className={styles.link}>
+                Join the Arena
+              </Link>
+            </p>
+          </div>
+        </GlassCard>
+      </div>
     </div>
   );
 }

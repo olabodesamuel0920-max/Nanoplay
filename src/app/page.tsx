@@ -258,11 +258,6 @@ export default function LandingPage() {
                 <p className={styles.footerDesc}>
                   An elite sports-tech prediction challenge platform built for fair play, transaction integrity, and streak competitions.
                 </p>
-                <div className={styles.socialLinks}>
-                  <span className={styles.socialItem}>Twitter (Inactive)</span>
-                  <span className={styles.socialItem}>Discord (Inactive)</span>
-                  <span className={styles.socialItem}>Telegram (Inactive)</span>
-                </div>
               </div>
 
               {/* Col 2: Arena links */}

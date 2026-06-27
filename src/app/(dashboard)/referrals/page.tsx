@@ -86,7 +86,7 @@ export default function ReferralsPage() {
           <div className={styles.header}>
             <h1 className={styles.title}>Referrals</h1>
             <p className={styles.subtitle}>
-              Invite your friends to predict and earn rewards. Win ₦1,000 for each qualified referral.
+              Invite your friends to predict and earn rewards. Earn NGN 1,000 for each qualified referral.
             </p>
           </div>
 
@@ -158,7 +158,7 @@ export default function ReferralsPage() {
                             {isFlagged ? (
                               <span className="badge badge-error">Flagged (Self-Referral)</span>
                             ) : isQualified ? (
-                              <span className="badge badge-success">Qualified (₦1,000 Paid)</span>
+                               <span className="badge badge-success">Qualified (NGN 1,000 Credited)</span>
                             ) : (
                               <span className="badge badge-warning">Pending Predictions</span>
                             )}

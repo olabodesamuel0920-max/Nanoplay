@@ -125,7 +125,7 @@ export default function ArenaPage() {
     if ((wallet?.balance_ngn || 0) < price) {
       setMessage({
         type: "error",
-        text: `Insufficient balance. Please deposit at least ₦${(price - wallet.balance_ngn).toLocaleString()} to enroll.`,
+        text: `Insufficient balance. Please deposit at least NGN ${(price - wallet.balance_ngn).toLocaleString()} to enroll.`,
       });
       setActionLoading(false);
       return;
@@ -248,7 +248,7 @@ export default function ArenaPage() {
               <div>
                 <h1 className={styles.title}>Play Arena</h1>
                 <p className={styles.subtitle}>
-                  Predict outcomes for the 3 matches this round. Complete the streak to win the pool!
+                  Predict outcomes for the 3 matches this round. Complete the streak to qualify for the round reward.
                 </p>
               </div>
             </div>
@@ -285,8 +285,8 @@ export default function ArenaPage() {
           {!activeRound ? (
             <GlassCard className={styles.noRoundCard}>
               <Sparkles className={styles.noRoundIcon} />
-              <h3>No Active Round Scheduled</h3>
-              <p>Check back soon. The admin is preparing the next round of matches.</p>
+              <h3>Next Matchday Opens Soon</h3>
+              <p>New prediction rounds are being prepared. Check back shortly or follow the launch update.</p>
             </GlassCard>
           ) : !entry ? (
             /* Enrollment View */
@@ -294,14 +294,14 @@ export default function ArenaPage() {
               <div className={styles.enrollHeader}>
                 <Zap className={styles.enrollIcon} />
                 <h2>Enroll in Round #{activeRound.round_number}</h2>
-                <p>Select your challenge tier using your wallet balance. Pool reward is 10X your entry fee.</p>
+                <p>Select your challenge tier using your wallet balance. The round reward is 10X your entry fee.</p>
               </div>
 
               <div className={styles.tiersGrid}>
                 {tiers.map((tier) => (
                   <GlassCard key={tier.id} className={styles.tierCard} hoverEffect={true}>
                     <h3 className={styles.tierName}>{tier.name}</h3>
-                    <div className={styles.tierPrice}>₦{tier.price_ngn.toLocaleString()}</div>
+                    <div className={styles.tierPrice}>NGN {tier.price_ngn.toLocaleString()}</div>
                     <div className={styles.tierReward}>
                       Potential Reward: <strong>{tier.perks?.reward}</strong>
                     </div>

@@ -34,9 +34,9 @@ export default function TiersPage() {
   }, []);
 
   const fallbackTiers = [
-    { name: "Starter", price_ngn: 5000, perks: { reward: "₦50,000 potential reward", predictions_per_round: 3, referral_bonus: 1000 } },
-    { name: "Standard", price_ngn: 10000, perks: { reward: "₦100,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true } },
-    { name: "Premium", price_ngn: 20000, perks: { reward: "₦200,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true, elite_badge: true } }
+    { name: "Starter", price_ngn: 5000, perks: { reward: "NGN 50,000 potential reward", predictions_per_round: 3, referral_bonus: 1000 } },
+    { name: "Standard", price_ngn: 10000, perks: { reward: "NGN 100,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true } },
+    { name: "Premium", price_ngn: 20000, perks: { reward: "NGN 200,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true, elite_badge: true } }
   ];
 
   const displayTiers = tiers.length > 0 ? tiers : fallbackTiers;
@@ -49,7 +49,7 @@ export default function TiersPage() {
           <div className={styles.header}>
             <AwardBadge size={40} className={styles.icon} />
             <h1 className={styles.title}>Challenge Tiers</h1>
-            <p className={styles.subtitle}>Select a tier to begin. Complete your 3-match prediction streak to win pool rewards securely.</p>
+            <p className={styles.subtitle}>Select a tier to begin. Complete your 3-match prediction streak to qualify for the round reward.</p>
           </div>
 
           {loading ? (
@@ -61,7 +61,7 @@ export default function TiersPage() {
                   <div className={styles.cardHeader}>
                     <h3 className={styles.tierName}>{tier.name}</h3>
                     <div className={styles.priceRow}>
-                      <span className={[styles.price, "font-data"].join(" ")}>₦{tier.price_ngn.toLocaleString()}</span>
+                      <span className={[styles.price, "font-data"].join(" ")}>NGN {tier.price_ngn.toLocaleString()}</span>
                       <span className={styles.period}>/ entry fee</span>
                     </div>
                   </div>
@@ -69,7 +69,7 @@ export default function TiersPage() {
                   <ul className={styles.perksList}>
                     <li className={styles.perkItem}>
                       <Check size={14} className={styles.checkIcon} />
-                      <span>Potential reward: <strong>{tier.perks?.reward || `₦${(tier.price_ngn * 10).toLocaleString()}`}</strong></span>
+                      <span>Potential reward: <strong>{tier.perks?.reward || `NGN ${(tier.price_ngn * 10).toLocaleString()}`}</strong></span>
                     </li>
                     <li className={styles.perkItem}>
                       <Check size={14} className={styles.checkIcon} />

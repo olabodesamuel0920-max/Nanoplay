@@ -148,11 +148,11 @@ export default function AdminOverviewPage() {
             </GlassCard>
 
             <GlassCard className={styles.metricCard}>
-              <DollarSign className={styles.metricIcon} style={{ color: "var(--accent-lime)" }} />
+              <DollarSign className={styles.metricIcon} style={{ color: "var(--accent-gold)" }} />
               <div className={styles.metricInfo}>
                 <span className={styles.metricLabel}>Deposited Funds</span>
                 <span className={[styles.metricValue, "font-data"].join(" ")}>
-                  ₦{metrics.totalDeposits.toLocaleString()}
+                  NGN {metrics.totalDeposits.toLocaleString()}
                 </span>
               </div>
             </GlassCard>

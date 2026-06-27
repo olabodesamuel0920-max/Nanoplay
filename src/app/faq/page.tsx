@@ -13,19 +13,19 @@ export default function FAQPage() {
   const faqs = [
     {
       q: "What is NanoPlay?",
-      a: "NanoPlay is an elite football prediction challenge platform where users choose prediction tiers, place matchday outcomes, build streaks, and claim rewards on a secure transaction ledger.",
+      a: "NanoPlay is an elite football prediction challenge platform where users choose prediction tiers, place matchday outcomes, build streaks, and qualify for rewards.",
     },
     {
-      q: "How does the Phone OTP verification work?",
-      a: "To guarantee fair play, each account is bound to exactly one unique phone number. Before submitting any predictions, you must request and complete SMS OTP phone verification.",
+      q: "How does the Phone verification work?",
+      a: "To guarantee fair play, each account is bound to exactly one unique phone number. Before submitting any predictions, you must request and complete SMS phone verification.",
     },
     {
       q: "What happens if a bank account is linked to multiple profiles?",
       a: "NanoPlay enforces a strict one bank account per user safeguard. If our system detects the same bank details shared across accounts, both profiles are flagged, and all payout operations are suspended pending audit review.",
     },
     {
-      q: "How does the secure wallet ledger function?",
-      a: "Unlike typical systems with arbitrary balances, your NanoPlay wallet balance is calculated as the sum of verified ledger transactions. Deposits, entry fees, and approved rewards are recorded as immutable items.",
+      q: "How does the secure wallet function?",
+      a: "Unlike typical systems with arbitrary balances, your NanoPlay wallet balance is calculated as the sum of verified transactions. Deposits, entry fees, and approved rewards are recorded clearly.",
     },
     {
       q: "When are predictions locked?",

@@ -72,7 +72,7 @@ export default function WinnersPage() {
               <GlassCard className={styles.noWinnersCard}>
                 <Trophy className={styles.noWinnersIcon} />
                 <h3>No Verified Winners Yet</h3>
-                <p>Be the first to complete a 3-match prediction streak and claim the pool reward!</p>
+                <p>Verified winners will appear here after the first challenge round is reviewed.</p>
               </GlassCard>
             ) : (
               <GlassCard className={styles.tableCard} hoverEffect={false}>
@@ -96,7 +96,7 @@ export default function WinnersPage() {
                             {winner.profile?.username || "Anonymous Player"}
                           </td>
                           <td className={[styles.tdAmount, "font-data"].join(" ")}>
-                            ₦{winner.payout_amount.toLocaleString()}
+                             NGN {winner.payout_amount.toLocaleString()}
                           </td>
                           <td>
                             <span className={styles.verificationStatus}>

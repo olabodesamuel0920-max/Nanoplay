@@ -152,7 +152,7 @@ export default function SettingsPage() {
           <div className={styles.header}>
             <h1 className={styles.title}>Account Verification</h1>
             <p className={styles.subtitle}>
-              Verify your identity and phone number to participate and withdraw funds safely.
+              Verify your identity and phone number to participate and request payouts safely.
             </p>
           </div>
 
@@ -192,7 +192,7 @@ export default function SettingsPage() {
               <GlassCard className={styles.card}>
                 <div className={styles.cardHeader}>
                   <Phone className={styles.cardIcon} />
-                  <h3 className={styles.cardTitle}>Phone OTP Verification</h3>
+                  <h3 className={styles.cardTitle}>Phone Verification</h3>
                 </div>
 
                 <p className={styles.cardDesc}>

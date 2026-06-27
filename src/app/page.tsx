@@ -42,7 +42,7 @@ export default function LandingPage() {
               </h1>
               
               <p className={styles.heroSubtitleLine}>
-                Build your streak. Win verified rewards.
+                Build your streak. Qualify for verified rewards.
               </p>
               
               <p className={styles.heroSubtitle}>
@@ -75,7 +75,7 @@ export default function LandingPage() {
                   <div className={styles.terminalTitle}>NANOPLAY ARENA DASHBOARD</div>
                   <div className={styles.terminalStatus}>
                     <span className={styles.terminalPulse}></span>
-                    <span>SECURE RECORDS</span>
+                    <span>PROTECTED</span>
                   </div>
                 </div>
 
@@ -84,7 +84,7 @@ export default function LandingPage() {
                   <div className={styles.terminalStats}>
                     <div className={styles.termStatChip}>
                       <span className={styles.termStatLabel}>WALLET BALANCE</span>
-                      <span className={styles.termStatVal}>₦60,000</span>
+                      <span className={styles.termStatVal}>NGN 60,000</span>
                     </div>
                     <div className={styles.termStatChip}>
                       <span className={styles.termStatLabel}>ACTIVE STREAK</span>
@@ -115,7 +115,7 @@ export default function LandingPage() {
 
                   {/* Terminal Log Output */}
                   <div className={styles.terminalLog}>
-                    <span className={styles.logMeta}>[SYSTEM RECORDS]</span>
+                    <span className={styles.logMeta}>[MATCH CHECKS]</span>
                     <div className={styles.logLine}>&gt; Phone verification check: OK</div>
                     <div className={styles.logLine}>&gt; Kickoff validation check: locked</div>
                     <div className={styles.logLine} style={{ color: "var(--accent-gold)" }}>&gt; Reward status: active</div>
@@ -277,7 +277,7 @@ export default function LandingPage() {
                   <Logo size={32} showText={true} />
                 </div>
                 <p className={styles.footerDesc}>
-                  An elite sports-tech prediction challenge platform built for fair play, transaction integrity, and streak competitions.
+                  An elite premium football challenge platform built for fair play, fair wallet records, and streak competitions.
                 </p>
               </div>
 

@@ -82,7 +82,7 @@ export default function LeaderboardPage() {
                       <span className={styles.rankBadge}>#{index + 1}</span>
                     </div>
                     <div className={styles.colUser}>{w.profile?.username}</div>
-                    <div className={[styles.colReward, "font-data"].join(" ")}>₦{w.payout_amount.toLocaleString()}</div>
+                    <div className={[styles.colReward, "font-data"].join(" ")}>NGN {w.payout_amount.toLocaleString()}</div>
                     <div className={styles.colStreaks}>1</div>
                     <div className={styles.colStatus}>
                       <span className={styles.verifiedBadge}>
@@ -99,7 +99,7 @@ export default function LeaderboardPage() {
                       <span className={[styles.rankBadge, styles[`rank${w.rank}`]].join(" ")}>#{w.rank}</span>
                     </div>
                     <div className={styles.colUser}>{w.username}</div>
-                    <div className={[styles.colReward, "font-data"].join(" ")}>₦{w.reward.toLocaleString()}</div>
+                    <div className={[styles.colReward, "font-data"].join(" ")}>NGN {w.reward.toLocaleString()}</div>
                     <div className={styles.colStreaks}>{w.streaks}</div>
                     <div className={styles.colStatus}>
                       <span className={styles.verifiedBadge}>

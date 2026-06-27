@@ -234,7 +234,7 @@ export default function AdminKycPayoutsPage() {
                     <div className={styles.detailList}>
                       <div className={styles.detailItem}>
                         <span>Reward Amount:</span>
-                        <strong className="font-data">₦{w.payout_amount.toLocaleString()}</strong>
+                        <strong className="font-data">NGN {w.payout_amount.toLocaleString()}</strong>
                       </div>
                       <div className={styles.detailItem}>
                         <span>User Risk Score:</span>
@@ -359,8 +359,8 @@ export default function AdminKycPayoutsPage() {
                     <div className={styles.detailList}>
                       <div className={styles.detailItem}>
                         <span>Withdrawal Amount:</span>
-                        <strong className="font-data" style={{ color: "var(--accent-lime)" }}>
-                          ₦{r.amount.toLocaleString()}
+                        <strong className="font-data" style={{ color: "var(--accent-gold)" }}>
+                          NGN {r.amount.toLocaleString()}
                         </strong>
                       </div>
                       <div className={styles.detailItem}>

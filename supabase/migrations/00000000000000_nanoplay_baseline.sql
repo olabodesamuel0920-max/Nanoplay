@@ -6,7 +6,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- 2. CORE TABLES
 
 -- A. PROFILES (Extends auth.users)
-CREATE TABLE public.profiles (
+CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
   full_name TEXT,
   username TEXT UNIQUE,
@@ -44,7 +44,7 @@ CREATE TABLE public.profiles (
 );
 
 -- B. ACCOUNT TIERS
-CREATE TABLE public.account_tiers (
+CREATE TABLE IF NOT EXISTS public.account_tiers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT UNIQUE NOT NULL, -- Starter, Standard, Premium
   price_ngn INTEGER NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE public.account_tiers (
 );
 
 -- C. ACCOUNT PURCHASES (Paystack Integration & Duplicate Reference Protection)
-CREATE TABLE public.account_purchases (
+CREATE TABLE IF NOT EXISTS public.account_purchases (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   tier_id UUID REFERENCES public.account_tiers(id),
@@ -67,7 +67,7 @@ CREATE TABLE public.account_purchases (
 );
 
 -- D. CHALLENGE ROUNDS
-CREATE TABLE public.challenge_rounds (
+CREATE TABLE IF NOT EXISTS public.challenge_rounds (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   round_number INTEGER UNIQUE NOT NULL,
   start_date TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE public.challenge_rounds (
 );
 
 -- E. CHALLENGE MATCHES
-CREATE TABLE public.challenge_matches (
+CREATE TABLE IF NOT EXISTS public.challenge_matches (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   round_id UUID REFERENCES public.challenge_rounds(id) ON DELETE CASCADE,
   home_team TEXT NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE public.challenge_matches (
 );
 
 -- F. CHALLENGE ENTRIES
-CREATE TABLE public.challenge_entries (
+CREATE TABLE IF NOT EXISTS public.challenge_entries (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   round_id UUID REFERENCES public.challenge_rounds(id) ON DELETE CASCADE,
@@ -102,7 +102,7 @@ CREATE TABLE public.challenge_entries (
 );
 
 -- G. PREDICTIONS (Prediction Lock & Integrity validation)
-CREATE TABLE public.predictions (
+CREATE TABLE IF NOT EXISTS public.predictions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   entry_id UUID REFERENCES public.challenge_entries(id) ON DELETE CASCADE,
   match_id UUID REFERENCES public.challenge_matches(id) ON DELETE CASCADE,
@@ -114,7 +114,7 @@ CREATE TABLE public.predictions (
 );
 
 -- H. WALLETS (Maintained via Ledger Transactions)
-CREATE TABLE public.wallets (
+CREATE TABLE IF NOT EXISTS public.wallets (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE UNIQUE,
   balance_ngn INTEGER DEFAULT 0,
@@ -122,7 +122,7 @@ CREATE TABLE public.wallets (
 );
 
 -- I. WALLET TRANSACTIONS (Wallet Ledger)
-CREATE TABLE public.wallet_transactions (
+CREATE TABLE IF NOT EXISTS public.wallet_transactions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   wallet_id UUID REFERENCES public.wallets(id) ON DELETE CASCADE,
   amount INTEGER NOT NULL, -- Positive for credits, negative for debits
@@ -133,7 +133,7 @@ CREATE TABLE public.wallet_transactions (
 );
 
 -- J. PAYOUT REQUESTS
-CREATE TABLE public.payout_requests (
+CREATE TABLE IF NOT EXISTS public.payout_requests (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   amount INTEGER NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE public.payout_requests (
 );
 
 -- K. REFERRALS
-CREATE TABLE public.referrals (
+CREATE TABLE IF NOT EXISTS public.referrals (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   referrer_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   referred_user_id UUID REFERENCES public.profiles(id) UNIQUE,
@@ -158,7 +158,7 @@ CREATE TABLE public.referrals (
 );
 
 -- L. REFERRAL REWARDS
-CREATE TABLE public.referral_rewards (
+CREATE TABLE IF NOT EXISTS public.referral_rewards (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   referral_id UUID REFERENCES public.referrals(id) ON DELETE CASCADE,
   amount INTEGER NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE public.referral_rewards (
 );
 
 -- M. WINNERS (Review Queue before wallet credit)
-CREATE TABLE public.winners (
+CREATE TABLE IF NOT EXISTS public.winners (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   round_id UUID REFERENCES public.challenge_rounds(id) ON DELETE CASCADE,
@@ -177,7 +177,7 @@ CREATE TABLE public.winners (
 );
 
 -- N. SUPPORT TICKETS
-CREATE TABLE public.support_tickets (
+CREATE TABLE IF NOT EXISTS public.support_tickets (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   subject TEXT NOT NULL,
@@ -190,7 +190,7 @@ CREATE TABLE public.support_tickets (
 );
 
 -- O. ADMIN AUDIT LOGS
-CREATE TABLE public.admin_audit_logs (
+CREATE TABLE IF NOT EXISTS public.admin_audit_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   admin_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
   action TEXT NOT NULL,
@@ -200,7 +200,7 @@ CREATE TABLE public.admin_audit_logs (
 );
 
 -- P. LEADERBOARD SNAPSHOTS
-CREATE TABLE public.leaderboard_snapshots (
+CREATE TABLE IF NOT EXISTS public.leaderboard_snapshots (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   round_id UUID REFERENCES public.challenge_rounds(id) ON DELETE CASCADE,
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
@@ -210,7 +210,7 @@ CREATE TABLE public.leaderboard_snapshots (
 );
 
 -- Q. PHONE VERIFICATION CODES (For independent OTP authentication)
-CREATE TABLE public.phone_verification_codes (
+CREATE TABLE IF NOT EXISTS public.phone_verification_codes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   phone TEXT NOT NULL,
   code TEXT NOT NULL,
@@ -221,7 +221,7 @@ CREATE TABLE public.phone_verification_codes (
 );
 
 -- R. SECURITY LOGS
-CREATE TABLE public.security_logs (
+CREATE TABLE IF NOT EXISTS public.security_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   event_type TEXT NOT NULL CHECK (event_type IN ('signup', 'login', 'payment', 'prediction', 'withdrawal')),
@@ -234,7 +234,7 @@ CREATE TABLE public.security_logs (
 );
 
 -- S. PLATFORM SETTINGS
-CREATE TABLE public.platform_settings (
+CREATE TABLE IF NOT EXISTS public.platform_settings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   key TEXT UNIQUE NOT NULL,
   value JSONB NOT NULL,
@@ -243,7 +243,7 @@ CREATE TABLE public.platform_settings (
 );
 
 -- T. ADMIN LEDGER
-CREATE TABLE public.admin_ledger (
+CREATE TABLE IF NOT EXISTS public.admin_ledger (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   admin_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
   user_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
@@ -255,14 +255,14 @@ CREATE TABLE public.admin_ledger (
 
 
 -- 3. SCHEMA INDEXES
-CREATE INDEX IF NOT EXISTS idx_predictions_entry_id ON public.predictions(entry_id);
-CREATE INDEX IF NOT EXISTS idx_predictions_match_id ON public.predictions(match_id);
-CREATE INDEX IF NOT EXISTS idx_challenge_entries_user_id ON public.challenge_entries(user_id);
-CREATE INDEX IF NOT EXISTS idx_challenge_entries_round_id ON public.challenge_entries(round_id);
-CREATE INDEX IF NOT EXISTS idx_challenge_matches_round_id ON public.challenge_matches(round_id);
-CREATE INDEX IF NOT EXISTS idx_wallet_transactions_wallet_id ON public.wallet_transactions(wallet_id);
-CREATE INDEX IF NOT EXISTS idx_profiles_status ON public.profiles(status);
-CREATE INDEX IF NOT EXISTS idx_profiles_role ON public.profiles(role);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_predictions_entry_id ON public.predictions(entry_id);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_predictions_match_id ON public.predictions(match_id);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_challenge_entries_user_id ON public.challenge_entries(user_id);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_challenge_entries_round_id ON public.challenge_entries(round_id);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_challenge_matches_round_id ON public.challenge_matches(round_id);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_wallet_transactions_wallet_id ON public.wallet_transactions(wallet_id);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_profiles_status ON public.profiles(status);
+CREATE INDEX IF NOT EXISTS IF NOT EXISTS idx_profiles_role ON public.profiles(role);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_profiles_normalized_phone_unique 
 ON public.profiles(normalized_phone) 
 WHERE (normalized_phone IS NOT NULL AND normalized_phone <> '');
@@ -291,56 +291,56 @@ ALTER TABLE public.platform_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_ledger ENABLE ROW LEVEL SECURITY;
 
 -- Profiles
-CREATE POLICY "Users can view their own profile" ON public.profiles FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Users can update their own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
-CREATE POLICY "Admins have full access to profiles" ON public.profiles FOR ALL USING (
+DROP POLICY IF EXISTS "Users can view their own profile" ON public.profiles; CREATE POLICY "Users can view their own profile" ON public.profiles FOR SELECT USING (auth.uid() = id);
+DROP POLICY IF EXISTS "Users can update their own profile" ON public.profiles; CREATE POLICY "Users can update their own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
+DROP POLICY IF EXISTS "Admins have full access to profiles" ON public.profiles; CREATE POLICY "Admins have full access to profiles" ON public.profiles FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Account Tiers
-CREATE POLICY "Anyone can view active tiers" ON public.account_tiers FOR SELECT USING (is_active = true);
-CREATE POLICY "Admins have full access to account_tiers" ON public.account_tiers FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can view active tiers" ON public.account_tiers; CREATE POLICY "Anyone can view active tiers" ON public.account_tiers FOR SELECT USING (is_active = true);
+DROP POLICY IF EXISTS "Admins have full access to account_tiers" ON public.account_tiers; CREATE POLICY "Admins have full access to account_tiers" ON public.account_tiers FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Account Purchases
-CREATE POLICY "Users can view their own purchases" ON public.account_purchases FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Admins have full access to purchases" ON public.account_purchases FOR ALL USING (
+DROP POLICY IF EXISTS "Users can view their own purchases" ON public.account_purchases; CREATE POLICY "Users can view their own purchases" ON public.account_purchases FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins have full access to purchases" ON public.account_purchases; CREATE POLICY "Admins have full access to purchases" ON public.account_purchases FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Challenge Rounds
-CREATE POLICY "Anyone can view challenge rounds" ON public.challenge_rounds FOR SELECT USING (true);
-CREATE POLICY "Admins have full access to rounds" ON public.challenge_rounds FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can view challenge rounds" ON public.challenge_rounds; CREATE POLICY "Anyone can view challenge rounds" ON public.challenge_rounds FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admins have full access to rounds" ON public.challenge_rounds; CREATE POLICY "Admins have full access to rounds" ON public.challenge_rounds FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Challenge Matches
-CREATE POLICY "Anyone can view challenge matches" ON public.challenge_matches FOR SELECT USING (true);
-CREATE POLICY "Admins have full access to matches" ON public.challenge_matches FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can view challenge matches" ON public.challenge_matches; CREATE POLICY "Anyone can view challenge matches" ON public.challenge_matches FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admins have full access to matches" ON public.challenge_matches; CREATE POLICY "Admins have full access to matches" ON public.challenge_matches FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Challenge Entries
-CREATE POLICY "Users can view their own entries" ON public.challenge_entries FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Admins have full access to entries" ON public.challenge_entries FOR ALL USING (
+DROP POLICY IF EXISTS "Users can view their own entries" ON public.challenge_entries; CREATE POLICY "Users can view their own entries" ON public.challenge_entries FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins have full access to entries" ON public.challenge_entries; CREATE POLICY "Admins have full access to entries" ON public.challenge_entries FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Predictions
-CREATE POLICY "Users can view their own predictions" ON public.predictions FOR SELECT USING (
+DROP POLICY IF EXISTS "Users can view their own predictions" ON public.predictions; CREATE POLICY "Users can view their own predictions" ON public.predictions FOR SELECT USING (
   EXISTS (
     SELECT 1 FROM public.challenge_entries e 
     WHERE e.id = predictions.entry_id AND e.user_id = auth.uid()
   )
 );
-CREATE POLICY "Users can insert their own predictions" ON public.predictions FOR INSERT WITH CHECK (
+DROP POLICY IF EXISTS "Users can insert their own predictions" ON public.predictions; CREATE POLICY "Users can insert their own predictions" ON public.predictions FOR INSERT WITH CHECK (
   EXISTS (
     SELECT 1 FROM public.challenge_entries e
     WHERE e.id = entry_id AND e.user_id = auth.uid()
   )
 );
-CREATE POLICY "Users can update their own unconfirmed predictions" ON public.predictions FOR UPDATE USING (
+DROP POLICY IF EXISTS "Users can update their own unconfirmed predictions" ON public.predictions; CREATE POLICY "Users can update their own unconfirmed predictions" ON public.predictions FOR UPDATE USING (
   EXISTS (
     SELECT 1 FROM public.challenge_entries e
     WHERE e.id = entry_id AND e.user_id = auth.uid()
@@ -351,94 +351,94 @@ CREATE POLICY "Users can update their own unconfirmed predictions" ON public.pre
     WHERE e.id = entry_id AND e.user_id = auth.uid()
   )
 );
-CREATE POLICY "Admins have full access to predictions" ON public.predictions FOR ALL USING (
+DROP POLICY IF EXISTS "Admins have full access to predictions" ON public.predictions; CREATE POLICY "Admins have full access to predictions" ON public.predictions FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Wallets
-CREATE POLICY "Users can view their own wallet" ON public.wallets FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Admins have full access to wallets" ON public.wallets FOR ALL USING (
+DROP POLICY IF EXISTS "Users can view their own wallet" ON public.wallets; CREATE POLICY "Users can view their own wallet" ON public.wallets FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins have full access to wallets" ON public.wallets; CREATE POLICY "Admins have full access to wallets" ON public.wallets FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Wallet Transactions
-CREATE POLICY "Users can view their own transactions" ON public.wallet_transactions FOR SELECT USING (
+DROP POLICY IF EXISTS "Users can view their own transactions" ON public.wallet_transactions; CREATE POLICY "Users can view their own transactions" ON public.wallet_transactions FOR SELECT USING (
   EXISTS (
     SELECT 1 FROM public.wallets w
     WHERE w.id = wallet_id AND w.user_id = auth.uid()
   )
 );
-CREATE POLICY "Admins have full access to wallet_transactions" ON public.wallet_transactions FOR ALL USING (
+DROP POLICY IF EXISTS "Admins have full access to wallet_transactions" ON public.wallet_transactions; CREATE POLICY "Admins have full access to wallet_transactions" ON public.wallet_transactions FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Payout Requests
-CREATE POLICY "Users can view/insert their own payout requests" ON public.payout_requests FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can create payout requests" ON public.payout_requests FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Admins have full access to payout_requests" ON public.payout_requests FOR ALL USING (
+DROP POLICY IF EXISTS "Users can view/insert their own payout requests" ON public.payout_requests; CREATE POLICY "Users can view/insert their own payout requests" ON public.payout_requests FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can create payout requests" ON public.payout_requests; CREATE POLICY "Users can create payout requests" ON public.payout_requests FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins have full access to payout_requests" ON public.payout_requests; CREATE POLICY "Admins have full access to payout_requests" ON public.payout_requests FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Referrals
-CREATE POLICY "Users can view their own referral activity" ON public.referrals FOR SELECT USING (auth.uid() = referrer_id OR auth.uid() = referred_user_id);
-CREATE POLICY "Admins have full access to referrals" ON public.referrals FOR ALL USING (
+DROP POLICY IF EXISTS "Users can view their own referral activity" ON public.referrals; CREATE POLICY "Users can view their own referral activity" ON public.referrals FOR SELECT USING (auth.uid() = referrer_id OR auth.uid() = referred_user_id);
+DROP POLICY IF EXISTS "Admins have full access to referrals" ON public.referrals; CREATE POLICY "Admins have full access to referrals" ON public.referrals FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Referral Rewards
-CREATE POLICY "Users can view rewards for their referrals" ON public.referral_rewards FOR SELECT USING (
+DROP POLICY IF EXISTS "Users can view rewards for their referrals" ON public.referral_rewards; CREATE POLICY "Users can view rewards for their referrals" ON public.referral_rewards FOR SELECT USING (
   EXISTS (
     SELECT 1 FROM public.referrals r
     WHERE r.id = referral_id AND (r.referrer_id = auth.uid() OR r.referred_user_id = auth.uid())
   )
 );
-CREATE POLICY "Admins have full access to referral_rewards" ON public.referral_rewards FOR ALL USING (
+DROP POLICY IF EXISTS "Admins have full access to referral_rewards" ON public.referral_rewards; CREATE POLICY "Admins have full access to referral_rewards" ON public.referral_rewards FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Winners
-CREATE POLICY "Anyone can view winners" ON public.winners FOR SELECT USING (true);
-CREATE POLICY "Admins have full access to winners" ON public.winners FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can view winners" ON public.winners; CREATE POLICY "Anyone can view winners" ON public.winners FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admins have full access to winners" ON public.winners; CREATE POLICY "Admins have full access to winners" ON public.winners FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Support Tickets
-CREATE POLICY "Users can manage their own support tickets" ON public.support_tickets FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Admins have full access to support_tickets" ON public.support_tickets FOR ALL USING (
+DROP POLICY IF EXISTS "Users can manage their own support tickets" ON public.support_tickets; CREATE POLICY "Users can manage their own support tickets" ON public.support_tickets FOR ALL USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins have full access to support_tickets" ON public.support_tickets; CREATE POLICY "Admins have full access to support_tickets" ON public.support_tickets FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Admin Audit Logs
-CREATE POLICY "Admins only access to audit logs" ON public.admin_audit_logs FOR ALL USING (
+DROP POLICY IF EXISTS "Admins only access to audit logs" ON public.admin_audit_logs; CREATE POLICY "Admins only access to audit logs" ON public.admin_audit_logs FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Leaderboard Snapshots
-CREATE POLICY "Anyone can view leaderboard snapshots" ON public.leaderboard_snapshots FOR SELECT USING (true);
-CREATE POLICY "Admins only access to leaderboard snapshots" ON public.leaderboard_snapshots FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can view leaderboard snapshots" ON public.leaderboard_snapshots; CREATE POLICY "Anyone can view leaderboard snapshots" ON public.leaderboard_snapshots FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admins only access to leaderboard snapshots" ON public.leaderboard_snapshots; CREATE POLICY "Admins only access to leaderboard snapshots" ON public.leaderboard_snapshots FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Phone Verification Codes
-CREATE POLICY "Anyone can insert phone_verification_codes" ON public.phone_verification_codes FOR INSERT WITH CHECK (true);
-CREATE POLICY "Admins have full access to phone_verification_codes" ON public.phone_verification_codes FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can insert phone_verification_codes" ON public.phone_verification_codes; CREATE POLICY "Anyone can insert phone_verification_codes" ON public.phone_verification_codes FOR INSERT WITH CHECK (true);
+DROP POLICY IF EXISTS "Admins have full access to phone_verification_codes" ON public.phone_verification_codes; CREATE POLICY "Admins have full access to phone_verification_codes" ON public.phone_verification_codes FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Security Logs
-CREATE POLICY "Users can insert security_logs for themselves" ON public.security_logs FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Admins have full access to security_logs" ON public.security_logs FOR ALL USING (
+DROP POLICY IF EXISTS "Users can insert security_logs for themselves" ON public.security_logs; CREATE POLICY "Users can insert security_logs for themselves" ON public.security_logs FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins have full access to security_logs" ON public.security_logs; CREATE POLICY "Admins have full access to security_logs" ON public.security_logs FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Platform Settings
-CREATE POLICY "Anyone can view platform settings" ON public.platform_settings FOR SELECT USING (true);
-CREATE POLICY "Admins only access to platform settings" ON public.platform_settings FOR ALL USING (
+DROP POLICY IF EXISTS "Anyone can view platform settings" ON public.platform_settings; CREATE POLICY "Anyone can view platform settings" ON public.platform_settings FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admins only access to platform settings" ON public.platform_settings; CREATE POLICY "Admins only access to platform settings" ON public.platform_settings FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
 -- Admin Ledger
-CREATE POLICY "Admins only access to admin ledger" ON public.admin_ledger FOR ALL USING (
+DROP POLICY IF EXISTS "Admins only access to admin ledger" ON public.admin_ledger; CREATE POLICY "Admins only access to admin ledger" ON public.admin_ledger FOR ALL USING (
   EXISTS (SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.role = 'admin')
 );
 
@@ -479,7 +479,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_normalize_phone_before
+DROP TRIGGER IF EXISTS trg_normalize_phone_before ON public.profiles; CREATE TRIGGER trg_normalize_phone_before
 BEFORE INSERT OR UPDATE OF phone ON public.profiles
 FOR EACH ROW
 EXECUTE FUNCTION public.trg_normalize_phone_func();
@@ -518,7 +518,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE TRIGGER trg_check_bank_account_uniqueness
+DROP TRIGGER IF EXISTS trg_check_bank_account_uniqueness ON public.profiles; CREATE TRIGGER trg_check_bank_account_uniqueness
 BEFORE INSERT OR UPDATE OF bank_account_number ON public.profiles
 FOR EACH ROW
 EXECUTE FUNCTION public.check_bank_account_uniqueness();
@@ -688,7 +688,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE TRIGGER trg_check_prediction_rules
+DROP TRIGGER IF EXISTS trg_check_prediction_rules ON public.predictions; CREATE TRIGGER trg_check_prediction_rules
 BEFORE INSERT OR UPDATE ON public.predictions
 FOR EACH ROW
 EXECUTE FUNCTION public.check_prediction_rules();

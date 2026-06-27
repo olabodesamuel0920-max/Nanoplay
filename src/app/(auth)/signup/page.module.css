@@ -166,19 +166,24 @@
     flex-direction: column;
   }
   .leftPanel {
-    padding: 40px;
+    padding: 24px 20px;
     border-right: none;
     border-bottom: 1px solid var(--border-glass);
     flex: none;
+    text-align: center;
   }
   .panelMiddle {
-    margin: 32px 0;
+    margin: 12px 0;
   }
   .panelTitle {
-    font-size: 38px;
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .panelFooter {
+    display: none !important;
   }
   .rightPanel {
-    padding: 40px 20px;
+    padding: 20px;
     flex: 1;
   }
   .signupCard {

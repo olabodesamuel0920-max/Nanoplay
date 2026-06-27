@@ -14,7 +14,7 @@ export default function SecurityPage() {
           <div className={styles.header}>
             <ShieldAlert size={40} className={styles.icon} />
             <h1 className={styles.title}>Security & Transparency Hub</h1>
-            <p className={styles.subtitle}>Explore the guardrails that protect the challenge pool and secure player rewards.</p>
+            <p className={styles.subtitle}>Explore the guardrails that protect the challenge rounds and secure player rewards.</p>
           </div>
 
           <div className={styles.grid}>

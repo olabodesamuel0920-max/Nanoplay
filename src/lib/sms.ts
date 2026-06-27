@@ -1,4 +1,6 @@
 // src/lib/sms.ts
+import crypto from "crypto";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 type OtpMode = "mock" | "termii" | "twilio";
 
@@ -22,16 +24,27 @@ export async function sendOtp(
   const code = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
 
+  // Hash code using SHA-256 for secure storage
+  const codeHash = crypto.createHash("sha256").update(code).digest("hex");
+
   try {
-    // 2. Save code to database phone_verification_codes table
-    const { error } = await supabaseClient
+    // 2. Save code to database phone_verification_codes table using admin client (bypasses RLS)
+    const adminClient = createAdminClient();
+    
+    // First, expire any existing unused codes for this phone
+    await adminClient
+      .from("phone_verification_codes")
+      .update({ expires_at: new Date().toISOString() })
+      .eq("phone", phone)
+      .is("used_at", null);
+
+    const { error } = await adminClient
       .from("phone_verification_codes")
       .insert({
         phone,
-        code,
+        code_hash: codeHash,
         expires_at: expiresAt.toISOString(),
-        attempts: 0,
-        verified: false,
+        attempt_count: 0,
       });
 
     if (error) {
@@ -123,32 +136,50 @@ export async function verifyOtp(
   supabaseClient: any
 ): Promise<{ success: boolean; message: string }> {
   try {
-    // 1. Query matching, unexpired, unverified code
-    const { data: record, error } = await supabaseClient
+    const adminClient = createAdminClient();
+    const codeHash = crypto.createHash("sha256").update(code).digest("hex");
+
+    // 1. Query matching, unexpired, unused code
+    const { data: record, error } = await adminClient
       .from("phone_verification_codes")
       .select("*")
       .eq("phone", phone)
-      .eq("code", code)
-      .eq("verified", false)
+      .eq("code_hash", codeHash)
+      .is("used_at", null)
       .gt("expires_at", new Date().toISOString())
       .order("created_at", { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (error || !record) {
-      // Increment attempts for recent code
-      await supabaseClient.rpc("increment_otp_attempts", { p_phone: phone });
+      // Find the most recent code for this phone to increment attempt count
+      const { data: recentCode } = await adminClient
+        .from("phone_verification_codes")
+        .select("*")
+        .eq("phone", phone)
+        .is("used_at", null)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (recentCode) {
+        await adminClient
+          .from("phone_verification_codes")
+          .update({ attempt_count: (recentCode.attempt_count || 0) + 1 })
+          .eq("id", recentCode.id);
+      }
+
       return { success: false, message: "Invalid or expired verification code." };
     }
 
-    // 2. Mark code as verified
-    await supabaseClient
+    // 2. Mark code as used
+    await adminClient
       .from("phone_verification_codes")
-      .update({ verified: true })
+      .update({ used_at: new Date().toISOString() })
       .eq("id", record.id);
 
     // 3. Update profile table to verify user's phone number
-    const { error: profileError } = await supabaseClient
+    const { error: profileError } = await adminClient
       .from("profiles")
       .update({
         phone,

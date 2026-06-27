@@ -119,7 +119,7 @@ export default function DashboardPage() {
               <div className={styles.statInfo}>
                 <span className={styles.statLabel}>Wallet Balance</span>
                 <span className={[styles.statValue, "font-data"].join(" ")}>
-                  ₦{(wallet?.balance_ngn || 0).toLocaleString()}
+                  NGN {(wallet?.balance_ngn || 0).toLocaleString()}
                 </span>
               </div>
             </GlassCard>
@@ -183,7 +183,7 @@ export default function DashboardPage() {
                       <span className="font-data">{predictionsCount} / 3 Matches</span>
                     </div>
                     <div className={styles.detailRow}>
-                      <span>Target Pool Reward:</span>
+                      <span>Target Round Reward:</span>
                       <span className={styles.rewardPotential}>10X Entry Fee</span>
                     </div>
 

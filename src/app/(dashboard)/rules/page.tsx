@@ -34,7 +34,7 @@ export default function RulesPage() {
               <ul className={styles.list}>
                 <li>A challenge round consists of exactly 3 scheduled football matches.</li>
                 <li>To win, you must correctly predict the outcome (Home Win [1], Draw [X], Away Win [2]) for all 3 matches.</li>
-                <li>Your entry fee is determined by your chosen challenge tier: Starter (₦5,000), Standard (₦10,000), or Premium (₦20,000).</li>
+                <li>Your entry fee is determined by your chosen challenge tier: Starter (NGN 5,000), Standard (NGN 10,000), or Premium (NGN 20,000).</li>
                 <li>Completing a 3-match winning streak rewards you with exactly <strong>10X your entry fee</strong>!</li>
               </ul>
             </GlassCard>
@@ -87,7 +87,7 @@ export default function RulesPage() {
               <ul className={styles.list}>
                 <li>When you complete a streak, your entry goes into the <strong>Admin Winner Review Queue</strong>.</li>
                 <li>Admin manually audits your account logs (IP, phone, KYC) before verifying the win.</li>
-                <li>Once approved, the reward pool is credited to your wallet balance.</li>
+                <li>Once approved, the round reward is credited to your wallet balance.</li>
                 <li>Payouts require a verified KYC status (Full Name, Date of Birth, ID type, bank details).</li>
               </ul>
             </GlassCard>
@@ -99,7 +99,7 @@ export default function RulesPage() {
                 <h3>6. Referral Terms</h3>
               </div>
               <ul className={styles.list}>
-                <li>Earn ₦1,000 for every friend who joins, verifies their phone OTP, enters a round, and submits predictions.</li>
+                 <li>Earn NGN 1,000 for every friend who joins, verifies their phone number, enters a round, and submits predictions.</li>
                 <li>Self-referrals (sharing IP, bank accounts, or device fingerprints with your referee) are blocked, flag both profiles, and suspend payouts.</li>
               </ul>
             </GlassCard>

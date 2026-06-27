@@ -169,7 +169,7 @@ export default function WalletPage() {
               <div className={styles.balanceInfo}>
                 <span className={styles.balanceLabel}>Total Available Balance</span>
                 <span className={[styles.balanceValue, "font-data"].join(" ")}>
-                  ₦{(wallet?.balance_ngn || 0).toLocaleString()}
+                  NGN {(wallet?.balance_ngn || 0).toLocaleString()}
                 </span>
                 <span className={styles.balanceDesc}>Secure wallet record</span>
               </div>
@@ -180,7 +180,7 @@ export default function WalletPage() {
               <div className={styles.kycWarningCard}>
                 <ShieldAlert className={styles.warningIcon} />
                 <div>
-                  <h4 className={styles.warningTitle}>Payouts are Locked</h4>
+                  <h4 className={styles.warningTitle}>Payouts need verification</h4>
                   <p className={styles.warningDesc}>
                     Your KYC status is currently <strong>{profile?.identity_status || "unverified"}</strong>. Submit details in Settings to enable bank payouts.
                   </p>
@@ -195,10 +195,10 @@ export default function WalletPage() {
             <GlassCard className={styles.actionCard}>
               <div className={styles.cardHeader}>
                 <ArrowUpRight className={styles.cardHeaderIcon} />
-                <h3>Fund Account</h3>
+                <h3>Fund Wallet</h3>
               </div>
               <p className={styles.cardDesc}>
-                Add money instantly using our simulated Paystack checkout.
+                Wallet funding is currently in launch review. Please check back when funding opens.
               </p>
 
               <form onSubmit={handleDeposit} className={styles.form}>
@@ -210,9 +210,10 @@ export default function WalletPage() {
                   onChange={(e) => setDepositAmount(e.target.value)}
                   min={100}
                   required
+                  disabled={true}
                 />
-                <Button type="submit" variant="premium" loading={actionLoading} className={styles.submitBtn}>
-                  Simulate Deposit
+                <Button type="submit" variant="premium" loading={actionLoading} disabled={true} className={styles.submitBtn}>
+                  Funding Opening Soon
                 </Button>
               </form>
             </GlassCard>
@@ -313,7 +314,7 @@ export default function WalletPage() {
                                 isCredit ? styles.creditText : styles.debitText
                               ].join(" ")}
                             >
-                              {isCredit ? "+" : ""}₦{tx.amount.toLocaleString()}
+                              {isCredit ? "+" : ""}NGN {tx.amount.toLocaleString()}
                             </td>
                             <td>
                               <span

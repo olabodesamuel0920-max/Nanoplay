@@ -1111,9 +1111,11 @@
 
   /* Horizontal scroll for Matchday Ready on mobile */
   .matchdayReadySection {
-    padding: 16px 8px;
+    padding: 16px 16px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
+    box-sizing: border-box;
   }
   .matchdayReadySection::-webkit-scrollbar {
     display: none;

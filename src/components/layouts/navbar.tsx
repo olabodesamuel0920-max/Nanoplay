@@ -97,7 +97,7 @@ export default function Navbar() {
               <div className={styles.walletContainer}>
                 <Wallet size={16} className={styles.walletIcon} />
                 <span className={styles.balance}>
-                  ₦{(wallet?.balance_ngn || 0).toLocaleString()}
+                  NGN {(wallet?.balance_ngn || 0).toLocaleString()}
                 </span>
               </div>
               
@@ -162,10 +162,20 @@ export default function Navbar() {
               </Link>
             )}
             {user ? (
-              <button onClick={handleLogout} className={styles.mobileLogoutBtn}>
-                <LogOut size={20} />
-                <span>Sign Out</span>
-              </button>
+              <>
+                <Link
+                  href="/settings"
+                  className={styles.mobileNavItem}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <User size={20} />
+                  <span>Profile & Settings</span>
+                </Link>
+                <button onClick={handleLogout} className={styles.mobileLogoutBtn}>
+                  <LogOut size={20} />
+                  <span>Sign Out</span>
+                </button>
+              </>
             ) : (
               <div className={styles.mobileAuthButtons}>
                 <Link

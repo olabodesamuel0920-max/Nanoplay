@@ -3,21 +3,24 @@
 .main {
   flex: 1;
   background: var(--bg-obsidian);
-  padding: 40px 24px;
+  padding: 60px 24px;
+  position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   border-bottom: 1px solid var(--border-glass);
-  padding-bottom: 24px;
+  padding-bottom: 28px;
 }
 
 .headerContent {
@@ -28,19 +31,20 @@
 
 .trophyIcon {
   color: var(--accent-lime);
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 0 10px var(--accent-lime-glow));
 }
 
 .title {
-  font-size: 32px;
-  letter-spacing: -0.03em;
+  font-size: 36px;
+  letter-spacing: -0.04em;
 }
 
 .subtitle {
   font-size: 15px;
   color: var(--foreground-secondary);
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .roundInfo {
@@ -49,32 +53,35 @@
 
 .roundBadge {
   display: inline-block;
-  background: rgba(204, 255, 0, 0.1);
+  background: rgba(191, 255, 0, 0.05);
   color: var(--accent-lime);
-  border: 1px solid var(--border-accent);
-  padding: 4px 10px;
-  border-radius: 12px;
+  border: 1px solid var(--border-lime);
+  padding: 6px 14px;
+  border-radius: 20px;
   font-family: var(--font-heading), sans-serif;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 13px;
   margin-bottom: 6px;
+  box-shadow: 0 0 15px rgba(191, 255, 0, 0.05);
 }
 
 .roundDates {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--foreground-muted);
+  font-family: var(--font-data), monospace;
 }
 
 .verificationBanner {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  padding: 16px 24px;
-  border-radius: 12px;
-  margin-bottom: 32px;
+  gap: 20px;
+  background: rgba(255, 42, 95, 0.04);
+  border: 1px solid rgba(255, 42, 95, 0.2);
+  padding: 20px 28px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 25px rgba(255, 42, 95, 0.03);
 }
 
 .bannerIcon {
@@ -85,49 +92,51 @@
   flex: 1;
   font-size: 14px;
   color: var(--foreground-primary);
+  line-height: 1.5;
 }
 
 .bannerBtn {
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 13px;
 }
 
 .noRoundCard {
   text-align: center;
-  padding: 64px 32px !important;
+  padding: 80px 40px !important;
+  border-color: var(--border-glass);
 }
 
 .noRoundIcon {
   color: var(--accent-lime);
   width: 48px;
   height: 48px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .enrollSection {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 60px auto;
   text-align: center;
 }
 
 .enrollHeader {
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 
 .enrollIcon {
   color: var(--accent-lime);
   width: 48px;
   height: 48px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .enrollHeader h2 {
-  font-size: 28px;
+  font-size: 32px;
   margin-bottom: 8px;
 }
 
 .enrollHeader p {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--foreground-secondary);
 }
 
@@ -141,21 +150,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 280px;
+  height: 300px;
   padding: 32px !important;
+  border-color: var(--border-glass);
+}
+
+.tierCard:hover {
+  border-color: var(--border-lime);
+  box-shadow: var(--shadow-lime), var(--shadow-glass);
 }
 
 .tierName {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--foreground-secondary);
 }
 
 .tierPrice {
   font-family: var(--font-data), monospace;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 900;
   color: var(--accent-lime);
-  margin: 12px 0;
+  margin: 16px 0;
 }
 
 .tierReward {
@@ -170,8 +185,8 @@
 
 .arenaGrid {
   display: grid;
-  grid-template-columns: 1.8fr 1fr;
-  gap: 32px;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 40px;
   align-items: start;
 }
 
@@ -184,30 +199,36 @@
 .sectionTitle {
   font-family: var(--font-heading), sans-serif;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 900;
   color: var(--foreground-primary);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 12px;
+  padding-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .matchesList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .matchCard {
-  padding: 24px !important;
+  padding: 28px !important;
+  border-color: var(--border-glass);
+}
+
+.matchCard:hover {
+  transform: none; /* Disable translation for matches list to maintain control dashboard focus */
 }
 
 .matchHeader {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--foreground-muted);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 
 .matchday {
@@ -215,27 +236,32 @@
   color: var(--foreground-secondary);
 }
 
+.kickoff {
+  font-family: var(--font-data), monospace;
+}
+
 .matchTeams {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .teamName {
   font-family: var(--font-heading), sans-serif;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 900;
   width: 40%;
   text-align: center;
+  color: var(--foreground-primary);
 }
 
 .vs {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
   font-size: 11px;
   font-weight: 700;
   color: var(--foreground-muted);
@@ -246,9 +272,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.01);
   border: 1px solid var(--border-glass);
-  padding: 12px;
+  padding: 14px;
   border-radius: 8px;
   font-size: 13px;
   color: var(--foreground-muted);
@@ -257,7 +283,7 @@
 .lockedChoice {
   margin-left: 12px;
   padding-left: 12px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--accent-lime);
 }
 
@@ -268,29 +294,29 @@
 }
 
 .predOption {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(5, 5, 7, 0.6);
   border: 1px solid var(--border-glass);
-  color: var(--foreground-secondary);
+  color: var(--foreground-muted);
   border-radius: 8px;
-  padding: 16px;
+  padding: 20px;
   cursor: pointer;
   transition: var(--transition-smooth);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   outline: none;
 }
 
 .predOption span:first-child {
   font-family: var(--font-heading), sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 900;
 }
 
 .optionLabel {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -298,22 +324,22 @@
 .predOption:hover {
   border-color: var(--border-glass-hover);
   color: var(--foreground-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .selected {
   background: var(--accent-lime) !important;
-  color: #000 !important;
+  color: #000000 !important;
   border-color: var(--accent-lime) !important;
-  box-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+  box-shadow: 0 0 15px var(--accent-lime-glow);
 }
 
 .selected .optionLabel {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .submitRow {
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .submitBtn {
@@ -323,31 +349,32 @@
 .sidebarColumn {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
 .rulesCard {
   padding: 32px !important;
+  border-color: var(--border-glass);
 }
 
 .rulesTitle {
-  font-size: 18px;
-  margin-bottom: 16px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .rulesList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .rulesList li {
   font-size: 13px;
   color: var(--foreground-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
   position: relative;
-  padding-left: 16px;
+  padding-left: 20px;
 }
 
 .rulesList li::before {
@@ -356,28 +383,31 @@
   font-weight: bold;
   position: absolute;
   left: 0;
+  font-size: 16px;
 }
 
 .successAlert {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(0, 255, 135, 0.05);
+  border: 1px solid rgba(0, 255, 135, 0.2);
   color: var(--status-success);
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   text-align: center;
+  font-weight: 600;
 }
 
 .errorAlert {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(255, 42, 95, 0.05);
+  border: 1px solid rgba(255, 42, 95, 0.2);
   color: var(--status-error);
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   text-align: center;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {
@@ -396,6 +426,6 @@
   }
   
   .teamName {
-    font-size: 15px;
+    font-size: 16px;
   }
 }

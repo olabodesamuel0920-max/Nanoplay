@@ -3,22 +3,25 @@
 .main {
   flex: 1;
   background: var(--bg-obsidian);
-  padding: 40px 24px;
+  padding: 60px 24px;
+  position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .header {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .title {
-  font-size: 32px;
-  letter-spacing: -0.03em;
-  margin-bottom: 4px;
+  font-size: 36px;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
 }
 
 .subtitle {
@@ -28,13 +31,15 @@
 
 .balanceGrid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 24px;
-  margin-bottom: 32px;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+  align-items: start;
 }
 
 .balanceCard {
   padding: 32px !important;
+  border-color: var(--border-glass);
 }
 
 .balanceInfo {
@@ -43,34 +48,39 @@
 }
 
 .balanceLabel {
-  font-size: 13px;
-  color: var(--foreground-secondary);
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--foreground-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
 }
 
 .balanceValue {
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 900;
   color: var(--accent-lime);
-  text-shadow: 0 0 20px rgba(204, 255, 0, 0.15);
+  text-shadow: 0 0 20px var(--accent-lime-glow);
 }
 
 .balanceDesc {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--foreground-muted);
-  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 12px;
 }
 
 .kycWarningCard {
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 12px;
-  padding: 24px;
+  background: rgba(255, 42, 95, 0.04);
+  border: 1px solid rgba(255, 42, 95, 0.2);
+  border-radius: 16px;
+  padding: 28px;
   display: flex;
   align-items: flex-start;
   gap: 16px;
   color: var(--status-error);
+  box-shadow: 0 0 25px rgba(255, 42, 95, 0.02);
 }
 
 .warningIcon {
@@ -80,9 +90,9 @@
 }
 
 .warningTitle {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 6px;
   color: var(--foreground-primary);
 }
 
@@ -101,13 +111,14 @@
 
 .actionCard {
   padding: 32px !important;
+  border-color: var(--border-glass);
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .cardHeaderIcon {
@@ -118,6 +129,7 @@
   font-size: 14px;
   color: var(--foreground-secondary);
   margin-bottom: 24px;
+  line-height: 1.5;
 }
 
 .form {
@@ -165,21 +177,24 @@
 }
 
 .ledgerHeader {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .ledgerSub {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--foreground-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tableCard {
   padding: 0 !important;
   overflow: hidden;
+  border-color: var(--border-glass);
 }
 
 .noTxs {
-  padding: 40px;
+  padding: 48px;
   text-align: center;
   color: var(--foreground-muted);
   font-size: 14px;
@@ -197,16 +212,19 @@
 
 .table th,
 .table td {
-  padding: 16px 24px;
+  padding: 18px 28px;
   font-size: 14px;
 }
 
 .table th {
   background: rgba(255, 255, 255, 0.02);
   font-family: var(--font-heading), sans-serif;
-  font-weight: 700;
+  font-weight: 900;
   color: var(--foreground-secondary);
   border-bottom: 1px solid var(--border-glass);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 12px;
 }
 
 .table td {
@@ -219,14 +237,17 @@
 
 .tdDate {
   color: var(--foreground-secondary);
+  font-family: var(--font-data), monospace;
+  font-size: 13px;
 }
 
 .tdRef {
   color: var(--foreground-primary);
+  font-size: 13px;
 }
 
 .tdType {
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .tdAmount {
@@ -242,25 +263,27 @@
 }
 
 .successAlert {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(0, 255, 135, 0.05);
+  border: 1px solid rgba(0, 255, 135, 0.2);
   color: var(--status-success);
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   text-align: center;
+  font-weight: 600;
 }
 
 .errorAlert {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(255, 42, 95, 0.05);
+  border: 1px solid rgba(255, 42, 95, 0.2);
   color: var(--status-error);
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   text-align: center;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {

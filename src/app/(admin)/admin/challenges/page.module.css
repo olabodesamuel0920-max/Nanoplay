@@ -3,12 +3,15 @@
 .main {
   flex: 1;
   background: var(--bg-obsidian);
-  padding: 40px 24px;
+  padding: 60px 24px;
+  position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .adminHeader {
@@ -19,22 +22,22 @@
 }
 
 .title {
-  font-size: 32px;
-  letter-spacing: -0.03em;
+  font-size: 36px;
+  letter-spacing: -0.04em;
 }
 
 .subtitle {
   font-size: 15px;
   color: var(--foreground-secondary);
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .tabNav {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   border-bottom: 1px solid var(--border-glass);
   padding-bottom: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .tabItem {
@@ -45,25 +48,30 @@
   border-radius: 6px;
   color: var(--foreground-secondary);
   font-family: var(--font-heading), sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
   transition: var(--transition-smooth);
 }
 
 .tabItem:hover {
   color: var(--foreground-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-glass);
 }
 
 .tabActive {
   color: var(--accent-lime) !important;
-  background: rgba(204, 255, 0, 0.05) !important;
-  border: 1px solid rgba(204, 255, 0, 0.1);
+  background: rgba(191, 255, 0, 0.04) !important;
+  border-color: var(--border-lime) !important;
+  text-shadow: 0 0 10px var(--accent-lime-glow);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.25fr;
   gap: 32px;
   align-items: start;
 }
@@ -76,6 +84,7 @@
 
 .card {
   padding: 32px !important;
+  border-color: var(--border-glass);
 }
 
 .cardHeader {
@@ -108,15 +117,15 @@
 .sectionHeader {
   display: flex;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--accent-lime);
-  margin-top: 16px;
-  margin-bottom: 8px;
+  margin-top: 20px;
+  margin-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 4px;
+  padding-bottom: 6px;
 }
 
 .submitBtn {
@@ -127,10 +136,11 @@
 .sectionTitle {
   font-family: var(--font-heading), sans-serif;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 900;
   color: var(--foreground-primary);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 12px;
+  padding-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .noRounds {
@@ -147,7 +157,12 @@
 }
 
 .roundCard {
-  padding: 24px !important;
+  padding: 28px !important;
+  border-color: var(--border-glass);
+}
+
+.roundCard:hover {
+  transform: none;
 }
 
 .roundCardHeader {
@@ -155,13 +170,13 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 12px;
-  margin-bottom: 16px;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
 }
 
 .roundNum {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .matchesScoreGrid {
@@ -171,17 +186,18 @@
 }
 
 .matchScoreItem {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.01);
   border: 1px solid var(--border-glass);
-  padding: 16px;
+  padding: 16px 20px;
   border-radius: 8px;
 }
 
 .matchdayText {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--foreground-muted);
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .scoreRow {
@@ -193,16 +209,16 @@
 
 .teamText {
   font-family: var(--font-heading), sans-serif;
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 900;
+  font-size: 16px;
   width: 35%;
   text-align: center;
 }
 
 .scoreInput {
-  width: 48px;
-  height: 38px;
-  background: rgba(0, 0, 0, 0.4);
+  width: 52px;
+  height: 40px;
+  background: rgba(5, 5, 7, 0.8);
   border: 1px solid var(--border-glass);
   color: var(--foreground-primary);
   font-family: var(--font-data), monospace;
@@ -211,15 +227,18 @@
   text-align: center;
   border-radius: 6px;
   outline: none;
+  transition: var(--transition-smooth);
 }
 
 .scoreInput:focus {
   border-color: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime-glow);
 }
 
 .vsText {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--foreground-muted);
+  text-transform: uppercase;
 }
 
 .settleRow {
@@ -231,25 +250,27 @@
 }
 
 .successAlert {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(0, 255, 135, 0.05);
+  border: 1px solid rgba(0, 255, 135, 0.2);
   color: var(--status-success);
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   text-align: center;
+  font-weight: 600;
 }
 
 .errorAlert {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(255, 42, 95, 0.05);
+  border: 1px solid rgba(255, 42, 95, 0.2);
   color: var(--status-error);
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   text-align: center;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {

@@ -1,17 +1,17 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Sora, Inter, JetBrains_Mono } from "next/font/google";
+import { Outfit, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const sora = Sora({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -22,12 +22,12 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NanoPlay | Premium Football Prediction Platform",
-  description: "Join the ultimate premium sports-tech football prediction challenge. Climb the arena, secure streaks, and claim your rewards with trust-validated ledger wallets.",
+  title: "NanoPlay | Premium Football Prediction Streak Arena",
+  description: "Enter the elite sports-tech football prediction challenge. Verify your phone, build your winning streak, and claim your verified rewards through an immutable transaction ledger.",
   metadataBase: new URL("https://nanoplay.com"),
   openGraph: {
-    title: "NanoPlay | Premium Football Prediction Platform",
-    description: "Join the ultimate premium sports-tech football prediction challenge.",
+    title: "NanoPlay | Premium Football Prediction Streak Arena",
+    description: "Enter the elite sports-tech football prediction challenge.",
     type: "website",
     locale: "en_US",
   },
@@ -37,7 +37,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#09090b",
+  themeColor: "#050507",
 };
 
 export default function RootLayout({
@@ -48,10 +48,10 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       style={{
-        "--font-heading": "var(--font-sora)",
-        "--font-body": "var(--font-inter)",
+        "--font-heading": "var(--font-outfit)",
+        "--font-body": "var(--font-space-grotesk)",
         "--font-data": "var(--font-jetbrains-mono)",
       } as React.CSSProperties}
     >

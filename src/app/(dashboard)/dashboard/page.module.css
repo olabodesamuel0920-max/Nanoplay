@@ -3,25 +3,28 @@
 .main {
   flex: 1;
   background: var(--bg-obsidian);
-  padding: 40px 24px;
+  padding: 60px 24px;
+  position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .welcomeRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .title {
-  font-size: 32px;
-  letter-spacing: -0.03em;
-  margin-bottom: 4px;
+  font-size: 36px;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
 }
 
 .subtitle {
@@ -33,25 +36,32 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .statCard {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 24px !important;
+  padding: 28px !important;
+  border-color: var(--border-glass);
+}
+
+.statCard:hover {
+  border-color: var(--border-lime);
+  box-shadow: var(--shadow-lime), var(--shadow-glass);
 }
 
 .statIconContainer {
-  background: rgba(204, 255, 0, 0.08);
-  border: 1px solid var(--border-accent);
-  padding: 12px;
+  background: rgba(191, 255, 0, 0.05);
+  border: 1px solid var(--border-lime);
+  padding: 14px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent-lime);
+  box-shadow: 0 0 15px rgba(191, 255, 0, 0.05);
 }
 
 .statIcon {
@@ -65,14 +75,16 @@
 }
 
 .statLabel {
-  font-size: 13px;
-  color: var(--foreground-secondary);
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: 12px;
+  color: var(--foreground-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
 }
 
 .statValue {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 900;
   color: var(--foreground-primary);
 }
@@ -80,41 +92,44 @@
 .verificationBanner {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  padding: 16px 24px;
-  border-radius: 12px;
-  margin-bottom: 32px;
+  gap: 20px;
+  background: rgba(255, 183, 0, 0.04);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  padding: 20px 28px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 25px rgba(255, 183, 0, 0.03);
 }
 
 .bannerIcon {
-  color: #fbbf24;
+  color: var(--status-warning);
 }
 
 .bannerText {
   flex: 1;
   font-size: 14px;
-  color: var(--foreground-primary);
+  color: var(--foreground-secondary);
+  line-height: 1.5;
 }
 
 .mainGrid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: 32px;
 }
 
 .challengeCard,
 .profileCard {
   padding: 32px !important;
+  border-color: var(--border-glass);
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   padding-bottom: 16px;
 }
 
@@ -131,44 +146,45 @@
 .detailRow {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 14px;
   color: var(--foreground-secondary);
-  padding: 12px 0;
+  padding: 16px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .rewardPotential {
   color: var(--accent-lime);
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .ctaRow {
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
 .noEntryDetails {
   align-items: center;
   text-align: center;
-  padding: 32px 0;
+  padding: 40px 0;
 }
 
 .noEntryIcon {
   width: 48px;
   height: 48px;
   color: var(--foreground-muted);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .noEntryDetails h4 {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 8px;
 }
 
 .noEntryDetails p {
   font-size: 14px;
   color: var(--foreground-secondary);
-  margin-bottom: 24px;
-  max-width: 320px;
+  margin-bottom: 28px;
+  max-width: 340px;
   line-height: 1.5;
 }
 
@@ -184,7 +200,7 @@
   align-items: center;
   font-size: 14px;
   color: var(--foreground-secondary);
-  padding: 8px 0;
+  padding: 10px 0;
 }
 
 .statusSuccess {
@@ -192,7 +208,9 @@
   align-items: center;
   gap: 6px;
   color: var(--status-success);
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-data), monospace;
+  font-size: 12px;
 }
 
 .statusDanger {
@@ -200,24 +218,27 @@
   align-items: center;
   gap: 6px;
   color: var(--status-error);
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-data), monospace;
+  font-size: 12px;
 }
 
 .flaggedNotice {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  gap: 10px;
+  background: rgba(255, 42, 95, 0.05);
+  border: 1px solid rgba(255, 42, 95, 0.2);
   color: var(--status-error);
-  padding: 10px 12px;
-  border-radius: 6px;
+  padding: 12px 16px;
+  border-radius: 8px;
   font-size: 13px;
-  margin-top: 8px;
+  margin-top: 12px;
+  line-height: 1.4;
 }
 
 .profileCta {
-  margin-top: 16px;
+  margin-top: 24px;
 }
 
 @media (max-width: 900px) {

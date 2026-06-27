@@ -3,38 +3,41 @@
 .main {
   flex: 1;
   background: var(--bg-obsidian);
-  padding: 40px 24px;
+  padding: 60px 24px;
+  position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .adminHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .title {
-  font-size: 32px;
-  letter-spacing: -0.03em;
+  font-size: 36px;
+  letter-spacing: -0.04em;
 }
 
 .subtitle {
   font-size: 15px;
   color: var(--foreground-secondary);
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .tabNav {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   border-bottom: 1px solid var(--border-glass);
   padding-bottom: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .tabItem {
@@ -45,34 +48,45 @@
   border-radius: 6px;
   color: var(--foreground-secondary);
   font-family: var(--font-heading), sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
   transition: var(--transition-smooth);
 }
 
 .tabItem:hover {
   color: var(--foreground-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-glass);
 }
 
 .tabActive {
   color: var(--accent-lime) !important;
-  background: rgba(204, 255, 0, 0.05) !important;
-  border: 1px solid rgba(204, 255, 0, 0.1);
+  background: rgba(191, 255, 0, 0.04) !important;
+  border-color: var(--border-lime) !important;
+  text-shadow: 0 0 10px var(--accent-lime-glow);
 }
 
 .metricsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .metricCard {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 24px !important;
+  padding: 28px !important;
+  border-color: var(--border-glass);
+}
+
+.metricCard:hover {
+  border-color: var(--border-lime);
+  box-shadow: var(--shadow-lime), var(--shadow-glass);
 }
 
 .metricIcon {
@@ -87,14 +101,16 @@
 }
 
 .metricLabel {
-  font-size: 13px;
-  color: var(--foreground-secondary);
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: 11px;
+  color: var(--foreground-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
 }
 
 .metricValue {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 900;
   color: var(--foreground-primary);
 }
@@ -112,11 +128,17 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  height: 220px;
+  height: 240px;
+  border-color: var(--border-glass);
+}
+
+.queueCard:hover {
+  border-color: var(--border-cyan);
+  box-shadow: var(--shadow-cyan), var(--shadow-glass);
 }
 
 .queueTitle {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 8px;
 }
 
@@ -124,7 +146,7 @@
   font-size: 14px;
   color: var(--foreground-secondary);
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 900px) {

@@ -42,11 +42,11 @@ export default function LandingPage() {
               </h1>
               
               <p className={styles.heroSubtitleLine}>
-                Build your streak. Qualify for verified rewards.
+                Build your streak. Win verified rewards.
               </p>
               
               <p className={styles.heroSubtitle}>
-                NanoPlay is a premium football challenge arena where your picks lock before kickoff, your account is verified, and approved rewards are credited after review.
+                NanoPlay is a premium football challenge arena. Make your picks before kickoff, build your streak, and qualify for verified rewards after review.
               </p>
               
               <div className={styles.heroCta}>
@@ -202,10 +202,10 @@ export default function LandingPage() {
 
           <div className={styles.stepsGrid}>
             {[
-              { num: "1", title: "Choose Your Tier", desc: "Pick the challenge level you want to enter." },
-              { num: "2", title: "Make Your Picks", desc: "Select your football predictions before kickoff." },
-              { num: "3", title: "Build Your Streak", desc: "Get the required picks right and keep your streak alive." },
-              { num: "4", title: "Pass Review & Get Credited", desc: "Winning streaks are reviewed and approved rewards are credited securely." }
+              { num: "1", title: "Choose Your Tier", desc: "Pick the challenge level you want." },
+              { num: "2", title: "Make Your Picks", desc: "Predict match outcomes before kickoff." },
+              { num: "3", title: "Build Your Streak", desc: "Get your picks right and keep your streak alive." },
+              { num: "4", title: "Get Reviewed", desc: "Winning streaks are checked before rewards are credited." }
             ].map((step, i) => (
               <div key={i} className={styles.stepCard}>
                 <span className={styles.stepNum}>{step.num}</span>
@@ -219,23 +219,23 @@ export default function LandingPage() {
         {/* 4. ELITE TRUST & SECURITY LAYER */}
         <section className={styles.securitySection}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionSubtitleLabel}>PLATFORM SECURITY</div>
+            <div className={styles.sectionSubtitleLabel}>SIMPLE RULES</div>
             <h2 className={styles.sectionTitle}>
-              Fair Play & <span className={styles.editorialItalicTitle}>Account Protection</span>
+              Fair Play, <span className={styles.editorialItalicTitle}>Simple Rules</span>
             </h2>
             <p className={styles.sectionSubtitle}>
-              NanoPlay keeps the arena fair with phone verification, locked picks, wallet records, and reward review.
+              We keep the arena fair with phone verification, locked picks, wallet history, and reward review.
             </p>
           </div>
 
           <div className={styles.securityGrid}>
             {[
-              { label: "ONE_ACCOUNT", title: "One Phone, One Account", desc: "Helps keep the arena fair and prevents duplicate accounts." },
-              { label: "PICK_LOCK", title: "Pick Lock", desc: "Your picks lock before kickoff, so nobody can change selections after a match starts." },
-              { label: "WALLET_HISTORY", title: "Wallet History", desc: "Every wallet movement is recorded clearly for transparency." },
-              { label: "WINNER_REVIEW", title: "Winner Review", desc: "Winning streaks are checked before rewards are credited." },
-              { label: "SAFETY_CHECK", title: "Account Safety Check", desc: "Shared bank details or suspicious activity can be flagged for review." },
-              { label: "MONITORING", title: "Fair-Play Monitoring", desc: "Admins can restrict accounts that break the rules." }
+              { label: "One phone number per account", title: "One Phone, One Account", desc: "Helps keep the arena fair and prevents duplicate accounts." },
+              { label: "Picks lock before kickoff", title: "Pick Lock", desc: "Your picks lock before kickoff, so nobody can change selections after a match starts." },
+              { label: "Wallet history is recorded", title: "Wallet History", desc: "Every wallet movement is recorded clearly for transparency." },
+              { label: "Winners are reviewed", title: "Winner Review", desc: "Winning streaks are checked before rewards are credited." },
+              { label: "Shared bank details are flagged", title: "Account Safety Check", desc: "Shared bank details or suspicious activity can be flagged for review." },
+              { label: "Admins review suspicious activity", title: "Fair-Play Monitoring", desc: "Admins can restrict accounts that break the rules." }
             ].map((sec, i) => {
               return (
                 <div key={i} className={styles.securityCard}>
@@ -256,9 +256,9 @@ export default function LandingPage() {
         {/* 5. FINAL CTA */}
         <section className={styles.ctaSection}>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
-            <h2 className={styles.ctaTitle}>Ready for matchday?</h2>
+            <h2 className={styles.ctaTitle}>Ready for Matchday?</h2>
             <p className={styles.ctaDesc}>
-              Join the NanoPlay Arena, make your picks, and build your streak.
+              Make your picks before kickoff and build your streak.
             </p>
             <Link href="/signup" className="btn-premium">
               <span>JOIN ARENA ↗</span>

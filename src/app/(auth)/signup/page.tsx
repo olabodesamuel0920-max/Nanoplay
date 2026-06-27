@@ -137,8 +137,8 @@ export default function SignupPage() {
       <div className={styles.rightPanel}>
         <GlassCard className={styles.signupCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Create Account</h2>
-            <p className={styles.subtitle}>Enter your details to join the arena</p>
+            <h2 className={styles.title}>Join the Arena.</h2>
+            <p className={styles.subtitle}>Create your account, verify your phone, and start building your football streak.</p>
           </div>
 
           {error && (

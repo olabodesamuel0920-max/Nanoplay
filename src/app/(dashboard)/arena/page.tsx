@@ -361,7 +361,7 @@ export default function ArenaPage() {
                               ].join(" ")}
                               onClick={() => handleSelectPrediction(match.id, "1", isLocked)}
                             >
-                              <span>1</span>
+                              <span>1 {selected === "1" && "✓"}</span>
                               <span className={styles.optionLabel}>Home Win</span>
                             </button>
                             <button
@@ -371,7 +371,7 @@ export default function ArenaPage() {
                               ].join(" ")}
                               onClick={() => handleSelectPrediction(match.id, "X", isLocked)}
                             >
-                              <span>X</span>
+                              <span>X {selected === "X" && "✓"}</span>
                               <span className={styles.optionLabel}>Draw</span>
                             </button>
                             <button
@@ -381,7 +381,7 @@ export default function ArenaPage() {
                               ].join(" ")}
                               onClick={() => handleSelectPrediction(match.id, "2", isLocked)}
                             >
-                              <span>2</span>
+                              <span>2 {selected === "2" && "✓"}</span>
                               <span className={styles.optionLabel}>Away Win</span>
                             </button>
                           </div>

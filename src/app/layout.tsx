@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Outfit, Space_Grotesk, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import MobileBottomNav from "@/components/layouts/mobile-bottom-nav";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -30,7 +31,7 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "NanoPlay | Elite Football Prediction Arena",
-  description: "Enter the elite sports-tech football prediction challenge. Verify your phone, build your winning streak, and claim your rewards through our secure ledger.",
+  description: "Enter the elite sports-tech football prediction challenge. Verify your phone, build your winning streak, and claim your rewards securely.",
   metadataBase: new URL("https://nanoplay.vercel.app"),
   openGraph: {
     title: "NanoPlay | Elite Football Prediction Arena",
@@ -67,6 +68,7 @@ export default function RootLayout({
         <div className="main-layout">
           {children}
         </div>
+        <MobileBottomNav />
       </body>
     </html>
   );

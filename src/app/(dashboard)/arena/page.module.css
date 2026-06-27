@@ -284,7 +284,7 @@
   margin-left: 12px;
   padding-left: 12px;
   border-left: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .predictionOptions {
@@ -306,6 +306,7 @@
   align-items: center;
   gap: 6px;
   outline: none;
+  min-height: 48px; /* Tappable size */
 }
 
 .predOption span:first-child {
@@ -328,14 +329,15 @@
 }
 
 .selected {
-  background: var(--accent-lime) !important;
-  color: #000000 !important;
-  border-color: var(--accent-lime) !important;
-  box-shadow: 0 0 15px var(--accent-lime-glow);
+  background: rgba(223, 186, 107, 0.08) !important;
+  color: var(--accent-gold) !important;
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 15px var(--accent-gold-glow);
+  transform: translateY(-2px);
 }
 
 .selected .optionLabel {
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--accent-gold);
 }
 
 .submitRow {

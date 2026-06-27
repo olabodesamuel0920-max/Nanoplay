@@ -355,9 +355,9 @@ p {
 }
 
 .badge-premium {
-  background: rgba(191, 255, 0, 0.06);
-  color: var(--accent-lime);
-  border: 1px solid var(--border-lime);
+  background: rgba(223, 186, 107, 0.06);
+  color: var(--accent-gold);
+  border: 1px solid var(--border-gold);
 }
 
 .badge-cyan {
@@ -367,32 +367,39 @@ p {
 }
 
 /* Pulse animation utility */
-.pulse-glow-lime {
+.pulse-glow-gold {
   position: relative;
 }
 
-.pulse-glow-lime::after {
+.pulse-glow-gold::after {
   content: '';
   position: absolute;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent-lime);
-  box-shadow: 0 0 10px var(--accent-lime);
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
   animation: pulse-glow 2s infinite;
 }
 
 @keyframes pulse-glow {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(191, 255, 0, 0.7);
+    box-shadow: 0 0 0 0 rgba(223, 186, 107, 0.7);
   }
   70% {
     transform: scale(1.1);
-    box-shadow: 0 0 0 10px rgba(191, 255, 0, 0);
+    box-shadow: 0 0 0 10px rgba(223, 186, 107, 0);
   }
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(191, 255, 0, 0);
+    box-shadow: 0 0 0 0 rgba(223, 186, 107, 0);
+  }
+}
+
+/* Mobile Bottom Navigation Layout Offset */
+@media (max-width: 768px) {
+  body:has(nav[class*="bottomNavContainer"]) .main-layout {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 12px)) !important;
   }
 }

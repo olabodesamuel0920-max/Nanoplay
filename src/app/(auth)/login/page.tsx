@@ -60,7 +60,7 @@ export default function LoginPage() {
             <span className={styles.editorialItalic}>WIN.</span>
           </h1>
           <p className={styles.panelSubtitle}>
-            Sign in to manage your picks, wallet history, and reward status.
+            Sign in to manage your picks, wallet, and reward status.
           </p>
         </div>
 
@@ -83,8 +83,8 @@ export default function LoginPage() {
       <div className={styles.rightPanel}>
         <GlassCard className={styles.loginCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Welcome Back</h2>
-            <p className={styles.subtitle}>Enter details to access the arena</p>
+            <h2 className={styles.title}>Welcome Back.</h2>
+            <p className={styles.subtitle}>Sign in to manage your picks, wallet, and reward status.</p>
           </div>
 
           {error && (

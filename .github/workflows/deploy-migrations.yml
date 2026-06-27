@@ -33,17 +33,17 @@ jobs:
         with:
           version: 'latest'
 
-      # - name: Link Supabase Project
-      #   run: |
-      #     supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
+      - name: Link Supabase Project
+        run: |
+          supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
 
-      # - name: Dry-Run Migrations
-      #   run: |
-      #     supabase db push --dry-run
+      - name: Dry-Run Migrations
+        run: |
+          supabase db push --dry-run
 
-      # - name: Push Migrations to Production
-      #   run: |
-      #     supabase db push
+      - name: Push Migrations to Production
+        run: |
+          supabase db push
 
       - name: Install Verification Dependencies
         run: |

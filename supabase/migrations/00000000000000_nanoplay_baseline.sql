@@ -1,4 +1,4 @@
--- Consolidated Production Schema for NanoPlay (Premium Football Prediction Platform) - Verification Trigger 2
+-- Consolidated Production Schema for NanoPlay (Premium Football Prediction Platform)
 
 -- 1. BASE SYSTEM SETUP
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";

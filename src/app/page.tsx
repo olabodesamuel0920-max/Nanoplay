@@ -11,14 +11,7 @@ import {
   Lock, 
   Wallet, 
   Eye, 
-  ChevronRight, 
-  Activity,
-  Award,
-  CheckCircle,
-  AlertTriangle,
-  BookOpen,
-  HelpCircle,
-  ShieldAlert
+  Activity
 } from "lucide-react";
 import styles from "./page.module.css";
 
@@ -49,7 +42,7 @@ export default function LandingPage() {
               </h1>
               
               <p className={styles.heroSubtitleLine}>
-                Build your streak. Win verified rewards.
+                Build your streak. Qualify for verified rewards.
               </p>
               
               <p className={styles.heroSubtitle}>
@@ -66,17 +59,23 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Side: 3D Floating Arena Terminal */}
+            {/* Right Side: Upgraded 3D Floating Arena Terminal */}
             <div className={styles.heroRight}>
+              <div className={styles.terminalGlow}></div>
+              
+              {/* Stacked depth cards behind terminal */}
+              <div className={styles.terminalBackCard1}></div>
+              <div className={styles.terminalBackCard2}></div>
+              
               <div className={styles.terminal3D}>
                 <div className={styles.terminalHeader}>
                   <div className={styles.terminalDots}>
                     <span></span><span></span><span></span>
                   </div>
-                  <div className={styles.terminalTitle}>NANOPLAY ENGINE v2.0</div>
+                  <div className={styles.terminalTitle}>NANOPLAY CORE ENGINE</div>
                   <div className={styles.terminalStatus}>
                     <span className={styles.terminalPulse}></span>
-                    <span>SECURE</span>
+                    <span>SECURE LOGS</span>
                   </div>
                 </div>
 
@@ -84,12 +83,12 @@ export default function LandingPage() {
                   {/* Top Stats Banner */}
                   <div className={styles.terminalStats}>
                     <div className={styles.termStatChip}>
-                      <span className={styles.termStatLabel}>WALLET BALANCE</span>
+                      <span className={styles.termStatLabel}>CHALLENGE BALANCE</span>
                       <span className={styles.termStatVal}>₦60,000</span>
                     </div>
                     <div className={styles.termStatChip}>
-                      <span className={styles.termStatLabel}>ACTIVE STREAK</span>
-                      <span className={styles.termStatVal} style={{ color: "var(--accent-gold)" }}>3 WINS ACTIVE</span>
+                      <span className={styles.termStatLabel}>STREAK INDEX</span>
+                      <span className={styles.termStatVal} style={{ color: "var(--accent-gold)" }}>3 ACTIVE</span>
                     </div>
                   </div>
 
@@ -123,6 +122,12 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Floating Chips */}
+              <div className={[styles.floatingChip, styles.chip1].join(" ")}>LOCKED PICK</div>
+              <div className={[styles.floatingChip, styles.chip2].join(" ")}>LEDGER READY</div>
+              <div className={[styles.floatingChip, styles.chip3].join(" ")}>REVIEW QUEUE</div>
+              <div className={[styles.floatingChip, styles.chip4].join(" ")}>PHONE VERIFIED</div>
             </div>
 
           </div>
@@ -181,11 +186,11 @@ export default function LandingPage() {
               { num: "III", title: "Lock & Settle", desc: "Our system settles match scores. Complete your prediction streak successfully." },
               { num: "IV", title: "Verify & Release", desc: "Winners pass the audit queue before reward is credited to your wallet ledger." }
             ].map((step, i) => (
-              <GlassCard key={i} className={styles.stepCard} hoverEffect={true}>
+              <div key={i} className={styles.stepCard}>
                 <span className={styles.stepNum}>{step.num}</span>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
                 <p className={styles.stepDesc}>{step.desc}</p>
-              </GlassCard>
+              </div>
             ))}
           </div>
         </section>
@@ -204,20 +209,24 @@ export default function LandingPage() {
 
           <div className={styles.securityGrid}>
             {[
-              { icon: ShieldCheck, title: "Verified Phone Access", desc: "Strict verification triggers block multiple accounts from using the same phone number." },
-              { icon: AlertTriangle, title: "Duplicate Account Protection", desc: "Shared bank accounts are flagged automatically to prevent multi-accounting abuse." },
-              { icon: Wallet, title: "Secure Wallet Ledger", desc: "Balances are driven solely by confirmed ledger logs. No arbitrary balance modifications." },
-              { icon: Lock, title: "Kickoff Pick Lock", desc: "Predictions lock automatically the moment a match kicks off. Pick falsification is impossible." },
-              { icon: Eye, title: "Reward Review Queue", desc: "Completed streaks are routed to the winner review queue for audit checks before release." },
-              { icon: ShieldAlert, title: "Fraud Shield", desc: "Real-time auditing of shared fingerprints, IP overlaps, and referral abuse patterns." }
+              { cmd: "sys_phone_auth", title: "Verified Phone Access", desc: "Strict OTP verification triggers block multiple accounts from using the same phone number." },
+              { cmd: "sys_device_audit", title: "Duplicate Account Protection", desc: "Shared bank details or device fingerprints trigger suspensions automatically." },
+              { cmd: "sys_ledger_verification", title: "Secure Wallet Ledger", desc: "Wallet balances are driven strictly by verified, chronological ledger logs." },
+              { cmd: "sys_kickoff_lock", title: "Kickoff Pick Lock", desc: "Immutable database triggers lock prediction edits the moment a match kicks off." },
+              { cmd: "sys_payout_review", title: "Reward Review Queue", desc: "All winning streaks are audited in the manual review queue before payout release." },
+              { cmd: "sys_fraud_shield", title: "Active Fraud Shield", desc: "Real-time verification of IP overlaps, fingerprint profiles, and referral patterns." }
             ].map((sec, i) => {
-              const Icon = sec.icon;
               return (
-                <GlassCard key={i} className={styles.securityCard} hoverEffect={true}>
-                  <Icon className={styles.securityIcon} />
+                <div key={i} className={styles.securityCard}>
+                  <div className={styles.securityCardHeader}>
+                    <span className={styles.securityCmd}>{sec.cmd}</span>
+                    <span className={styles.securityStatus}>[ ACTIVE ]</span>
+                  </div>
                   <h3 className={styles.securityCardTitle}>{sec.title}</h3>
-                  <p className={styles.securityCardDesc}>{sec.desc}</p>
-                </GlassCard>
+                  <p className={styles.securityCardDesc}>
+                    <span className={styles.cmdIndicator}>&gt;</span> {sec.desc}
+                  </p>
+                </div>
               );
             })}
           </div>
@@ -226,7 +235,7 @@ export default function LandingPage() {
         {/* 5. FINAL CTA */}
         <section className={styles.ctaSection}>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
-            <h2 className={styles.ctaTitle}>Enter the prediction arena</h2>
+            <h2 className={styles.ctaTitle}>Join the streak arena</h2>
             <p className={styles.ctaDesc}>
               Join the elite sports-tech football challenge. Build your streak and claim rewards on a secure ledger.
             </p>
@@ -244,11 +253,16 @@ export default function LandingPage() {
               {/* Col 1: Logo & Desc */}
               <div className={styles.footerCol}>
                 <div className={styles.footerLogoRow}>
-                  <Logo size={28} showText={true} />
+                  <Logo size={32} showText={true} />
                 </div>
                 <p className={styles.footerDesc}>
                   An elite sports-tech prediction challenge platform built for fair play, transaction integrity, and streak competitions.
                 </p>
+                <div className={styles.socialLinks}>
+                  <span className={styles.socialItem}>Twitter (Inactive)</span>
+                  <span className={styles.socialItem}>Discord (Inactive)</span>
+                  <span className={styles.socialItem}>Telegram (Inactive)</span>
+                </div>
               </div>
 
               {/* Col 2: Arena links */}

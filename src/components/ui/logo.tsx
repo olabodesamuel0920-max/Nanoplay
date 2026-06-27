@@ -33,7 +33,7 @@ export default function Logo({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{
-          filter: "drop-shadow(0 0 8px var(--accent-gold-glow))",
+          filter: "drop-shadow(0 0 10px var(--accent-gold-glow-strong))",
           flexShrink: 0,
         }}
       >

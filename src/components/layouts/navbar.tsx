@@ -64,13 +64,12 @@ export default function Navbar() {
       <div className={styles.container}>
         {/* Logo */}
         <Link href="/" className={styles.logoContainer}>
-          <Logo size={28} />
+          <Logo size={32} />
         </Link>
 
         {/* Desktop Nav */}
         <nav className={styles.desktopNav}>
           {navLinks.map((link) => {
-            const Icon = link.icon;
             const isActive = pathname === link.path;
             return (
               <Link
@@ -78,7 +77,6 @@ export default function Navbar() {
                 href={link.path}
                 className={[styles.navItem, isActive ? styles.active : ""].join(" ")}
               >
-                <Icon size={18} />
                 <span>{link.name}</span>
               </Link>
             );
@@ -88,7 +86,6 @@ export default function Navbar() {
               href="/admin"
               className={[styles.navItem, styles.adminLink, pathname.startsWith("/admin") ? styles.active : ""].join(" ")}
             >
-              <Shield size={18} />
               <span>Admin</span>
             </Link>
           )}
@@ -155,7 +152,7 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            {profile?.role === "admin" && (
+             {profile?.role === "admin" && (
               <Link
                 href="/admin"
                 className={[styles.mobileNavItem, styles.adminLink].join(" ")}
@@ -165,11 +162,28 @@ export default function Navbar() {
                 <span>Admin Panel</span>
               </Link>
             )}
-            {user && (
+            {user ? (
               <button onClick={handleLogout} className={styles.mobileLogoutBtn}>
                 <LogOut size={20} />
                 <span>Sign Out</span>
               </button>
+            ) : (
+              <div className={styles.mobileAuthButtons}>
+                <Link
+                  href="/login"
+                  className={styles.mobileLoginBtn}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className={styles.mobileSignupBtn}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Join Arena ↗
+                </Link>
+              </div>
             )}
           </nav>
         </div>

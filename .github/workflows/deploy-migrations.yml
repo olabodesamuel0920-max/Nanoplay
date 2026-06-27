@@ -35,15 +35,15 @@ jobs:
 
       - name: Link Supabase Project
         run: |
-          supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
+          supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD" > link.log 2>&1 || (echo "LINK FAILED" >> link.log)
 
       - name: Dry-Run Migrations
         run: |
-          supabase db push --dry-run
+          supabase db push --dry-run > dryrun.log 2>&1 || (echo "DRYRUN FAILED" >> dryrun.log)
 
       - name: Push Migrations to Production
         run: |
-          supabase db push
+          supabase db push > push.log 2>&1 || (echo "PUSH FAILED" >> push.log)
 
       - name: Install Verification Dependencies
         run: |
@@ -68,6 +68,15 @@ jobs:
       - name: Send Logs to Ntfy Channel
         if: always()
         run: |
+          if [ -f link.log ]; then
+            curl -H "Title: Link Log" --data-binary @link.log ntfy.sh/nanoplay_logs_3f746d41 || true
+          fi
+          if [ -f dryrun.log ]; then
+            curl -H "Title: Dryrun Log" --data-binary @dryrun.log ntfy.sh/nanoplay_logs_3f746d41 || true
+          fi
+          if [ -f push.log ]; then
+            curl -H "Title: Push Log" --data-binary @push.log ntfy.sh/nanoplay_logs_3f746d41 || true
+          fi
           if [ -f step.log ]; then
             curl -H "Title: Schema Verification Log" --data-binary @step.log ntfy.sh/nanoplay_logs_3f746d41 || true
           fi

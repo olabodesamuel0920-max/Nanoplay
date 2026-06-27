@@ -138,7 +138,7 @@ export default function WalletPage() {
       <>
         <Navbar />
         <div className="container-center" style={{ flex: 1 }}>
-          <div className="font-data">LOADING WALLET LEDGER...</div>
+          <div className="font-data">LOADING WALLET RECORD...</div>
         </div>
       </>
     );
@@ -151,9 +151,9 @@ export default function WalletPage() {
         <div className={styles.container}>
           {/* Header */}
           <div className={styles.header}>
-            <h1 className={styles.title}>Wallet Ledger</h1>
+            <h1 className={styles.title}>Wallet History</h1>
             <p className={styles.subtitle}>
-              Fund your challenge account, request bank withdrawals, and review transaction logs.
+              Fund your account, request payouts, and view your secure wallet records.
             </p>
           </div>
 
@@ -171,7 +171,7 @@ export default function WalletPage() {
                 <span className={[styles.balanceValue, "font-data"].join(" ")}>
                   ₦{(wallet?.balance_ngn || 0).toLocaleString()}
                 </span>
-                <span className={styles.balanceDesc}>Single source-of-truth ledger ledger</span>
+                <span className={styles.balanceDesc}>Secure wallet record</span>
               </div>
             </GlassCard>
 
@@ -272,16 +272,16 @@ export default function WalletPage() {
             </GlassCard>
           </div>
 
-          {/* Ledger Logs Table */}
+          {/* Transaction History Table */}
           <div className={styles.ledgerSection}>
             <div className={styles.ledgerHeader}>
-              <h3>Ledger Transaction History</h3>
-              <span className={styles.ledgerSub}>Immutable ledger entries</span>
+              <h3>Transaction History</h3>
+              <span className={styles.ledgerSub}>Secure transaction history</span>
             </div>
 
             <GlassCard className={styles.tableCard} hoverEffect={false}>
               {transactions.length === 0 ? (
-                <div className={styles.noTxs}>No transaction history found on this ledger.</div>
+                <div className={styles.noTxs}>No transaction history found.</div>
               ) : (
                 <div className={styles.tableWrapper}>
                   <table className={styles.table}>

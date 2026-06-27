@@ -65,14 +65,14 @@ export default function RulesPage() {
               </ul>
             </GlassCard>
 
-            {/* Ledger & Wallets */}
+            {/* Wallet & Transactions */}
             <GlassCard className={styles.ruleCard} hoverEffect={false}>
               <div className={styles.cardHeader}>
                 <Wallet className={styles.cardIcon} />
-                <h3>4. Ledger & Wallet Security</h3>
+                <h3>4. Wallet & Transaction Security</h3>
               </div>
               <ul className={styles.list}>
-                <li>NanoPlay uses an immutable ledger system. Your wallet balance is the sum of transaction ledger items.</li>
+                <li>NanoPlay uses a secure transaction record. Your wallet balance is the sum of transaction records.</li>
                 <li>Tiers are purchased directly using your wallet balance.</li>
                 <li>Webhooks with unique Paystack references prevent duplicate payments or double-credits.</li>
               </ul>
@@ -86,8 +86,8 @@ export default function RulesPage() {
               </div>
               <ul className={styles.list}>
                 <li>When you complete a streak, your entry goes into the <strong>Admin Winner Review Queue</strong>.</li>
-                <li>Admin manually audits your account logs (IP, device fingerprint, phone, KYC) before verifying the win.</li>
-                <li>Once approved, the reward pool is credited to your wallet ledger.</li>
+                <li>Admin manually audits your account logs (IP, phone, KYC) before verifying the win.</li>
+                <li>Once approved, the reward pool is credited to your wallet balance.</li>
                 <li>Payouts require a verified KYC status (Full Name, Date of Birth, ID type, bank details).</li>
               </ul>
             </GlassCard>

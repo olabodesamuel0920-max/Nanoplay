@@ -83,7 +83,7 @@ export default function WinnersPage() {
                         <th>Round</th>
                         <th>Winner Username</th>
                         <th>Payout Confirmed</th>
-                        <th>Ledger Verification</th>
+                        <th>Winner Review</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -101,7 +101,7 @@ export default function WinnersPage() {
                           <td>
                             <span className={styles.verificationStatus}>
                               <ShieldCheck size={16} />
-                              <span>Ledger Verified</span>
+                              <span>Payout Verified</span>
                             </span>
                           </td>
                         </tr>

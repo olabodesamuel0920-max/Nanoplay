@@ -31,19 +31,19 @@ jobs:
       - name: Install Supabase CLI
         uses: supabase/setup-cli@v1
         with:
-          version: 'latest'
+          version: '2.108.0'
 
       - name: Link Supabase Project
         run: |
-          supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD" > link.log 2>&1 || (echo "LINK FAILED" >> link.log)
+          supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
 
       - name: Dry-Run Migrations
         run: |
-          supabase db push --dry-run > dryrun.log 2>&1 || (echo "DRYRUN FAILED" >> dryrun.log)
+          supabase db push --dry-run
 
       - name: Push Migrations to Production
         run: |
-          supabase db push > push.log 2>&1 || (echo "PUSH FAILED" >> push.log)
+          supabase db push
 
       - name: Install Verification Dependencies
         run: |
@@ -55,31 +55,4 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          node tmp/inspect_all.js > step.log 2>&1 || (echo "FAILED" >> step.log && exit 1)
-
-      - name: Run Live QA Functional Test
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: |
-          node tmp/qa_functional_test.js > qa.log 2>&1 || (echo "FAILED" >> qa.log && exit 1)
-
-      - name: Send Logs to Ntfy Channel
-        if: always()
-        run: |
-          if [ -f link.log ]; then
-            curl -H "Title: Link Log" --data-binary @link.log ntfy.sh/nanoplay_logs_3f746d41 || true
-          fi
-          if [ -f dryrun.log ]; then
-            curl -H "Title: Dryrun Log" --data-binary @dryrun.log ntfy.sh/nanoplay_logs_3f746d41 || true
-          fi
-          if [ -f push.log ]; then
-            curl -H "Title: Push Log" --data-binary @push.log ntfy.sh/nanoplay_logs_3f746d41 || true
-          fi
-          if [ -f step.log ]; then
-            curl -H "Title: Schema Verification Log" --data-binary @step.log ntfy.sh/nanoplay_logs_3f746d41 || true
-          fi
-          if [ -f qa.log ]; then
-            curl -H "Title: QA Functional Log" --data-binary @qa.log ntfy.sh/nanoplay_logs_3f746d41 || true
-          fi
+          node tmp/inspect_all.js

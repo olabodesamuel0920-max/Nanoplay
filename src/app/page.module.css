@@ -8,7 +8,36 @@
   padding-bottom: 0;
 }
 
-/* Background glows */
+/* Stadium lights spotlights projecting from top corners */
+.main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 250px;
+  height: 700px;
+  background: linear-gradient(135deg, rgba(223, 186, 107, 0.04), transparent 70%);
+  clip-path: polygon(0 0, 100% 0, 40% 100%, 0% 100%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 5%;
+  width: 250px;
+  height: 700px;
+  background: linear-gradient(-135deg, rgba(125, 211, 252, 0.035), transparent 70%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Background glows with shifting animations */
 .glowTop {
   position: absolute;
   top: -150px;
@@ -16,9 +45,10 @@
   transform: translateX(-50%);
   width: 900px;
   height: 450px;
-  background: radial-gradient(circle, rgba(223, 186, 107, 0.05) 0%, transparent 80%);
+  background: radial-gradient(circle, rgba(223, 186, 107, 0.06) 0%, transparent 80%);
   pointer-events: none;
   z-index: 1;
+  animation: pulseGlowTop 10s ease-in-out infinite alternate;
 }
 
 .glowMid {
@@ -27,9 +57,20 @@
   right: -200px;
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(125, 211, 252, 0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(125, 211, 252, 0.05) 0%, transparent 70%);
   pointer-events: none;
   z-index: 1;
+  animation: pulseGlowMid 12s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlowTop {
+  0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+}
+
+@keyframes pulseGlowMid {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+  100% { transform: scale(1.08) rotate(10deg); opacity: 1; }
 }
 
 /* 1. HERO SECTION */
@@ -158,6 +199,7 @@
   transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-20px) translateY(10px);
   z-index: 2;
   pointer-events: none;
+  animation: floatBack1 8s ease-in-out infinite alternate;
 }
 
 .terminalBackCard2 {
@@ -170,11 +212,12 @@
   transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-40px) translateY(20px);
   z-index: 1;
   pointer-events: none;
+  animation: floatBack2 10s ease-in-out infinite alternate;
 }
 
 .terminal3D {
   width: 100%;
-  max-width: 440px;
+  max-width: 480px; /* Bigger 3D match terminal */
   background: rgba(11, 11, 14, 0.85);
   border: 1px solid var(--border-gold);
   border-radius: 12px;
@@ -184,12 +227,28 @@
   transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
   transition: var(--transition-smooth);
   z-index: 3;
+  animation: mainFloat 7s ease-in-out infinite alternate;
 }
 
 .terminal3D:hover {
-  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
   border-color: var(--accent-cyan);
   box-shadow: var(--shadow-cyan), var(--shadow-glass);
+}
+
+@keyframes floatBack1 {
+  0% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-25px) translateY(8px); }
+  100% { transform: perspective(1000px) rotateY(-6deg) rotateX(2deg) translateZ(-15px) translateY(16px); }
+}
+
+@keyframes floatBack2 {
+  0% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-45px) translateY(18px); }
+  100% { transform: perspective(1000px) rotateY(-10deg) rotateX(6deg) translateZ(-35px) translateY(28px); }
+}
+
+@keyframes mainFloat {
+  0% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateY(0px); }
+  100% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateY(-8px); }
 }
 
 .terminalHeader {
@@ -540,22 +599,27 @@
   right: 12%;
   height: 2px;
   background: linear-gradient(to right, transparent, var(--accent-gold) 30%, var(--accent-cyan) 70%, transparent);
+  box-shadow: 0 0 8px var(--accent-gold-glow);
   z-index: 1;
 }
 
 .stepCard {
   background: rgba(11, 11, 14, 0.7);
   border: 1px solid var(--border-glass);
+  border-top: 2px solid var(--border-gold);
   padding: 32px 24px;
   border-radius: 8px;
   position: relative;
   z-index: 2;
   transition: var(--transition-smooth);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .stepCard:hover {
-  border-color: var(--border-gold);
-  box-shadow: var(--shadow-gold), var(--shadow-glass);
+  transform: translateY(-8px);
+  border-color: var(--accent-gold);
+  border-top-color: var(--accent-cyan);
+  box-shadow: 0 12px 30px rgba(223, 186, 107, 0.08), var(--shadow-glass);
 }
 
 .stepNum {
@@ -636,6 +700,7 @@
 .securityCard:hover {
   border-color: var(--border-cyan);
   box-shadow: var(--shadow-cyan), var(--shadow-glass);
+  transform: translateY(-4px);
 }
 
 .securityCardHeader {
@@ -699,6 +764,22 @@
   border: 1px solid var(--border-gold) !important;
   box-shadow: var(--shadow-gold), var(--shadow-glass) !important;
   background: radial-gradient(circle at 50% 50%, rgba(223, 186, 107, 0.02) 0%, rgba(11, 11, 14, 0.95) 100%) !important;
+  animation: borderGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+  0% {
+    border-color: var(--border-gold);
+    box-shadow: var(--shadow-gold), var(--shadow-glass) !important;
+  }
+  50% {
+    border-color: rgba(223, 186, 107, 0.4);
+    box-shadow: 0 0 40px rgba(223, 186, 107, 0.15), var(--shadow-glass) !important;
+  }
+  100% {
+    border-color: rgba(125, 211, 252, 0.25);
+    box-shadow: 0 0 35px rgba(125, 211, 252, 0.1), var(--shadow-glass) !important;
+  }
 }
 
 .ctaTitle {
@@ -792,6 +873,15 @@
 .footerLink:hover {
   color: var(--foreground-primary);
   transform: translateX(4px);
+}
+
+.footerComingSoon {
+  font-family: var(--font-data), monospace;
+  font-size: 11px;
+  color: var(--foreground-muted);
+  letter-spacing: 0.02em;
+  display: inline-block;
+  margin-top: 4px;
 }
 
 .footerBottom {

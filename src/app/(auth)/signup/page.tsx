@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { getAppUrl } from "@/lib/utils/url";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
@@ -46,6 +47,7 @@ export default function SignupPage() {
         email,
         password,
         options: {
+          emailRedirectTo: `${getAppUrl()}/auth/confirm`,
           data: {
             full_name: fullName,
             username: username,
@@ -109,11 +111,10 @@ export default function SignupPage() {
 
         <div className={styles.panelMiddle}>
           <h1 className={styles.panelTitle}>
-            JOIN THE ARENA.<br />
-            BUILD YOUR <span className={styles.editorialItalic}>STREAK.</span>
+            JOIN THE ARENA.
           </h1>
           <p className={styles.panelSubtitle}>
-            Create your account to start. Verify your phone, select your entry tier, and predict matches to unlock pool rewards on a secure transaction ledger.
+            Create your NanoPlay account, verify your phone, and start building your football streak.
           </p>
         </div>
 
@@ -121,11 +122,11 @@ export default function SignupPage() {
           <div className={styles.trustStrip}>
             <div className={styles.trustStripItem}>
               <ShieldCheck size={16} className={styles.trustIcon} />
-              <span>1 Phone = 1 Account</span>
+              <span>Phone Verified</span>
             </div>
             <div className={styles.trustStripItem}>
               <ShieldCheck size={16} className={styles.trustIcon} />
-              <span>Fraud Shield Active</span>
+              <span>Fair-Play Protection</span>
             </div>
           </div>
           <p className={styles.copyright}>&copy; {new Date().getFullYear()} NanoPlay. All rights reserved.</p>
@@ -137,7 +138,7 @@ export default function SignupPage() {
         <GlassCard className={styles.signupCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
             <h2 className={styles.title}>Create Account</h2>
-            <p className={styles.subtitle}>Enter your details to join the streak challenge</p>
+            <p className={styles.subtitle}>Enter your details to join the arena</p>
           </div>
 
           {error && (
@@ -150,7 +151,7 @@ export default function SignupPage() {
             {/* Form grid layout */}
             <div className={styles.formGrid}>
               <Input
-                label="Full Legal Name"
+                label="Full Name"
                 type="text"
                 placeholder="John Doe"
                 value={fullName}
@@ -195,7 +196,7 @@ export default function SignupPage() {
               />
 
               <Input
-                label="Referral Code (Optional)"
+                label="Referral Code, optional"
                 type="text"
                 placeholder="Referrer username"
                 value={referralCode}

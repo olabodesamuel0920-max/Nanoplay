@@ -56,11 +56,11 @@ export default function LoginPage() {
         <div className={styles.panelMiddle}>
           <h1 className={styles.panelTitle}>
             PREDICT.<br />
-            PERFORM.<br />
+            COMPETE.<br />
             <span className={styles.editorialItalic}>WIN.</span>
           </h1>
           <p className={styles.panelSubtitle}>
-            Access the elite football prediction arena. Verify your predictions, follow correct pick streaks, and monitor the secure reward ledger.
+            Sign in to manage your picks, wallet history, and reward status.
           </p>
         </div>
 
@@ -68,11 +68,11 @@ export default function LoginPage() {
           <div className={styles.trustStrip}>
             <div className={styles.trustStripItem}>
               <ShieldCheck size={16} className={styles.trustIcon} />
-              <span>Verified Phone Access</span>
+              <span>Phone Verified</span>
             </div>
             <div className={styles.trustStripItem}>
               <ShieldCheck size={16} className={styles.trustIcon} />
-              <span>Duplicate Bank Detection</span>
+              <span>Fair-Play Protection</span>
             </div>
           </div>
           <p className={styles.copyright}>&copy; {new Date().getFullYear()} NanoPlay. All rights reserved.</p>
@@ -84,7 +84,7 @@ export default function LoginPage() {
         <GlassCard className={styles.loginCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
             <h2 className={styles.title}>Welcome Back</h2>
-            <p className={styles.subtitle}>Enter credentials to access your dashboard</p>
+            <p className={styles.subtitle}>Enter details to access the arena</p>
           </div>
 
           {error && (

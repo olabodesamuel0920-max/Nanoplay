@@ -33,7 +33,7 @@ export default function LandingPage() {
               <div className={styles.badgeRow}>
                 <span className={styles.heroBadge}><span className={styles.pulseDot}></span>LIVE ARENA ACTIVE</span>
                 <span className={styles.heroBadge}>VERIFIED PICKS</span>
-                <span className={styles.heroBadge}>LEDGER PROTECTED</span>
+                <span className={styles.heroBadge}>WALLET PROTECTED</span>
               </div>
               
               <h1 className={styles.heroTitle}>
@@ -46,15 +46,15 @@ export default function LandingPage() {
               </p>
               
               <p className={styles.heroSubtitle}>
-                NanoPlay is an elite football prediction arena where every pick is locked, every account is verified, and every reward passes secure review.
+                NanoPlay is a premium football challenge arena where your picks lock before kickoff, accounts are verified, and rewards pass a secure review before payout.
               </p>
               
               <div className={styles.heroCta}>
                 <Link href="/signup" className="btn-premium">
-                  <span>Join Arena</span>
+                  <span>JOIN ARENA ↗</span>
                 </Link>
-                <Link href="/rules" className="btn-glass">
-                  View Rules
+                <Link href="#how-it-works" className="btn-glass">
+                  SEE HOW IT WORKS
                 </Link>
               </div>
             </div>
@@ -72,10 +72,10 @@ export default function LandingPage() {
                   <div className={styles.terminalDots}>
                     <span></span><span></span><span></span>
                   </div>
-                  <div className={styles.terminalTitle}>NANOPLAY CORE ENGINE</div>
+                  <div className={styles.terminalTitle}>NANOPLAY ARENA DASHBOARD</div>
                   <div className={styles.terminalStatus}>
                     <span className={styles.terminalPulse}></span>
-                    <span>SECURE LOGS</span>
+                    <span>SECURE RECORDS</span>
                   </div>
                 </div>
 
@@ -83,11 +83,11 @@ export default function LandingPage() {
                   {/* Top Stats Banner */}
                   <div className={styles.terminalStats}>
                     <div className={styles.termStatChip}>
-                      <span className={styles.termStatLabel}>CHALLENGE BALANCE</span>
+                      <span className={styles.termStatLabel}>WALLET BALANCE</span>
                       <span className={styles.termStatVal}>₦60,000</span>
                     </div>
                     <div className={styles.termStatChip}>
-                      <span className={styles.termStatLabel}>STREAK INDEX</span>
+                      <span className={styles.termStatLabel}>ACTIVE STREAK</span>
                       <span className={styles.termStatVal} style={{ color: "var(--accent-gold)" }}>3 ACTIVE</span>
                     </div>
                   </div>
@@ -115,18 +115,18 @@ export default function LandingPage() {
 
                   {/* Terminal Log Output */}
                   <div className={styles.terminalLog}>
-                    <span className={styles.logMeta}>[SYSTEM LOGS]</span>
-                    <div className={styles.logLine}>&gt; Verified access check: OK</div>
+                    <span className={styles.logMeta}>[SYSTEM RECORDS]</span>
+                    <div className={styles.logLine}>&gt; Phone verification check: OK</div>
                     <div className={styles.logLine}>&gt; Kickoff validation check: locked</div>
-                    <div className={styles.logLine} style={{ color: "var(--accent-gold)" }}>&gt; Pool reward ledger transaction ready</div>
+                    <div className={styles.logLine} style={{ color: "var(--accent-gold)" }}>&gt; Reward status: active</div>
                   </div>
                 </div>
               </div>
 
               {/* Floating Chips */}
-              <div className={[styles.floatingChip, styles.chip1].join(" ")}>LOCKED PICK</div>
-              <div className={[styles.floatingChip, styles.chip2].join(" ")}>LEDGER READY</div>
-              <div className={[styles.floatingChip, styles.chip3].join(" ")}>REVIEW QUEUE</div>
+              <div className={[styles.floatingChip, styles.chip1].join(" ")}>PICK LOCKED</div>
+              <div className={[styles.floatingChip, styles.chip2].join(" ")}>WALLET PROTECTED</div>
+              <div className={[styles.floatingChip, styles.chip3].join(" ")}>WINNER REVIEW</div>
               <div className={[styles.floatingChip, styles.chip4].join(" ")}>PHONE VERIFIED</div>
             </div>
 
@@ -139,52 +139,52 @@ export default function LandingPage() {
             <div className={styles.trustStripItem}>
               <Activity size={18} className={styles.trustIcon} />
               <div className={styles.trustLabel}>
-                <span className={styles.trustVal}>SYSTEM STATUS</span>
-                <span className={styles.trustDesc}>VERIFIED</span>
+                <span className={styles.trustVal}>ARENA STATUS</span>
+                <span className={styles.trustDesc}>ACTIVE</span>
               </div>
             </div>
             <div className={styles.trustStripItem}>
               <Eye size={18} className={styles.trustIcon} />
               <div className={styles.trustLabel}>
-                <span className={styles.trustVal}>REWARD FLOW</span>
-                <span className={styles.trustDesc}>MANUAL AUDIT</span>
+                <span className={styles.trustVal}>REWARDS</span>
+                <span className={styles.trustDesc}>MANUAL REVIEW</span>
               </div>
             </div>
             <div className={styles.trustStripItem}>
               <Wallet size={18} className={styles.trustIcon} />
               <div className={styles.trustLabel}>
-                <span className={styles.trustVal}>WALLET MODE</span>
-                <span className={styles.trustDesc}>LEDGER PROTECTED</span>
+                <span className={styles.trustVal}>WALLET HISTORY</span>
+                <span className={styles.trustDesc}>PROTECTED</span>
               </div>
             </div>
             <div className={styles.trustStripItem}>
               <ShieldCheck size={18} className={styles.trustIcon} />
               <div className={styles.trustLabel}>
-                <span className={styles.trustVal}>ACCESS GATE</span>
-                <span className={styles.trustDesc}>PHONE VERIFIED</span>
+                <span className={styles.trustVal}>ACCESS</span>
+                <span className={styles.trustDesc}>PHONE VERIFICATION</span>
               </div>
             </div>
           </div>
         </section>
 
         {/* 3. HOW NANOPLAY WORKS */}
-        <section className={styles.howItWorksSection}>
+        <section id="how-it-works" className={styles.howItWorksSection}>
           <div className={styles.sectionHeader}>
             <div className={styles.sectionSubtitleLabel}>STEP-BY-STEP ARENA</div>
             <h2 className={styles.sectionTitle}>
               How <span className={styles.editorialItalicTitle}>NanoPlay</span> Works
             </h2>
             <p className={styles.sectionSubtitle}>
-              Four steps to predict matches, verify predictions, and unlock pool rewards securely.
+              Predict matches, build streaks, and qualify for verified rewards securely.
             </p>
           </div>
 
           <div className={styles.stepsGrid}>
             {[
-              { num: "I", title: "Select Tier", desc: "Choose your challenge entry tier: Starter, Standard, or Premium using your wallet balance." },
-              { num: "II", title: "Place Predictions", desc: "Submit picks on the matches before their kickoff locks. Phone OTP verification required." },
-              { num: "III", title: "Lock & Settle", desc: "Our system settles match scores. Complete your prediction streak successfully." },
-              { num: "IV", title: "Verify & Release", desc: "Winners pass the audit queue before reward is credited to your wallet ledger." }
+              { num: "1", title: "Choose Your Tier", desc: "Pick the challenge level you want to enter." },
+              { num: "2", title: "Make Your Picks", desc: "Choose your match predictions before kickoff." },
+              { num: "3", title: "Build Your Streak", desc: "Get the required picks correct and keep your streak alive." },
+              { num: "4", title: "Pass Review & Get Credited", desc: "Winners are checked, approved, and credited securely." }
             ].map((step, i) => (
               <div key={i} className={styles.stepCard}>
                 <span className={styles.stepNum}>{step.num}</span>
@@ -200,26 +200,26 @@ export default function LandingPage() {
           <div className={styles.sectionHeader}>
             <div className={styles.sectionSubtitleLabel}>PLATFORM SECURITY</div>
             <h2 className={styles.sectionTitle}>
-              Anti-Abuse <span className={styles.editorialItalicTitle}>Safeguards</span>
+              Fair Play & <span className={styles.editorialItalicTitle}>Account Protection</span>
             </h2>
             <p className={styles.sectionSubtitle}>
-              NanoPlay features production-grade anti-abuse safeguards to protect the pool integrity.
+              NanoPlay protects every challenge with phone verification, wallet records, locked picks, and manual reward review.
             </p>
           </div>
 
           <div className={styles.securityGrid}>
             {[
-              { cmd: "sys_phone_auth", title: "Verified Phone Access", desc: "Strict OTP verification triggers block multiple accounts from using the same phone number." },
-              { cmd: "sys_device_audit", title: "Duplicate Account Protection", desc: "Shared bank details or device fingerprints trigger suspensions automatically." },
-              { cmd: "sys_ledger_verification", title: "Secure Wallet Ledger", desc: "Wallet balances are driven strictly by verified, chronological ledger logs." },
-              { cmd: "sys_kickoff_lock", title: "Kickoff Pick Lock", desc: "Immutable database triggers lock prediction edits the moment a match kicks off." },
-              { cmd: "sys_payout_review", title: "Reward Review Queue", desc: "All winning streaks are audited in the manual review queue before payout release." },
-              { cmd: "sys_fraud_shield", title: "Active Fraud Shield", desc: "Real-time verification of IP overlaps, fingerprint profiles, and referral patterns." }
+              { label: "Phone Verification", title: "Phone Verified", desc: "One phone number per account." },
+              { label: "Account Safety Check", title: "Duplicate Account Protection", desc: "Shared bank or suspicious account patterns are flagged for review." },
+              { label: "Secure Wallet History", title: "Secure Wallet History", desc: "Every wallet movement is recorded for transparency." },
+              { label: "Kickoff Lock", title: "Kickoff Lock", desc: "Picks cannot be changed after a match starts." },
+              { label: "Winner Review", title: "Winner Review", desc: "Rewards are reviewed before payout." },
+              { label: "Fair-Play Protection", title: "Fair-Play Monitoring", desc: "Suspicious activity can be restricted by admins." }
             ].map((sec, i) => {
               return (
                 <div key={i} className={styles.securityCard}>
                   <div className={styles.securityCardHeader}>
-                    <span className={styles.securityCmd}>{sec.cmd}</span>
+                    <span className={styles.securityCmd}>{sec.label}</span>
                     <span className={styles.securityStatus}>[ ACTIVE ]</span>
                   </div>
                   <h3 className={styles.securityCardTitle}>{sec.title}</h3>
@@ -235,12 +235,12 @@ export default function LandingPage() {
         {/* 5. FINAL CTA */}
         <section className={styles.ctaSection}>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
-            <h2 className={styles.ctaTitle}>Join the streak arena</h2>
+            <h2 className={styles.ctaTitle}>Ready to enter the NanoPlay Arena?</h2>
             <p className={styles.ctaDesc}>
-              Join the elite sports-tech football challenge. Build your streak and claim rewards on a secure ledger.
+              Make your picks, build your streak, and qualify for verified rewards.
             </p>
             <Link href="/signup" className="btn-premium">
-              <span>Join Arena</span>
+              <span>JOIN ARENA ↗</span>
             </Link>
           </GlassCard>
         </section>
@@ -278,6 +278,7 @@ export default function LandingPage() {
                   <li><Link href="/faq" className={styles.footerLink}>FAQ & Help</Link></li>
                   <li><Link href="/leaderboard" className={styles.footerLink}>Leaderboards</Link></li>
                   <li><Link href="/security" className={styles.footerLink}>Security Hub</Link></li>
+                  <li><span className={styles.footerComingSoon}>Community Channels: Coming Soon</span></li>
                 </ul>
               </div>
 
@@ -298,9 +299,10 @@ export default function LandingPage() {
                 &copy; {new Date().getFullYear()} NanoPlay. All rights reserved.
               </p>
               <div className={styles.footerBottomBadges}>
-                <span className={styles.footerBottomBadge}>VERIFIED OPERATIONAL</span>
-                <span className={styles.footerBottomBadge}>LEDGER PROTECTED</span>
-                <span className={styles.footerBottomBadge}>VERIFIED ACCESS</span>
+                <span className={styles.footerBottomBadge}>VERIFIED PLATFORM</span>
+                <span className={styles.footerBottomBadge}>WALLET RECORDS PROTECTED</span>
+                <span className={styles.footerBottomBadge}>FAIR-PLAY MONITORING</span>
+                <span className={styles.footerBottomBadge}>MANUAL REWARD REVIEW</span>
               </div>
             </div>
 

@@ -54,7 +54,6 @@ export default function Navbar() {
     { name: "Arena", path: "/arena", icon: Trophy },
     { name: "Dashboard", path: "/dashboard", icon: User },
     { name: "Wallet", path: "/wallet", icon: Wallet },
-    { name: "Referrals", path: "/referrals", icon: Users },
     { name: "Winners", path: "/winners", icon: Award },
     { name: "Rules", path: "/rules", icon: BookOpen },
   ];

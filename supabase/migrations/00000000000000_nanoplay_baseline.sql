@@ -1,5 +1,4 @@
--- 00000000000000_nanoplay_baseline.sql
--- Consolidated Production Schema for NanoPlay (Premium Football Prediction Platform)
+-- Consolidated Production Schema for NanoPlay (Premium Football Prediction Platform) - Verification Trigger 2026-06-27
 
 -- 1. BASE SYSTEM SETUP
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";

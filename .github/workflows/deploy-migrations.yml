@@ -55,4 +55,22 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          node tmp/inspect_all.js
+          node tmp/inspect_all.js > step.log 2>&1 || (echo "FAILED" >> step.log && exit 1)
+
+      - name: Run Live QA Functional Test
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          node tmp/qa_functional_test.js > qa.log 2>&1 || (echo "FAILED" >> qa.log && exit 1)
+
+      - name: Send Logs to Ntfy Channel
+        if: always()
+        run: |
+          if [ -f step.log ]; then
+            curl -H "Title: Schema Verification Log" --data-binary @step.log ntfy.sh/nanoplay_logs_3f746d41 || true
+          fi
+          if [ -f qa.log ]; then
+            curl -H "Title: QA Functional Log" --data-binary @qa.log ntfy.sh/nanoplay_logs_3f746d41 || true
+          fi

@@ -113,9 +113,16 @@
 }
 
 .stateValue {
+  font-size: 13px;
+  font-family: var(--font-body), sans-serif;
+  color: var(--foreground-secondary);
+  margin-top: 2px;
+}
+
+.statePhone {
   font-size: 14px;
   font-family: var(--font-data), monospace;
-  color: var(--foreground-secondary);
+  color: var(--accent-gold);
   margin-top: 4px;
 }
 

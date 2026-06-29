@@ -9,7 +9,7 @@ import { sendOtp as sendSmsOtp, verifyOtp as verifySmsOtp } from "@/lib/sms";
  */
 export async function triggerSendOtp(phone: string) {
   if (!phone || phone.trim() === "") {
-    return { success: false, message: "Phone number is required." };
+    return { ok: false, message: "Phone number is required." };
   }
 
   const supabase = await createClient();
@@ -17,12 +17,16 @@ export async function triggerSendOtp(phone: string) {
   // Get current user session
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) {
-    return { success: false, message: "Unauthorized. Please sign in." };
+    return { ok: false, message: "Unauthorized. Please sign in." };
   }
 
   // Generate and send OTP via SMS abstraction
   const result = await sendSmsOtp(phone.trim(), supabase);
-  return result;
+  return {
+    ok: result.success,
+    message: result.message,
+    code: result.code, // returned in mock mode
+  };
 }
 
 /**
@@ -30,7 +34,7 @@ export async function triggerSendOtp(phone: string) {
  */
 export async function triggerVerifyOtp(phone: string, code: string) {
   if (!phone || !code) {
-    return { success: false, message: "Phone number and code are required." };
+    return { ok: false, message: "Phone number and code are required." };
   }
 
   const supabase = await createClient();
@@ -38,11 +42,15 @@ export async function triggerVerifyOtp(phone: string, code: string) {
   // Get current user session
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) {
-    return { success: false, message: "Unauthorized. Please sign in." };
+    return { ok: false, message: "Unauthorized. Please sign in." };
   }
 
   const result = await verifySmsOtp(phone.trim(), code.trim(), user.id, supabase);
-  return result;
+  return {
+    ok: result.success,
+    message: result.message,
+    phoneVerified: result.success,
+  };
 }
 
 /**

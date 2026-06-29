@@ -26,6 +26,7 @@ export default function SettingsPage() {
   const [otpLoading, setOtpLoading] = useState(false);
   const [otpError, setOtpError] = useState<string | null>(null);
   const [otpSuccess, setOtpSuccess] = useState<string | null>(null);
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   // KYC States
   const [legalName, setLegalName] = useState("");
@@ -48,14 +49,15 @@ export default function SettingsPage() {
       }
 
       const { data } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single();
 
       if (data) {
         setProfile(data);
         setPhone(data.phone || "");
+        setPhoneVerified(!!data.phone_verified);
         setLegalName(data.identity_legal_name || "");
         setDob(data.identity_dob || "");
         setIdType(data.identity_type || "National ID");
@@ -74,18 +76,31 @@ export default function SettingsPage() {
     setOtpError(null);
     setOtpSuccess(null);
 
-    const res = await triggerSendOtp(phone);
-    if (res.success) {
-      setOtpSent(true);
-      setOtpSuccess("Verification code sent successfully.");
-      if (res.code) {
-        // Mock mode shows code in helper tag
-        setOtpSuccess(`[Mock OTP Mode] Code is: ${res.code}`);
+    try {
+      const res = await Promise.race([
+        triggerSendOtp(phone),
+        new Promise<any>((_, reject) => setTimeout(() => reject(new Error("TIMEOUT")), 10000))
+      ]);
+
+      if (res.ok) {
+        setOtpSent(true);
+        setOtpSuccess("Verification code sent successfully.");
+        if (res.code) {
+          // Mock mode shows code in helper tag
+          setOtpSuccess(`[Mock OTP Mode] Code is: ${res.code}`);
+        }
+      } else {
+        setOtpError(res.message || "Failed to send code.");
       }
-    } else {
-      setOtpError(res.message);
+    } catch (err: any) {
+      if (err.message === "TIMEOUT") {
+        setOtpError("Verification is taking longer than expected. Please refresh and check your status.");
+      } else {
+        setOtpError(err.message || "An unexpected error occurred sending OTP.");
+      }
+    } finally {
+      setOtpLoading(false);
     }
-    setOtpLoading(false);
   };
 
   const handleVerifyOtp = async () => {
@@ -93,17 +108,44 @@ export default function SettingsPage() {
     setOtpError(null);
     setOtpSuccess(null);
 
-    const res = await triggerVerifyOtp(phone, otpCode);
-    if (res.success) {
-      setOtpSuccess("Phone number verified successfully.");
-      setOtpSent(false);
-      // Reload profile
-      const { data } = await supabase.from("profiles").select("*").eq("id", profile.id).single();
-      setProfile(data);
-    } else {
-      setOtpError(res.message);
+    try {
+      const res = await Promise.race([
+        triggerVerifyOtp(phone, otpCode),
+        new Promise<any>((_, reject) => setTimeout(() => reject(new Error("TIMEOUT")), 10000))
+      ]);
+
+      if (res.ok || res.phoneVerified) {
+        // Optimistic UI updates
+        setPhoneVerified(true);
+        setOtpSuccess("Phone number verified successfully.");
+        setOtpSent(false);
+        setOtpCode("");
+
+        // Refresh database state in background
+        supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", profile.id)
+          .single()
+          .then(({ data }) => {
+            if (data) {
+              setProfile(data);
+            }
+          });
+
+        router.refresh();
+      } else {
+        setOtpError(res.message || "Invalid or expired verification code.");
+      }
+    } catch (err: any) {
+      if (err.message === "TIMEOUT") {
+        setOtpError("Verification is taking longer than expected. Please refresh and check your status.");
+      } else {
+        setOtpError(err.message || "An unexpected error occurred during verification.");
+      }
+    } finally {
+      setOtpLoading(false);
     }
-    setOtpLoading(false);
   };
 
   const handleKycSubmit = async (e: React.FormEvent) => {
@@ -112,25 +154,32 @@ export default function SettingsPage() {
     setKycError(null);
     setKycSuccess(null);
 
-    const res = await submitKycDetails({
-      legalName,
-      dob,
-      idType,
-      idNumber,
-      bankName,
-      bankAccountNumber,
-      bankAccountName,
-    });
+    try {
+      const res = await submitKycDetails({
+        legalName,
+        dob,
+        idType,
+        idNumber,
+        bankName,
+        bankAccountNumber,
+        bankAccountName,
+      });
 
-    if (res.success) {
-      setKycSuccess("KYC details submitted successfully.");
-      // Reload profile
-      const { data } = await supabase.from("profiles").select("*").eq("id", profile.id).single();
-      setProfile(data);
-    } else {
-      setKycError(res.message);
+      if (res.success) {
+        setKycSuccess("KYC details submitted successfully.");
+        // Reload profile
+        const { data } = await supabase.from("profiles").select("*").eq("id", profile.id).single();
+        if (data) {
+          setProfile(data);
+        }
+      } else {
+        setKycError(res.message || "Failed to submit KYC details.");
+      }
+    } catch (err: any) {
+      setKycError(err.message || "An unexpected error occurred during KYC submission.");
+    } finally {
+      setKycLoading(false);
     }
-    setKycLoading(false);
   };
 
   if (loading) {
@@ -199,12 +248,13 @@ export default function SettingsPage() {
                   Verification is required before you can submit predictions or request payouts.
                 </p>
 
-                {profile?.phone_verified ? (
+                {(phoneVerified || profile?.phone_verified) ? (
                   <div className={styles.verifiedState}>
                     <CheckCircle size={20} className={styles.successIcon} />
                     <div>
-                      <div className={styles.stateTitle}>Phone Verified</div>
-                      <div className={styles.stateValue}>{profile.phone}</div>
+                      <div className={styles.stateTitle}>Phone verified</div>
+                      <div className={styles.stateValue}>Your number is verified. You can now enter active rounds.</div>
+                      <div className={styles.statePhone}>{profile?.phone || phone}</div>
                     </div>
                   </div>
                 ) : (
@@ -274,17 +324,16 @@ export default function SettingsPage() {
 
                 <div className={styles.kycStatusBanner}>
                   <span className={styles.statusLabel}>KYC Status:</span>
-                  {profile?.identity_status === "verified" && (
+                  {profile?.identity_status === "verified" ? (
                     <span className="badge badge-success">Verified</span>
-                  )}
-                  {profile?.identity_status === "pending" && (
+                  ) : profile?.identity_status === "pending" ? (
                     <span className="badge badge-warning">Pending Review</span>
-                  )}
-                  {profile?.identity_status === "rejected" && (
+                  ) : profile?.identity_status === "under_review" ? (
+                    <span className="badge badge-warning">Under Review</span>
+                  ) : profile?.identity_status === "rejected" ? (
                     <span className="badge badge-error">Rejected</span>
-                  )}
-                  {profile?.identity_status === "unverified" && (
-                    <span className="badge badge-info">Not Submitted</span>
+                  ) : (
+                    <span className="badge badge-info">Unverified</span>
                   )}
                 </div>
 

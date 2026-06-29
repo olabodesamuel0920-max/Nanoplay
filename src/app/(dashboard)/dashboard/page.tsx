@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { getOrCreateProfile } from "@/app/actions/verification";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import { User, Wallet, Users, Award, ShieldAlert, CheckCircle, Zap, Trophy, HelpCircle } from "lucide-react";
@@ -32,12 +33,12 @@ export default function DashboardPage() {
       setUser(user);
 
       // Fetch profile
-      const { data: profileData } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-      setProfile(profileData);
+      const res = await getOrCreateProfile();
+      let profileData = null;
+      if (res.ok && res.profile) {
+        profileData = res.profile;
+        setProfile(profileData);
+      }
 
       // Fetch wallet
       const { data: walletData } = await supabase

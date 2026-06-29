@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Button from "@/components/ui/button";
+import { getOrCreateProfile } from "@/app/actions/verification";
 import { Lock, HelpCircle, ShieldAlert, CheckCircle, Trophy, Sparkles, Zap } from "lucide-react";
 import styles from "./page.module.css";
 
@@ -46,12 +47,12 @@ export default function ArenaPage() {
       setUser(user);
 
       // Fetch Profile
-      const { data: profileData } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-      setProfile(profileData);
+      const res = await getOrCreateProfile();
+      let profileData = null;
+      if (res.ok && res.profile) {
+        profileData = res.profile;
+        setProfile(profileData);
+      }
 
       // Fetch Wallet
       const { data: walletData } = await supabase

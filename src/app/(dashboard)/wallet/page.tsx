@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { triggerDeposit, triggerWithdrawal } from "@/app/actions/wallet";
+import { getOrCreateProfile } from "@/app/actions/verification";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
@@ -37,12 +38,12 @@ export default function WalletPage() {
     }
 
     // Fetch Profile details
-    const { data: profileData } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .single();
-    setProfile(profileData);
+    const res = await getOrCreateProfile();
+    let profileData = null;
+    if (res.ok && res.profile) {
+      profileData = res.profile;
+      setProfile(profileData);
+    }
 
     // Fetch Wallet
     const { data: walletData } = await supabase

@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { triggerSendOtp, triggerVerifyOtp, submitKycDetails } from "@/app/actions/verification";
+import { triggerSendOtp, triggerVerifyOtp, submitKycDetails, getOrCreateProfile } from "@/app/actions/verification";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
@@ -42,31 +42,28 @@ export default function SettingsPage() {
 
   useEffect(() => {
     async function loadProfile() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push("/login");
-        return;
+      try {
+        const res = await getOrCreateProfile();
+        if (res.ok && res.profile) {
+          const data = res.profile;
+          setProfile(data);
+          setPhone(data.phone || "");
+          setPhoneVerified(!!data.phone_verified);
+          setLegalName(data.identity_legal_name || "");
+          setDob(data.identity_dob || "");
+          setIdType(data.identity_type || "National ID");
+          setIdNumber(data.identity_number || "");
+          setBankName(data.bank_name || "");
+          setBankAccountNumber(data.bank_account_number || "");
+          setBankAccountName(data.bank_account_name || "");
+        } else {
+          setOtpError(res.message || "Profile setup is incomplete. Please contact support.");
+        }
+      } catch (err: any) {
+        setOtpError("Profile setup is incomplete. Please contact support.");
+      } finally {
+        setLoading(false);
       }
-
-      const { data } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .single();
-
-      if (data) {
-        setProfile(data);
-        setPhone(data.phone || "");
-        setPhoneVerified(!!data.phone_verified);
-        setLegalName(data.identity_legal_name || "");
-        setDob(data.identity_dob || "");
-        setIdType(data.identity_type || "National ID");
-        setIdNumber(data.identity_number || "");
-        setBankName(data.bank_name || "");
-        setBankAccountNumber(data.bank_account_number || "");
-        setBankAccountName(data.bank_account_name || "");
-      }
-      setLoading(false);
     }
     loadProfile();
   }, []);
@@ -122,16 +119,18 @@ export default function SettingsPage() {
         setOtpCode("");
 
         // Refresh database state in background
-        supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", profile.id)
-          .single()
-          .then(({ data }) => {
-            if (data) {
-              setProfile(data);
-            }
-          });
+        if (profile?.id) {
+          supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", profile.id)
+            .single()
+            .then(({ data }) => {
+              if (data) {
+                setProfile(data);
+              }
+            });
+        }
 
         router.refresh();
       } else {
@@ -154,6 +153,12 @@ export default function SettingsPage() {
     setKycError(null);
     setKycSuccess(null);
 
+    if (!profile) {
+      setKycError("Profile setup is incomplete. Please refresh and try again.");
+      setKycLoading(false);
+      return;
+    }
+
     try {
       const res = await submitKycDetails({
         legalName,
@@ -167,11 +172,17 @@ export default function SettingsPage() {
 
       if (res.success) {
         setKycSuccess("Payout verification details submitted successfully.");
-        // Reload profile
-        const { data } = await supabase.from("profiles").select("*").eq("id", profile.id).single();
-        if (data) {
-          setProfile(data);
-        }
+        // Reload profile in background
+        supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", profile.id)
+          .single()
+          .then(({ data }) => {
+            if (data) {
+              setProfile(data);
+            }
+          });
       } else {
         setKycError(res.message || "Failed to submit payout verification details.");
       }

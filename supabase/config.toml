@@ -1,6 +1,3 @@
-[project]
-id = "nanoplay"
-
 [api]
 port = 54321
 schemas = ["public", "graphql_public"]
@@ -22,4 +19,4 @@ enable_signup = true
 
 [auth.sms]
 enable_signup = true
-enable_confirm = true
+enable_confirmations = true

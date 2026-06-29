@@ -1,4 +1,4 @@
--- Create phone_verification_codes table with normalized phone and hashing (run 3)
+-- Create phone_verification_codes table with normalized phone and hashing (run 4)
 DROP TABLE IF EXISTS public.phone_verification_codes CASCADE;
 CREATE TABLE public.phone_verification_codes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

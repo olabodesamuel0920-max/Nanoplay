@@ -240,7 +240,7 @@ export default function WalletPage() {
              <GlassCard className={styles.actionCard}>
               <div className={styles.cardHeader}>
                 <ArrowUpRight className={styles.cardHeaderIcon} />
-                <h3>Fund Wallet {paystackMode === "test" && "(Test Mode)"}</h3>
+                <h3>Fund Wallet{fundingEnabled && paystackMode === "test" ? " (Test Mode)" : ""}</h3>
               </div>
               <p className={styles.cardDesc}>
                 {!fundingEnabled 

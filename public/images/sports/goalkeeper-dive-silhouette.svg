@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600">
+  <defs>
+    <linearGradient id="gk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="50%" stop-color="#050505"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="gkR" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="gkG">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feFlood flood-color="#7dd3fc" flood-opacity="0.15"/>
+      <feComposite in2="b" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#gkG)">
+    <circle cx="280" cy="120" r="32" fill="url(#gk)"/>
+    <polygon points="250,140 190,180 170,200 200,220 260,180 280,160" fill="url(#gk)"/>
+    <polygon points="170,200 120,160 100,140 110,120 150,150 170,170" fill="url(#gk)"/>
+    <circle cx="105" cy="130" r="14" fill="url(#gk)"/>
+    <polygon points="280,160 340,200 360,220 340,240 280,200 260,180" fill="url(#gk)"/>
+    <circle cx="350" cy="230" r="14" fill="url(#gk)"/>
+    <polygon points="200,220 160,280 140,340 160,360 200,300 220,250" fill="url(#gk)"/>
+    <polygon points="160,360 120,400 100,420 120,440 160,400 180,380" fill="url(#gk)"/>
+    <polygon points="220,250 260,300 280,360 260,380 220,320 200,270" fill="url(#gk)"/>
+    <polygon points="260,380 300,420 320,440 300,460 260,420 240,400" fill="url(#gk)"/>
+  </g>
+  <path d="M280 88q32 0 32 32 0 32-10 20l-60 40-20 20 30 20 60-40 20 40 70 40 20 20-20 20-60-40-20 50 40 50 20 60-20 20-40-60-20-50-40 50-40 60-20-20 20-20 40-40 20-20-40 60-40 40-20 20 20 20 40-40 20-20" fill="none" stroke="url(#gkR)" stroke-width="2.5" opacity="0.45"/>
+</svg>

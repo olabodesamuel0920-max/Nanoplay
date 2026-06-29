@@ -2,9 +2,74 @@
 
 .main {
   flex: 1;
-  background: var(--bg-obsidian);
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   padding: 60px 24px;
   position: relative;
+  overflow: hidden;
+}
+
+.goalkeeperSilhouetteBg {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 320px;
+  height: 320px;
+  background-image: url('/images/sports/goalkeeper-dive-silhouette.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.crowdArcBg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-image: url('/images/sports/crowd-arc.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.badgeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  animation: badge-float 6s ease-in-out infinite;
+}
+
+.footballBadge {
+  width: 100%;
+  height: 100%;
+}
+
+.statusOrb {
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  vertical-align: middle;
+  animation: orb-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+  50% { transform: perspective(1000px) rotateY(15deg) translateY(-6px); }
+}
+
+@keyframes orb-pulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(125,211,252,0.4)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 10px rgba(125,211,252,0.8)); transform: scale(1.2); }
 }
 
 .container {
@@ -603,7 +668,9 @@
   .predOption:active,
   .selected,
   .tierCard:hover,
-  .bannerBtn:hover {
+  .bannerBtn:hover,
+  .badgeWrapper,
+  .statusOrb {
     transition: none !important;
     transform: none !important;
     animation: none !important;
@@ -643,4 +710,17 @@
   height: 80px;
   border: 1px solid rgba(132, 204, 22, 0.15);
   border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .goalkeeperSilhouetteBg {
+    display: none !important;
+  }
+  .crowdArcBg {
+    height: 60px;
+  }
+  .badgeWrapper {
+    width: 48px;
+    height: 48px;
+  }
 }

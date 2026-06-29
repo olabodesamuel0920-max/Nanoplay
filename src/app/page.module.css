@@ -91,6 +91,10 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/hero-football-atmosphere.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .heroSportsBg {
@@ -106,55 +110,72 @@
 
 .pitchOverlay {
   position: absolute;
-  top: 5%;
-  left: 2%;
-  right: 2%;
-  bottom: 5%;
-  opacity: 0.05;
-  background-size: contain;
-  background-position: center;
-  filter: blur(0.5px);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35vh;
+  opacity: 0.6;
+  background-image: url('/images/sports/pitch-floor-projection.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
 }
 
 .strikerSilhouette {
   position: absolute;
   bottom: 0;
-  left: 3%;
-  width: 320px;
-  height: 320px;
-  background-image: url('/images/striker.svg');
+  left: 0;
+  width: 400px;
+  height: 400px;
+  background-image: url('/images/sports/player-kick-silhouette.svg');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom left;
-  opacity: 0.04;
-  filter: blur(0.8px);
+  opacity: 0.25;
 }
 
 .goalkeeperSilhouette {
   position: absolute;
-  top: 8%;
+  top: 10%;
   right: 5%;
-  width: 280px;
-  height: 280px;
-  background-image: url('/images/goalkeeper.svg');
+  width: 320px;
+  height: 320px;
+  background-image: url('/images/sports/goalkeeper-dive-silhouette.svg');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top right;
-  opacity: 0.03;
-  filter: blur(1.2px);
+  opacity: 0.15;
 }
 
 .crowdArc {
   position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  left: 0;
   width: 100%;
-  max-width: 1400px;
-  height: 280px;
-  border-radius: 50% 50% 0 0;
-  border-top: 1.5px solid rgba(223, 186, 107, 0.08);
-  background: radial-gradient(50% 50% at 50% 100%, rgba(223, 186, 107, 0.025) 0%, transparent 80%);
+  height: 100px;
+  background-image: url('/images/sports/crowd-arc.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  opacity: 0.8;
+}
+
+.footballBadgeFloating {
+  position: absolute;
+  top: -30px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  background-image: url('/images/sports/football-badge.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 10;
+  animation: badge-float 6s ease-in-out infinite;
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+  50% { transform: perspective(1000px) rotateY(15deg) translateY(-6px); }
 }
 
 .heroGrid {
@@ -1338,6 +1359,28 @@
 @media (max-width: 768px) {
   .heroSection {
     padding: 80px 16px 48px 16px;
+    background-image: linear-gradient(rgba(2, 2, 4, 0.4), rgba(2, 2, 4, 0.4)), url('/images/sports/stadium-light-rays.svg'), url('/images/sports/hero-football-atmosphere.webp');
+  }
+  .strikerSilhouette {
+    opacity: 0.15;
+    width: 250px;
+    height: 250px;
+  }
+  .goalkeeperSilhouette {
+    opacity: 0.10;
+    width: 200px;
+    height: 200px;
+  }
+  .crowdArc {
+    height: 60px;
+  }
+  .pitchOverlay {
+    height: 20vh;
+  }
+  .footballBadgeFloating {
+    transform: scale(0.75);
+    top: -20px;
+    right: -10px;
   }
   .heroTitle {
     font-size: 38px;
@@ -1503,6 +1546,13 @@
   }
 }
 
+@media (max-width: 640px) {
+  .strikerSilhouette,
+  .goalkeeperSilhouette {
+    display: none !important;
+  }
+}
+
 @media (max-width: 1280px) {
   .sideFixtureLeft {
     left: -5%;
@@ -1529,6 +1579,7 @@
   .predBtn:hover,
   .predBtnActive,
   .stadiumFloor,
+  .footballBadgeFloating,
   .main::before,
   .main::after {
     animation: none !important;

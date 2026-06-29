@@ -2,13 +2,98 @@
 
 .main {
   flex: 1;
-  background: var(--bg-obsidian);
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   padding: 40px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.confettiOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/sports/confetti-particles.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.crowdArcBg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-image: url('/images/sports/crowd-arc.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.badgeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  animation: badge-float 6s ease-in-out infinite;
+}
+
+.footballBadge {
+  width: 100%;
+  height: 100%;
+}
+
+.trophySpotlight {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 20px auto;
+  display: block;
+  animation: trophy-glow 4s ease-in-out infinite alternate;
+}
+
+.podiumBadge {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 6px;
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+  50% { transform: perspective(1000px) rotateY(15deg) translateY(-6px); }
+}
+
+@keyframes trophy-glow {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(212, 168, 83, 0.3)); }
+  50% { filter: drop-shadow(0 0 35px rgba(212, 168, 83, 0.6)); }
+}
+
+.noWinnersCard {
+  text-align: center;
+  padding: 64px 32px !important;
+  background-image: url('/images/sports/trophy-glow-card.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 2;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .header {
@@ -21,12 +106,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-}
-
-.awardIcon {
-  color: var(--accent-lime);
-  width: 40px;
-  height: 40px;
 }
 
 .title {
@@ -42,22 +121,8 @@
 
 .winnersSection {
   margin-bottom: 60px;
-}
-
-.noWinnersCard {
-  text-align: center;
-  padding: 64px 32px !important;
-  background-image: url('/images/striker.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 140px auto;
-}
-
-.noWinnersIcon {
-  color: var(--foreground-muted);
-  width: 48px;
-  height: 48px;
-  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .noWinnersCard h3 {
@@ -187,4 +252,25 @@
   height: 24px;
   margin-bottom: 8px;
   filter: drop-shadow(0 0 8px rgba(223, 186, 107, 0.3));
+}
+
+@media (max-width: 768px) {
+  .confettiOverlay {
+    display: none !important;
+  }
+  .trophySpotlight {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 10px;
+  }
+  .crowdArcBg {
+    height: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trophySpotlight,
+  .badgeWrapper {
+    animation: none !important;
+  }
 }

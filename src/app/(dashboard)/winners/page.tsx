@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
-import { Award, ShieldCheck, Trophy } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import styles from "./page.module.css";
 
 export default function WinnersPage() {
@@ -53,11 +53,17 @@ export default function WinnersPage() {
     <>
       <Navbar />
       <main className={styles.main}>
+        {/* Subtle background decoration elements */}
+        <div className={styles.confettiOverlay}></div>
+        <div className={styles.crowdArcBg}></div>
+
         <div className={styles.container}>
           {/* Header */}
           <div className={styles.header}>
             <div className={styles.headerContent}>
-              <Award className={styles.awardIcon} />
+              <div className={styles.badgeWrapper}>
+                <img src="/images/sports/football-badge.svg" className={styles.footballBadge} alt="Football Badge" />
+              </div>
               <div>
                 <h1 className={styles.title}>Hall of Champions</h1>
                 <p className={styles.subtitle}>
@@ -70,7 +76,7 @@ export default function WinnersPage() {
           <div className={styles.winnersSection}>
             {winners.length === 0 ? (
               <GlassCard className={styles.noWinnersCard}>
-                <Trophy className={styles.noWinnersIcon} />
+                <img src="/images/sports/trophy-spotlight.svg" className={styles.trophySpotlight} alt="Trophy Centerpiece" />
                 <h3>No Verified Winners Yet</h3>
                 <p>Verified winners will appear here after the first challenge round is reviewed.</p>
                 <div className={styles.podium}>
@@ -78,7 +84,7 @@ export default function WinnersPage() {
                     <span className={styles.podiumRank}>2</span>
                   </div>
                   <div className={`${styles.podiumStep} ${styles.step1}`}>
-                    <Trophy className={styles.podiumTrophy} />
+                    <img src="/images/sports/football-badge.svg" className={styles.podiumBadge} alt="Podium Badge" />
                     <span className={styles.podiumRank}>1</span>
                   </div>
                   <div className={`${styles.podiumStep} ${styles.step3}`}>

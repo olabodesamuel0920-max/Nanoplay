@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <radialGradient id="og" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#1a5a7a"/>
+    </radialGradient>
+    <radialGradient id="og2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="ob"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="url(#og2)" filter="url(#ob)" opacity="0.5"/>
+  <circle cx="50" cy="50" r="30" fill="url(#og)"/>
+  <polygon points="50,32 62,42 58,56 42,56 38,42" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+  <polygon points="50,36 58,44 55,54 45,54 42,44" fill="none" stroke="#fff" stroke-width="1" opacity="0.4"/>
+  <ellipse cx="40" cy="38" rx="8" ry="12" fill="#fff" opacity="0.25" transform="rotate(-30 40 38)"/>
+  <circle cx="50" cy="50" r="36" fill="none" stroke="#7dd3fc" stroke-width="2" opacity="0.4"/>
+  <circle cx="50" cy="50" r="42" fill="none" stroke="#7dd3fc" stroke-width="1" opacity="0.25"/>
+</svg>

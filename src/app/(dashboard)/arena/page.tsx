@@ -8,7 +8,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Button from "@/components/ui/button";
 import { getOrCreateProfile } from "@/app/actions/verification";
-import { Lock, HelpCircle, ShieldAlert, CheckCircle, Trophy, Sparkles, Zap } from "lucide-react";
+import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap } from "lucide-react";
 import styles from "./page.module.css";
 
 const cleanReward = (rewardStr: string) => {
@@ -256,11 +256,17 @@ export default function ArenaPage() {
     <>
       <Navbar />
       <main className={styles.main}>
+        {/* Subtle background decoration elements */}
+        <div className={styles.goalkeeperSilhouetteBg}></div>
+        <div className={styles.crowdArcBg}></div>
+        
         <div className={styles.container}>
           {/* Header */}
           <div className={styles.header}>
             <div className={styles.headerContent}>
-              <Trophy className={styles.trophyIcon} />
+              <div className={styles.badgeWrapper}>
+                <img src="/images/sports/football-badge.svg" className={styles.footballBadge} alt="Football Badge" />
+              </div>
               <div>
                 <h1 className={styles.title}>Play Arena</h1>
                 <p className={styles.subtitle}>
@@ -271,7 +277,10 @@ export default function ArenaPage() {
             
             {activeRound && (
               <div className={styles.roundInfo}>
-                <span className={styles.roundBadge}>Round #{activeRound.round_number}</span>
+                <span className={styles.roundBadge}>
+                  <img src="/images/sports/matchday-status-orb.svg" className={styles.statusOrb} alt="Active Status Orb" />
+                  Round #{activeRound.round_number}
+                </span>
                 <span className={styles.roundDates}>
                   Ends {new Date(activeRound.end_date).toLocaleDateString()}
                 </span>

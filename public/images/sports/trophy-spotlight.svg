@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="gB" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="25%" stop-color="#D4A853"/>
+      <stop offset="50%" stop-color="#FFD700"/>
+      <stop offset="75%" stop-color="#D4A853"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="gD" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5a4308"/>
+      <stop offset="50%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#5a4308"/>
+    </linearGradient>
+    <radialGradient id="sL" cx="50%" cy="75%" r="55%">
+      <stop offset="0%" stop-color="#D4A853" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#D4A853" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#020204" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="gF">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="256" cy="420" rx="200" ry="70" fill="url(#sL)"/>
+  <rect x="196" y="440" width="120" height="30" rx="4" fill="url(#gD)"/>
+  <rect x="206" y="420" width="100" height="24" rx="3" fill="url(#gB)"/>
+  <rect x="216" y="400" width="80" height="24" rx="2" fill="url(#gD)"/>
+  <rect x="236" y="340" width="40" height="65" fill="url(#gB)"/>
+  <path d="M176 160Q176 300 216 340h80q40-40 40-180z" fill="url(#gB)" filter="url(#gF)"/>
+  <ellipse cx="256" cy="160" rx="82" ry="16" fill="url(#gD)"/>
+  <ellipse cx="256" cy="158" rx="78" ry="13" fill="#0b0b0e"/>
+  <path d="M176 180q-46 20-46 70t46 50" fill="none" stroke="url(#gB)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M176 180q-46 20-46 70t46 50" fill="none" stroke="url(#gD)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M336 180q46 20 46 70t-46 50" fill="none" stroke="url(#gB)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M336 180q46 20 46 70t-46 50" fill="none" stroke="url(#gD)" stroke-width="6" stroke-linecap="round"/>
+  <polygon points="256,220 276,235 276,260 256,275 236,260 236,235" fill="none" stroke="#8B6914" stroke-width="2" opacity="0.6"/>
+  <ellipse cx="220" cy="220" rx="15" ry="40" fill="#fff" opacity="0.12" transform="rotate(-10 220 220)"/>
+  <ellipse cx="290" cy="240" rx="8" ry="25" fill="#fff" opacity="0.08" transform="rotate(5 290 240)"/>
+</svg>

@@ -76,6 +76,7 @@ export default function LandingPage() {
               {/* Stacked depth cards behind main board */}
               <div className={styles.boardBackCard1}></div>
               <div className={styles.boardBackCard2}></div>
+              <div className={styles.footballBadgeFloating}></div>
 
               {/* Side Fixture Card — Left */}
               <div className={`${styles.sideFixture} ${styles.sideFixtureLeft}`}>

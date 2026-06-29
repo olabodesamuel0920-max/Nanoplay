@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="30%" stop-color="#D4A853"/>
+      <stop offset="50%" stop-color="#FFD700"/>
+      <stop offset="70%" stop-color="#D4A853"/>
+      <stop offset="100%" stop-color="#5a4308"/>
+    </linearGradient>
+    <linearGradient id="bd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0b0e"/>
+      <stop offset="100%" stop-color="#020204"/>
+    </linearGradient>
+    <radialGradient id="bc" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#020204"/>
+    </radialGradient>
+    <filter id="bG">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feFlood flood-color="#D4A853" flood-opacity="0.3"/>
+      <feComposite in2="b" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="256" cy="256" r="245" fill="none" stroke="#D4A853" stroke-width="2" opacity="0.3" filter="url(#bG)"/>
+  <circle cx="256" cy="256" r="240" fill="none" stroke="url(#bg)" stroke-width="12"/>
+  <circle cx="256" cy="256" r="228" fill="none" stroke="#020204" stroke-width="4"/>
+  <circle cx="256" cy="256" r="224" fill="url(#bd)"/>
+  <g opacity="0.4">
+    <polygon points="256,120 296,143 296,190 256,213 216,190 216,143" fill="none" stroke="#D4A853" stroke-width="2"/>
+    <polygon points="256,220 296,243 296,290 256,313 216,290 216,243" fill="none" stroke="#D4A853" stroke-width="2"/>
+    <polygon points="256,320 296,343 296,390 256,413 216,390 216,343" fill="none" stroke="#D4A853" stroke-width="2"/>
+    <polygon points="196,170 236,193 236,240 196,263 156,240 156,193" fill="none" stroke="#D4A853" stroke-width="2"/>
+    <polygon points="316,170 356,193 356,240 316,263 276,240 276,193" fill="none" stroke="#D4A853" stroke-width="2"/>
+    <polygon points="196,270 236,293 236,340 196,363 156,340 156,293" fill="none" stroke="#D4A853" stroke-width="2"/>
+    <polygon points="316,270 356,293 356,340 316,363 276,340 276,293" fill="none" stroke="#D4A853" stroke-width="2"/>
+  </g>
+  <polygon points="256,180 300,205 300,255 256,280 212,255 212,205" fill="url(#bc)" stroke="url(#bg)" stroke-width="3"/>
+  <polygon points="256,90 262,108 280,108 266,120 272,138 256,126 240,138 246,120 232,108 250,108" fill="url(#bg)" opacity="0.9"/>
+  <polygon points="120,256 126,274 144,274 130,286 136,304 120,292 104,304 110,286 96,274 114,274" fill="url(#bg)" opacity="0.9"/>
+  <polygon points="392,256 398,274 416,274 402,286 408,304 392,292 376,304 382,286 368,274 386,274" fill="url(#bg)" opacity="0.9"/>
+  <ellipse cx="200" cy="180" rx="50" ry="70" fill="#fff" opacity="0.08" transform="rotate(-30 200 180)"/>
+</svg>

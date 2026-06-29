@@ -95,6 +95,7 @@ export default function DashboardPage() {
     <>
       <Navbar />
       <main className={styles.main}>
+        <div className={styles.pitchFloorBg}></div>
         <div className={styles.container}>
           {/* Welcome row */}
           <div className={styles.welcomeRow}>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 120" width="1920" height="120" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="cg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d0d0d" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#020204" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M-100 120L-100 60Q200 20 480 10 960 0 1440 10 1720 20 2020 60L2020 120Z" fill="url(#cg)"/>
+  <g fill="#0a0a0a" opacity="0.6">
+    <circle cx="100" cy="55" r="5"/><circle cx="147" cy="48" r="4.5"/><circle cx="194" cy="52" r="5.5"/>
+    <circle cx="241" cy="45" r="4"/><circle cx="288" cy="50" r="5"/><circle cx="335" cy="42" r="4.5"/>
+    <circle cx="382" cy="48" r="5"/><circle cx="429" cy="40" r="4"/><circle cx="476" cy="46" r="5.5"/>
+    <circle cx="523" cy="38" r="4.5"/><circle cx="570" cy="44" r="5"/><circle cx="617" cy="36" r="4"/>
+    <circle cx="664" cy="42" r="5.5"/><circle cx="711" cy="34" r="4.5"/><circle cx="758" cy="40" r="5"/>
+    <circle cx="805" cy="32" r="4"/><circle cx="852" cy="38" r="5.5"/><circle cx="899" cy="30" r="4.5"/>
+    <circle cx="946" cy="36" r="5"/><circle cx="993" cy="30" r="4"/><circle cx="1040" cy="36" r="5.5"/>
+    <circle cx="1087" cy="32" r="4.5"/><circle cx="1134" cy="38" r="5"/><circle cx="1181" cy="34" r="4"/>
+    <circle cx="1228" cy="40" r="5.5"/><circle cx="1275" cy="36" r="4.5"/><circle cx="1322" cy="42" r="5"/>
+    <circle cx="1369" cy="38" r="4"/><circle cx="1416" cy="44" r="5.5"/><circle cx="1463" cy="40" r="4.5"/>
+    <circle cx="1510" cy="46" r="5"/><circle cx="1557" cy="42" r="4"/><circle cx="1604" cy="48" r="5.5"/>
+    <circle cx="1651" cy="44" r="4.5"/><circle cx="1698" cy="50" r="5"/><circle cx="1745" cy="46" r="4"/>
+    <circle cx="1792" cy="52" r="5.5"/><circle cx="1839" cy="48" r="4.5"/>
+  </g>
+  <!-- Raised hands -->
+  <g stroke="#0a0a0a" stroke-width="2" opacity="0.4" fill="none" stroke-linecap="round">
+    <path d="M98 50l-4-10M102 50l4-10"/><path d="M286 43l-4-10M290 43l4-10"/>
+    <path d="M474 39l-4-10M478 39l4-10"/><path d="M662 37l-4-10M666 37l4-10"/>
+    <path d="M850 33l-4-10M854 33l4-10"/><path d="M1038 31l-4-10M1042 31l4-10"/>
+    <path d="M1226 35l-4-10M1230 35l4-10"/><path d="M1414 39l-4-10M1418 39l4-10"/>
+    <path d="M1602 43l-4-10M1606 43l4-10"/><path d="M1790 47l-4-10M1794 47l4-10"/>
+  </g>
+</svg>

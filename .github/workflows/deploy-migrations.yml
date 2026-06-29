@@ -37,6 +37,10 @@ jobs:
         run: |
           supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
 
+      - name: Repair Baseline Status
+        run: |
+          supabase migration repair --status applied 00000000000000 || echo "Baseline already repaired"
+
       - name: Dry-Run Migrations
         run: |
           supabase db push --dry-run

@@ -30,7 +30,7 @@ async function verifySchema() {
     },
     {
       table: "phone_verification_codes",
-      columns: ["id", "phone", "code", "expires_at", "attempts", "verified", "created_at"]
+      columns: ["id", "phone", "code_hash", "expires_at", "attempt_count", "used_at", "created_at"]
     },
     {
       table: "security_logs",

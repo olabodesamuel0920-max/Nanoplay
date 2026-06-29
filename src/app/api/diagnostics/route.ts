@@ -1,10 +1,21 @@
 // src/app/api/diagnostics/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  // Protect diagnostics endpoint - allow only authenticated admin@nanoplay.com
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || user.email !== "admin@nanoplay.com") {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+  } catch (authErr) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "NOT_SET";
   const hasServiceKey = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
   

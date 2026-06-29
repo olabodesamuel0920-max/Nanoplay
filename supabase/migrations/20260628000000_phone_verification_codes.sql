@@ -1,5 +1,6 @@
 -- Create phone_verification_codes table with normalized phone and hashing
-CREATE TABLE IF NOT EXISTS public.phone_verification_codes (
+DROP TABLE IF EXISTS public.phone_verification_codes CASCADE;
+CREATE TABLE public.phone_verification_codes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   phone TEXT NOT NULL,

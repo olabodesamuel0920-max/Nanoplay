@@ -150,14 +150,14 @@ export default function DashboardPage() {
           </div>
 
           {/* Verification Warning banner */}
-          {(!profile?.phone_verified || profile?.identity_status !== "verified") && (
+          {!profile?.phone_verified && (
             <div className={styles.verificationBanner}>
               <ShieldAlert className={styles.bannerIcon} />
               <div className={styles.bannerText}>
-                <strong>Security Checklist:</strong> Verify your phone OTP and submit KYC details to qualify for withdrawals and high-tier rewards.
+                <strong>Phone Verification Required:</strong> Verify your phone number via OTP to submit predictions and participate in active rounds.
               </div>
               <Link href="/settings" className="btn-glass">
-                Complete Setup
+                Verify Phone
               </Link>
             </div>
           )}
@@ -211,7 +211,7 @@ export default function DashboardPage() {
               <GlassCard className={styles.profileCard}>
                 <div className={styles.cardHeader}>
                   <User className={styles.cardHeaderIcon} />
-                  <h3>Security & KYC Status</h3>
+                  <h3>Security & Payout Status</h3>
                 </div>
 
                 <div className={styles.profileList}>
@@ -234,18 +234,17 @@ export default function DashboardPage() {
                   </div>
 
                   <div className={styles.profileRow}>
-                    <span>Identity Status (KYC):</span>
-                    {profile?.identity_status === "verified" && (
+                    <span>Payout Verification:</span>
+                    {profile?.identity_status === "verified" ? (
                       <span className="badge badge-success">Verified</span>
-                    )}
-                    {profile?.identity_status === "pending" && (
+                    ) : profile?.identity_status === "pending" ? (
                       <span className="badge badge-warning">Pending Review</span>
-                    )}
-                    {profile?.identity_status === "rejected" && (
+                    ) : profile?.identity_status === "under_review" ? (
+                      <span className="badge badge-warning">Under Review</span>
+                    ) : profile?.identity_status === "rejected" ? (
                       <span className="badge badge-error">Rejected</span>
-                    )}
-                    {profile?.identity_status === "unverified" && (
-                      <span className="badge badge-info">Not Submitted</span>
+                    ) : (
+                      <span className="badge badge-info">Unverified</span>
                     )}
                   </div>
 

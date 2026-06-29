@@ -86,9 +86,9 @@ export default function RulesPage() {
               </div>
               <ul className={styles.list}>
                 <li>When you complete a streak, your entry goes into the <strong>Admin Winner Review Queue</strong>.</li>
-                <li>Admin manually audits your account logs (IP, phone, KYC) before verifying the win.</li>
+                <li>Admin manually audits your account logs (IP, phone, payout details) before verifying the win.</li>
                 <li>Once approved, the round reward is credited to your wallet balance.</li>
-                <li>Payouts require a verified KYC status (Full Name, Date of Birth, ID type, bank details).</li>
+                <li>Payouts require completed payout verification (Full Name, Date of Birth, ID type, bank details).</li>
               </ul>
             </GlassCard>
 

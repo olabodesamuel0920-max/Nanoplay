@@ -109,7 +109,7 @@ export default function WalletPage() {
     if (profile?.identity_status !== "verified") {
       setWalletMessage({
         type: "error",
-        text: "KYC Required: Your identity status must be verified before you can request payouts.",
+        text: "Complete payout verification to request withdrawals.",
       });
       return;
     }
@@ -246,7 +246,7 @@ export default function WalletPage() {
                   </div>
                 ) : (
                   <div className={styles.bankDetailsMissing}>
-                    Bank accounts are verified after KYC review approval.
+                    Complete payout verification to request withdrawals.
                   </div>
                 )}
 

@@ -201,7 +201,7 @@ export default function SettingsPage() {
           <div className={styles.header}>
             <h1 className={styles.title}>Account Verification</h1>
             <p className={styles.subtitle}>
-              Verify your identity and phone number to participate and request payouts safely.
+              Verify your phone to enter prediction rounds. Complete payout verification only when you want to request withdrawals.
             </p>
           </div>
 
@@ -245,7 +245,7 @@ export default function SettingsPage() {
                 </div>
 
                 <p className={styles.cardDesc}>
-                  Verification is required before you can submit predictions or request payouts.
+                  Verifying your phone helps keep referrals fair and prevents duplicate accounts.
                 </p>
 
                 {(phoneVerified || profile?.phone_verified) ? (
@@ -253,7 +253,7 @@ export default function SettingsPage() {
                     <CheckCircle size={20} className={styles.successIcon} />
                     <div>
                       <div className={styles.stateTitle}>Phone verified</div>
-                      <div className={styles.stateValue}>Your number is verified. You can now enter active rounds.</div>
+                      <div className={styles.stateValue}>Your number is verified. You can enter active rounds and use referrals.</div>
                       <div className={styles.statePhone}>{profile?.phone || phone}</div>
                     </div>
                   </div>
@@ -319,8 +319,12 @@ export default function SettingsPage() {
               <GlassCard className={styles.card}>
                 <div className={styles.cardHeader}>
                   <Landmark className={styles.cardIcon} />
-                  <h3 className={styles.cardTitle}>Identity & Bank Verification</h3>
+                  <h3 className={styles.cardTitle}>Payout Verification</h3>
                 </div>
+
+                <p className={styles.cardDesc}>
+                  Only needed when you want to request withdrawals or receive approved rewards.
+                </p>
 
                 <div className={styles.kycStatusBanner}>
                   <span className={styles.statusLabel}>KYC Status:</span>

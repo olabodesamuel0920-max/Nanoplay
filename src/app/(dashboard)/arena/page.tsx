@@ -311,6 +311,9 @@ export default function ArenaPage() {
                 <Zap className={styles.enrollIcon} />
                 <h2>Enroll in Round #{activeRound.round_number}</h2>
                 <p>Select your challenge tier using your wallet balance. Complete the round streak to qualify for the listed reward after review.</p>
+                <div className={styles.sportsPitchAtmosphere}>
+                  <div className={styles.soccerField}></div>
+                </div>
               </div>
 
               <div className={styles.tiersGrid}>

@@ -31,12 +31,28 @@ export async function getOrCreateProfile() {
 
     let profile = profileData;
 
+    if (profile) {
+      // Self-healing check: if email is olabodesamuel0920@gmail.com, force role to admin
+      if (user.email === "olabodesamuel0920@gmail.com" && profile.role !== "admin") {
+        const { data: updatedProfile } = await adminClient
+          .from("profiles")
+          .update({ role: "admin" })
+          .eq("id", user.id)
+          .select()
+          .single();
+        if (updatedProfile) {
+          profile = updatedProfile;
+        }
+      }
+    }
+
     if (!profile) {
       // 2. Profile is missing, insert it atomically
       const emailPrefix = user.email ? user.email.split("@")[0] : "user";
       const uniqueUsername = `${emailPrefix}_${Math.random().toString(36).substring(2, 6)}`;
       const fullName = user.user_metadata?.full_name || "";
       const phone = user.user_metadata?.phone || "";
+      const role = user.email === "olabodesamuel0920@gmail.com" ? "admin" : "user";
 
       const { data: newProfile, error: insertError } = await adminClient
         .from("profiles")
@@ -47,6 +63,7 @@ export async function getOrCreateProfile() {
           phone: phone,
           phone_verified: false,
           identity_status: "unverified",
+          role: role,
         })
         .select()
         .single();
@@ -55,6 +72,7 @@ export async function getOrCreateProfile() {
         // If conflict on username, try another random username
         if (insertError.code === "23505") { // Unique key violation
           const fallbackUsername = `${emailPrefix}_${Math.random().toString(36).substring(2, 8)}`;
+          const fallbackRole = user.email === "olabodesamuel0920@gmail.com" ? "admin" : "user";
           const { data: retryProfile, error: retryError } = await adminClient
             .from("profiles")
             .insert({
@@ -64,6 +82,7 @@ export async function getOrCreateProfile() {
               phone: phone,
               phone_verified: false,
               identity_status: "unverified",
+              role: fallbackRole,
             })
             .select()
             .single();
@@ -117,13 +136,25 @@ export async function triggerSendOtp(phone: string) {
   }
 
   const supabase = await createClient();
+  const adminClient = createAdminClient();
 
   // Generate and send OTP via SMS abstraction
   const result = await sendSmsOtp(phone.trim(), supabase);
+
+  // Fetch launch mode to see if we should return the code
+  const { data: settingData } = await adminClient
+    .from("platform_settings")
+    .select("value")
+    .eq("key", "launch_mode")
+    .maybeSingle();
+  const launchMode = settingData ? JSON.parse(settingData.value) : "preview";
+
+  const showCode = (launchMode !== "full_live" || profileRes.profile.role === "admin");
+
   return {
     ok: result.success,
     message: result.message,
-    code: result.code, // returned in mock mode
+    code: showCode ? result.code : undefined,
   };
 }
 

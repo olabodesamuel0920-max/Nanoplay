@@ -22,6 +22,7 @@ export default function AdminKycPayoutsPage() {
   const [kycPending, setKycPending] = useState<any[]>([]);
   const [payoutPending, setPayoutPending] = useState<any[]>([]);
   const [winnersPending, setWinnersPending] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<any[]>([]);
 
   // Action Inputs
   const [kycNotes, setKycNotes] = useState<{ [userId: string]: string }>({});
@@ -32,6 +33,22 @@ export default function AdminKycPayoutsPage() {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const loadQueuesData = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role !== "admin") {
+      router.push("/dashboard");
+      return;
+    }
+
     // 1. Fetch pending KYC users
     const { data: kycData } = await supabase
       .from("profiles")
@@ -76,6 +93,26 @@ export default function AdminKycPayoutsPage() {
       .eq("verified", false)
       .order("created_at", { ascending: true });
     setWinnersPending(winnersData || []);
+
+    // 4. Fetch latest wallet transactions joined with profile username
+    const { data: txsData } = await supabase
+      .from("wallet_transactions")
+      .select(`
+        id,
+        amount,
+        type,
+        reference,
+        status,
+        created_at,
+        wallet:wallet_id (
+          profiles:user_id (
+            username
+          )
+        )
+      `)
+      .order("created_at", { ascending: false })
+      .limit(50);
+    setTransactions(txsData || []);
 
     setLoading(false);
   };
@@ -415,6 +452,55 @@ export default function AdminKycPayoutsPage() {
                 ))}
               </div>
             )}
+          </div>
+
+          {/* Section 4: Transaction Ledger Audit Log */}
+          <div className={styles.section} style={{ marginTop: "40px" }}>
+            <div className={styles.sectionTitle}>Transaction Ledger Audit Log (Latest 50)</div>
+            <GlassCard className={styles.tableCard} hoverEffect={false}>
+              {transactions.length === 0 ? (
+                <div className={styles.noItems}>No transaction records found.</div>
+              ) : (
+                <div className={styles.tableWrapper}>
+                  <table className={styles.table} style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr>
+                        <th style={{ textAlign: "left", padding: "12px 16px" }}>Date</th>
+                        <th style={{ textAlign: "left", padding: "12px 16px" }}>User</th>
+                        <th style={{ textAlign: "left", padding: "12px 16px" }}>Type</th>
+                        <th style={{ textAlign: "left", padding: "12px 16px" }}>Reference</th>
+                        <th style={{ textAlign: "left", padding: "12px 16px" }}>Amount</th>
+                        <th style={{ textAlign: "left", padding: "12px 16px" }}>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {transactions.map((tx) => {
+                        const isCredit = tx.amount >= 0;
+                        const userObj = tx.wallet?.profiles;
+                        const username = userObj ? (Array.isArray(userObj) ? userObj[0]?.username : (userObj as any).username) : "Unknown User";
+
+                        return (
+                          <tr key={tx.id} style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                            <td style={{ padding: "12px 16px" }}>{new Date(tx.created_at).toLocaleDateString()}</td>
+                            <td style={{ padding: "12px 16px" }} className="font-data">{username}</td>
+                            <td style={{ padding: "12px 16px" }}>{tx.type.toUpperCase()}</td>
+                            <td style={{ padding: "12px 16px" }} className="font-data">{tx.reference || "N/A"}</td>
+                            <td className="font-data" style={{ padding: "12px 16px", color: isCredit ? "var(--accent-lime)" : "#ef4444", fontWeight: "bold" }}>
+                              {isCredit ? "+" : ""}NGN {tx.amount.toLocaleString()}
+                            </td>
+                            <td style={{ padding: "12px 16px" }}>
+                              <span className={tx.status === "confirmed" ? "badge badge-success" : tx.status === "pending" ? "badge badge-warning" : "badge badge-error"}>
+                                {tx.status}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </GlassCard>
           </div>
         </div>
       </main>

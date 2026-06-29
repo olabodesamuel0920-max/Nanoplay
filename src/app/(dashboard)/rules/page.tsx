@@ -104,6 +104,15 @@ export default function RulesPage() {
               </ul>
             </GlassCard>
           </div>
+
+          <div style={{ marginTop: "32px", padding: "20px 24px", background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border-glass)", borderRadius: "12px", textAlign: "center" }}>
+            <p style={{ fontSize: "12px", color: "var(--foreground-muted)", lineHeight: "1.6" }}>
+              <strong>Public Disclaimer:</strong> NanoPlay is an independent sports gaming arena. We are not affiliated, associated, authorized, or in any way officially connected with FIFA, UEFA, European Premier League, or any professional football clubs or players. All team names, marks, and visuals used inside the arena are generic.
+            </p>
+            <p style={{ fontSize: "12px", color: "var(--foreground-secondary)", marginTop: "8px" }}>
+              For support inquiries, reach out to <strong>{process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@nanoplay.com"}</strong> or WhatsApp: <strong>{process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "+2348000000000"}</strong>.
+            </p>
+          </div>
         </div>
       </main>
     </>

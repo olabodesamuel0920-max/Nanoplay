@@ -23,6 +23,7 @@ export default function AdminSecurityPage() {
   const [users, setUsers] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedUserDetails, setSelectedUserDetails] = useState<{ walletBalance: number; referralCount: number; payoutStatus: string } | null>(null);
   
   // Action state
   const [adminNotes, setAdminNotes] = useState("");
@@ -30,6 +31,22 @@ export default function AdminSecurityPage() {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const loadSecurityData = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role !== "admin") {
+      router.push("/dashboard");
+      return;
+    }
+
     // Fetch all users with security parameters
     const { data } = await supabase
       .from("profiles")
@@ -42,6 +59,35 @@ export default function AdminSecurityPage() {
   useEffect(() => {
     loadSecurityData();
   }, []);
+
+  useEffect(() => {
+    async function loadUserDetails() {
+      if (!selectedUser) {
+        setSelectedUserDetails(null);
+        return;
+      }
+
+      // Fetch Wallet Balance
+      const { data: walletData } = await supabase
+        .from("wallets")
+        .select("balance_ngn")
+        .eq("user_id", selectedUser.id)
+        .maybeSingle();
+
+      // Fetch Referral Count
+      const { count: refCount } = await supabase
+        .from("referrals")
+        .select("*", { count: "exact", head: true })
+        .eq("referrer_id", selectedUser.id);
+
+      setSelectedUserDetails({
+        walletBalance: walletData?.balance_ngn || 0,
+        referralCount: refCount || 0,
+        payoutStatus: selectedUser.identity_status || "unverified",
+      });
+    }
+    loadUserDetails();
+  }, [selectedUser]);
 
   const handleUpdateStatus = async (userId: string, newStatus: "active" | "suspended" | "under_review") => {
     if (adminNotes.trim() === "") {
@@ -231,6 +277,20 @@ export default function AdminSecurityPage() {
                     <div className={styles.indicatorItem}>
                       <span>Normalized Phone:</span>
                       <strong className="font-data">{selectedUser.normalized_phone || "N/A"}</strong>
+                    </div>
+                    <div className={styles.indicatorItem}>
+                      <span>Wallet Balance:</span>
+                      <strong className="font-data">NGN {selectedUserDetails ? selectedUserDetails.walletBalance.toLocaleString() : "..."}</strong>
+                    </div>
+                    <div className={styles.indicatorItem}>
+                      <span>Referral Count:</span>
+                      <strong className="font-data">{selectedUserDetails ? selectedUserDetails.referralCount : "..."} referrals</strong>
+                    </div>
+                    <div className={styles.indicatorItem}>
+                      <span>Payout Status:</span>
+                      <strong style={{ color: selectedUser.identity_status === "verified" ? "var(--status-success)" : selectedUser.identity_status === "pending" ? "var(--accent-gold)" : "var(--foreground-muted)" }}>
+                        {selectedUser.identity_status ? selectedUser.identity_status.toUpperCase() : "UNVERIFIED"}
+                      </strong>
                     </div>
                     <div className={styles.indicatorItem}>
                       <span>Device Fingerprint:</span>

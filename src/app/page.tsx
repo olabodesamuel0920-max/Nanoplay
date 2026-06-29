@@ -372,9 +372,14 @@ export default function LandingPage() {
 
             {/* Bottom copyright and status tags */}
             <div className={styles.footerBottom}>
-              <p className={styles.footerCopyright}>
-                &copy; {new Date().getFullYear()} NanoPlay. All rights reserved.
-              </p>
+              <div>
+                <p className={styles.footerCopyright}>
+                  &copy; {new Date().getFullYear()} NanoPlay. All rights reserved.
+                </p>
+                <p style={{ fontSize: "11px", color: "var(--foreground-muted)", marginTop: "8px", maxWidth: "800px", lineHeight: "1.5" }}>
+                  Disclaimer: NanoPlay is an independent sports prediction challenge platform. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with FIFA, UEFA, Champions League, Premier League, or any football clubs or players. All team names and match information are generic representations used strictly for gameplay description.
+                </p>
+              </div>
               <div className={styles.footerBottomBadges}>
                 <span className={styles.footerBottomBadge}>Verified Platform</span>
                 <span className={styles.footerBottomBadge}>Wallet Records Protected</span>

@@ -131,3 +131,60 @@
   font-size: 13px;
   font-weight: 600;
 }
+
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  max-width: 320px;
+  margin: 32px auto 0 auto;
+  height: 120px;
+}
+
+.podiumStep {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 12px;
+  position: relative;
+}
+
+.step1 {
+  height: 100px;
+  border-color: var(--border-gold);
+  background: linear-gradient(to top, rgba(223, 186, 107, 0.05), rgba(255, 255, 255, 0.01));
+}
+
+.step2 {
+  height: 70px;
+}
+
+.step3 {
+  height: 50px;
+}
+
+.podiumRank {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--foreground-muted);
+}
+
+.step1 .podiumRank {
+  color: var(--accent-gold);
+}
+
+.podiumTrophy {
+  color: var(--accent-gold);
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 8px rgba(223, 186, 107, 0.3));
+}

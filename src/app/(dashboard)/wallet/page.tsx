@@ -22,6 +22,10 @@ export default function WalletPage() {
   const [transactions, setTransactions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Platform configs
+  const [fundingEnabled, setFundingEnabled] = useState(false);
+  const [paystackMode, setPaystackMode] = useState("disabled");
+
   // Forms
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
@@ -62,36 +66,76 @@ export default function WalletPage() {
         .order("created_at", { ascending: false });
       setTransactions(txs || []);
     }
+
+    // Fetch platform configurations
+    const { data: platformSettings } = await supabase
+      .from("platform_settings")
+      .select("key,value");
+
+    const settingsMap: { [key: string]: any } = {};
+    platformSettings?.forEach((s: any) => {
+      try {
+        settingsMap[s.key] = JSON.parse(s.value);
+      } catch {
+        settingsMap[s.key] = s.value;
+      }
+    });
+
+    setFundingEnabled(settingsMap["wallet_funding_enabled"] || false);
+    setPaystackMode(settingsMap["paystack_mode"] || "disabled");
     setLoading(false);
   };
 
   useEffect(() => {
     loadWalletData();
+
+    // Check Paystack redirect redirect parameter notifications
+    const searchParams = new URLSearchParams(window.location.search);
+    const status = searchParams.get("status");
+    const msg = searchParams.get("message");
+
+    if (status === "success") {
+      setWalletMessage({ type: "success", text: "Wallet successfully funded!" });
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (status === "failed") {
+      setWalletMessage({ type: "error", text: msg || "Transaction verification failed." });
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
   }, []);
 
   const handleDeposit = async (e: React.FormEvent) => {
     e.preventDefault();
     const amountVal = parseInt(depositAmount);
-    if (isNaN(amountVal) || amountVal <= 0) {
-      setWalletMessage({ type: "error", text: "Please enter a valid deposit amount." });
+    if (isNaN(amountVal) || ![5000, 10000, 20000].includes(amountVal)) {
+      setWalletMessage({ type: "error", text: "Allowed deposit amounts are NGN 5,000, NGN 10,000, or NGN 20,000." });
       return;
     }
 
     setActionLoading(true);
     setWalletMessage(null);
 
-    // Simulate Paystack duplicate reference protection by generating a unique reference
-    const paystackRef = `pstk_ref_${Math.random().toString(36).substr(2, 9)}`;
+    try {
+      const response = await fetch("/api/paystack/initialize", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: amountVal }),
+      });
 
-    const res = await triggerDeposit(amountVal, paystackRef);
-    if (res.success) {
-      setWalletMessage({ type: "success", text: res.message });
-      setDepositAmount("");
-      await loadWalletData();
-    } else {
-      setWalletMessage({ type: "error", text: res.message });
+      const res = await response.json();
+      if (res.success && res.authorization_url) {
+        setDepositAmount("");
+        // Redirect user to Paystack checkout URL
+        window.location.href = res.authorization_url;
+      } else {
+        setWalletMessage({ type: "error", text: res.message || "Failed to initialize deposit." });
+      }
+    } catch (err: any) {
+      setWalletMessage({ type: "error", text: err.message || "An unexpected error occurred." });
+    } finally {
+      setActionLoading(false);
     }
-    setActionLoading(false);
   };
 
   const handleWithdrawal = async (e: React.FormEvent) => {
@@ -193,13 +237,17 @@ export default function WalletPage() {
           {/* Action panels: Fund / Withdraw */}
           <div className={styles.actionsGrid}>
             {/* Deposit Panel */}
-            <GlassCard className={styles.actionCard}>
+             <GlassCard className={styles.actionCard}>
               <div className={styles.cardHeader}>
                 <ArrowUpRight className={styles.cardHeaderIcon} />
-                <h3>Fund Wallet</h3>
+                <h3>Fund Wallet {paystackMode === "test" && "(Test Mode)"}</h3>
               </div>
               <p className={styles.cardDesc}>
-                Wallet funding is currently in launch review. Please check back when funding opens.
+                {!fundingEnabled 
+                  ? "Wallet funding is currently in launch review. Please check back when funding opens." 
+                  : paystackMode === "test" 
+                    ? "Test funding enabled. Enter NGN 5,000, NGN 10,000, or NGN 20,000 to initiate a test transaction."
+                    : "Deposit funds to increase your available balance."}
               </p>
 
               <form onSubmit={handleDeposit} className={styles.form}>
@@ -211,10 +259,20 @@ export default function WalletPage() {
                   onChange={(e) => setDepositAmount(e.target.value)}
                   min={100}
                   required
-                  disabled={true}
+                  disabled={!fundingEnabled}
                 />
-                <Button type="submit" variant="premium" loading={actionLoading} disabled={true} className={styles.submitBtn}>
-                  Funding Opening Soon
+                <Button 
+                  type="submit" 
+                  variant="premium" 
+                  loading={actionLoading} 
+                  disabled={!fundingEnabled} 
+                  className={styles.submitBtn}
+                >
+                  {!fundingEnabled 
+                    ? "Funding Opening Soon" 
+                    : paystackMode === "test" 
+                      ? "Initiate Test Payment" 
+                      : "Fund Wallet"}
                 </Button>
               </form>
             </GlassCard>
@@ -335,6 +393,15 @@ export default function WalletPage() {
                 </div>
               )}
             </GlassCard>
+          </div>
+
+          <div style={{ marginTop: "32px", padding: "20px 24px", background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border-glass)", borderRadius: "12px", textAlign: "center" }}>
+            <p style={{ fontSize: "11px", color: "var(--foreground-muted)", lineHeight: "1.6" }}>
+              Disclaimer: NanoPlay is an independent sports prediction challenge platform. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with FIFA, UEFA, Champions League, Premier League, or any football clubs or players. All team names and match information are generic representations used strictly for gameplay description.
+            </p>
+            <p style={{ fontSize: "12px", color: "var(--foreground-secondary)", marginTop: "8px" }}>
+              For support inquiries, reach out to <strong>{process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@nanoplay.com"}</strong> or WhatsApp: <strong>{process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "+2348000000000"}</strong>.
+            </p>
           </div>
         </div>
       </main>

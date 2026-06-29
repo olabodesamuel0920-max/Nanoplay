@@ -1,0 +1,22 @@
+# Phase 2L-B: Persistent Phone Verification + Payout Verification Null Profile Fix
+
+- [x] Confirm profile schema relationship
+  - [x] Primary lookup relation confirmed: `profiles.id = auth.users.id`
+- [x] Safely use Admin Client inside Server Actions
+  - [x] Validate authenticated sessions first before bypassing RLS
+  - [x] Prevent client-side ID injection or parameter tampering
+- [x] Implement Idempotent `getOrCreateProfile()`
+  - [x] Query profile row first, inserting only if missing
+  - [x] Auto-generate unique username and resolve conflicts
+  - [x] Verify wallet existence, preventing balance resets to 0
+- [x] Ensure Phone Verification status persists in Database
+  - [x] Update profiles table using admin client inside `verifyOtp`
+  - [x] Read verified values from database on page reload/navigation
+- [x] Prevent null profile crashes in Payout Submit
+  - [x] Check for profile existence first, returning clean error alerts if null
+  - [x] Eliminate dual success/error messages by refetching in background asynchronously
+  - [x] Clear previous alerts and set loading states before any OTP or payout verification submission
+- [x] Verification checks
+  - [x] Run `npm run lint`
+  - [x] Run `npm run build`
+  - [x] Push commits to main branch

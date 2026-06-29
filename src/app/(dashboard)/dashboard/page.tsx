@@ -99,8 +99,11 @@ export default function DashboardPage() {
           {/* Welcome row */}
           <div className={styles.welcomeRow}>
             <div>
-              <h1 className={styles.title}>Welcome back, {profile?.username || "Player"}</h1>
-              <p className={styles.subtitle}>
+              <h1 className={styles.title}>WELCOME BACK</h1>
+              <p style={{ fontSize: "14px", color: "var(--accent-gold)", fontWeight: "600", marginTop: "2px", textTransform: "lowercase" }}>
+                {profile?.username || "player"}
+              </p>
+              <p className={styles.subtitle} style={{ marginTop: "4px" }}>
                 Track your active challenges, streak stats, and account limits.
               </p>
             </div>

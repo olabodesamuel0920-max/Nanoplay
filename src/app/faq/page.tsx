@@ -70,6 +70,36 @@ export default function FAQPage() {
               );
             })}
           </div>
+
+          {/* Support Channels & Trust Disclaimers */}
+          <div style={{ marginTop: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
+            <GlassCard style={{ padding: "24px" }}>
+              <h3 style={{ fontSize: "18px", fontWeight: "900", marginBottom: "12px", color: "var(--accent-gold)" }}>Contact Support</h3>
+              <p style={{ fontSize: "14px", color: "var(--foreground-secondary)", marginBottom: "16px" }}>
+                Our customer experience team is available to assist you with phone verifications, transaction audits, or account reviews.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "14px" }}>
+                <div>
+                  <span style={{ color: "var(--foreground-muted)" }}>Email Support:</span>{" "}
+                  <strong style={{ color: "var(--foreground-primary)" }}>{process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@nanoplay.com"}</strong>
+                </div>
+                <div>
+                  <span style={{ color: "var(--foreground-muted)" }}>WhatsApp chat:</span>{" "}
+                  <strong style={{ color: "var(--foreground-primary)" }}>{process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "+2348000000000"}</strong>
+                </div>
+              </div>
+            </GlassCard>
+
+            <GlassCard style={{ padding: "24px" }}>
+              <h3 style={{ fontSize: "18px", fontWeight: "900", marginBottom: "12px", color: "var(--accent-cyan)" }}>Fair Play & Integrity</h3>
+              <ul style={{ paddingLeft: "20px", fontSize: "13px", color: "var(--foreground-secondary)", lineHeight: "1.6", display: "flex", flexDirection: "column", gap: "8px" }}>
+                <li>Rewards are subject to manual security audit and verification reviews before being approved and credited.</li>
+                <li>Payout verification (identity/bank registration) is strictly required to request and execute wallet withdrawals.</li>
+                <li>Phone number verification prevents duplicate entry abuses and protects round registration allocations.</li>
+                <li>NanoPlay is not affiliated with FIFA, UEFA, European Leagues, or any professional football clubs.</li>
+              </ul>
+            </GlassCard>
+          </div>
         </div>
       </main>
     </>

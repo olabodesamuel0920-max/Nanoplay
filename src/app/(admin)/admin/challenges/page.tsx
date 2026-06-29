@@ -49,6 +49,22 @@ export default function AdminChallengesPage() {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const loadChallengesData = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role !== "admin") {
+      router.push("/dashboard");
+      return;
+    }
+
     // Fetch active/upcoming rounds
     const { data: roundsData } = await supabase
       .from("challenge_rounds")

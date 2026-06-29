@@ -73,6 +73,18 @@ export default function WinnersPage() {
                 <Trophy className={styles.noWinnersIcon} />
                 <h3>No Verified Winners Yet</h3>
                 <p>Verified winners will appear here after the first challenge round is reviewed.</p>
+                <div className={styles.podium}>
+                  <div className={`${styles.podiumStep} ${styles.step2}`}>
+                    <span className={styles.podiumRank}>2</span>
+                  </div>
+                  <div className={`${styles.podiumStep} ${styles.step1}`}>
+                    <Trophy className={styles.podiumTrophy} />
+                    <span className={styles.podiumRank}>1</span>
+                  </div>
+                  <div className={`${styles.podiumStep} ${styles.step3}`}>
+                    <span className={styles.podiumRank}>3</span>
+                  </div>
+                </div>
               </GlassCard>
             ) : (
               <GlassCard className={styles.tableCard} hoverEffect={false}>

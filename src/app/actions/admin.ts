@@ -18,7 +18,10 @@ async function assertAdmin(supabase: any) {
     .eq("id", user.id)
     .single();
 
-  if (profileError || profile?.role !== "admin") {
+  const adminEmails = (process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim().toLowerCase());
+  const isEmailAdmin = user.email && adminEmails.includes(user.email.toLowerCase());
+
+  if (profile?.role !== "admin" && !isEmailAdmin) {
     throw new Error("Unauthorized: Administrator access required.");
   }
 

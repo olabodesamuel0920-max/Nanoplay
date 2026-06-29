@@ -38,33 +38,13 @@ jobs:
         run: |
           supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
 
-      - name: Repair Baseline Status
-        run: |
-          supabase migration repair --status reverted 00000000000000 || echo "Baseline already reverted"
-
       - name: Dry-Run Migrations
         run: |
-          if ! supabase db push --dry-run > dry_run.log 2>&1; then
-            cat dry_run.log
-            git config --global user.name "GitHub Actions"
-            git config --global user.email "actions@github.com"
-            git add dry_run.log
-            git commit -m "chore: dump dry-run logs [skip ci]" || true
-            git push origin main || true
-            exit 1
-          fi
+          supabase db push --dry-run
 
       - name: Push Migrations to Production
         run: |
-          if ! supabase db push > push_run.log 2>&1; then
-            cat push_run.log
-            git config --global user.name "GitHub Actions"
-            git config --global user.email "actions@github.com"
-            git add push_run.log
-            git commit -m "chore: dump push logs [skip ci]" || true
-            git push origin main || true
-            exit 1
-          fi
+          supabase db push
 
       - name: Install Verification Dependencies
         run: |

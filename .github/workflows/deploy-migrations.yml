@@ -43,7 +43,15 @@ jobs:
 
       - name: Dry-Run Migrations
         run: |
-          supabase db push --dry-run
+          if ! supabase db push --dry-run > dry_run.log 2>&1; then
+            cat dry_run.log
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "actions@github.com"
+            git add dry_run.log
+            git commit -m "chore: dump dry-run logs [skip ci]" || true
+            git push origin main || true
+            exit 1
+          fi
 
       - name: Push Migrations to Production
         run: |

@@ -1,4 +1,5 @@
 -- Migration: Fix phone_verification_codes table schema on production
+-- Trigger workflow run
 -- 1. Create table if it doesn't exist
 CREATE TABLE IF NOT EXISTS public.phone_verification_codes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

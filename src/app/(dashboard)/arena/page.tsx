@@ -321,7 +321,7 @@ export default function ArenaPage() {
             /* Matches / Prediction Form View */
             <div className={styles.arenaGrid}>
               <div className={styles.matchesColumn}>
-                <div className={styles.sectionTitle}>Round Predictions</div>
+                <div className={styles.sectionTitle}>Today&apos;s Challenge</div>
                 <div className={styles.matchesList}>
                   {matches.map((match, index) => {
                     const isLocked = new Date(match.kickoff_time) < new Date();
@@ -407,7 +407,7 @@ export default function ArenaPage() {
               {/* Sidebar Info */}
               <div className={styles.sidebarColumn}>
                 <GlassCard className={styles.rulesCard}>
-                  <h3 className={styles.rulesTitle}>Arena Play Rules</h3>
+                  <h3 className={styles.rulesTitle}>Matchday Rules</h3>
                   <ul className={styles.rulesList}>
                     <li>Select one outcome (1, X, 2) for all 3 matches.</li>
                     <li>Predictions are automatically locked at kickoff of each match.</li>

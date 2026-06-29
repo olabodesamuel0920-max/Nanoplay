@@ -14,13 +14,14 @@
   position: absolute;
   top: 0;
   left: 5%;
-  width: 250px;
-  height: 700px;
-  background: linear-gradient(135deg, rgba(223, 186, 107, 0.04), transparent 70%);
+  width: 300px;
+  height: 800px;
+  background: linear-gradient(135deg, rgba(223, 186, 107, 0.07), transparent 70%);
   clip-path: polygon(0 0, 100% 0, 40% 100%, 0% 100%);
   filter: blur(50px);
   pointer-events: none;
   z-index: 1;
+  animation: swayLeft 15s ease-in-out infinite alternate;
 }
 
 .main::after {
@@ -28,13 +29,24 @@
   position: absolute;
   top: 0;
   right: 5%;
-  width: 250px;
-  height: 700px;
-  background: linear-gradient(-135deg, rgba(125, 211, 252, 0.035), transparent 70%);
+  width: 300px;
+  height: 800px;
+  background: linear-gradient(-135deg, rgba(125, 211, 252, 0.06), transparent 70%);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%);
   filter: blur(50px);
   pointer-events: none;
   z-index: 1;
+  animation: swayRight 15s ease-in-out infinite alternate;
+}
+
+@keyframes swayLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(20px); }
+}
+
+@keyframes swayRight {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-20px); }
 }
 
 /* Background glows with shifting animations */
@@ -45,7 +57,7 @@
   transform: translateX(-50%);
   width: 900px;
   height: 450px;
-  background: radial-gradient(circle, rgba(223, 186, 107, 0.06) 0%, transparent 80%);
+  background: radial-gradient(circle, rgba(223, 186, 107, 0.08) 0%, transparent 80%);
   pointer-events: none;
   z-index: 1;
   animation: pulseGlowTop 10s ease-in-out infinite alternate;
@@ -75,7 +87,7 @@
 
 /* 1. HERO SECTION */
 .heroSection {
-  padding: 120px 24px 100px 24px; /* Increase vertical spacing */
+  padding: 120px 24px 100px 24px;
   position: relative;
   z-index: 2;
   overflow: hidden;
@@ -98,7 +110,7 @@
   left: 2%;
   right: 2%;
   bottom: 5%;
-  opacity: 0.035;
+  opacity: 0.05;
   background-size: contain;
   background-position: center;
   filter: blur(0.5px);
@@ -114,7 +126,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom left;
-  opacity: 0.035;
+  opacity: 0.04;
   filter: blur(0.8px);
 }
 
@@ -128,7 +140,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top right;
-  opacity: 0.025;
+  opacity: 0.03;
   filter: blur(1.2px);
 }
 
@@ -141,8 +153,8 @@
   max-width: 1400px;
   height: 280px;
   border-radius: 50% 50% 0 0;
-  border-top: 1.5px solid rgba(223, 186, 107, 0.05);
-  background: radial-gradient(50% 50% at 50% 100%, rgba(223, 186, 107, 0.02) 0%, transparent 80%);
+  border-top: 1.5px solid rgba(223, 186, 107, 0.08);
+  background: radial-gradient(50% 50% at 50% 100%, rgba(223, 186, 107, 0.025) 0%, transparent 80%);
 }
 
 .heroGrid {
@@ -237,292 +249,455 @@
   gap: 16px;
 }
 
-/* 3D Floating Terminal & Stacked Cards */
+/* ── Stadium Arena Stage: Right Side ── */
 .heroRight {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
-  height: 480px; /* Secure dimension */
+  height: 520px;
+  perspective: 1200px;
 }
 
-.heroRight::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  max-width: 480px;
-  max-height: 440px;
-  border: 1px dashed rgba(255, 255, 255, 0.025);
-  border-radius: 50% 50% 0 0; /* Stadium Arc shape */
-  background: 
-    radial-gradient(circle at bottom, transparent 50%, rgba(223, 186, 107, 0.015) 51%, transparent 52%),
-    linear-gradient(to right, transparent 49.5%, rgba(223, 186, 107, 0.01) 50%, transparent 50.5%);
-  pointer-events: none;
-  z-index: 0;
-  bottom: 0;
-}
-
-.terminalGlow {
+/* Ambient glow behind the board */
+.boardGlow {
   position: absolute;
   width: 130%;
   height: 130%;
-  background: radial-gradient(circle, rgba(223, 186, 107, 0.06) 0%, rgba(125, 211, 252, 0.04) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(223, 186, 107, 0.07) 0%, rgba(125, 211, 252, 0.04) 40%, transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
 
-.terminalBackCard1 {
+/* Stacked depth cards */
+.boardBackCard1 {
   position: absolute;
-  width: 95%;
-  height: 85%;
-  background: rgba(11, 11, 14, 0.65);
+  width: 92%;
+  height: 82%;
+  max-width: 500px;
+  background: rgba(11, 11, 14, 0.6);
   border: 1px solid var(--border-glass);
-  border-radius: 12px;
-  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-20px) translateY(10px);
+  border-radius: 14px;
+  transform: rotateY(-5deg) rotateX(3deg) translateZ(-25px) translateY(12px);
   z-index: 2;
   pointer-events: none;
   animation: floatBack1 8s ease-in-out infinite alternate;
 }
 
-.terminalBackCard2 {
+.boardBackCard2 {
   position: absolute;
-  width: 90%;
-  height: 80%;
-  background: rgba(11, 11, 14, 0.45);
+  width: 86%;
+  height: 76%;
+  max-width: 470px;
+  background: rgba(11, 11, 14, 0.4);
   border: 1px solid var(--border-glass);
-  border-radius: 12px;
-  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-40px) translateY(20px);
+  border-radius: 14px;
+  transform: rotateY(-5deg) rotateX(3deg) translateZ(-50px) translateY(24px);
   z-index: 1;
   pointer-events: none;
   animation: floatBack2 10s ease-in-out infinite alternate;
 }
 
-.terminal3D {
-  width: 100%;
-  max-width: 480px; /* Bigger 3D match terminal */
-  background: rgba(11, 11, 14, 0.85);
-  border: 1px solid var(--border-gold);
-  border-radius: 12px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(223, 186, 107, 0.08);
-  overflow: hidden;
-  position: relative;
-  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
-  transition: var(--transition-smooth);
-  z-index: 3;
-  animation: mainFloat 7s ease-in-out infinite alternate;
-}
-
-.terminal3D:hover {
-  transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) scale(1.015);
-  border-color: var(--accent-cyan);
-  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95), 0 0 60px rgba(125, 211, 252, 0.12);
-}
-
 @keyframes floatBack1 {
-  0% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-25px) translateY(8px); }
-  100% { transform: perspective(1000px) rotateY(-6deg) rotateX(2deg) translateZ(-15px) translateY(16px); }
+  0% { transform: rotateY(-5deg) rotateX(3deg) translateZ(-25px) translateY(10px); }
+  100% { transform: rotateY(-4deg) rotateX(2deg) translateZ(-18px) translateY(18px); }
 }
 
 @keyframes floatBack2 {
-  0% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateZ(-45px) translateY(18px); }
-  100% { transform: perspective(1000px) rotateY(-10deg) rotateX(6deg) translateZ(-35px) translateY(28px); }
+  0% { transform: rotateY(-5deg) rotateX(3deg) translateZ(-50px) translateY(22px); }
+  100% { transform: rotateY(-7deg) rotateX(5deg) translateZ(-40px) translateY(30px); }
 }
 
-@keyframes mainFloat {
-  0% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateY(0px); }
-  100% { transform: perspective(1000px) rotateY(-8deg) rotateX(4deg) translateY(-8px); }
+/* ── Side Fixture Cards ── */
+.sideFixture {
+  position: absolute;
+  background: rgba(11, 11, 14, 0.85);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 14px 16px;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  animation: sideFloat 6s ease-in-out infinite alternate;
 }
 
-.terminalHeader {
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid var(--border-glass);
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.sideFixtureLeft {
+  left: -6%;
+  top: 20%;
+  transform: rotateY(8deg) rotateX(-2deg) translateZ(10px);
+  border-left: 2px solid var(--accent-cyan);
+  animation-delay: 0s;
 }
 
-.terminalDots {
-  display: flex;
-  gap: 6px;
+.sideFixtureRight {
+  right: -6%;
+  bottom: 25%;
+  transform: rotateY(-8deg) rotateX(2deg) translateZ(10px);
+  border-right: 2px solid var(--accent-gold);
+  animation-delay: 1.5s;
 }
 
-.terminalDots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+@keyframes sideFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
 }
 
-.terminalTitle {
-  font-family: var(--font-data), monospace;
-  font-size: 10px;
-  color: var(--foreground-muted);
-  letter-spacing: 0.05em;
-}
-
-.terminalStatus {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.sideFixtureMeta {
   font-family: var(--font-data), monospace;
   font-size: 9px;
   font-weight: 700;
-  color: var(--status-success);
-  background: rgba(0, 184, 110, 0.05);
-  padding: 2px 8px;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 184, 110, 0.15);
-}
-
-.terminalPulse {
-  width: 5px;
-  height: 5px;
-  background: var(--status-success);
-  border-radius: 50%;
-  box-shadow: 0 0 6px var(--status-success);
-  animation: pulse 1.5s infinite;
-}
-
-.terminalContent {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.terminalStats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.termStatChip {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border-glass);
-  padding: 10px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.termStatLabel {
-  font-family: var(--font-data), monospace;
-  font-size: 9px;
   color: var(--foreground-muted);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
-.termStatVal {
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 800;
-  font-size: 14px;
+.sideFixtureTeams {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--foreground-primary);
 }
 
-.terminalMatchCard {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border-gold);
-  border-radius: 8px;
-  padding: 16px;
-}
-
-.termMatchMeta {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-data), monospace;
-  font-size: 9px;
-  color: var(--foreground-muted);
-  margin-bottom: 12px;
-}
-
-.termLockBadge {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--accent-gold);
-}
-
-.termMatchTeams {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 900;
-  font-size: 15px;
-  color: var(--foreground-primary);
-  margin-bottom: 14px;
-}
-
-.termVs {
+.sideFixtureVs {
   font-family: var(--font-editorial), serif;
   font-style: italic;
   font-weight: 400;
   color: var(--foreground-muted);
+  font-size: 11px;
 }
 
-.termPredictionOptions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+/* ── Central Matchday Board ── */
+.matchdayBoard {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(11, 11, 14, 0.88);
+  border: 1px solid var(--border-gold);
+  border-radius: 14px;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.9),
+    0 0 50px rgba(223, 186, 107, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  position: relative;
+  transform: rotateY(-5deg) rotateX(3deg);
+  transition: var(--transition-smooth);
+  z-index: 4;
+  animation: boardFloat 7s ease-in-out infinite alternate;
+}
+
+.matchdayBoard:hover {
+  transform: rotateY(-1deg) rotateX(1deg) scale(1.01);
+  border-color: var(--accent-cyan);
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.95),
+    0 0 60px rgba(125, 211, 252, 0.1);
+}
+
+/* Floor reflection pseudo-element */
+.matchdayBoard::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 10%;
+  width: 80%;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(223, 186, 107, 0.03), transparent);
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes boardFloat {
+  0% { transform: rotateY(-5deg) rotateX(3deg) translateY(0px); }
+  100% { transform: rotateY(-5deg) rotateX(3deg) translateY(-8px); }
+}
+
+/* Board Header */
+.boardHeader {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boardHeaderLeft {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.termPredBtn {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-glass);
-  color: var(--foreground-secondary);
-  padding: 8px;
-  font-weight: 800;
-  border-radius: 4px;
+.boardPulseDot {
+  width: 7px;
+  height: 7px;
+  background: var(--status-success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--status-success);
+  animation: pulse 2s infinite;
+}
+
+.boardHeaderTitle {
   font-family: var(--font-heading), sans-serif;
-  transition: var(--transition-fast);
-  cursor: pointer;
-}
-
-.termPredBtn:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: var(--border-glass-hover);
+  font-size: 13px;
+  font-weight: 900;
   color: var(--foreground-primary);
-  transform: translateY(-1px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.termPredBtn:active {
-  transform: translateY(1px) scale(0.97);
-}
-
-.termPredBtnActive {
-  background: var(--accent-gold) !important;
-  color: #000000 !important;
-  border-color: var(--accent-gold) !important;
-  box-shadow: 0 0 15px var(--accent-gold-glow-strong);
-}
-
-.terminalLog {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid var(--border-glass);
-  padding: 12px;
-  border-radius: 6px;
+.boardStatusChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-data), monospace;
-  font-size: 10px;
-  color: var(--foreground-secondary);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  background: rgba(223, 186, 107, 0.06);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(223, 186, 107, 0.15);
+  animation: chipPulse 3s ease-in-out infinite;
+}
+
+@keyframes chipPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(223, 186, 107, 0.15); }
+  50% { box-shadow: 0 0 12px 2px rgba(223, 186, 107, 0.1); }
+}
+
+/* Board Content */
+.boardContent {
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 16px;
 }
 
-.logMeta {
-  color: var(--accent-cyan);
-  font-weight: 700;
+/* Featured Match */
+.featuredMatch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-glass);
 }
 
-.logLine {
+.featuredTeam {
+  flex: 1;
+  text-align: center;
+}
+
+.teamName {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--foreground-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.featuredVsBlock {
+  padding: 0 16px;
+}
+
+.featuredVs {
+  font-family: var(--font-editorial), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
   color: var(--foreground-muted);
 }
 
-/* Floating Chips Layer */
+/* 1 / X / 2 Prediction Buttons */
+.predictionRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.predBtn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  color: var(--foreground-secondary);
+  padding: 12px 8px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  min-height: 48px;
+}
+
+.predBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-glass-hover);
+  color: var(--foreground-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.predBtn:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+.predBtnActive {
+  background: var(--accent-gold) !important;
+  color: #000 !important;
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 20px var(--accent-gold-glow-strong);
+  transform: translateY(-2px);
+}
+
+/* Streak Row */
+.streakRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+}
+
+.streakLabel {
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground-secondary);
+}
+
+.streakDots {
+  display: flex;
+  gap: 6px;
+}
+
+.streakDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-glass);
+}
+
+.streakDotFilled {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 6px var(--accent-gold-glow);
+}
+
+/* Kickoff Label */
+.kickoffLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  padding: 8px;
+  background: rgba(223, 186, 107, 0.04);
+  border: 1px solid rgba(223, 186, 107, 0.1);
+  border-radius: 6px;
+}
+
+/* Match Checks */
+.matchChecks {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-glass);
+  padding: 14px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.matchChecksTitle {
+  font-family: var(--font-data), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.checkRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+}
+
+.checkLabel {
+  color: var(--foreground-secondary);
+}
+
+.checkStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.checkOk {
+  color: var(--status-success);
+}
+
+.checkReview {
+  color: var(--accent-gold);
+}
+
+/* ── Stadium Floor / Pitch Platform ── */
+.stadiumFloor {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background:
+    linear-gradient(to right, transparent 5%, rgba(34, 139, 34, 0.05) 30%, rgba(34, 139, 34, 0.07) 50%, rgba(34, 139, 34, 0.05) 70%, transparent 95%);
+  border-top: 1px dashed rgba(255, 255, 255, 0.04);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Center line marking */
+.stadiumFloor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Center circle marking */
+.stadiumFloor::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ── Floating Status Chips ── */
 .floatingChip {
   position: absolute;
   background: rgba(11, 11, 14, 0.95);
@@ -534,7 +709,7 @@
   font-weight: 700;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
   pointer-events: none;
-  z-index: 4;
+  z-index: 6;
   animation: floating 5s ease-in-out infinite;
 }
 
@@ -545,7 +720,7 @@
 }
 
 .chip1 {
-  top: 12%;
+  top: 10%;
   left: -8%;
   color: var(--accent-cyan);
   border-color: var(--border-cyan);
@@ -553,26 +728,33 @@
 }
 
 .chip2 {
-  bottom: 22%;
-  left: -12%;
+  bottom: 28%;
+  left: -10%;
   color: var(--status-success);
   border-color: rgba(0, 184, 110, 0.25);
   animation-delay: 1s;
 }
 
 .chip3 {
-  top: 18%;
+  top: 15%;
   right: -8%;
-  color: var(--status-warning);
-  border-color: rgba(255, 183, 0, 0.25);
+  color: var(--accent-gold);
+  border-color: var(--border-gold);
   animation-delay: 2s;
+  animation-name: floatingPulse;
+}
+
+@keyframes floatingPulse {
+  0% { transform: translateY(0px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); }
+  50% { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 12px var(--accent-gold-glow); }
+  100% { transform: translateY(0px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); }
 }
 
 .chip4 {
-  bottom: 12%;
-  right: -10%;
-  color: var(--accent-gold);
-  border-color: var(--border-gold);
+  bottom: 18%;
+  right: -8%;
+  color: var(--status-warning);
+  border-color: rgba(255, 183, 0, 0.25);
   animation-delay: 3s;
 }
 
@@ -1101,19 +1283,29 @@
   .heroRight {
     transform: none;
     height: auto;
-    min-height: 400px;
+    min-height: 420px;
     margin-top: 24px;
+    perspective: none;
   }
-  .terminal3D {
+  .matchdayBoard {
     transform: none !important;
     max-width: 100%;
     animation: none !important;
   }
-  .terminalBackCard1, .terminalBackCard2 {
-    display: none; /* Hide stacked backcards on mobile for simpler, faster rendering */
+  .matchdayBoard:hover {
+    transform: none !important;
+  }
+  .boardBackCard1, .boardBackCard2 {
+    display: none;
+  }
+  .sideFixture {
+    display: none;
   }
   .floatingChip {
-    display: none !important; /* Hide floating chips to avoid overlapping text/viewport */
+    display: none !important;
+  }
+  .stadiumFloor {
+    display: none;
   }
   .trustStripGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -1162,6 +1354,24 @@
     padding: 14px 20px;
     font-size: 14px;
   }
+  .heroRight {
+    min-height: 360px;
+  }
+  .boardContent {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+  .teamName {
+    font-size: 15px;
+  }
+  .predBtn {
+    font-size: 18px;
+    padding: 10px 6px;
+    min-height: 48px;
+  }
+  .boardGlow {
+    display: none;
+  }
   
   /* Horizontal scroll for Trust Strip on mobile */
   .trustStrip {
@@ -1170,7 +1380,7 @@
     -webkit-overflow-scrolling: touch;
   }
   .trustStrip::-webkit-scrollbar {
-    display: none; /* Hide default scrollbar */
+    display: none;
   }
   .trustStripGrid {
     display: flex;
@@ -1248,7 +1458,7 @@
   }
   .stepNum {
     position: relative;
-    margin-left: -34px; /* Align circle on the vertical timeline line */
+    margin-left: -34px;
     z-index: 3;
     background: var(--bg-obsidian);
   }
@@ -1290,5 +1500,27 @@
   .footerBottomBadges {
     justify-content: center;
     gap: 8px;
+  }
+}
+
+/* prefers-reduced-motion safety */
+@media (prefers-reduced-motion: reduce) {
+  .matchdayBoard,
+  .matchdayBoard:hover,
+  .boardBackCard1,
+  .boardBackCard2,
+  .sideFixture,
+  .floatingChip,
+  .glowTop,
+  .glowMid,
+  .boardStatusChip,
+  .predBtn,
+  .predBtn:hover,
+  .predBtnActive,
+  .stadiumFloor,
+  .main::before,
+  .main::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

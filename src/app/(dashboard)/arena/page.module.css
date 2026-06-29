@@ -14,13 +14,17 @@
   z-index: 1;
 }
 
+/* ── Header with stadium glow ── */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
-  border-bottom: 1px solid var(--border-glass);
-  padding-bottom: 28px;
+  background: linear-gradient(135deg, rgba(223, 186, 107, 0.02) 0%, rgba(125, 211, 252, 0.015) 100%);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--border-glass);
+  border-bottom: 2px solid var(--border-gold);
 }
 
 .headerContent {
@@ -45,6 +49,7 @@
   font-size: 15px;
   color: var(--foreground-secondary);
   margin-top: 6px;
+  font-family: var(--font-body), sans-serif;
 }
 
 .roundInfo {
@@ -72,20 +77,57 @@
   font-family: var(--font-data), monospace;
 }
 
+/* ── Verification banner – premium locked state ── */
 .verificationBanner {
   display: flex;
   align-items: center;
   gap: 20px;
   background: rgba(255, 42, 95, 0.04);
   border: 1px solid rgba(255, 42, 95, 0.2);
-  padding: 20px 28px;
+  padding: 24px 28px;
   border-radius: 16px;
   margin-bottom: 40px;
-  box-shadow: 0 0 25px rgba(255, 42, 95, 0.03);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 25px rgba(255, 42, 95, 0.03),
+    inset 0 0 60px rgba(223, 186, 107, 0.008);
+}
+
+/* Goalkeeper silhouette watermark */
+.verificationBanner::before {
+  content: '';
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  background-image: url('/images/goalkeeper.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* Stadium glow behind the banner */
+.verificationBanner::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 30%;
+  width: 40%;
+  height: 180%;
+  background: radial-gradient(ellipse at center, rgba(223, 186, 107, 0.025) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .bannerIcon {
   color: var(--status-error);
+  position: relative;
+  z-index: 1;
 }
 
 .bannerText {
@@ -93,11 +135,23 @@
   font-size: 14px;
   color: var(--foreground-primary);
   line-height: 1.5;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body), sans-serif;
 }
 
 .bannerBtn {
-  padding: 10px 20px;
-  font-size: 13px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--border-gold) !important;
+  box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+
+.bannerBtn:hover {
+  box-shadow: 0 0 20px var(--accent-gold-glow-strong);
 }
 
 .noRoundCard {
@@ -142,6 +196,7 @@
 .enrollHeader p {
   font-size: 16px;
   color: var(--foreground-secondary);
+  font-family: var(--font-body), sans-serif;
 }
 
 .tiersGrid {
@@ -167,6 +222,7 @@
 .tierName {
   font-size: 20px;
   color: var(--foreground-secondary);
+  font-family: var(--font-body), sans-serif;
 }
 
 .tierPrice {
@@ -181,6 +237,7 @@
   font-size: 13px;
   color: var(--foreground-muted);
   margin-bottom: 24px;
+  font-family: var(--font-body), sans-serif;
 }
 
 .enrollBtn {
@@ -210,19 +267,32 @@
   text-transform: uppercase;
 }
 
+/* ── Matches list with pitch texture ── */
 .matchesList {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+  background-image: url('/images/pitch-lines.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 600px auto;
+  background-blend-mode: soft-light;
+  padding: 8px 0;
 }
 
+/* ── Match card with gold accent bar + hover glow ── */
 .matchCard {
   padding: 28px !important;
   border-color: var(--border-glass);
+  border-left: 3px solid var(--border-gold) !important;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .matchCard:hover {
-  transform: none; /* Disable translation for matches list to maintain control dashboard focus */
+  transform: none;
+  box-shadow: 0 4px 24px rgba(223, 186, 107, 0.04), 0 0 40px rgba(223, 186, 107, 0.015);
+  border-color: rgba(223, 186, 107, 0.12);
 }
 
 .matchHeader {
@@ -238,10 +308,16 @@
 .matchday {
   font-weight: 700;
   color: var(--foreground-secondary);
+  font-family: var(--font-body), sans-serif;
 }
 
+/* ── Kickoff time – warm urgent styling ── */
 .kickoff {
   font-family: var(--font-data), monospace;
+  color: var(--accent-gold);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 6px rgba(223, 186, 107, 0.08);
 }
 
 .matchTeams {
@@ -282,6 +358,7 @@
   border-radius: 8px;
   font-size: 13px;
   color: var(--foreground-muted);
+  font-family: var(--font-body), sans-serif;
 }
 
 .lockedChoice {
@@ -310,7 +387,7 @@
   align-items: center;
   gap: 6px;
   outline: none;
-  min-height: 48px; /* Tappable size */
+  min-height: 48px;
   position: relative;
   overflow: hidden;
 }
@@ -329,6 +406,7 @@
   letter-spacing: 0.05em;
   color: var(--foreground-muted);
   transition: var(--transition-fast);
+  font-family: var(--font-body), sans-serif;
 }
 
 .predOption:hover {
@@ -386,6 +464,7 @@
 .rulesTitle {
   font-size: 20px;
   margin-bottom: 20px;
+  font-family: var(--font-body), sans-serif;
 }
 
 .rulesList {
@@ -401,6 +480,7 @@
   line-height: 1.6;
   position: relative;
   padding-left: 20px;
+  font-family: var(--font-body), sans-serif;
 }
 
 .rulesList li::before {
@@ -436,22 +516,96 @@
   font-weight: 600;
 }
 
+/* ── Responsive ── */
 @media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .roundInfo {
+    text-align: left;
+  }
+
   .arenaGrid {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  
+
   .tiersGrid {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .matchTeams {
     gap: 12px;
   }
-  
+
   .teamName {
     font-size: 16px;
+  }
+
+  .verificationBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .verificationBanner::before {
+    right: 12px;
+    width: 80px;
+    height: 80px;
+    opacity: 0.025;
+  }
+
+  .bannerBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 40px 16px;
+  }
+
+  .header {
+    padding: 20px 16px;
+  }
+
+  .matchCard {
+    padding: 20px 16px !important;
+  }
+
+  .predictionOptions {
+    gap: 10px;
+  }
+
+  .predOption {
+    padding: 14px 8px;
+    min-height: 48px;
+  }
+
+  .matchesList {
+    background-size: 320px auto;
+  }
+}
+
+/* ── prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .matchCard,
+  .matchCard:hover,
+  .predOption,
+  .predOption:hover,
+  .predOption:active,
+  .selected,
+  .tierCard:hover,
+  .bannerBtn:hover {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
   }
 }

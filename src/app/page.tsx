@@ -11,7 +11,9 @@ import {
   Lock, 
   Wallet, 
   Eye, 
-  Activity
+  Activity,
+  Check,
+  Clock
 } from "lucide-react";
 import styles from "./page.module.css";
 
@@ -67,75 +69,121 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Side: Upgraded 3D Floating Arena Terminal */}
+            {/* Right Side: Stadium Arena Stage — Matchday Board */}
             <div className={styles.heroRight}>
-              <div className={styles.terminalGlow}></div>
-              
-              {/* Stacked depth cards behind terminal */}
-              <div className={styles.terminalBackCard1}></div>
-              <div className={styles.terminalBackCard2}></div>
-              
-              <div className={styles.terminal3D}>
-                <div className={styles.terminalHeader}>
-                  <div className={styles.terminalDots}>
-                    <span></span><span></span><span></span>
+              <div className={styles.boardGlow}></div>
+
+              {/* Stacked depth cards behind main board */}
+              <div className={styles.boardBackCard1}></div>
+              <div className={styles.boardBackCard2}></div>
+
+              {/* Side Fixture Card — Left */}
+              <div className={`${styles.sideFixture} ${styles.sideFixtureLeft}`}>
+                <div className={styles.sideFixtureMeta}>MATCHDAY 4</div>
+                <div className={styles.sideFixtureTeams}>
+                  <span>Red Stars</span>
+                  <span className={styles.sideFixtureVs}>vs</span>
+                  <span>Blue Lions</span>
+                </div>
+              </div>
+
+              {/* Side Fixture Card — Right */}
+              <div className={`${styles.sideFixture} ${styles.sideFixtureRight}`}>
+                <div className={styles.sideFixtureMeta}>MATCHDAY 5</div>
+                <div className={styles.sideFixtureTeams}>
+                  <span>City XI</span>
+                  <span className={styles.sideFixtureVs}>vs</span>
+                  <span>Northside XI</span>
+                </div>
+              </div>
+
+              {/* Central Matchday Board */}
+              <div className={styles.matchdayBoard}>
+                {/* Board Header */}
+                <div className={styles.boardHeader}>
+                  <div className={styles.boardHeaderLeft}>
+                    <span className={styles.boardPulseDot}></span>
+                    <span className={styles.boardHeaderTitle}>LIVE MATCHDAY</span>
                   </div>
-                  <div className={styles.terminalTitle}>NANOPLAY ARENA DASHBOARD</div>
-                  <div className={styles.terminalStatus}>
-                    <span className={styles.terminalPulse}></span>
-                    <span>PROTECTED</span>
+                  <div className={styles.boardStatusChip}>
+                    <span>ROUND ACTIVE</span>
                   </div>
                 </div>
 
-                <div className={styles.terminalContent}>
-                  {/* Top Stats Banner */}
-                  <div className={styles.terminalStats}>
-                    <div className={styles.termStatChip}>
-                      <span className={styles.termStatLabel}>WALLET BALANCE</span>
-                      <span className={styles.termStatVal}>NGN 60,000</span>
+                {/* Board Content */}
+                <div className={styles.boardContent}>
+                  {/* Featured Match */}
+                  <div className={styles.featuredMatch}>
+                    <div className={styles.featuredTeam}>
+                      <span className={styles.teamName}>Lagos XI</span>
                     </div>
-                    <div className={styles.termStatChip}>
-                      <span className={styles.termStatLabel}>ACTIVE STREAK</span>
-                      <span className={styles.termStatVal} style={{ color: "var(--accent-gold)" }}>3 ACTIVE</span>
+                    <div className={styles.featuredVsBlock}>
+                      <span className={styles.featuredVs}>VS</span>
+                    </div>
+                    <div className={styles.featuredTeam}>
+                      <span className={styles.teamName}>Abuja XI</span>
                     </div>
                   </div>
 
-                  {/* Match Item Preview */}
-                  <div className={styles.terminalMatchCard}>
-                    <div className={styles.termMatchMeta}>
-                      <span>MATCHDAY 3 (LOCK GATE)</span>
-                      <span className={styles.termLockBadge}>
-                        <Lock size={10} />
-                        <span>KICKOFF LOCK</span>
+                  {/* 1 / X / 2 Prediction Buttons */}
+                  <div className={styles.predictionRow}>
+                    <button className={styles.predBtn} aria-label="Home win">1</button>
+                    <button className={`${styles.predBtn} ${styles.predBtnActive}`} aria-label="Draw">X</button>
+                    <button className={styles.predBtn} aria-label="Away win">2</button>
+                  </div>
+
+                  {/* Streak Progress */}
+                  <div className={styles.streakRow}>
+                    <span className={styles.streakLabel}>Streak: 2/3 picks correct</span>
+                    <div className={styles.streakDots}>
+                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`}></span>
+                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`}></span>
+                      <span className={styles.streakDot}></span>
+                    </div>
+                  </div>
+
+                  {/* Kickoff Label */}
+                  <div className={styles.kickoffLabel}>
+                    <Clock size={12} />
+                    <span>Pick Before Kickoff</span>
+                  </div>
+
+                  {/* Match Checks */}
+                  <div className={styles.matchChecks}>
+                    <div className={styles.matchChecksTitle}>Match Checks</div>
+                    <div className={styles.checkRow}>
+                      <span className={styles.checkLabel}>Phone verification</span>
+                      <span className={`${styles.checkStatus} ${styles.checkOk}`}>
+                        <Check size={11} />
+                        OK
                       </span>
                     </div>
-                    <div className={styles.termMatchTeams}>
-                      <div className={styles.termTeam}>ARSENAL</div>
-                      <div className={styles.termVs}>VS</div>
-                      <div className={styles.termTeam}>MAN CITY</div>
+                    <div className={styles.checkRow}>
+                      <span className={styles.checkLabel}>Kickoff lock</span>
+                      <span className={`${styles.checkStatus} ${styles.checkOk}`}>
+                        <Check size={11} />
+                        Active
+                      </span>
                     </div>
-                    <div className={styles.termPredictionOptions}>
-                      <button className={styles.termPredBtn}>1</button>
-                      <button className={[styles.termPredBtn, styles.termPredBtnActive].join(" ")}>X</button>
-                      <button className={styles.termPredBtn}>2</button>
+                    <div className={styles.checkRow}>
+                      <span className={styles.checkLabel}>Reward status</span>
+                      <span className={`${styles.checkStatus} ${styles.checkReview}`}>
+                        <Eye size={11} />
+                        Under Review
+                      </span>
                     </div>
-                  </div>
-
-                  {/* Terminal Log Output */}
-                  <div className={styles.terminalLog}>
-                    <span className={styles.logMeta}>[MATCH CHECKS]</span>
-                    <div className={styles.logLine}>&gt; Phone verification check: OK</div>
-                    <div className={styles.logLine}>&gt; Kickoff validation check: locked</div>
-                    <div className={styles.logLine} style={{ color: "var(--accent-gold)" }}>&gt; Reward status: active</div>
                   </div>
                 </div>
               </div>
 
-              {/* Floating Chips */}
-              <div className={[styles.floatingChip, styles.chip1].join(" ")}>PICK LOCKED</div>
-              <div className={[styles.floatingChip, styles.chip2].join(" ")}>WALLET PROTECTED</div>
-              <div className={[styles.floatingChip, styles.chip3].join(" ")}>WINNER REVIEW</div>
-              <div className={[styles.floatingChip, styles.chip4].join(" ")}>PHONE VERIFIED</div>
+              {/* Stadium Floor / Pitch Platform */}
+              <div className={styles.stadiumFloor}></div>
+
+              {/* Floating Status Chips */}
+              <div className={`${styles.floatingChip} ${styles.chip1}`}>PICK LOCKED</div>
+              <div className={`${styles.floatingChip} ${styles.chip2}`}>PHONE VERIFIED</div>
+              <div className={`${styles.floatingChip} ${styles.chip3}`}>ROUND ACTIVE</div>
+              <div className={`${styles.floatingChip} ${styles.chip4}`}>REWARD REVIEW</div>
             </div>
 
           </div>

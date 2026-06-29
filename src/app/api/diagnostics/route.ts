@@ -55,6 +55,12 @@ export async function GET() {
     const errorDetails = colsError ? { code: colsError.code, message: colsError.message } : null;
     const roundsErrorDetails = roundsError ? { code: roundsError.code, message: roundsError.message } : null;
 
+    const otpMode = process.env.OTP_MODE || "NOT_SET";
+    const hasTermiiKey = !!process.env.TERMII_API_KEY;
+    const hasTwilioSid = !!process.env.TWILIO_ACCOUNT_SID;
+    const hasTwilioToken = !!process.env.TWILIO_AUTH_TOKEN;
+    const hasTwilioFrom = !!process.env.TWILIO_FROM_NUMBER;
+
     // Get applied migrations list
     const { data: migrationsData, error: migrationsError } = await adminClient
       .from("schema_migrations") // this might fail if schema_migrations is in a different schema
@@ -67,6 +73,11 @@ export async function GET() {
       supabaseUrl,
       projectRef,
       hasServiceKey,
+      otpMode,
+      hasTermiiKey,
+      hasTwilioSid,
+      hasTwilioToken,
+      hasTwilioFrom,
       tableExists,
       errorDetails,
       roundsExists,

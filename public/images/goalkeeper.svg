@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Stylized generic head (tilted/diving) -->
+  <circle cx="280" cy="180" r="20" fill="currentColor" />
+  <!-- Body/Torso stretching diagonally -->
+  <path d="M 260 190 C 230 210, 190 230, 150 250" />
+  <!-- Left Arm reaching high up/left -->
+  <path d="M 275 185 C 300 160, 340 120, 390 90 L 415 75" />
+  <path d="M 415 75 L 425 65 L 420 80" fill="currentColor" /> <!-- Hand/Glove -->
+  <!-- Right Arm reaching up/right -->
+  <path d="M 260 195 C 280 220, 310 240, 360 260 L 390 270" />
+  <path d="M 390 270 L 405 275 L 400 260" fill="currentColor" /> <!-- Hand/Glove -->
+  <!-- Legs stretching back/downwards to the left -->
+  <!-- Upper Leg -->
+  <path d="M 150 250 C 120 265, 80 270, 40 280 L 15 285" />
+  <path d="M 15 285 L 5 285 L 10 295" fill="currentColor" />
+  <!-- Lower Leg -->
+  <path d="M 150 250 C 130 285, 110 320, 70 340 L 45 350" />
+  <path d="M 45 350 L 35 352 L 40 362" fill="currentColor" />
+</svg>

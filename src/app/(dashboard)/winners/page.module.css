@@ -47,6 +47,10 @@
 .noWinnersCard {
   text-align: center;
   padding: 64px 32px !important;
+  background-image: url('/images/striker.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 140px auto;
 }
 
 .noWinnersIcon {

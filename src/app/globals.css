@@ -138,11 +138,20 @@ body::after {
 }
 
 /* Typography Scale */
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   font-family: var(--font-heading), sans-serif;
   font-weight: 900;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   line-height: 1.05;
+  color: var(--foreground-primary);
+  text-transform: uppercase;
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   color: var(--foreground-primary);
   text-transform: uppercase;
 }
@@ -392,6 +401,88 @@ p {
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(223, 186, 107, 0);
+  }
+}
+
+/* Premium sports visual assets */
+.sports-bg-pitch {
+  background-image: url('/images/pitch-lines.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Reusable sports background for main dashboards */
+.main-layout main {
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(223, 186, 107, 0.015) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(125, 211, 252, 0.012) 0%, transparent 45%),
+    url('/images/pitch-lines.svg');
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: top 20px left 5%, top 20px right 5%, top 40px center;
+  background-size: 450px 450px, 450px 450px, 950px auto;
+}
+
+/* Stadium lights spotlight background beams */
+.sports-stadium-lights {
+  position: relative;
+  overflow: hidden;
+}
+
+.sports-stadium-lights::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 40%;
+  height: 600px;
+  background: radial-gradient(circle at top left, rgba(223, 186, 107, 0.08) 0%, transparent 60%);
+  clip-path: polygon(0 0, 100% 0, 40% 100%, 0% 100%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sports-stadium-lights::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -10%;
+  width: 40%;
+  height: 600px;
+  background: radial-gradient(circle at top right, rgba(125, 211, 252, 0.07) 0%, transparent 60%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Micro-animations and tactile card states */
+.premium-card-hover {
+  transition: var(--transition-smooth);
+}
+
+.premium-card-hover:hover {
+  transform: translateY(-4px) scale(1.005);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(223, 186, 107, 0.05);
+  border-color: rgba(223, 186, 107, 0.25);
+}
+
+/* Button pressed / active tactile states */
+.btn-premium:active, .btn-glass:active, .btn-cyan:active {
+  transform: translateY(1px) scale(0.98);
+  filter: brightness(0.95);
+}
+
+/* Accessibility & performance check */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
   }
 }
 

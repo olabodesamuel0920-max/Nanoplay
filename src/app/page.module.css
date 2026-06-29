@@ -76,17 +76,84 @@
 /* 1. HERO SECTION */
 .heroSection {
   padding: 120px 24px 100px 24px; /* Increase vertical spacing */
-  max-width: 1200px;
-  margin: 0 auto;
   position: relative;
   z-index: 2;
+  overflow: hidden;
+}
+
+.heroSportsBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.pitchOverlay {
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  right: 2%;
+  bottom: 5%;
+  opacity: 0.035;
+  background-size: contain;
+  background-position: center;
+  filter: blur(0.5px);
+}
+
+.strikerSilhouette {
+  position: absolute;
+  bottom: 0;
+  left: 3%;
+  width: 320px;
+  height: 320px;
+  background-image: url('/images/striker.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom left;
+  opacity: 0.035;
+  filter: blur(0.8px);
+}
+
+.goalkeeperSilhouette {
+  position: absolute;
+  top: 8%;
+  right: 5%;
+  width: 280px;
+  height: 280px;
+  background-image: url('/images/goalkeeper.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top right;
+  opacity: 0.025;
+  filter: blur(1.2px);
+}
+
+.crowdArc {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1400px;
+  height: 280px;
+  border-radius: 50% 50% 0 0;
+  border-top: 1.5px solid rgba(223, 186, 107, 0.05);
+  background: radial-gradient(50% 50% at 50% 100%, rgba(223, 186, 107, 0.02) 0%, transparent 80%);
 }
 
 .heroGrid {
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 64px; /* Larger gap */
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .heroLeft {
@@ -238,7 +305,7 @@
   background: rgba(11, 11, 14, 0.85);
   border: 1px solid var(--border-gold);
   border-radius: 12px;
-  box-shadow: var(--shadow-gold), var(--shadow-glass);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(223, 186, 107, 0.08);
   overflow: hidden;
   position: relative;
   transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
@@ -248,9 +315,9 @@
 }
 
 .terminal3D:hover {
-  transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
+  transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) scale(1.015);
   border-color: var(--accent-cyan);
-  box-shadow: var(--shadow-cyan), var(--shadow-glass);
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95), 0 0 60px rgba(125, 211, 252, 0.12);
 }
 
 @keyframes floatBack1 {
@@ -411,13 +478,26 @@
   font-weight: 800;
   border-radius: 4px;
   font-family: var(--font-heading), sans-serif;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.termPredBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-glass-hover);
+  color: var(--foreground-primary);
+  transform: translateY(-1px);
+}
+
+.termPredBtn:active {
+  transform: translateY(1px) scale(0.97);
 }
 
 .termPredBtnActive {
   background: var(--accent-gold) !important;
-  color: #000 !important;
+  color: #000000 !important;
   border-color: var(--accent-gold) !important;
-  box-shadow: 0 0 10px var(--accent-gold-glow-strong);
+  box-shadow: 0 0 15px var(--accent-gold-glow-strong);
 }
 
 .terminalLog {
@@ -452,16 +532,16 @@
   font-family: var(--font-data), monospace;
   font-size: 10px;
   font-weight: 700;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
   pointer-events: none;
   z-index: 4;
-  animation: floating 4s ease-in-out infinite;
+  animation: floating 5s ease-in-out infinite;
 }
 
 @keyframes floating {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1.5deg) scale(1.02); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .chip1 {

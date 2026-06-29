@@ -104,6 +104,10 @@
   text-align: center;
   padding: 80px 40px !important;
   border-color: var(--border-glass);
+  background-image: url('/images/goalkeeper.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 160px auto;
 }
 
 .noRoundIcon {
@@ -296,23 +300,26 @@
 .predOption {
   background: rgba(5, 5, 7, 0.6);
   border: 1px solid var(--border-glass);
-  color: var(--foreground-muted);
+  color: var(--foreground-secondary);
   border-radius: 8px;
-  padding: 20px;
+  padding: 18px 12px;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: var(--transition-fast);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   outline: none;
   min-height: 48px; /* Tappable size */
+  position: relative;
+  overflow: hidden;
 }
 
 .predOption span:first-child {
   font-family: var(--font-heading), sans-serif;
   font-size: 24px;
   font-weight: 900;
+  transition: var(--transition-fast);
 }
 
 .optionLabel {
@@ -320,24 +327,41 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  color: var(--foreground-muted);
+  transition: var(--transition-fast);
 }
 
 .predOption:hover {
   border-color: var(--border-glass-hover);
   color: var(--foreground-primary);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.predOption:hover .optionLabel {
+  color: var(--foreground-secondary);
+}
+
+.predOption:active {
+  transform: translateY(1px) scale(0.97);
 }
 
 .selected {
-  background: rgba(223, 186, 107, 0.08) !important;
+  background: rgba(223, 186, 107, 0.05) !important;
   color: var(--accent-gold) !important;
   border-color: var(--accent-gold) !important;
-  box-shadow: 0 0 15px var(--accent-gold-glow);
-  transform: translateY(-2px);
+  box-shadow: 0 0 20px var(--accent-gold-glow), inset 0 0 10px rgba(223, 186, 107, 0.02);
+  transform: translateY(-3px);
 }
 
 .selected .optionLabel {
-  color: var(--accent-gold);
+  color: var(--accent-gold) !important;
+  text-shadow: 0 0 5px rgba(223, 186, 107, 0.15);
+}
+
+.selected span:first-child {
+  transform: scale(1.05);
 }
 
 .submitRow {

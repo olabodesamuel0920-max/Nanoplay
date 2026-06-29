@@ -25,7 +25,15 @@ export default function LandingPage() {
         <div className={styles.glowMid}></div>
 
         {/* 1. HERO SECTION */}
-        <section className={styles.heroSection}>
+        <section className={`${styles.heroSection} sports-stadium-lights`}>
+          {/* Tactical Pitch Lines & Silhouettes Background */}
+          <div className={styles.heroSportsBg}>
+            <div className={`${styles.pitchOverlay} sports-bg-pitch`}></div>
+            <div className={styles.strikerSilhouette}></div>
+            <div className={styles.goalkeeperSilhouette}></div>
+            <div className={styles.crowdArc}></div>
+          </div>
+
           <div className={styles.heroGrid}>
             
             {/* Left Side: Editorial Typography & Copy */}

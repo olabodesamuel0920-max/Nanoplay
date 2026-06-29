@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer boundary -->
+  <rect x="50" y="50" width="900" height="500" rx="8" />
+  <!-- Halfway line -->
+  <line x1="500" y1="50" x2="500" y2="550" />
+  <!-- Center circle -->
+  <circle cx="500" cy="300" r="75" />
+  <circle cx="500" cy="300" r="4" fill="currentColor" />
+  <!-- Left penalty area -->
+  <rect x="50" y="175" width="135" height="250" />
+  <!-- Left goal area -->
+  <rect x="50" y="245" width="45" height="110" />
+  <!-- Left penalty spot -->
+  <circle cx="150" cy="300" r="3.5" fill="currentColor" />
+  <path d="M 185 260 A 75 75 0 0 1 185 340" />
+  <!-- Right penalty area -->
+  <rect x="815" y="175" width="135" height="250" />
+  <!-- Right goal area -->
+  <rect x="905" y="245" width="45" height="110" />
+  <!-- Right penalty spot -->
+  <circle cx="850" cy="300" r="3.5" fill="currentColor" />
+  <path d="M 815 260 A 75 75 0 0 0 815 340" />
+  <!-- Corner arcs -->
+  <path d="M 50 65 A 15 15 0 0 0 65 50" />
+  <path d="M 50 535 A 15 15 0 0 1 65 550" />
+  <path d="M 950 65 A 15 15 0 0 1 935 50" />
+  <path d="M 950 535 A 15 15 0 0 0 935 550" />
+</svg>

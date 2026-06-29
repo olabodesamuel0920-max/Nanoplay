@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Stylized generic head -->
+  <circle cx="210" cy="80" r="22" fill="currentColor" />
+  <!-- Torso & Arms in motion -->
+  <path d="M 180 140 C 190 120, 220 115, 235 130 C 250 145, 255 180, 240 220" />
+  <path d="M 230 125 C 260 120, 290 135, 310 155" /> <!-- Right arm forward -->
+  <path d="M 185 140 C 150 150, 130 180, 115 210" /> <!-- Left arm back -->
+  <!-- Kicking Leg (Right Leg stretched out forward) -->
+  <path d="M 235 220 C 260 250, 310 270, 370 290 L 400 300" /> <!-- Thigh & Calf -->
+  <path d="M 400 300 L 420 320 L 405 325" fill="currentColor" /> <!-- Foot/Cleat -->
+  <!-- Support Leg (Left Leg bent back/down) -->
+  <path d="M 205 220 C 190 260, 170 290, 185 330 C 190 340, 175 370, 160 390 L 150 410" />
+  <path d="M 150 410 L 140 420 L 135 410" fill="currentColor" />
+  <!-- Football outline (kicked forward) -->
+  <circle cx="450" cy="330" r="14" stroke-dasharray="3,3" />
+  <circle cx="450" cy="330" r="4" fill="currentColor" />
+</svg>

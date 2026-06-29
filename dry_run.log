@@ -1,0 +1,5 @@
+failed to parse config: decoding failed due to the following error(s):
+                                                                      
+'auth.sms' has invalid keys: enable_confirm                           
+'config.config' has invalid keys: project                             
+Try rerunning the command with --debug to troubleshoot the error.

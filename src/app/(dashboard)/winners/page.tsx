@@ -62,7 +62,7 @@ export default function WinnersPage() {
           <div className={styles.header}>
             <div className={styles.headerContent}>
               <div className={styles.badgeWrapper}>
-                <img src="/images/sports/football-badge.svg" className={styles.footballBadge} alt="Football Badge" />
+                <span className={styles.footballBadge} aria-hidden="true" />
               </div>
               <div>
                 <h1 className={styles.title}>Hall of Champions</h1>
@@ -76,7 +76,7 @@ export default function WinnersPage() {
           <div className={styles.winnersSection}>
             {winners.length === 0 ? (
               <GlassCard className={styles.noWinnersCard}>
-                <img src="/images/sports/trophy-spotlight.svg" className={styles.trophySpotlight} alt="Trophy Centerpiece" />
+                <span className={styles.trophySpotlight} aria-hidden="true" />
                 <h3>No Verified Winners Yet</h3>
                 <p>Verified winners will appear here after the first challenge round is reviewed.</p>
                 <div className={styles.podium}>
@@ -84,7 +84,7 @@ export default function WinnersPage() {
                     <span className={styles.podiumRank}>2</span>
                   </div>
                   <div className={`${styles.podiumStep} ${styles.step1}`}>
-                    <img src="/images/sports/football-badge.svg" className={styles.podiumBadge} alt="Podium Badge" />
+                    <span className={styles.podiumBadge} aria-hidden="true" />
                     <span className={styles.podiumRank}>1</span>
                   </div>
                   <div className={`${styles.podiumStep} ${styles.step3}`}>

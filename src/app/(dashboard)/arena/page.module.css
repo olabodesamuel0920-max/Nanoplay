@@ -50,15 +50,24 @@
 }
 
 .footballBadge {
+  display: block;
   width: 100%;
   height: 100%;
+  background-image: url('/images/sports/football-badge.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .statusOrb {
+  display: inline-block;
   width: 12px;
   height: 12px;
   margin-right: 8px;
   vertical-align: middle;
+  background-image: url('/images/sports/matchday-status-orb.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
   animation: orb-pulse 2s ease-in-out infinite;
 }
 

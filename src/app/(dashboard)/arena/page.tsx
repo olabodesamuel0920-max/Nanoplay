@@ -265,7 +265,7 @@ export default function ArenaPage() {
           <div className={styles.header}>
             <div className={styles.headerContent}>
               <div className={styles.badgeWrapper}>
-                <img src="/images/sports/football-badge.svg" className={styles.footballBadge} alt="Football Badge" />
+                <span className={styles.footballBadge} aria-hidden="true" />
               </div>
               <div>
                 <h1 className={styles.title}>Play Arena</h1>
@@ -278,7 +278,7 @@ export default function ArenaPage() {
             {activeRound && (
               <div className={styles.roundInfo}>
                 <span className={styles.roundBadge}>
-                  <img src="/images/sports/matchday-status-orb.svg" className={styles.statusOrb} alt="Active Status Orb" />
+                  <span className={styles.statusOrb} aria-hidden="true" />
                   Round #{activeRound.round_number}
                 </span>
                 <span className={styles.roundDates}>

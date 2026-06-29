@@ -50,22 +50,36 @@
 }
 
 .footballBadge {
+  display: block;
   width: 100%;
   height: 100%;
+  background-image: url('/images/sports/football-badge.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .trophySpotlight {
+  display: block;
   width: 180px;
   height: 180px;
   margin: 0 auto 20px auto;
-  display: block;
+  background-image: url('/images/sports/trophy-spotlight.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   animation: trophy-glow 4s ease-in-out infinite alternate;
 }
 
 .podiumBadge {
+  display: block;
   width: 24px;
   height: 24px;
   margin-bottom: 6px;
+  background-image: url('/images/sports/football-badge.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 @keyframes badge-float {

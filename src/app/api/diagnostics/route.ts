@@ -37,14 +37,23 @@ export async function GET() {
       tables = (tablesData as any[] || []).map(t => t.table_name);
     }
 
-    // Direct check for phone_verification_codes table and columns
+    // Direct check for phone_verification_codes table
     const { data: colsData, error: colsError } = await adminClient
       .from("phone_verification_codes")
       .select("*")
       .limit(1);
 
-    const tableExists = !colsError || colsError.code !== "PGRST116" && colsError.code !== "42P01";
+    // Direct check for challenge_rounds table
+    const { data: roundsData, error: roundsError } = await adminClient
+      .from("challenge_rounds")
+      .select("*")
+      .limit(1);
+
+    const tableExists = !colsError || colsError.code !== "PGRST116" && colsError.code !== "42P01" && colsError.code !== "PGRST205";
+    const roundsExists = !roundsError || roundsError.code !== "PGRST116" && roundsError.code !== "42P01" && roundsError.code !== "PGRST205";
+    
     const errorDetails = colsError ? { code: colsError.code, message: colsError.message } : null;
+    const roundsErrorDetails = roundsError ? { code: roundsError.code, message: roundsError.message } : null;
 
     // Get applied migrations list
     const { data: migrationsData, error: migrationsError } = await adminClient
@@ -60,6 +69,8 @@ export async function GET() {
       hasServiceKey,
       tableExists,
       errorDetails,
+      roundsExists,
+      roundsErrorDetails,
       columnsChecked: colsData ? Object.keys(colsData[0] || {}) : null,
       migrations: migrationsData || [],
       migrationsError: migrationsError ? migrationsError.message : null

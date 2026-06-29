@@ -1,6 +1,4 @@
-/* src/app/globals.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   /* Design Tokens - Obsidian & Gold/Cyan Luxury Sports-Tech */
@@ -54,9 +52,9 @@
   --status-info: #38bdf8;
 
   /* Typography */
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
-  --font-data: 'JetBrains Mono', monospace;
+  --font-heading: 'Bebas Neue', 'Outfit', sans-serif;
+  --font-body: 'Inter', 'Space Grotesk', sans-serif;
+  --font-data: 'Inter', sans-serif;
   --font-editorial: var(--font-playfair-display), serif;
 
   /* Transitions */
@@ -217,8 +215,8 @@ p {
   gap: 10px;
   background: var(--accent-lime);
   color: #000000;
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 900;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -264,8 +262,8 @@ p {
   gap: 10px;
   background: rgba(255, 255, 255, 0.02);
   color: var(--foreground-primary);
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 800;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.02em;

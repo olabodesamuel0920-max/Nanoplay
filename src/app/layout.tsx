@@ -1,24 +1,19 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Outfit, Space_Grotesk, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Bebas_Neue, Inter, Playfair_Display } from "next/font/google";
 import MobileBottomNav from "@/components/layouts/mobile-bottom-nav";
 import "./globals.css";
 
-const outfit = Outfit({
+const bebasNeue = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-bebas-neue",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -56,11 +51,11 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}
+      className={`${bebasNeue.variable} ${inter.variable} ${playfairDisplay.variable}`}
       style={{
-        "--font-heading": "var(--font-outfit)",
-        "--font-body": "var(--font-space-grotesk)",
-        "--font-data": "var(--font-jetbrains-mono)",
+        "--font-heading": "var(--font-bebas-neue)",
+        "--font-body": "var(--font-inter)",
+        "--font-data": "var(--font-inter)",
         "--font-editorial": "var(--font-playfair-display)",
       } as React.CSSProperties}
     >

@@ -1,4 +1,4 @@
--- Migration: Recreate phone_verification_codes table and missing system tables/objects
+-- Migration: Recreate phone_verification_codes table and missing system tables/objects (run 6)
 -- 1. MODERN PHONE VERIFICATION CODES TABLE (CLEAN RECREATION)
 DROP TABLE IF EXISTS public.phone_verification_codes CASCADE;
 CREATE TABLE public.phone_verification_codes (

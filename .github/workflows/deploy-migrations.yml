@@ -40,7 +40,7 @@ jobs:
 
       - name: Repair Baseline Status
         run: |
-          supabase migration repair --status applied 00000000000000 || echo "Baseline already repaired"
+          supabase migration repair --status reverted 00000000000000 || echo "Baseline already reverted"
 
       - name: Dry-Run Migrations
         run: |

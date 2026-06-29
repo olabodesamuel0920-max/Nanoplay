@@ -52,3 +52,14 @@ BEGIN
     VALUES (v_round_id, 'Bayern Munich', 'Dortmund', NOW() + interval '4 days', 3, 'scheduled');
   END IF;
 END $$;
+
+-- Redefine increment_otp_attempts function to match the new schema columns
+CREATE OR REPLACE FUNCTION public.increment_otp_attempts(p_phone TEXT)
+RETURNS VOID AS $$
+BEGIN
+  UPDATE public.phone_verification_codes
+  SET attempt_count = attempt_count + 1
+  WHERE phone = p_phone AND used_at IS NULL AND expires_at > now();
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+

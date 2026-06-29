@@ -6,32 +6,17 @@ Do you want to push these migrations to the remote database?
  [Y/n] 
 Applying migration 20260628000000_phone_verification_codes.sql...
 NOTICE (00000): table "phone_verification_codes" does not exist, skipping
-NOTICE (00000): policy "Admins have full access to phone_verification_codes" for relation "public.phone_verification_codes" does not exist, skipping
-ERROR: relation "public.challenge_rounds" does not exist (SQLSTATE 42P01)                                
-At statement: 7                                                                                          
--- Seed launch challenge round #1 conditionally                                                          
-DO $$                                                                                                    
-DECLARE                                                                                                  
-  v_round_id UUID;                                                                                       
-BEGIN                                                                                                    
-  IF NOT EXISTS (SELECT 1 FROM public.challenge_rounds WHERE round_number = 1) THEN                      
-    -- Create Round 1                                                                                    
-    INSERT INTO public.challenge_rounds (round_number, start_date, end_date, status)                     
-    VALUES (1, NOW() - interval '1 hour', NOW() + interval '7 days', 'active')                           
-    RETURNING id INTO v_round_id;                                                                        
-                                                                                                         
-    -- Create 3 Match Fixtures                                                                           
-    -- Match 1                                                                                           
-    INSERT INTO public.challenge_matches (round_id, home_team, away_team, kickoff_time, matchday, status)
-    VALUES (v_round_id, 'Arsenal', 'Manchester United', NOW() + interval '2 days', 1, 'scheduled');      
-                                                                                                         
-    -- Match 2                                                                                           
-    INSERT INTO public.challenge_matches (round_id, home_team, away_team, kickoff_time, matchday, status)
-    VALUES (v_round_id, 'Real Madrid', 'Barcelona', NOW() + interval '3 days', 2, 'scheduled');          
-                                                                                                         
-    -- Match 3                                                                                           
-    INSERT INTO public.challenge_matches (round_id, home_team, away_team, kickoff_time, matchday, status)
-    VALUES (v_round_id, 'Bayern Munich', 'Dortmund', NOW() + interval '4 days', 3, 'scheduled');         
-  END IF;                                                                                                
-END $$                                                                                                   
+ERROR: relation "public.profiles" does not exist (SQLSTATE 42P01)
+At statement: 3                                                  
+CREATE TABLE IF NOT EXISTS public.account_purchases (            
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),                 
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE, 
+  tier_id UUID REFERENCES public.account_tiers(id),              
+  amount_paid INTEGER NOT NULL,                                  
+  payment_reference TEXT UNIQUE NOT NULL,                        
+  provider_reference TEXT,                                       
+  verified_at TIMESTAMP WITH TIME ZONE,                          
+  status TEXT DEFAULT 'pending',                                 
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()              
+)                                                                
 Try rerunning the command with --debug to troubleshoot the error.

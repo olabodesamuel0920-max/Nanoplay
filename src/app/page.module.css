@@ -323,17 +323,17 @@
 }
 
 .sideFixtureLeft {
-  left: -6%;
+  left: -10%;
   top: 20%;
-  transform: rotateY(8deg) rotateX(-2deg) translateZ(10px);
+  transform: rotateY(8deg) rotateX(-2deg) translateZ(10px) scale(0.9);
   border-left: 2px solid var(--accent-cyan);
   animation-delay: 0s;
 }
 
 .sideFixtureRight {
-  right: -6%;
+  right: -10%;
   bottom: 25%;
-  transform: rotateY(-8deg) rotateX(2deg) translateZ(10px);
+  transform: rotateY(-8deg) rotateX(2deg) translateZ(10px) scale(0.9);
   border-right: 2px solid var(--accent-gold);
   animation-delay: 1.5s;
 }
@@ -1500,6 +1500,17 @@
   .footerBottomBadges {
     justify-content: center;
     gap: 8px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .sideFixtureLeft {
+    left: -5%;
+    transform: rotateY(8deg) rotateX(-2deg) translateZ(10px) scale(0.75);
+  }
+  .sideFixtureRight {
+    right: -5%;
+    transform: rotateY(-8deg) rotateX(2deg) translateZ(10px) scale(0.75);
   }
 }
 

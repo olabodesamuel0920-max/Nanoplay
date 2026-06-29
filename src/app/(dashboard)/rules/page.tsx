@@ -35,7 +35,7 @@ export default function RulesPage() {
                 <li>A challenge round consists of exactly 3 scheduled football matches.</li>
                 <li>To win, you must correctly predict the outcome (Home Win [1], Draw [X], Away Win [2]) for all 3 matches.</li>
                 <li>Your entry fee is determined by your chosen challenge tier: Starter (NGN 5,000), Standard (NGN 10,000), or Premium (NGN 20,000).</li>
-                <li>Completing a 3-match winning streak rewards you with exactly <strong>10X your entry fee</strong>!</li>
+                <li>Completing a 3-match winning streak qualifies you for the listed tier reward after manual review.</li>
               </ul>
             </GlassCard>
 

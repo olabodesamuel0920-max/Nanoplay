@@ -184,7 +184,7 @@ export default function DashboardPage() {
                     </div>
                     <div className={styles.detailRow}>
                       <span>Target Round Reward:</span>
-                      <span className={styles.rewardPotential}>10X Entry Fee</span>
+                      <span className={styles.rewardPotential}>Listed Tier Reward</span>
                     </div>
 
                     <div className={styles.ctaRow}>
@@ -217,7 +217,7 @@ export default function DashboardPage() {
                 <div className={styles.profileList}>
                   <div className={styles.profileRow}>
                     <span>Username:</span>
-                    <strong>{profile?.username}</strong>
+                    <strong>{profile?.username ? profile.username : (user?.email ? user.email.split("@")[0] : "Not set")}</strong>
                   </div>
                   
                   <div className={styles.profileRow}>

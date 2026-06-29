@@ -166,17 +166,17 @@ export default function SettingsPage() {
       });
 
       if (res.success) {
-        setKycSuccess("KYC details submitted successfully.");
+        setKycSuccess("Payout verification details submitted successfully.");
         // Reload profile
         const { data } = await supabase.from("profiles").select("*").eq("id", profile.id).single();
         if (data) {
           setProfile(data);
         }
       } else {
-        setKycError(res.message || "Failed to submit KYC details.");
+        setKycError(res.message || "Failed to submit payout verification details.");
       }
     } catch (err: any) {
-      setKycError(err.message || "An unexpected error occurred during KYC submission.");
+      setKycError(err.message || "An unexpected error occurred during payout verification submission.");
     } finally {
       setKycLoading(false);
     }
@@ -327,7 +327,7 @@ export default function SettingsPage() {
                 </p>
 
                 <div className={styles.kycStatusBanner}>
-                  <span className={styles.statusLabel}>KYC Status:</span>
+                  <span className={styles.statusLabel}>Payout Verification Status:</span>
                   {profile?.identity_status === "verified" ? (
                     <span className="badge badge-success">Verified</span>
                   ) : profile?.identity_status === "pending" ? (

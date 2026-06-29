@@ -10,6 +10,12 @@ import Button from "@/components/ui/button";
 import { Lock, HelpCircle, ShieldAlert, CheckCircle, Trophy, Sparkles, Zap } from "lucide-react";
 import styles from "./page.module.css";
 
+const cleanReward = (rewardStr: string) => {
+  if (!rewardStr) return "";
+  if (rewardStr.startsWith("NGN")) return rewardStr;
+  return rewardStr.replace(/[₦N]/g, "NGN ").replace(/\s+/g, " ").trim();
+};
+
 export default function ArenaPage() {
   const router = useRouter();
   const supabase = createClient();
@@ -117,6 +123,15 @@ export default function ArenaPage() {
 
   const handleEnroll = async (tierId: string, price: number) => {
     if (!activeRound) return;
+    
+    // Check if phone number is verified first
+    if (!profile?.phone_verified) {
+      setMessage({
+        type: "error",
+        text: "Verify your phone number before enrolling in this round.",
+      });
+      return;
+    }
     
     setActionLoading(true);
     setMessage(null);
@@ -273,7 +288,7 @@ export default function ArenaPage() {
             <div className={styles.verificationBanner}>
               <ShieldAlert className={styles.bannerIcon} />
               <div className={styles.bannerText}>
-                <strong>Phone Verification Required:</strong> You must verify your phone number via OTP to submit predictions.
+                <strong>Phone Verification Required:</strong> Phone verification protects referrals and prevents duplicate accounts.
               </div>
               <Button onClick={() => router.push("/settings")} variant="glass" className={styles.bannerBtn}>
                 Verify Now
@@ -294,7 +309,7 @@ export default function ArenaPage() {
               <div className={styles.enrollHeader}>
                 <Zap className={styles.enrollIcon} />
                 <h2>Enroll in Round #{activeRound.round_number}</h2>
-                <p>Select your challenge tier using your wallet balance. The round reward is 10X your entry fee.</p>
+                <p>Select your challenge tier using your wallet balance. Complete the round streak to qualify for the listed reward after review.</p>
               </div>
 
               <div className={styles.tiersGrid}>
@@ -303,7 +318,7 @@ export default function ArenaPage() {
                     <h3 className={styles.tierName}>{tier.name}</h3>
                     <div className={styles.tierPrice}>NGN {tier.price_ngn.toLocaleString()}</div>
                     <div className={styles.tierReward}>
-                      Potential Reward: <strong>{tier.perks?.reward}</strong>
+                      Listed Reward: <strong>{cleanReward(tier.perks?.reward)}</strong>
                     </div>
                     <Button
                       onClick={() => handleEnroll(tier.id, tier.price_ngn)}

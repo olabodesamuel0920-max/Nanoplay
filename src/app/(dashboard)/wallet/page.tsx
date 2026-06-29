@@ -182,7 +182,7 @@ export default function WalletPage() {
                 <div>
                   <h4 className={styles.warningTitle}>Payouts need verification</h4>
                   <p className={styles.warningDesc}>
-                    Your KYC status is currently <strong>{profile?.identity_status || "unverified"}</strong>. Submit details in Settings to enable bank payouts.
+                    Your payout verification is currently <strong>{profile?.identity_status || "unverified"}</strong>. Complete payout verification in Settings to request withdrawals.
                   </p>
                 </div>
               </div>

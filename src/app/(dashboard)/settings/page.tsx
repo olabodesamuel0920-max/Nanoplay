@@ -1,7 +1,7 @@
 // src/app/(dashboard)/settings/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { triggerSendOtp, triggerVerifyOtp, submitKycDetails, getOrCreateProfile } from "@/app/actions/verification";
@@ -9,7 +9,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
-import { ShieldCheck, Phone, Landmark, AlertTriangle, CheckCircle, Clock, XCircle } from "lucide-react";
+import { ShieldCheck, Phone, Landmark, AlertTriangle, CheckCircle, Clock, XCircle, LogIn } from "lucide-react";
 import styles from "./page.module.css";
 
 export default function SettingsPage() {
@@ -18,6 +18,7 @@ export default function SettingsPage() {
   
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   
   // OTP States
   const [phone, setPhone] = useState("");
@@ -41,8 +42,17 @@ export default function SettingsPage() {
   const [kycSuccess, setKycSuccess] = useState<string | null>(null);
 
   useEffect(() => {
-    async function loadProfile() {
+    async function checkAuthAndLoadProfile() {
       try {
+        // Check session first before loading any profile data
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          setIsAuthenticated(false);
+          setLoading(false);
+          return;
+        }
+        setIsAuthenticated(true);
+
         const res = await getOrCreateProfile();
         if (res.ok && res.profile) {
           const data = res.profile;
@@ -65,7 +75,7 @@ export default function SettingsPage() {
         setLoading(false);
       }
     }
-    loadProfile();
+    checkAuthAndLoadProfile();
   }, []);
 
   const handleSendOtp = async () => {
@@ -200,6 +210,37 @@ export default function SettingsPage() {
         <div className="container-center" style={{ flex: 1 }}>
           <div className="font-data">LOADING PROFILE...</div>
         </div>
+      </>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <Navbar />
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <div className={styles.authGate}>
+              <GlassCard className={styles.authGateCard}>
+                <div className={styles.authGateIcon}>
+                  <ShieldCheck size={48} />
+                </div>
+                <h2 className={styles.authGateTitle}>Sign In Required</h2>
+                <p className={styles.authGateDesc}>
+                  Please sign in to manage your account verification.
+                </p>
+                <Button
+                  onClick={() => router.push("/login?next=/settings")}
+                  variant="premium"
+                  className={styles.authGateBtn}
+                >
+                  <LogIn size={18} />
+                  Sign In
+                </Button>
+              </GlassCard>
+            </div>
+          </div>
+        </main>
       </>
     );
   }

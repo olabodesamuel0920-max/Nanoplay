@@ -1,9 +1,9 @@
 // src/app/(auth)/login/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
@@ -13,8 +13,9 @@ import { Trophy, ShieldCheck, HelpCircle } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +39,8 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/dashboard");
+      const redirectTo = searchParams.get("next") || "/dashboard";
+      router.push(redirectTo);
       router.refresh();
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.");
@@ -135,5 +137,17 @@ export default function LoginPage() {
         </GlassCard>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="container-center" style={{ flex: 1 }}>
+        <div className="font-data">LOADING...</div>
+      </div>
+    }>
+      <LoginPageContent />
+    </Suspense>
   );
 }

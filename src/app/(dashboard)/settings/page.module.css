@@ -328,3 +328,52 @@
     animation: none !important;
   }
 }
+
+/* ── Auth Gate (unauthenticated state) ── */
+.authGate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.authGateCard {
+  max-width: 440px;
+  width: 100%;
+  padding: 48px 36px !important;
+  text-align: center;
+  border: 1px solid var(--border-gold) !important;
+  box-shadow: 0 8px 32px rgba(223, 186, 107, 0.08), var(--shadow-glass) !important;
+}
+
+.authGateIcon {
+  color: var(--accent-gold);
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 12px var(--accent-gold-glow));
+}
+
+.authGateTitle {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: var(--foreground-primary);
+}
+
+.authGateDesc {
+  font-size: 14px;
+  color: var(--foreground-secondary);
+  font-family: var(--font-body), sans-serif;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.authGateBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px !important;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

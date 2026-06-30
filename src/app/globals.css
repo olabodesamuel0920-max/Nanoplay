@@ -314,7 +314,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--accent-lime);
+  background: var(--accent-gold);
   color: #000000;
   font-family: var(--font-body), sans-serif;
   font-weight: 700;
@@ -323,10 +323,10 @@ p {
   letter-spacing: 0.02em;
   padding: 14px 28px;
   border-radius: 8px;
-  border: 1px solid var(--accent-lime);
+  border: 1px solid var(--accent-gold);
   cursor: pointer;
   transition: var(--transition-smooth);
-  box-shadow: 0 4px 20px var(--accent-lime-glow);
+  box-shadow: 0 4px 20px var(--accent-gold-glow);
   position: relative;
   overflow: hidden;
 }
@@ -347,9 +347,9 @@ p {
 }
 
 .btn-premium:hover {
-  background: var(--accent-lime-hover);
+  background: var(--accent-gold-hover);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 25px var(--accent-lime-glow-strong);
+  box-shadow: 0 6px 25px var(--accent-gold-glow-strong);
 }
 
 .btn-premium:active {
@@ -398,7 +398,7 @@ p {
 /* Premium Command inputs */
 .input-premium {
   width: 100%;
-  background: rgba(5, 5, 7, 0.8);
+  background: var(--bg-charcoal);
   border: 1px solid var(--border-glass);
   color: var(--foreground-primary);
   font-family: var(--font-body), sans-serif;
@@ -410,9 +410,9 @@ p {
 }
 
 .input-premium:focus {
-  border-color: var(--accent-lime);
-  background: rgba(0, 0, 0, 0.9);
-  box-shadow: 0 0 20px var(--accent-lime-glow);
+  border-color: var(--accent-gold);
+  background: var(--bg-card);
+  box-shadow: 0 0 20px var(--accent-gold-glow);
 }
 
 /* Status Badges */

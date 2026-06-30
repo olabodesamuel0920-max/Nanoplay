@@ -42,7 +42,7 @@
 }
 
 .card {
-  background: rgba(11, 11, 14, 0.75) !important;
+  background: var(--bg-card) !important;
   border: 1px solid var(--border-glass) !important;
   box-shadow: var(--shadow-glass) !important;
   padding: 36px !important;
@@ -55,7 +55,7 @@
 .card[class*="accent"] {
   border-color: var(--border-gold) !important;
   box-shadow: var(--shadow-gold), var(--shadow-glass) !important;
-  background: radial-gradient(circle at 50% 10%, rgba(223, 186, 107, 0.01) 0%, rgba(11, 11, 14, 0.95) 100%) !important;
+  background: radial-gradient(circle at 50% 10%, rgba(223, 186, 107, 0.04) 0%, var(--bg-card) 100%) !important;
 }
 
 .cardHeader {

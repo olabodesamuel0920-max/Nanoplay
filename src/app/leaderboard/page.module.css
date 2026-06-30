@@ -35,7 +35,7 @@
 }
 
 .tableCard {
-  background: rgba(11, 11, 14, 0.75) !important;
+  background: var(--bg-card) !important;
   border: 1px solid var(--border-glass) !important;
   box-shadow: var(--shadow-glass) !important;
   padding: 0 !important;

@@ -42,7 +42,7 @@
 }
 
 .card {
-  background: rgba(11, 11, 14, 0.75) !important;
+  background: var(--bg-card) !important;
   border: 1px solid var(--border-glass) !important;
   box-shadow: var(--shadow-glass) !important;
   padding: 32px !important;
@@ -83,7 +83,7 @@
 }
 
 .auditBox {
-  background: rgba(11, 11, 14, 0.75) !important;
+  background: var(--bg-card) !important;
   border: 1px solid var(--border-cyan) !important;
   box-shadow: var(--shadow-cyan), var(--shadow-glass) !important;
   padding: 32px !important;

@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   height: 64px;
-  background: rgba(11, 11, 14, 0.95);
+  background: var(--bg-charcoal);
   border-top: 1px solid var(--border-glass);
   display: flex;
   justify-content: space-around;
@@ -13,7 +13,7 @@
   z-index: 100;
   backdrop-filter: blur(10px);
   padding-bottom: env(safe-area-inset-bottom, 0); /* Support iOS Notch/Home Indicator */
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-glass);
 }
 
 /* Hide on desktop viewports */

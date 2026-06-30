@@ -16,7 +16,7 @@
 
 .input {
   width: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--bg-charcoal);
   border: 1px solid var(--border-glass);
   color: var(--foreground-primary);
   font-family: var(--font-body), sans-serif;
@@ -28,8 +28,9 @@
 }
 
 .input:focus {
-  border-color: var(--accent-lime);
-  box-shadow: 0 0 0 2px var(--accent-lime-glow);
+  border-color: var(--accent-gold);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 2px var(--accent-gold-glow);
 }
 
 .inputError {

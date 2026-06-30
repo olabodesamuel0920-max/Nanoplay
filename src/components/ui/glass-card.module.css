@@ -16,7 +16,7 @@
   border-color: var(--border-glass-hover);
   background: var(--bg-card-hover);
   transform: translateY(-4px) scale(1.005);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 30px rgba(223, 186, 107, 0.03);
+  box-shadow: var(--shadow-glass), 0 0 30px var(--accent-gold-glow);
 }
 
 .accent {
@@ -31,5 +31,5 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: var(--accent-lime);
+  background: var(--accent-gold);
 }

@@ -13,6 +13,7 @@ import Button from "@/components/ui/button";
 import { CreditCard, ArrowUpRight, ArrowDownLeft, ShieldAlert, CheckCircle, Clock, Info } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
+import { SkeletonCard, SkeletonTable } from "@/components/SkeletonLoader";
 
 export default function WalletPage() {
   const router = useRouter();
@@ -193,30 +194,32 @@ export default function WalletPage() {
     return (
       <>
         <Navbar />
-        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-          <div className="space-y-6">
-            {/* Header skeleton */}
-            <div className="skeleton-box" style={{ height: '2.5rem', width: '25%', marginBottom: '1.5rem' }}></div>
-            
-            {/* Balance Card skeleton */}
-            <div className="skeleton-box" style={{ height: '8rem', marginBottom: '2rem' }}></div>
-
-            {/* Actions grid skeleton */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-              <div className="skeleton-box" style={{ height: '18rem' }}></div>
-              <div className="skeleton-box" style={{ height: '18rem' }}></div>
+        <main className={`${styles.main} main-with-bottom-nav relative`}>
+          {/* Mobile atmosphere — lightweight CSS only */}
+          <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          
+          <AtmosphereLayer variant="wallet" />
+          <div className={styles.container}>
+            <div className={styles.header} style={{ marginBottom: "2rem" }}>
+              <h1 className={styles.title}>My Vault & Ledger</h1>
+              <p className={styles.subtitle}>Loading wallet balance...</p>
             </div>
-
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
+            <SkeletonTable rows={4} />
             {showTimeout && (
-              <div className="text-center py-4" style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <p className="text-sm mb-2" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Taking longer than expected to load wallet...</p>
-                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: 'inline-flex', padding: '0.5rem 1rem' }}>
+              <div className="text-center py-4" style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                <p className="text-xs text-slate-400 mb-2">Taking longer than expected. Check your connection or refresh.</p>
+                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: "inline-flex", padding: "0.5rem 1rem", minHeight: "44px" }}>
                   Refresh Page
                 </button>
               </div>
             )}
           </div>
-        </div>
+        </main>
       </>
     );
   }
@@ -224,7 +227,11 @@ export default function WalletPage() {
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
+      <main className={`${styles.main} main-with-bottom-nav relative`}>
+        {/* Mobile atmosphere — lightweight CSS only */}
+        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        
         <AtmosphereLayer variant="wallet" />
         <div className={styles.container}>
           {/* Header */}
@@ -305,19 +312,46 @@ export default function WalletPage() {
                   required
                   disabled={!fundingEnabled}
                 />
-                <Button 
-                  type="submit" 
-                  variant="premium" 
-                  loading={actionLoading} 
-                  disabled={!fundingEnabled} 
-                  className={styles.submitBtn}
-                >
-                  {!fundingEnabled 
-                    ? "Funding Opening Soon" 
-                    : paystackMode === "test" 
-                      ? "Initiate Test Payment" 
-                      : "Fund Wallet"}
-                </Button>
+                <div style={{ position: 'relative', width: '100%' }} className="group">
+                  <Button 
+                    type="submit" 
+                    variant="premium" 
+                    loading={actionLoading} 
+                    disabled={!fundingEnabled} 
+                    className={styles.submitBtn}
+                    style={{ width: '100%' }}
+                  >
+                    {!fundingEnabled 
+                      ? "Funding Opening Soon" 
+                      : paystackMode === "test" 
+                        ? "Initiate Test Payment" 
+                        : "Fund Wallet"}
+                  </Button>
+                  {!fundingEnabled && (
+                    <span 
+                      style={{
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        marginBottom: '8px',
+                        padding: '6px 10px',
+                        backgroundColor: '#0b0b0e',
+                        color: '#94a3b8',
+                        fontSize: '11px',
+                        borderRadius: '6px',
+                        whiteSpace: 'nowrap',
+                        pointerEvents: 'none',
+                        transition: 'opacity 0.2s ease',
+                        border: '1px solid var(--border-glass)',
+                        zIndex: 100
+                      }}
+                      className="opacity-0 group-hover:opacity-100"
+                    >
+                      Opens 24h before matchday
+                    </span>
+                  )}
+                </div>
                 {!fundingEnabled && (
                   <p style={{ color: 'var(--status-error)', fontSize: '11px', marginTop: '8px', textAlign: 'center' }}>
                     Deposit options are currently paused for maintenance/review.
@@ -368,15 +402,42 @@ export default function WalletPage() {
                   min={1000}
                   required
                 />
-                <Button
-                  type="submit"
-                  variant="glass"
-                  loading={actionLoading}
-                  disabled={profile?.identity_status !== "verified"}
-                  className={styles.submitBtn}
-                >
-                  Request Payout
-                </Button>
+                 <div style={{ position: 'relative', width: '100%' }} className="group">
+                  <Button
+                    type="submit"
+                    variant="glass"
+                    loading={actionLoading}
+                    disabled={profile?.identity_status !== "verified"}
+                    className={styles.submitBtn}
+                    style={{ width: '100%' }}
+                  >
+                    Request Payout
+                  </Button>
+                  {profile?.identity_status !== "verified" && (
+                    <span 
+                      style={{
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        marginBottom: '8px',
+                        padding: '6px 10px',
+                        backgroundColor: '#0b0b0e',
+                        color: '#94a3b8',
+                        fontSize: '11px',
+                        borderRadius: '6px',
+                        whiteSpace: 'nowrap',
+                        pointerEvents: 'none',
+                        transition: 'opacity 0.2s ease',
+                        border: '1px solid var(--border-glass)',
+                        zIndex: 100
+                      }}
+                      className="opacity-0 group-hover:opacity-100"
+                    >
+                      Minimum ₦1,000 balance required
+                    </span>
+                  )}
+                </div>
                 {profile?.identity_status !== "verified" && (
                   <p style={{ color: 'var(--status-warning)', fontSize: '11px', marginTop: '8px', textAlign: 'center' }}>
                     Complete phone & payout verification in settings to enable withdrawals.
@@ -393,74 +454,123 @@ export default function WalletPage() {
               <span className={styles.ledgerSub}>Secure transaction history</span>
             </div>
 
-            <GlassCard className={styles.tableCard} hoverEffect={false}>
-              {transactions.length === 0 ? (
-                <div className={styles.noTxs}>No transaction history found.</div>
-              ) : (
-                <div className={styles.tableWrapper}>
-                  <table className={styles.table}>
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Reference</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {transactions.map((tx) => {
-                        const isCredit = tx.amount >= 0;
-                        const isConfirmed = tx.status === "confirmed" || tx.status === "success";
-                        const isPending = tx.status === "pending";
-                        const isFailed = tx.status === "failed" || tx.status === "rejected" || tx.status === "cancelled";
-                        
-                        const statusColor = isConfirmed ? 'var(--accent-green)' : isPending ? 'var(--accent-gold)' : 'var(--status-error)';
-                        const statusBg = isConfirmed ? 'rgba(16, 185, 129, 0.1)' : isPending ? 'rgba(212, 168, 83, 0.1)' : 'rgba(239, 68, 68, 0.1)';
-                        const statusBorder = isConfirmed ? 'var(--border-green)' : isPending ? 'var(--border-gold)' : 'rgba(239, 68, 68, 0.2)';
+             <GlassCard className={styles.tableCard} hoverEffect={false}>
+               {transactions.length === 0 ? (
+                 <div className={styles.noTxs}>No transaction history found.</div>
+               ) : (
+                 <>
+                   {/* Desktop table — keep existing, wrap in hidden md:block */}
+                   <div className="hidden md:block" style={{ width: '100%' }}>
+                     <div className={styles.tableWrapper}>
+                       <table className={styles.table}>
+                         <thead>
+                           <tr>
+                             <th>Date</th>
+                             <th>Reference</th>
+                             <th>Type</th>
+                             <th>Amount</th>
+                             <th>Status</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           {transactions.map((tx) => {
+                             const isCredit = tx.amount >= 0;
+                             const isConfirmed = tx.status === "confirmed" || tx.status === "success";
+                             const isPending = tx.status === "pending";
+                             const isFailed = tx.status === "failed" || tx.status === "rejected" || tx.status === "cancelled";
+                             
+                             const statusColor = isConfirmed ? 'var(--accent-green)' : isPending ? 'var(--accent-gold)' : 'var(--status-error)';
+                             const statusBg = isConfirmed ? 'rgba(16, 185, 129, 0.1)' : isPending ? 'rgba(212, 168, 83, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+                             const statusBorder = isConfirmed ? 'var(--border-green)' : isPending ? 'var(--border-gold)' : 'rgba(239, 68, 68, 0.2)';
 
-                        return (
-                          <tr key={tx.id}>
-                            <td className={styles.tdDate}>
-                              {new Date(tx.created_at).toLocaleDateString()}
-                            </td>
-                            <td className={[styles.tdRef, "font-mono-numbers"].join(" ")}>
-                              {tx.reference || "N/A"}
-                            </td>
-                            <td className={styles.tdType}>{tx.type.toUpperCase()}</td>
-                            <td
-                              className={[
-                                styles.tdAmount,
-                                "font-mono-numbers",
-                                isCredit ? styles.creditText : styles.debitText
-                              ].join(" ")}
-                            >
-                              {isCredit ? "+" : ""}NGN {tx.amount.toLocaleString()}
-                            </td>
-                            <td>
-                              <span
-                                className="badge font-mono-numbers"
-                                style={{
-                                  color: statusColor,
-                                  backgroundColor: statusBg,
-                                  border: `1px solid ${statusBorder}`,
-                                  padding: '4px 8px',
-                                  borderRadius: '4px',
-                                  fontSize: '11px',
-                                  textTransform: 'uppercase'
-                                }}
-                              >
-                                {tx.status}
-                              </span>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </GlassCard>
+                             return (
+                               <tr key={tx.id}>
+                                 <td className={styles.tdDate}>
+                                   {new Date(tx.created_at).toLocaleDateString()}
+                                 </td>
+                                 <td className={[styles.tdRef, "font-mono-numbers"].join(" ")}>
+                                   {tx.reference || "N/A"}
+                                 </td>
+                                 <td className={styles.tdType}>{tx.type.toUpperCase()}</td>
+                                 <td
+                                   className={[
+                                     styles.tdAmount,
+                                     "font-mono-numbers",
+                                     isCredit ? styles.creditText : styles.debitText
+                                   ].join(" ")}
+                                 >
+                                   {isCredit ? "+" : ""}NGN {tx.amount.toLocaleString()}
+                                 </td>
+                                 <td>
+                                   <span
+                                     className="badge font-mono-numbers"
+                                     style={{
+                                       color: statusColor,
+                                       backgroundColor: statusBg,
+                                       border: `1px solid ${statusBorder}`,
+                                       padding: '4px 8px',
+                                       borderRadius: '4px',
+                                       fontSize: '11px',
+                                       textTransform: 'uppercase'
+                                     }}
+                                   >
+                                     {tx.status}
+                                   </span>
+                                 </td>
+                               </tr>
+                             );
+                           })}
+                         </tbody>
+                       </table>
+                     </div>
+                   </div>
+
+                   {/* Mobile transaction list (< 768px) */}
+                   <div className="md:hidden space-y-3" style={{ width: '100%' }}>
+                     {transactions.map((tx) => {
+                       const isCredit = tx.amount >= 0;
+                       const isConfirmed = tx.status === "confirmed" || tx.status === "success";
+                       const isPending = tx.status === "pending";
+                       const isFailed = tx.status === "failed" || tx.status === "rejected" || tx.status === "cancelled";
+                       
+                       const statusColor = isConfirmed ? 'var(--accent-green)' : isPending ? 'var(--accent-gold)' : 'var(--status-error)';
+                       const statusBg = isConfirmed ? 'rgba(16, 185, 129, 0.1)' : isPending ? 'rgba(212, 168, 83, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+                       const statusBorder = isConfirmed ? 'var(--border-green)' : isPending ? 'var(--border-gold)' : 'rgba(239, 68, 68, 0.2)';
+
+                       return (
+                         <div key={tx.id} className="glass-card p-4 rounded-xl" style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-glass)', marginBottom: '12px' }}>
+                           <div className="flex justify-between items-center mb-2" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                             <span className="text-sm font-medium text-white" style={{ fontSize: '14px', fontWeight: '500', color: '#fff' }}>{tx.type.toUpperCase()}</span>
+                             <span
+                               className={`text-sm font-bold font-mono-numbers ${isCredit ? 'text-green-400' : 'text-red-400'}`}
+                               style={{ fontSize: '14px', fontWeight: 'bold', color: isCredit ? 'var(--accent-green)' : 'var(--status-error)' }}
+                             >
+                               {isCredit ? "+" : ""}₦{tx.amount.toLocaleString()}
+                             </span>
+                           </div>
+                           <div className="flex justify-between text-xs text-slate-400" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8' }}>
+                             <span>{new Date(tx.created_at).toLocaleDateString()}</span>
+                             <span
+                               style={{
+                                 color: statusColor,
+                                 backgroundColor: statusBg,
+                                 border: `1px solid ${statusBorder}`,
+                                 padding: '2px 6px',
+                                 borderRadius: '4px',
+                                 fontSize: '10px',
+                                 textTransform: 'uppercase'
+                               }}
+                             >
+                               {tx.status}
+                             </span>
+                           </div>
+                         </div>
+                       );
+                     })}
+                   </div>
+                 </>
+               )}
+             </GlassCard>
           </div>
 
           <div style={{ marginTop: "32px", padding: "20px 24px", background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border-glass)", borderRadius: "12px", textAlign: "center" }}>

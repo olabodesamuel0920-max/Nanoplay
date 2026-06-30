@@ -6,6 +6,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import { createClient } from "@/lib/supabase/client";
 import { ShieldCheck, Check, Info } from "lucide-react";
+import { SkeletonCard } from "@/components/SkeletonLoader";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
@@ -13,8 +14,13 @@ export default function TiersPage() {
   const supabase = createClient();
   const [tiers, setTiers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showTimeout, setShowTimeout] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTimeout(true);
+    }, 5000);
+
     async function fetchTiers() {
       try {
         const { data } = await supabase
@@ -29,9 +35,11 @@ export default function TiersPage() {
         console.error("Error fetching tiers:", err);
       } finally {
         setLoading(false);
+        clearTimeout(timer);
       }
     }
     fetchTiers();
+    return () => clearTimeout(timer);
   }, []);
 
   const fallbackTiers = [
@@ -45,7 +53,11 @@ export default function TiersPage() {
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
+      <main className={`${styles.main} main-with-bottom-nav relative`}>
+        {/* Mobile atmosphere — lightweight CSS only */}
+        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        
         <AtmosphereLayer variant="tiers" />
         <div className={styles.container}>
           <div className={styles.header}>
@@ -55,7 +67,21 @@ export default function TiersPage() {
           </div>
 
           {loading ? (
-            <div className={styles.loading}>LOADING CHALLENGE TIERS...</div>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+                <SkeletonCard />
+                <SkeletonCard />
+                <SkeletonCard />
+              </div>
+              {showTimeout && (
+                <div className="text-center py-4" style={{ textAlign: "center", marginTop: "1rem" }}>
+                  <p className="text-sm text-slate-400 mb-2">Taking longer than expected. Check your connection or refresh.</p>
+                  <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: "inline-flex", padding: "0.5rem 1rem" }}>
+                    Refresh Page
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <div className={styles.grid}>
               {displayTiers.map((tier) => (

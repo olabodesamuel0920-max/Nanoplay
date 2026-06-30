@@ -3,9 +3,9 @@
   background: var(--bg-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-glass);
+  border: 1px solid rgba(212, 168, 83, 0.12);
   border-radius: 12px;
-  box-shadow: var(--shadow-glass);
+  box-shadow: var(--shadow-glass), 0 0 40px rgba(212, 168, 83, 0.03);
   padding: 24px;
   transition: var(--transition-smooth);
   position: relative;
@@ -13,15 +13,15 @@
 }
 
 .hover:hover {
-  border-color: var(--border-glass-hover);
+  border-color: rgba(212, 168, 83, 0.22);
   background: var(--bg-card-hover);
   transform: translateY(-4px) scale(1.005);
-  box-shadow: var(--shadow-glass), 0 0 30px var(--accent-gold-glow);
+  box-shadow: var(--shadow-glass), 0 0 50px rgba(212, 168, 83, 0.06);
 }
 
 .accent {
   border-color: var(--border-accent);
-  box-shadow: var(--shadow-accent), var(--shadow-glass);
+  box-shadow: var(--shadow-accent), var(--shadow-glass), 0 0 40px rgba(212, 168, 83, 0.05);
 }
 
 .accent::before {

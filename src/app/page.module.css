@@ -258,6 +258,16 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
+  background-image: 
+    linear-gradient(to bottom,
+      rgba(5, 5, 5, 0.65) 0%,
+      rgba(5, 5, 5, 0.45) 40%,
+      rgba(5, 5, 5, 0.85) 100%
+    ),
+    url('/images/sports/stadium-depth-bg.webp');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
 }
 
 .heroGrid {
@@ -479,12 +489,13 @@
   width: 100%;
   max-width: 500px;
   background: rgba(11, 11, 14, 0.88);
-  border: 1px solid var(--border-gold);
+  border: 1px solid rgba(212, 168, 83, 0.3);
   border-radius: 14px;
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.9),
-    0 0 50px rgba(223, 186, 107, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    0 0 60px rgba(212, 168, 83, 0.1),
+    0 0 120px rgba(212, 168, 83, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   overflow: hidden;
   position: relative;
   transform: rotateY(-5deg) rotateX(3deg);
@@ -495,10 +506,11 @@
 
 .matchdayBoard:hover {
   transform: rotateY(-1deg) rotateX(1deg) scale(1.01);
-  border-color: var(--accent-cyan);
+  border-color: var(--accent-gold);
   box-shadow:
     0 35px 90px rgba(0, 0, 0, 0.95),
-    0 0 60px rgba(125, 211, 252, 0.1);
+    0 0 80px rgba(212, 168, 83, 0.15),
+    0 0 140px rgba(212, 168, 83, 0.06);
 }
 
 /* Floor reflection pseudo-element */
@@ -509,7 +521,7 @@
   left: 10%;
   width: 80%;
   height: 60px;
-  background: linear-gradient(to bottom, rgba(223, 186, 107, 0.03), transparent);
+  background: linear-gradient(to bottom, rgba(212, 168, 83, 0.05), transparent);
   filter: blur(12px);
   pointer-events: none;
   z-index: -1;
@@ -1643,3 +1655,33 @@ html[data-theme="light"] .stadiumFloor {
     transition: none !important;
   }
 }
+
+/* ── Light Mode Overrides ── */
+:global(html[data-theme="light"]) .heroSection {
+  background-image: 
+    linear-gradient(to bottom,
+      rgba(247, 241, 229, 0.88) 0%,
+      rgba(247, 241, 229, 0.75) 40%,
+      rgba(247, 241, 229, 0.95) 100%
+    ),
+    url('/images/sports/stadium-depth-bg.webp');
+}
+
+:global(html[data-theme="light"]) .matchdayBoard {
+  background: rgba(255, 253, 247, 0.92);
+  border-color: rgba(179, 133, 43, 0.25);
+  box-shadow:
+    0 20px 60px rgba(8, 24, 38, 0.08),
+    0 0 40px rgba(179, 133, 43, 0.06);
+}
+
+:global(html[data-theme="light"]) .matchdayBoard:hover {
+  box-shadow:
+    0 25px 70px rgba(8, 24, 38, 0.1),
+    0 0 50px rgba(179, 133, 43, 0.1);
+}
+
+:global(html[data-theme="light"]) .boardGlow {
+  opacity: 0.3;
+}
+

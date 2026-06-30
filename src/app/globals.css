@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+/* Fonts loaded via next/font/google in layout.tsx — no @import needed */
 
 :root {
   /* Design Tokens - Strict Obsidian, Charcoal, Gold, Cyan & Live Green System */
@@ -19,12 +19,12 @@
   --border-gold: rgba(212, 168, 83, 0.28);
   --shadow-gold: 0 0 30px 0 rgba(212, 168, 83, 0.12);
 
-  /* Ice Blue Accent Palette (Info/Support/Tech) */
-  --accent-cyan: #7dd3fc;
-  --accent-cyan-hover: #38bdf8;
-  --accent-cyan-glow: rgba(125, 211, 252, 0.16);
-  --border-cyan: rgba(125, 211, 252, 0.24);
-  --shadow-cyan: 0 0 30px 0 rgba(125, 211, 252, 0.1);
+  /* Cyan Accent Palette (Info/Support/Tech) */
+  --accent-cyan: #38bdf8;
+  --accent-cyan-hover: #7dd3fc;
+  --accent-cyan-glow: rgba(56, 189, 248, 0.16);
+  --border-cyan: rgba(56, 189, 248, 0.24);
+  --shadow-cyan: 0 0 30px 0 rgba(56, 189, 248, 0.1);
 
   /* Premium Live Green Accent Palette (LIVE only) */
   --accent-green: #10b981;
@@ -59,8 +59,8 @@
   --status-warning: #f59e0b;
   --status-info: var(--accent-cyan);
 
-  /* Typography */
-  --font-heading: 'Montserrat', sans-serif;
+  /* Typography — 2 fonts only: Plus Jakarta Sans + Space Mono */
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-data: 'Space Mono', monospace;
   --font-editorial: var(--font-heading), sans-serif;
@@ -71,7 +71,7 @@
 
   /* Opacities & Default Glows */
   --opacity-bg-art: 1.0;
-  --default-card-glow: 0 4px 30px rgba(16, 185, 129, 0.02), 0 4px 20px rgba(0, 0, 0, 0.4);
+  --default-card-glow: 0 4px 30px rgba(212, 168, 83, 0.03), 0 4px 20px rgba(0, 0, 0, 0.4);
   --default-btn-glow: 0 4px 15px var(--accent-gold-glow);
 }
 
@@ -281,19 +281,19 @@ p {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glass);
+  border: 1px solid rgba(212, 168, 83, 0.12);
   border-radius: 16px;
-  box-shadow: var(--default-card-glow), var(--shadow-glass);
+  box-shadow: var(--default-card-glow), var(--shadow-glass), 0 0 40px rgba(212, 168, 83, 0.03);
   transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
 }
 
 .glass-card:hover {
-  border-color: var(--border-glass-hover);
+  border-color: rgba(212, 168, 83, 0.2);
   background: var(--bg-card-hover);
   transform: translateY(-4px);
-  box-shadow: var(--default-card-glow), 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--default-card-glow), 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(212, 168, 83, 0.06);
 }
 
 .glow-lime {
@@ -345,7 +345,7 @@ p {
   border: 1px solid var(--accent-gold);
   cursor: pointer;
   transition: var(--transition-smooth);
-  box-shadow: 0 4px 20px var(--accent-gold-glow);
+  box-shadow: 0 4px 20px var(--accent-gold-glow), 0 0 30px rgba(212, 168, 83, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -635,3 +635,203 @@ button, a, input, select, textarea, [role="button"] {
   animation: skeleton-pulse 1.5s infinite ease-in-out;
 }
 
+/* ============================================
+   MOBILE RESPONSIVENESS — GLOBAL FIXES
+   ============================================ */
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* iOS safe area + prevent input zoom */
+@supports (padding: max(0px)) {
+  .safe-area-top { padding-top: max(16px, env(safe-area-inset-top)); }
+  .safe-area-bottom { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+}
+
+input, textarea, select { font-size: 16px !important; }
+
+/* Minimum touch target 44×44px */
+button, a, [role="button"], input[type="submit"], input[type="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Mobile typography scale */
+@media (max-width: 640px) {
+  h1 { font-size: 28px !important; line-height: 1.2 !important; }
+  h2 { font-size: 24px !important; line-height: 1.3 !important; }
+  h3 { font-size: 20px !important; line-height: 1.3 !important; }
+  body { font-size: 16px !important; line-height: 1.5 !important; }
+}
+
+/* Reduced motion saves battery */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Lightweight mobile atmosphere (CSS only, no images) */
+@media (max-width: 768px) {
+  .mobile-atmosphere {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(223,186,107,0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 10%, rgba(125,211,252,0.02) 0%, transparent 50%);
+  }
+  .mobile-pitch-floor {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 15vh;
+    pointer-events: none; z-index: 0;
+    background: linear-gradient(to top, rgba(26,46,26,0.12) 0%, transparent 100%);
+  }
+}
+
+/* Bottom nav content padding */
+.main-with-bottom-nav {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+/* Responsive display helpers */
+.hidden {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block !important;
+  }
+  .md\:hidden {
+    display: none !important;
+  }
+  .md\:grid {
+    display: grid !important;
+  }
+  .md\:flex {
+    display: flex !important;
+  }
+}
+
+/* Tooltip group-hover helper rules */
+.group {
+  position: relative;
+}
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1 !important;
+}
+.opacity-0 {
+  opacity: 0 !important;
+}
+.transition-opacity {
+  transition: opacity 0.2s ease-in-out;
+}
+.block {
+  display: block !important;
+}
+
+@media (min-width: 640px) {
+  .sm\:block {
+    display: block !important;
+  }
+  .sm\:hidden {
+    display: none !important;
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  /* Enforce input heights and label typography on mobile */
+  input, select, textarea, [class*="input"], [class*="select"] {
+    height: 52px !important;
+  }
+  
+  label, [class*="label"], [class*="InputLabel"] {
+    font-size: 14px !important;
+  }
+}
+
+/* ============================================
+   SECTION UTILITY CLASSES (Part 6 & 8)
+   ============================================ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.2), transparent);
+  margin: 3rem 0;
+  border: none;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--accent-gold);
+}
+
+.pitch-texture {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  margin-top: 3rem;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(255, 255, 255, 0.04) 80%,
+    transparent 100%
+  );
+}
+
+.pitch-texture::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 0 0 30px 30px;
+  border-top: none;
+}
+
+html[data-theme="light"] .section-divider {
+  background: linear-gradient(90deg, transparent, rgba(179, 133, 43, 0.15), transparent);
+}
+
+html[data-theme="light"] .pitch-texture {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(8, 24, 38, 0.06) 20%,
+    rgba(8, 24, 38, 0.06) 80%,
+    transparent 100%
+  );
+}
+
+html[data-theme="light"] .pitch-texture::before {
+  border-color: rgba(8, 24, 38, 0.06);
+}

@@ -31,31 +31,45 @@ const TICKER_MATCHES = [
 ];
 
 export default function LandingPage() {
+  const [expanded, setExpanded] = React.useState(false);
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
+      <main className={`${styles.main} main-with-bottom-nav relative`}>
+        {/* Mobile atmosphere — lightweight CSS only */}
+        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        
         {/* Live Match Ticker Strip */}
-        <div className={styles.tickerStrip} aria-hidden="true">
-          <div className={styles.tickerTrack}>
-            {[...TICKER_MATCHES, ...TICKER_MATCHES].map((match, idx) => (
-              <div key={`${match.id}-${idx}`} className={styles.tickerItem}>
-                <span className={styles.tickerTeam}>{match.home}</span>
-                {match.score ? (
-                  <span className={styles.tickerScore}>{match.score}</span>
-                ) : (
-                  <span className={styles.tickerVs}>vs</span>
-                )}
-                <span className={styles.tickerTeam}>{match.away}</span>
-                <span className={[
-                  styles.tickerStatus,
-                  match.status === "LIVE" ? styles.statusLive : ""
-                ].join(" ")}>
-                  {match.status === "LIVE" && <span className={styles.tickerPulse} />}
-                  {match.status} {match.time && `(${match.time})`}
-                </span>
-              </div>
-            ))}
+        {/* Mobile: static badge */}
+        <div className="sm:hidden flex items-center justify-center gap-2 py-2" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '8px 0', backgroundColor: '#0b0b0e', borderBottom: '1px solid #1a1a1a', width: '100%' }}>
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block' }} />
+          <span className="text-xs font-medium text-green-400" style={{ fontSize: '12px', fontWeight: '500', color: 'var(--accent-green)' }}>LIVE ARENA</span>
+        </div>
+
+        {/* Desktop: marquee ticker */}
+        <div className="hidden sm:block" style={{ width: '100%' }}>
+          <div className={styles.tickerStrip} aria-hidden="true">
+            <div className={styles.tickerTrack}>
+              {[...TICKER_MATCHES, ...TICKER_MATCHES].map((match, idx) => (
+                <div key={`${match.id}-${idx}`} className={styles.tickerItem}>
+                  <span className={styles.tickerTeam}>{match.home}</span>
+                  {match.score ? (
+                    <span className={styles.tickerScore}>{match.score}</span>
+                  ) : (
+                    <span className={styles.tickerVs}>vs</span>
+                  )}
+                  <span className={styles.tickerTeam}>{match.away}</span>
+                  <span className={[
+                    styles.tickerStatus,
+                    match.status === "LIVE" ? styles.statusLive : ""
+                  ].join(" ")}>
+                    {match.status === "LIVE" && <span className={styles.tickerPulse} />}
+                    {match.status} {match.time && `(${match.time})`}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -133,6 +147,7 @@ export default function LandingPage() {
 
             {/* Right Side: Stadium Arena Stage — Matchday Board */}
             <div className={styles.heroRight}>
+              <div className="section-label" style={{ marginBottom: '8px', opacity: 0.8 }}>🔴 Live Matchday</div>
               <div className={styles.boardGlow}></div>
 
               {/* Central Matchday Board */}
@@ -140,8 +155,10 @@ export default function LandingPage() {
                 {/* Board Header */}
                 <div className={styles.boardHeader}>
                   <div className={styles.boardHeaderLeft}>
-                    <span className={styles.boardPulseDot}></span>
-                    <span className={styles.boardHeaderTitle}>UPCOMING MATCHDAY</span>
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-[#12B76A]/10 text-[#12B76A]" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '2px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold', backgroundColor: 'rgba(18, 183, 106, 0.1)', color: 'var(--accent-green)' }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block' }}></span>
+                      LIVE MATCHDAY
+                    </span>
                   </div>
                   <div className={styles.boardStatusChip}>
                     <span>Starts in 2d 14h</span>
@@ -150,22 +167,52 @@ export default function LandingPage() {
 
                 {/* Board Content */}
                 <div className={styles.boardContent}>
+                  {/* Pick Before Kickoff Banner */}
+                  <div className={styles.kickoffLabel} style={{ marginBottom: '16px' }}>
+                    <span>⚡ PICK BEFORE KICKOFF</span>
+                  </div>
+
                   {/* Featured Match */}
-                  <div className={styles.featuredMatch}>
+                  <div className={styles.featuredMatch} style={{ borderBottom: 'none', paddingBottom: '12px' }}>
                     <div className={styles.featuredTeam}>
-                      <span className={styles.teamName}>Arsenal</span>
+                      <span className={styles.teamName} style={{ fontSize: '18px' }}>Arsenal</span>
                     </div>
                     <div className={styles.featuredVsBlock}>
-                      <span className={styles.featuredVs}>VS</span>
+                      <span className={styles.featuredVs} style={{ fontStyle: 'normal', fontWeight: 'bold', color: 'var(--accent-gold)' }}>1 - X - 2</span>
                     </div>
                     <div className={styles.featuredTeam}>
-                      <span className={styles.teamName}>Liverpool</span>
+                      <span className={styles.teamName} style={{ fontSize: '18px' }}>Liverpool</span>
                     </div>
                   </div>
 
-                  <div className="mt-6 flex justify-center">
-                    <Link href="/signup" className="btn-premium py-2 px-4 text-xs font-semibold uppercase tracking-wider">
-                      Predict Now
+                  {/* 1 - X - 2 Selection Buttons */}
+                  <div className={styles.predictionRow} style={{ marginBottom: '20px' }}>
+                    <button className={styles.predBtn}>
+                      1
+                    </button>
+                    <button className={`${styles.predBtn} ${styles.predBtnActive}`}>
+                      X
+                    </button>
+                    <button className={styles.predBtn}>
+                      2
+                    </button>
+                  </div>
+
+                  {/* Streak Progress Indicator */}
+                  <div className={styles.streakRow} style={{ marginBottom: '20px' }}>
+                    <span className={styles.streakLabel}>Streak Progress</span>
+                    <div className={styles.streakDots}>
+                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
+                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
+                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
+                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
+                      <span className={styles.streakDot}></span>
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>
+                    <Link href="/signup" className="btn-premium" style={{ width: '100%', textAlign: 'center', display: 'block' }}>
+                      Start Your Prediction ↗
                     </Link>
                   </div>
                 </div>
@@ -179,16 +226,33 @@ export default function LandingPage() {
         </section>
 
         {/* Trust Banner (PART 9) */}
-        <div className="py-4 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10" style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)' }}>
-          <p className="text-center text-xs max-w-2xl mx-auto" style={{ color: 'var(--foreground-muted)' }}>
+        <div className="py-3 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10" style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '12px 16px' }}>
+          <p className={`text-center text-xs max-w-2xl mx-auto ${expanded ? "" : "line-clamp-2"}`} style={{ color: 'var(--foreground-muted)', fontSize: '12px', lineHeight: '1.5', margin: '0 auto', textAlign: 'center' }}>
             NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
             Predictions are for entertainment. Rewards are subject to manual review and verification.
+            All players must be 18+. Play responsibly.
           </p>
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="block mx-auto mt-1 text-xs text-[#D4A853] hover:underline md:hidden"
+            style={{
+              display: 'block',
+              margin: '4px auto 0 auto',
+              fontSize: '12px',
+              color: '#D4A853',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            {expanded ? "Show less" : "Read more"}
+          </button>
         </div>
 
         {/* What is NanoPlay? / How NanoPlay Works section (PART 1 - 7) */}
         <section className="py-16 px-4 relative z-10" style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
           <div style={{ maxWidth: '48rem', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}>
+            <div className="section-label">How NanoPlay Works</div>
             <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--foreground-primary)', fontSize: '1.5rem', marginBottom: '2rem' }}>
               How NanoPlay Works
             </h2>
@@ -216,10 +280,16 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+          <div className="pitch-texture"></div>
         </section>
+
+        <hr className="section-divider" />
 
         {/* 2. OPERATIONAL TRUST STRIP */}
         <section className={styles.trustStrip}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto 1rem auto', padding: '0 24px' }}>
+            <div className="section-label">Trust & Security</div>
+          </div>
           <div className={styles.trustStripGrid}>
             <div className={styles.trustStripItem}>
               <Activity size={18} className={styles.trustIcon} />
@@ -246,11 +316,15 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+          <div className="pitch-texture"></div>
         </section>
+
+        <hr className="section-divider" />
 
         {/* MATCHDAY READY STRIP */}
         <section className={styles.matchdayReadySection}>
           <div className={styles.matchdayContainer}>
+            <div className="section-label" style={{ marginBottom: '1.5rem' }}>Matchday Ready</div>
             <h3 className={styles.matchdayTitle}>MATCHDAY READY</h3>
             <div className={styles.matchdayGrid}>
               <div className={styles.matchdayItem}>
@@ -273,10 +347,12 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <hr className="section-divider" />
+
         {/* 3. HOW NANOPLAY WORKS */}
         <section id="how-it-works" className={styles.howItWorksSection}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionSubtitleLabel}>STEP-BY-STEP ARENA</div>
+            <div className="section-label">Step-by-Step Arena</div>
             <h2 className={styles.sectionTitle}>
               How <span className={styles.editorialItalicTitle}>NanoPlay</span> Works
             </h2>
@@ -299,12 +375,15 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+          <div className="pitch-texture"></div>
         </section>
+
+        <hr className="section-divider" />
 
         {/* 4. ELITE TRUST & SECURITY LAYER */}
         <section className={styles.securitySection}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionSubtitleLabel}>SIMPLE RULES</div>
+            <div className="section-label">Rules & Security</div>
             <h2 className={styles.sectionTitle}>
               Fair Play, <span className={styles.editorialItalicTitle}>Simple Rules</span>
             </h2>
@@ -336,10 +415,14 @@ export default function LandingPage() {
               );
             })}
           </div>
+          <div className="pitch-texture"></div>
         </section>
+
+        <hr className="section-divider" />
 
         {/* 5. FINAL CTA */}
         <section className={styles.ctaSection}>
+          <div className="section-label" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>Challenge Pass</div>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
             <h2 className={styles.ctaTitle}>Ready for Matchday?</h2>
             <p className={styles.ctaDesc}>
@@ -352,7 +435,7 @@ export default function LandingPage() {
         </section>
 
         {/* FOOTER */}
-        <footer className={styles.footer}>
+        <footer className={`${styles.footer} mb-20`} style={{ marginBottom: '80px' }}>
           <div className={styles.footerContainer}>
             <div className={styles.footerGrid}>
               

@@ -1,41 +1,41 @@
-# Walkthrough - NanoPlay Strict Production Fix Redesign
+# Walkthrough — NanoPlay Design Overhaul (B127)
 
-I have successfully completed the 10-part strict production fix to transform NanoPlay from a "dark fintech dashboard" to a "premium football challenge arena" without impacting backend, API, auth, database, Supabase, Paystack, wallet, or migration logic.
-
----
-
-## 🎨 Strict Brand & Color System
-
-*   **Obsidian Black (`#050505`):** Used as the deep obsidian background layer.
-*   **Charcoal Navy (`#0b0b0e`):** Base elevated container card backgrounds.
-*   **Victory Gold (`#D4A853`):** Primary brand accent color used for rewards, main actions, CTAs, VIP tier tags, active nav lines, and premium highlights.
-*   **Live Green (`#10b981`):** Strictly reserved for live matches, active rounds, and active prediction streak markers.
-*   **Success Green (`#22c55e`):** Verification checkmarks and successful ledger transactions.
-*   **Ice Blue (`#7dd3fc`):** Info status cards, guidelines support headers, and security features.
-*   **Stadium Ivory (`#f7f1e5` / `#fffdf7`):** Warm canvas page background and card fill in light mode.
+I have successfully completed the visual design overhaul based on real mobile user feedback (B127) to refine NanoPlay's sports-tech aesthetic into a premium football challenge arena.
 
 ---
 
-## ✍️ Font System
+## 🎨 Final Brand & Color Direction
 
-*   **Montserrat:** Condensed headings and banner action statements to capture a modern athletic feeling.
-*   **Plus Jakarta Sans:** Primary body copy, lists, and form descriptions for crisp UI readability.
-*   **Space Mono / Mono Numbers:** Clean, monospaced font for prediction metrics, timing clock counters, and wallet currencies.
+*   **Stadium Navy:** default dark mode uses a deep obsidian base (`#050505`) with a pitch-lit stadium navy backdrop and glowing elements.
+*   **Stadium Ivory:** light mode uses a soft warm ivory canvas (`#f7f1e5` / `#fffdf7`) with custom radial spotlight gradients.
+*   **Victory Gold (`#D6A23A` / `#D4A853`):** Primary brand accent color used for main actions, CTAs, VIP tier badges, active navigation underlines, rewards, and premium highlights.
+*   **Premium Live Green (`#12B76A`):** Used strictly for active states (LIVE, ACTIVE, verified, status indicators) and streak progress.
+*   **Clean Cyan (`#38bdf8`):** Tech details, support headers, and info boxes (resolved the blue+gold clash by replacing ice-blue `#7dd3fc` with a cleaner cyan).
 
 ---
 
-## 🛠️ Summary of 10-Part Fixes
+## ✍️ Font System (Reduced to 2 Fonts)
 
-1.  **Homepage Hero (Part 1):** Updated hero headings to focus on predicted outcomes and verified rewards. Streamlined floating matchday cards to show a single upcoming highlighted fixture (Arsenal vs Liverpool). Added player count social proof line.
-2.  **Arena Tier Cards (Part 2):** Redesigned starter, main event, and high-stakes passes. Swapped green glow on the standard tier for a victory gold glow and added a "Most Popular" ribbon. Swapped button text to "Enter This Challenge" and added transparent stake deduction disclaimers.
-3.  **Dashboard Empty State (Part 3):** Replaced default trophy state with upcoming highlight countdown cards. Relocated security checklist section to the bottom of the dashboard layout to keep the workspace clean.
-4.  **Wallet Tooltips & States (Part 4):** Embedded a "How Funding Works" information card detailing NGN 5,000, NGN 10,000, and NGN 20,000 package constraints. Added helper disclaimers below disabled buttons. Color-coded confirmed, pending, and failed transactions clearly.
-5.  **Skeleton Loader Grids (Part 5):** Swapped global loading texts for animated skeleton screen blocks with 5-second watchdogs and refresh buttons to prevent indefinite hangs.
-6.  **Semantic Colors (Part 6):** Standardized color definitions in CSS variables. Replaced volt green and other green variants with Victory Gold (`#D4A853`) and Ice Blue (`#7dd3fc`) except for live indicator states.
-7.  **Typography (Part 7):** Softened all-caps headers to Title/Sentence Case and mapped scoreboards/countdowns to mono number styling.
-8.  **Mobile Atmosphere (Part 8):** Injected mobile viewport CSS overlays rendering soft field floor linear gradients and top spotlight highlights.
-9.  **Legal Trust Banners (Part 9):** Inserted platform entertainment and manual verification disclaimer ribbons at the bottom of the Homepage and Arena sections.
-10. **Light Mode Fix (Part 10):** Completely disabled high-contrast background atmospheric projections when light mode is selected.
+*   **Plus Jakarta Sans:** Primary body copy, layout labels, and headings (Montserrat was dropped to resolve the font clutter).
+*   **Space Mono:** Clean, monospaced font for all prediction statistics, time countdowns, and currency numbers.
+
+---
+
+## 🛠️ Redesigned Matchday Card
+
+*   **Betting-Site-Inspired Layout:** Features `1 - X - 2` prediction choices for the featured fixture (Arsenal vs Liverpool).
+*   **Permanent Ambient Glow:** The central card gets a 10% gold glow and 30% border opacity to stand out as the primary conversion element.
+*   **Streak Progress Indicator:** Green pulse dots (`#12B76A`) represent the user's active streak progress inside the card.
+*   **Kickoff Label:** High-contrast label warning: `⚡ PICK BEFORE KICKOFF`.
+
+---
+
+## ✨ Permanent Ambient Glows & Atmosphere
+
+*   **Subtle Glow Ceiling:** Standard glass cards get a subtle permanent ambient glow (3% opacity) instead of a harsh neon glow. Accent cards receive a 5% glow.
+*   **Hero Background:** An ultra-lightweight 7KB stadium spotlight WebP image (`stadium-depth-bg.webp`) with CSS gradient masks ensures first-load speeds.
+*   **Section Dividers & Labels:** Added gold gradient rules (`.section-divider`) and gold line markers (`.section-label`) to demarcate sections (e.g., `🔴 Live Matchday`, `How NanoPlay Works`, `Challenge Pass`, `Trust & Security`).
+*   **Pitch Textures:** Added generic white pitch outline markings at the bottom of homepage sections to reinforce the football arena theme.
 
 ---
 
@@ -65,7 +65,7 @@ I have successfully completed the 10-part strict production fix to transform Nan
 ---
 
 ## ✅ Compilation & Status
-*   **Production Build:** Successfully compiled and built with zero errors via Next.js Turbopack compiler.
+
+*   **Production Build:** Successfully built with Next.js Turbopack compiler.
 *   **TypeScript & Linter Checks:** Passed cleanly with zero exceptions.
-*   **Git Status:** Commited and pushed to remote branch main successfully.
-*   **Vercel Live URL:** [https://nanoplay.vercel.app](https://nanoplay.vercel.app)
+*   **Vercel Live URL:** [https://nanoplay-26w993m8e-olabodesamuel0920-maxs-projects.vercel.app](https://nanoplay-26w993m8e-olabodesamuel0920-maxs-projects.vercel.app)

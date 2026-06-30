@@ -43,7 +43,7 @@ function ConfettiOverlay() {
     left: `${Math.random() * 100}%`,
     delay: `${Math.random() * 8}s`,
     duration: `${8 + Math.random() * 6}s`,
-    color: ["#D4A853", "#FFD700", "#7dd3fc", "#ffffff"][Math.floor(Math.random() * 4)],
+    color: ["#D4A853", "#FFD700", "#38bdf8", "#ffffff"][Math.floor(Math.random() * 4)],
     size: 4 + Math.random() * 8,
   }));
 

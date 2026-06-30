@@ -11,6 +11,7 @@ import { getOrCreateProfile } from "@/app/actions/verification";
 import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap, Wallet, Clock, Info, Calendar } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
+import { SkeletonCard } from "@/components/SkeletonLoader";
 
 const cleanReward = (rewardStr: string) => {
   if (!rewardStr) return "";
@@ -253,28 +254,33 @@ export default function ArenaPage() {
     return (
       <>
         <Navbar />
-        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-          <div className="space-y-6">
-            {/* Header skeleton */}
-            <div className="skeleton-box" style={{ height: '3rem', width: '30%', marginBottom: '2rem' }}></div>
-            
-            {/* Tiers Grid skeleton */}
+        <main className={`${styles.main} main-with-bottom-nav relative`}>
+          {/* Mobile atmosphere — lightweight CSS only */}
+          <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          
+          <AtmosphereLayer variant="arena" />
+          <div className={styles.container}>
+            <div className={styles.header} style={{ marginBottom: "2rem" }}>
+              <h1 className={styles.title}>Play Arena</h1>
+              <p className={styles.subtitle}>Loading arena challenges...</p>
+            </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-              <div className="skeleton-box" style={{ height: '24rem' }}></div>
-              <div className="skeleton-box" style={{ height: '24rem' }}></div>
-              <div className="skeleton-box" style={{ height: '24rem' }}></div>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
             </div>
 
             {showTimeout && (
-              <div className="text-center py-4" style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <p className="text-sm mb-2" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Taking longer than expected to load play arena...</p>
-                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: 'inline-flex', padding: '0.5rem 1rem' }}>
+              <div className="text-center py-4" style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                <p className="text-xs text-slate-400 mb-2">Taking longer than expected. Check your connection or refresh.</p>
+                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: "inline-flex", padding: "0.5rem 1rem", minHeight: "44px" }}>
                   Refresh Page
                 </button>
               </div>
             )}
           </div>
-        </div>
+        </main>
       </>
     );
   }
@@ -282,7 +288,11 @@ export default function ArenaPage() {
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
+      <main className={`${styles.main} main-with-bottom-nav relative`}>
+        {/* Mobile atmosphere — lightweight CSS only */}
+        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        
         <AtmosphereLayer variant="arena" />
         
         <div className={styles.container}>
@@ -419,104 +429,111 @@ export default function ArenaPage() {
                 </p>
               </div>
 
-              <div className={styles.tiersGrid}>
-                {tiers.map((tier) => {
-                  const isStarter = tier.name.toLowerCase().includes("starter") || tier.name.toLowerCase().includes("lite") || tier.price_ngn === 200;
-                  const isStandard = tier.name.toLowerCase().includes("standard") || tier.name.toLowerCase().includes("main") || tier.price_ngn === 500;
-                  const isPremium = tier.name.toLowerCase().includes("premium") || tier.name.toLowerCase().includes("pro") || tier.price_ngn === 1000;
-                  
-                  // Map titles and values exactly as requested
-                  let displayName = tier.name;
-                  let rewardValue = cleanReward(tier.perks?.reward || "");
-                  if (tier.price_ngn === 200) {
-                    displayName = "Starter";
-                    rewardValue = "₦600";
-                  } else if (tier.price_ngn === 500) {
-                    displayName = "Main Event";
-                    rewardValue = "₦1,500";
-                  } else if (tier.price_ngn === 1000) {
-                    displayName = "High Stakes";
-                    rewardValue = "₦3,000";
-                  }
-
-                  const passLabel = isStarter ? "ENTRY PASS" : isPremium ? "ELITE PASS" : "CHALLENGE PASS";
-                  const tierClass = isStarter ? styles.starter : isPremium ? styles.premium : styles.standard;
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                {tiers.map((tier, i) => {
+                  const isRecommended = i === 1; // Main Event is index 1
+                  const tierNames = ["Starter", "Main Event", "High Stakes"];
+                  const tierName = tierNames[i] || tier.name;
 
                   return (
-                    <GlassCard
+                    <div
                       key={tier.id}
-                      className={[styles.tierCard, tierClass, isStandard ? styles.highlighted : ""].join(" ")}
-                      hoverEffect={!isStandard}
+                      className={`relative rounded-xl p-5 md:p-6 ${
+                        isRecommended
+                          ? "bg-[#0b0b0e] border-2 border-[#D4A853] shadow-[0_0_20px_rgba(212,168,83,0.15)]"
+                          : "glass-card border border-[#1a1a1a]"
+                      }`}
+                      style={{
+                        position: 'relative',
+                        borderRadius: '12px',
+                        padding: '24px',
+                        backgroundColor: isRecommended ? '#0b0b0e' : 'rgba(255, 255, 255, 0.02)',
+                        border: isRecommended ? '2px solid #D4A853' : '1px solid var(--border-glass)',
+                        boxShadow: isRecommended ? '0 0 20px rgba(212,168,83,0.15)' : 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        minHeight: '340px'
+                      }}
                     >
-                      {/* Decorative/Atmosphere elements in the ticket card */}
-                      {isStandard && <div className={styles.standardGlow} aria-hidden="true" style={{ boxShadow: 'var(--shadow-gold)', border: '1px solid var(--border-gold)' }} />}
-                      <span className={styles.cardWatermark} aria-hidden="true" />
-                      <span className={styles.cardTexture} aria-hidden="true" />
-                      <div className={styles.ticketNotchLeft} aria-hidden="true" />
-                      <div className={styles.ticketNotchRight} aria-hidden="true" />
-
-                      {isStandard && (
-                        <div className={styles.recommendedBadge}>
-                          MOST POPULAR
+                      {isRecommended && (
+                        <div 
+                          className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#D4A853] text-black text-xs font-bold rounded-full"
+                          style={{
+                            position: 'absolute',
+                            top: '-12px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            padding: '4px 12px',
+                            backgroundColor: '#D4A853',
+                            color: '#050505',
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            borderRadius: '9999px',
+                            zIndex: 10
+                          }}
+                        >
+                          RECOMMENDED
                         </div>
                       )}
 
-                      <div className={styles.ticketMain}>
-                        <div className={styles.cardHeader}>
-                          <span className={styles.passLabel}>{passLabel}</span>
-                          <span className={styles.roundChip}>
-                            <span className={styles.statusOrb} aria-hidden="true" />
+                      <div>
+                        <div className="flex justify-between items-center mb-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                          <h3 className="text-lg font-bold text-white" style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>{tierName}</h3>
+                          <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>
                             Round #{activeRound.round_number}
                           </span>
                         </div>
 
-                        <h3 className={styles.tierTitle}>{displayName}</h3>
-
-                        <div className={styles.priceContainer}>
-                          <span className={styles.priceLabel} style={{ fontSize: '10px', color: 'var(--foreground-muted)' }}>STAKE</span>
-                          <span className={[styles.priceValue, "font-mono-numbers"].join(" ")}>₦ {tier.price_ngn.toLocaleString()}</span>
-                        </div>
-
-                        <div className={styles.rewardContainer}>
-                          <span className={styles.rewardLabel} style={{ fontSize: '10px', color: 'var(--foreground-muted)' }}>REWARD</span>
-                          <div className={styles.rewardStrip}>
-                            <span className={styles.rewardIcon} aria-hidden="true" />
-                            <span className={[styles.rewardValue, "font-mono-numbers"].join(" ")} style={{ color: 'var(--accent-gold)', fontSize: '1.5rem', fontWeight: 'bold' }}>{rewardValue}</span>
+                        <div className="flex justify-between mb-4" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+                          <div>
+                            <p className="text-2xl font-bold text-white font-mono-numbers" style={{ fontSize: '24px', fontWeight: 'bold', color: '#fff' }}>
+                              ₦{tier.price_ngn.toLocaleString()}
+                            </p>
+                            <p className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Stake</p>
+                          </div>
+                          <div className="text-right" style={{ textAlign: 'right' }}>
+                            <p className="text-2xl font-bold text-[#D4A853] font-mono-numbers" style={{ fontSize: '24px', fontWeight: 'bold', color: '#D4A853' }}>
+                              ₦{(tier.price_ngn * 3).toLocaleString()}
+                            </p>
+                            <p className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Reward</p>
                           </div>
                         </div>
 
-                        <div className={styles.detailsList}>
-                          <div className={styles.detailRow}>
-                            <span className={styles.detailIcon} aria-hidden="true">✓</span>
-                            <span>Streak target: 3 wins</span>
+                        <div className="mb-4" style={{ marginBottom: '16px' }}>
+                          <div className="flex justify-between text-xs text-slate-400 mb-1" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
+                            <span>Spots filled</span>
+                            <span>47/100</span>
                           </div>
-                          <div className={styles.detailRow}>
-                            <span className={styles.detailIcon} aria-hidden="true">✓</span>
-                            <span>Review required</span>
-                          </div>
-                          <div className={styles.detailRow}>
-                            <span className={styles.detailIcon} aria-hidden="true">✓</span>
-                            <span>Phone verified only</span>
+                          <div className="h-1.5 bg-[#1a1a1a] rounded-full overflow-hidden" style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '9999px', overflow: 'hidden' }}>
+                            <div className="h-full bg-[#D4A853] rounded-full w-[47%]" style={{ height: '100%', backgroundColor: '#D4A853', width: '47%' }} />
                           </div>
                         </div>
-                      </div>
 
-                      <div className={styles.ticketDivider} aria-hidden="true" />
-
-                      <div className={styles.ticketFooter}>
-                        <Button
-                          onClick={() => handleEnroll(tier.id, tier.price_ngn)}
-                          variant="premium"
-                          loading={actionLoading}
-                          className={styles.enrollBtn}
-                        >
-                          Enter This Challenge
-                        </Button>
-                        <p className="text-center text-slate-400 mt-2 font-mono-numbers" style={{ fontSize: '10px', marginTop: '0.5rem', color: 'var(--foreground-muted)' }}>
-                          ₦{tier.price_ngn.toLocaleString()} deducted from wallet. Win {rewardValue} if all predictions correct.
+                        <p className="text-xs text-slate-400 mb-4" style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '16px' }}>
+                          Closes in 2d 14h
                         </p>
                       </div>
-                    </GlassCard>
+
+                      <Button
+                        onClick={() => handleEnroll(tier.id, tier.price_ngn)}
+                        loading={actionLoading}
+                        className="w-full h-12 rounded-lg font-bold text-sm"
+                        style={{
+                          width: '100%',
+                          height: '48px',
+                          borderRadius: '8px',
+                          fontWeight: 'bold',
+                          fontSize: '14px',
+                          backgroundColor: isRecommended ? '#D4A853' : 'transparent',
+                          color: isRecommended ? '#050505' : '#D4A853',
+                          border: '1px solid #D4A853',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Enroll Now
+                      </Button>
+                    </div>
                   );
                 })}
               </div>

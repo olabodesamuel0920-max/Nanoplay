@@ -1,19 +1,12 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import MobileBottomNav from "@/components/layouts/mobile-bottom-nav";
 import "./globals.css";
 import "@/components/AtmosphereLayer.css";
 
-const montserrat = Montserrat({
-  weight: ["700", "800", "900"],
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
 const plusJakartaSans = Plus_Jakarta_Sans({
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-plus-jakarta-sans",
   display: "swap",
@@ -43,6 +36,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   themeColor: "#050507",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -53,12 +47,12 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${montserrat.variable} ${plusJakartaSans.variable} ${spaceMono.variable}`}
+      className={`${plusJakartaSans.variable} ${spaceMono.variable}`}
       style={{
-        "--font-heading": "var(--font-montserrat)",
+        "--font-heading": "var(--font-plus-jakarta-sans)",
         "--font-body": "var(--font-plus-jakarta-sans)",
         "--font-data": "var(--font-space-mono)",
-        "--font-editorial": "var(--font-montserrat)",
+        "--font-editorial": "var(--font-plus-jakarta-sans)",
       } as React.CSSProperties}
     >
       <head>

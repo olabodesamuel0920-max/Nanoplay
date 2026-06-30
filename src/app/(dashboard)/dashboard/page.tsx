@@ -11,6 +11,7 @@ import GlassCard from "@/components/ui/glass-card";
 import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap, Wallet, Flame, Users, Calendar, Info, User } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
+import { SkeletonCard, SkeletonTable } from "@/components/SkeletonLoader";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function DashboardPage() {
   const [referralsCount, setReferralsCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showTimeout, setShowTimeout] = useState(false);
+  const [securityExpanded, setSecurityExpanded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -92,34 +94,33 @@ export default function DashboardPage() {
     return (
       <>
         <Navbar />
-        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-          <div className="space-y-6">
-            {/* Header skeleton */}
-            <div className="skeleton-box" style={{ height: '2rem', width: '25%', marginBottom: '1.5rem' }}></div>
-            
-            {/* Stats row skeleton */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-              <div className="skeleton-box" style={{ height: '7rem' }}></div>
-              <div className="skeleton-box" style={{ height: '7rem' }}></div>
-              <div className="skeleton-box" style={{ height: '7rem' }}></div>
+        <main className={`${styles.main} main-with-bottom-nav relative`}>
+          {/* Mobile atmosphere — lightweight CSS only */}
+          <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          
+          <AtmosphereLayer variant="dashboard" />
+          <div className={styles.container}>
+            <div className={styles.header} style={{ marginBottom: "2rem" }}>
+              <h1 className={styles.title}>Lobby Dashboard</h1>
+              <p className={styles.subtitle}>Loading your dashboard stats...</p>
             </div>
-
-            {/* Main cards skeleton */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-              <div className="skeleton-box" style={{ height: '20rem' }}></div>
-              <div className="skeleton-box" style={{ height: '20rem' }}></div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
             </div>
-
+            <SkeletonTable rows={4} />
             {showTimeout && (
-              <div className="text-center py-4" style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <p className="text-sm mb-2" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Taking longer than expected to load dashboard...</p>
-                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: 'inline-flex', padding: '0.5rem 1rem' }}>
+              <div className="text-center py-4" style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                <p className="text-xs text-slate-400 mb-2">Taking longer than expected. Check your connection or refresh.</p>
+                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: "inline-flex", padding: "0.5rem 1rem", minHeight: "44px" }}>
                   Refresh Page
                 </button>
               </div>
             )}
           </div>
-        </div>
+        </main>
       </>
     );
   }
@@ -127,7 +128,11 @@ export default function DashboardPage() {
   return (
     <>
       <Navbar />
-      <main className={styles.main}>
+      <main className={`${styles.main} main-with-bottom-nav relative`}>
+        {/* Mobile atmosphere — lightweight CSS only */}
+        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        
         <AtmosphereLayer variant="dashboard" />
         <div className={styles.container}>
           {/* Welcome row */}
@@ -269,20 +274,36 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-16" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
-                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gold/10 flex items-center justify-center" style={{ width: '5rem', height: '5rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '1.5rem', borderRadius: '50%', backgroundColor: 'rgba(212, 168, 83, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Calendar className="w-10 h-10 text-gold" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--accent-gold)' }} />
+                  <div className="text-center py-8" style={{ textAlign: 'center', padding: '2rem 1rem' }}>
+                    <div className="mb-4" style={{ marginBottom: '16px' }}>
+                      <p className="text-sm text-slate-400 mb-1" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '4px' }}>Next Matchday</p>
+                      <p className="text-2xl md:text-3xl font-bold text-[#D4A853] mb-2" style={{ fontSize: '24px', fontWeight: 'bold', color: '#D4A853', marginBottom: '8px' }}>
+                        Arsenal vs Liverpool
+                      </p>
+                      <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '24px' }}>
+                        Starts in 2d 14h 32m
+                      </p>
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2" style={{ color: 'var(--foreground-primary)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Next Matchday: Arsenal vs Liverpool</h3>
-                    <p className="text-slate-400 mb-2" style={{ color: 'var(--foreground-muted)', marginBottom: '0.5rem' }}>Starts in 2 days, 14 hours</p>
-                    <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--foreground-muted)', marginBottom: '1.5rem' }}>
-                      <span>47 players enrolled</span>
-                      <span>•</span>
-                      <span>₦1,500 top reward</span>
-                    </div>
-                    <Link href="/arena" className="btn-premium" style={{ display: 'inline-flex' }}>
-                      Set Your Predictions
-                    </Link>
+                    <button 
+                      onClick={() => router.push("/arena")}
+                      className="w-full max-w-[280px] h-12 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#dfba6b]"
+                      style={{
+                        width: '100%',
+                        maxWidth: '280px',
+                        height: '48px',
+                        backgroundColor: '#D4A853',
+                        color: '#050505',
+                        fontWeight: 'bold',
+                        borderRadius: '8px',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Set Predictions
+                    </button>
+                    <p className="text-xs text-slate-500 mt-4" style={{ fontSize: '12px', color: '#64748b', marginTop: '16px' }}>
+                      No active challenges. Make your picks before kickoff.
+                    </p>
                   </div>
                 )}
               </GlassCard>
@@ -350,61 +371,72 @@ export default function DashboardPage() {
 
           {/* Security & Payout Status row at bottom (PART 3 - 2) */}
           <GlassCard className="mt-6" style={{ marginTop: '24px' }}>
-            <div className={styles.cardHeader} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <User className={styles.cardHeaderIcon} style={{ width: '1.25rem', height: '1.25rem', color: 'var(--accent-gold)' }} />
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: 'var(--foreground-primary)' }}>Security & Payout Status</h3>
+            <div 
+              className={styles.cardHeader} 
+              onClick={() => setSecurityExpanded(!securityExpanded)}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '16px', cursor: 'pointer' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <User className={styles.cardHeaderIcon} style={{ width: '1.25rem', height: '1.25rem', color: 'var(--accent-gold)' }} />
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: 'var(--foreground-primary)' }}>Security & Payout Status</h3>
+              </div>
+              <span className="md:hidden" style={{ fontSize: '14px', color: 'var(--foreground-muted)' }}>
+                {securityExpanded ? "▲" : "▼"}
+              </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-              <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
-                <span style={{ color: 'var(--foreground-muted)' }}>Username:</span>
-                <strong style={{ display: 'block', marginTop: '4px', fontSize: '1.125rem' }}>{profile?.username ? profile.username : (user?.email ? user.email.split("@")[0] : "Not set")}</strong>
-              </div>
-              
-              <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
-                <span style={{ color: 'var(--foreground-muted)' }}>Phone Verification:</span>
-                <div style={{ marginTop: '4px' }}>
-                  {profile?.phone_verified ? (
-                    <span className={styles.statusSuccess} style={{ color: 'var(--accent-green)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      <CheckCircle size={16} /> Phone Verified
-                    </span>
-                  ) : (
-                    <span className={styles.statusDanger} style={{ color: 'var(--status-error)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      <ShieldAlert size={16} /> Unverified
-                    </span>
-                  )}
+            <div className={`${securityExpanded ? "block" : "hidden"} md:block`} style={{ width: '100%' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
+                  <span style={{ color: 'var(--foreground-muted)' }}>Username:</span>
+                  <strong style={{ display: 'block', marginTop: '4px', fontSize: '1.125rem' }}>{profile?.username ? profile.username : (user?.email ? user.email.split("@")[0] : "Not set")}</strong>
+                </div>
+                
+                <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
+                  <span style={{ color: 'var(--foreground-muted)' }}>Phone Verification:</span>
+                  <div style={{ marginTop: '4px' }}>
+                    {profile?.phone_verified ? (
+                      <span className={styles.statusSuccess} style={{ color: 'var(--accent-green)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <CheckCircle size={16} /> Phone Verified
+                      </span>
+                    ) : (
+                      <span className={styles.statusDanger} style={{ color: 'var(--status-error)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <ShieldAlert size={16} /> Unverified
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
+                  <span style={{ color: 'var(--foreground-muted)' }}>Payout Verification:</span>
+                  <div style={{ marginTop: '4px' }}>
+                    {profile?.identity_status === "verified" ? (
+                      <span className="badge badge-success" style={{ backgroundColor: 'rgba(18, 183, 106, 0.1)', color: 'var(--accent-green)', border: '1px solid var(--border-green)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Verified</span>
+                    ) : profile?.identity_status === "pending" ? (
+                      <span className="badge badge-warning" style={{ backgroundColor: 'rgba(214, 162, 58, 0.1)', color: 'var(--accent-gold)', border: '1px solid var(--border-gold)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Pending Review</span>
+                    ) : profile?.identity_status === "under_review" ? (
+                      <span className="badge badge-warning" style={{ backgroundColor: 'rgba(214, 162, 58, 0.1)', color: 'var(--accent-gold)', border: '1px solid var(--border-gold)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Under Review</span>
+                    ) : profile?.identity_status === "rejected" ? (
+                      <span className="badge badge-error" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: 'var(--status-error)', border: '1px solid var(--status-error)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Rejected</span>
+                    ) : (
+                      <span className="badge badge-info" style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: 'var(--accent-cyan)', border: '1px solid var(--border-cyan)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Unverified</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
-                <span style={{ color: 'var(--foreground-muted)' }}>Payout Verification:</span>
-                <div style={{ marginTop: '4px' }}>
-                  {profile?.identity_status === "verified" ? (
-                    <span className="badge badge-success" style={{ backgroundColor: 'rgba(18, 183, 106, 0.1)', color: 'var(--accent-green)', border: '1px solid var(--border-green)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Verified</span>
-                  ) : profile?.identity_status === "pending" ? (
-                    <span className="badge badge-warning" style={{ backgroundColor: 'rgba(214, 162, 58, 0.1)', color: 'var(--accent-gold)', border: '1px solid var(--border-gold)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Pending Review</span>
-                  ) : profile?.identity_status === "under_review" ? (
-                    <span className="badge badge-warning" style={{ backgroundColor: 'rgba(214, 162, 58, 0.1)', color: 'var(--accent-gold)', border: '1px solid var(--border-gold)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Under Review</span>
-                  ) : profile?.identity_status === "rejected" ? (
-                    <span className="badge badge-error" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: 'var(--status-error)', border: '1px solid var(--status-error)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Rejected</span>
-                  ) : (
-                    <span className="badge badge-info" style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: 'var(--accent-cyan)', border: '1px solid var(--border-cyan)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Unverified</span>
-                  )}
+              {profile?.bank_account_flagged && (
+                <div className={styles.flaggedNotice} style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--status-error)' }}>
+                  <ShieldAlert size={16} />
+                  <span>Bank account flagged. Duplicate detected.</span>
                 </div>
-              </div>
-            </div>
+              )}
 
-            {profile?.bank_account_flagged && (
-              <div className={styles.flaggedNotice} style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--status-error)' }}>
-                <ShieldAlert size={16} />
-                <span>Bank account flagged. Duplicate detected.</span>
+              <div className={styles.profileCta} style={{ marginTop: '20px', borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
+                <Link href="/settings" className="btn-glass" style={{ display: 'inline-flex' }}>
+                  Manage Verification
+                </Link>
               </div>
-            )}
-
-            <div className={styles.profileCta} style={{ marginTop: '20px', borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
-              <Link href="/settings" className="btn-glass" style={{ display: 'inline-flex' }}>
-                Manage Verification
-              </Link>
             </div>
           </GlassCard>
         </div>

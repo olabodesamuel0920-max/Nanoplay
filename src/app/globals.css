@@ -492,3 +492,24 @@ p {
     padding-bottom: calc(64px + env(safe-area-inset-bottom, 12px)) !important;
   }
 }
+
+/* Ensure content sits above AtmosphereLayer */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure glass cards stay readable */
+.glass-card,
+[class*="glass"],
+[class*="Card"] {
+  position: relative;
+  z-index: 10;
+}
+
+/* All interactive elements above atmosphere */
+button, a, input, select, textarea, [role="button"] {
+  position: relative;
+  z-index: 20;
+}
+

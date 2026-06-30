@@ -10,6 +10,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import { User, Wallet, Users, Award, ShieldAlert, CheckCircle, Zap, Trophy, HelpCircle } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -95,7 +96,7 @@ export default function DashboardPage() {
     <>
       <Navbar />
       <main className={styles.main}>
-        <div className={styles.pitchFloorBg}></div>
+        <AtmosphereLayer variant="dashboard" />
         <div className={styles.container}>
           {/* Welcome row */}
           <div className={styles.welcomeRow}>

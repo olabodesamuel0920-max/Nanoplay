@@ -12,6 +12,7 @@ import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import { CreditCard, ArrowUpRight, ArrowDownLeft, ShieldAlert, CheckCircle, Clock } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function WalletPage() {
   const router = useRouter();
@@ -193,6 +194,7 @@ export default function WalletPage() {
     <>
       <Navbar />
       <main className={styles.main}>
+        <AtmosphereLayer variant="wallet" />
         <div className={styles.container}>
           {/* Header */}
           <div className={styles.header}>

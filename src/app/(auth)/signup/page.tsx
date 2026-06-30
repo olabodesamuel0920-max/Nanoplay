@@ -12,6 +12,7 @@ import Button from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
 import { ShieldCheck } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -105,6 +106,7 @@ export default function SignupPage() {
     <div className={styles.splitLayout}>
       {/* Left panel: Massive luxury branding & trust */}
       <div className={styles.leftPanel}>
+        <AtmosphereLayer variant="signup" />
         <div className={styles.panelHeader}>
           <Logo size={36} showText={true} />
         </div>

@@ -11,6 +11,7 @@ import Button from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
 import { Trophy, ShieldCheck, HelpCircle } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -49,6 +50,7 @@ export default function LoginPage() {
     <div className={styles.splitLayout}>
       {/* Left panel: Massive luxury sports branding & trust */}
       <div className={styles.leftPanel}>
+        <AtmosphereLayer variant="login" />
         <div className={styles.panelHeader}>
           <Logo size={36} showText={true} />
         </div>

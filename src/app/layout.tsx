@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Inter, Playfair_Display } from "next/font/google";
 import MobileBottomNav from "@/components/layouts/mobile-bottom-nav";
 import "./globals.css";
+import "@/components/AtmosphereLayer.css";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",

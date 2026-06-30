@@ -7,6 +7,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import { ShieldCheck } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function WinnersPage() {
   const supabase = createClient();
@@ -53,9 +54,7 @@ export default function WinnersPage() {
     <>
       <Navbar />
       <main className={styles.main}>
-        {/* Subtle background decoration elements */}
-        <div className={styles.confettiOverlay}></div>
-        <div className={styles.crowdArcBg}></div>
+        <AtmosphereLayer variant="winners" />
 
         <div className={styles.container}>
           {/* Header */}

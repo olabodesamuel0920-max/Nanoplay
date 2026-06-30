@@ -2,10 +2,6 @@
 
 .main {
   flex: 1;
-  background:
-    url('/images/sports/stadium-light-rays.svg') no-repeat center / cover,
-    url('/images/sports/pitch-line-texture.svg') repeat-x bottom left / 100px auto,
-    var(--bg-obsidian);
   padding: 60px 24px;
   position: relative;
 }

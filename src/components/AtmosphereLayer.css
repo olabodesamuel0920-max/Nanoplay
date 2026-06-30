@@ -1,0 +1,390 @@
+/* src/components/AtmosphereLayer.css */
+
+/* ==========================================================================
+   NANOPLAY UNIFIED ATHMOSPHERE LAYER STYLES
+   ========================================================================== */
+
+.atmosphere-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Base structural elements - hidden unless variant matches */
+.atmosphere-bg,
+.atmosphere-player,
+.atmosphere-floor,
+.atmosphere-crowd,
+.atmosphere-centerpiece,
+.atmosphere-badge,
+.atmosphere-trophy {
+  position: absolute;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+/* Background layers */
+.atmosphere-bg {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+/* Floor layer */
+.atmosphere-floor {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35vh;
+  background-size: cover;
+  background-position: bottom center;
+  z-index: 1;
+}
+
+/* Crowd layer */
+.atmosphere-crowd {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+  background-position: bottom center;
+  z-index: 2;
+}
+
+/* Centerpiece container */
+.atmosphere-centerpiece {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   VARIANTS DEFINITION
+   ========================================================================== */
+
+/* --- HERO VARIANT --- */
+.atmosphere-hero .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/hero-football-atmosphere.webp');
+}
+.atmosphere-hero .atmosphere-player {
+  display: block;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  background-image: url('/images/sports/player-kick-silhouette.svg');
+  background-position: bottom left;
+  opacity: 0.25;
+  z-index: 2;
+}
+.atmosphere-hero .atmosphere-floor {
+  display: block;
+  background-image: url('/images/sports/pitch-floor-projection.svg');
+  opacity: 0.6;
+}
+.atmosphere-hero .atmosphere-crowd {
+  display: block;
+  background-image: url('/images/sports/crowd-arc.svg');
+  opacity: 0.8;
+}
+.atmosphere-hero .atmosphere-badge {
+  display: block;
+  top: 15%;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+  background-image: url('/images/sports/football-badge.svg');
+  animation: badge-float-absolute 6s ease-in-out infinite;
+}
+
+/* --- LOGIN VARIANT --- */
+.atmosphere-login .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg');
+  background-size: cover;
+  opacity: 0.8;
+}
+.atmosphere-login .atmosphere-player {
+  display: block;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  background-image: url('/images/sports/player-kick-silhouette.svg');
+  background-position: bottom left;
+  opacity: 0.25;
+  z-index: 2;
+}
+.atmosphere-login .atmosphere-crowd {
+  display: block;
+  background-image: url('/images/sports/crowd-arc.svg');
+  opacity: 0.8;
+}
+
+/* --- SIGNUP VARIANT --- */
+.atmosphere-signup .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg');
+  background-size: cover;
+  opacity: 0.8;
+}
+.atmosphere-signup .atmosphere-player {
+  display: block;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background-image: url('/images/sports/player-celebration-silhouette.svg');
+  background-position: bottom right;
+  opacity: 0.25;
+  z-index: 2;
+}
+.atmosphere-signup .atmosphere-crowd {
+  display: block;
+  background-image: url('/images/sports/crowd-arc.svg');
+  opacity: 0.8;
+}
+
+/* --- ARENA VARIANT --- */
+.atmosphere-arena .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+}
+.atmosphere-arena .atmosphere-player {
+  display: block;
+  top: 5%;
+  right: 5%;
+  width: 320px;
+  height: 320px;
+  background-image: url('/images/sports/goalkeeper-dive-silhouette.svg');
+  background-position: top right;
+  opacity: 0.15;
+  z-index: 1;
+}
+.atmosphere-arena .atmosphere-crowd {
+  display: block;
+  background-image: url('/images/sports/crowd-arc.svg');
+  opacity: 0.8;
+}
+.atmosphere-arena .atmosphere-badge {
+  display: block;
+  top: 24px;
+  left: 24px;
+  width: 64px;
+  height: 64px;
+  background-image: url('/images/sports/football-badge.svg');
+  animation: badge-float-local 6s ease-in-out infinite;
+}
+
+/* --- WINNERS VARIANT --- */
+.atmosphere-winners .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+}
+.atmosphere-winners .atmosphere-crowd {
+  display: block;
+  background-image: url('/images/sports/crowd-arc.svg');
+  opacity: 0.8;
+}
+.atmosphere-winners .atmosphere-badge {
+  display: block;
+  top: 24px;
+  left: 24px;
+  width: 56px;
+  height: 56px;
+  background-image: url('/images/sports/football-badge.svg');
+  animation: badge-float-local 6s ease-in-out infinite;
+}
+.atmosphere-winners .atmosphere-trophy {
+  display: block;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  background-image: url('/images/sports/trophy-spotlight.svg');
+  animation: trophy-glow-pulse 4s ease-in-out infinite alternate;
+}
+
+/* --- TIERS VARIANT --- */
+.atmosphere-tiers .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+  opacity: 0.6;
+}
+.atmosphere-tiers .atmosphere-floor {
+  display: block;
+  background-image: url('/images/sports/pitch-floor-projection.svg');
+  opacity: 0.5;
+}
+.atmosphere-tiers .atmosphere-badge {
+  display: block;
+  top: 24px;
+  left: 24px;
+  width: 64px;
+  height: 64px;
+  background-image: url('/images/sports/football-badge.svg');
+  animation: badge-float-local 6s ease-in-out infinite;
+}
+
+/* --- DASHBOARD VARIANT --- */
+.atmosphere-dashboard .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+}
+.atmosphere-dashboard .atmosphere-floor {
+  display: block;
+  background-image: url('/images/sports/pitch-floor-projection.svg');
+  opacity: 0.5;
+}
+.atmosphere-dashboard .atmosphere-player {
+  display: block;
+  bottom: 0;
+  right: 0;
+  width: 280px;
+  height: 280px;
+  background-image: url('/images/sports/player-celebration-silhouette.svg');
+  background-position: bottom right;
+  opacity: 0.15;
+  z-index: 2;
+}
+
+/* --- WALLET VARIANT --- */
+.atmosphere-wallet .atmosphere-bg {
+  display: block;
+  background-image: url('/images/sports/stadium-light-rays.svg');
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================= */
+
+@keyframes badge-float-absolute {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+  50% { transform: perspective(1000px) rotateY(15deg) translateY(-8px); }
+}
+
+@keyframes badge-float-local {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+  50% { transform: perspective(1000px) rotateY(15deg) translateY(-6px); }
+}
+
+@keyframes trophy-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(212, 168, 83, 0.3)); }
+  50% { filter: drop-shadow(0 0 35px rgba(212, 168, 83, 0.6)); }
+}
+
+/* Confetti animations */
+.confetti-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.confetti-particle {
+  position: absolute;
+  top: -20px;
+  border-radius: 1px;
+  opacity: 0;
+  animation: confetti-fall-keyframes linear infinite;
+}
+
+@keyframes confetti-fall-keyframes {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.6;
+  }
+  95% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(105vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   MOBILE MEDIA QUERY RULES
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .atmosphere-hero .atmosphere-player {
+    opacity: 0.15;
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Rays overlay on mobile layout to dim floodlights */
+  .atmosphere-bg {
+    filter: brightness(0.7);
+  }
+
+  .atmosphere-floor {
+    height: 20vh;
+  }
+
+  .atmosphere-crowd {
+    height: 60px;
+  }
+
+  .atmosphere-winners .atmosphere-trophy {
+    width: 130px;
+    height: 130px;
+  }
+
+  .atmosphere-badge {
+    transform: scale(0.75);
+  }
+
+  .confetti-overlay {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Silhouettes should be hidden entirely below 640px for content readability */
+  .atmosphere-player {
+    display: none !important;
+  }
+}
+
+/* prefers-reduced-motion safety */
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-badge,
+  .atmosphere-trophy,
+  .confetti-particle {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  .atmosphere-winners .atmosphere-trophy {
+    transform: translateX(-50%) !important;
+  }
+}

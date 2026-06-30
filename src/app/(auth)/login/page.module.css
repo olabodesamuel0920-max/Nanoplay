@@ -8,16 +8,20 @@
 
 .leftPanel {
   flex: 1.2;
-  background: 
-    radial-gradient(circle at 10% 20%, rgba(223, 186, 107, 0.04) 0%, var(--bg-obsidian) 100%),
-    url('/images/sports/player-kick-silhouette.svg') no-repeat bottom left / 300px auto,
-    url('/images/sports/stadium-light-rays.svg') no-repeat center / cover,
-    url('/images/sports/crowd-arc.svg') no-repeat bottom center / 100% 80px;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 60px;
   border-right: 1px solid var(--border-glass);
+}
+
+.panelHeader,
+.panelMiddle,
+.panelFooter {
+  position: relative;
+  z-index: 2;
 }
 
 .panelMiddle {

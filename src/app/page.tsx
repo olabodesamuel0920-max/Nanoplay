@@ -16,26 +16,20 @@ import {
   Clock
 } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function LandingPage() {
   return (
     <>
       <Navbar />
       <main className={styles.main}>
+        <AtmosphereLayer variant="hero" />
         {/* Glow Spotlights */}
         <div className={styles.glowTop}></div>
         <div className={styles.glowMid}></div>
 
         {/* 1. HERO SECTION */}
         <section className={`${styles.heroSection} sports-stadium-lights`}>
-          {/* Tactical Pitch Lines & Silhouettes Background */}
-          <div className={styles.heroSportsBg}>
-            <div className={`${styles.pitchOverlay} sports-bg-pitch`}></div>
-            <div className={styles.strikerSilhouette}></div>
-            <div className={styles.goalkeeperSilhouette}></div>
-            <div className={styles.crowdArc}></div>
-          </div>
-
           <div className={styles.heroGrid}>
             
             {/* Left Side: Editorial Typography & Copy */}
@@ -76,7 +70,6 @@ export default function LandingPage() {
               {/* Stacked depth cards behind main board */}
               <div className={styles.boardBackCard1}></div>
               <div className={styles.boardBackCard2}></div>
-              <div className={styles.footballBadgeFloating}></div>
 
               {/* Side Fixture Card — Left */}
               <div className={`${styles.sideFixture} ${styles.sideFixtureLeft}`}>

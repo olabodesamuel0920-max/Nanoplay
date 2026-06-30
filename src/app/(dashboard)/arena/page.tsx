@@ -10,6 +10,7 @@ import Button from "@/components/ui/button";
 import { getOrCreateProfile } from "@/app/actions/verification";
 import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 const cleanReward = (rewardStr: string) => {
   if (!rewardStr) return "";
@@ -256,9 +257,7 @@ export default function ArenaPage() {
     <>
       <Navbar />
       <main className={styles.main}>
-        {/* Subtle background decoration elements */}
-        <div className={styles.goalkeeperSilhouetteBg}></div>
-        <div className={styles.crowdArcBg}></div>
+        <AtmosphereLayer variant="arena" />
         
         <div className={styles.container}>
           {/* Header */}

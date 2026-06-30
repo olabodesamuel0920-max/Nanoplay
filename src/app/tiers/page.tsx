@@ -7,6 +7,7 @@ import GlassCard from "@/components/ui/glass-card";
 import { createClient } from "@/lib/supabase/client";
 import { ShieldCheck, Check, Info } from "lucide-react";
 import styles from "./page.module.css";
+import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function TiersPage() {
   const supabase = createClient();
@@ -45,6 +46,7 @@ export default function TiersPage() {
     <>
       <Navbar />
       <main className={styles.main}>
+        <AtmosphereLayer variant="tiers" />
         <div className={styles.container}>
           <div className={styles.header}>
             <AwardBadge size={40} className={styles.icon} />

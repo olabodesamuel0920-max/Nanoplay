@@ -1,27 +1,28 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Inter, Playfair_Display } from "next/font/google";
+import { Montserrat, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import MobileBottomNav from "@/components/layouts/mobile-bottom-nav";
 import "./globals.css";
 import "@/components/AtmosphereLayer.css";
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
+const montserrat = Montserrat({
+  weight: ["700", "800", "900"],
   subsets: ["latin"],
-  variable: "--font-bebas-neue",
+  variable: "--font-montserrat",
   display: "swap",
 });
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-plus-jakarta-sans",
   display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-playfair-display",
+  variable: "--font-space-mono",
   display: "swap",
 });
 
@@ -52,12 +53,12 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${bebasNeue.variable} ${inter.variable} ${playfairDisplay.variable}`}
+      className={`${montserrat.variable} ${plusJakartaSans.variable} ${spaceMono.variable}`}
       style={{
-        "--font-heading": "var(--font-bebas-neue)",
-        "--font-body": "var(--font-inter)",
-        "--font-data": "var(--font-inter)",
-        "--font-editorial": "var(--font-playfair-display)",
+        "--font-heading": "var(--font-montserrat)",
+        "--font-body": "var(--font-plus-jakarta-sans)",
+        "--font-data": "var(--font-space-mono)",
+        "--font-editorial": "var(--font-montserrat)",
       } as React.CSSProperties}
     >
       <head>

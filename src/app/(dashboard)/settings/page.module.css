@@ -75,7 +75,7 @@
 }
 
 .cardIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .cardTitle {
@@ -194,7 +194,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   margin-top: 20px;
   margin-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -231,8 +231,8 @@
 }
 
 .selectInput:focus {
-  border-color: var(--accent-lime);
-  box-shadow: 0 0 20px var(--accent-lime-glow);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 20px var(--accent-gold-glow);
 }
 
 .kycSubmitBtn {

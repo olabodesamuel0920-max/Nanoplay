@@ -1,55 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Default/Dark Theme Tokens - Obsidian & Gold/Cyan Luxury Sports-Tech */
-  --bg-obsidian: #020204;
-  --bg-charcoal: #0b0b0e;
-  --bg-card: rgba(11, 11, 14, 0.7);
-  --bg-card-hover: rgba(16, 16, 21, 0.9);
+  /* Design Tokens - Premium Midnight Stadium Navy & Gold/Green/Cyan */
+  --bg-obsidian: #030712;
+  --bg-charcoal: #07111f;
+  --bg-card: #0b1220;
+  --bg-card-hover: #101827;
   
-  --foreground-primary: #ffffff;
-  --foreground-secondary: #94a3b8;
-  --foreground-muted: #64748b;
+  --foreground-primary: #f8fafc;
+  --foreground-secondary: #cbd5e1;
+  --foreground-muted: #94a3b8;
   
-  /* Champagne Gold Accent Palette */
-  --accent-gold: #dfba6b;
-  --accent-gold-hover: #f1d28c;
-  --accent-gold-glow: rgba(223, 186, 107, 0.15);
-  --accent-gold-glow-strong: rgba(223, 186, 107, 0.3);
-  --border-gold: rgba(223, 186, 107, 0.18);
-  --shadow-gold: 0 0 30px 0 rgba(223, 186, 107, 0.08);
+  /* Premium Gold Accent Palette */
+  --accent-gold: #e5b95c;
+  --accent-gold-hover: #f7d276;
+  --accent-gold-glow: rgba(229, 185, 92, 0.18);
+  --accent-gold-glow-strong: rgba(229, 185, 92, 0.35);
+  --border-gold: rgba(229, 185, 92, 0.28);
+  --shadow-gold: 0 0 30px 0 rgba(229, 185, 92, 0.12);
 
-  /* Ice Cyan Accent Palette */
-  --accent-cyan: #7dd3fc;
-  --accent-cyan-hover: #38bdf8;
-  --accent-cyan-glow: rgba(125, 211, 252, 0.15);
-  --border-cyan: rgba(125, 211, 252, 0.18);
-  --shadow-cyan: 0 0 30px 0 rgba(125, 211, 252, 0.08);
+  /* Ice Blue Accent Palette (Trust/Tech) */
+  --accent-cyan: #38bdf8;
+  --accent-cyan-hover: #0ea5e9;
+  --accent-cyan-glow: rgba(56, 189, 248, 0.16);
+  --border-cyan: rgba(56, 189, 248, 0.24);
+  --shadow-cyan: 0 0 30px 0 rgba(56, 189, 248, 0.1);
 
-  /* Map primary accents to luxury Gold */
-  --accent-lime: var(--accent-gold);
-  --accent-lime-hover: var(--accent-gold-hover);
-  --accent-lime-glow: var(--accent-gold-glow);
-  --accent-lime-glow-strong: var(--accent-gold-glow-strong);
-  --border-lime: var(--border-gold);
-  --shadow-lime: var(--shadow-gold);
+  /* Pitch Green Accent Palette (Live/Sports Energy) */
+  --accent-green: #16a34a;
+  --accent-green-hover: #15803d;
+  --accent-green-glow: rgba(22, 163, 74, 0.18);
+  --accent-green-glow-strong: rgba(22, 163, 74, 0.3);
+  --border-green: rgba(22, 163, 74, 0.28);
+  --shadow-green: 0 0 30px 0 rgba(22, 163, 74, 0.12);
+
+  /* Backward Compatibility Aliases */
+  --accent-lime: var(--accent-green);
+  --accent-lime-hover: var(--accent-green-hover);
+  --accent-lime-glow: var(--accent-green-glow);
+  --accent-lime-glow-strong: var(--accent-green-glow-strong);
+  --border-lime: var(--border-green);
+  --shadow-lime: var(--shadow-green);
   
   /* Glassmorphism & High-Fi Borders */
-  --border-glass: rgba(255, 255, 255, 0.04);
-  --border-glass-hover: rgba(255, 255, 255, 0.1);
+  --border-glass: rgba(148, 163, 184, 0.18);
+  --border-glass-hover: rgba(148, 163, 184, 0.28);
   --border-accent: var(--border-gold);
   --shadow-accent: var(--shadow-gold);
   
   /* Shadows & Depth */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  --shadow-glass: 0 10px 40px 0 rgba(0, 0, 0, 0.9);
   
   /* System States */
-  --status-success: #00b86e;
-  --status-success-glow: rgba(0, 184, 110, 0.15);
-  --status-success-glow-strong: rgba(0, 184, 110, 0.3);
-  --status-error: #ff2a5f;
-  --status-warning: #ffb700;
-  --status-info: #38bdf8;
+  --status-success: var(--accent-green);
+  --status-success-glow: var(--accent-green-glow);
+  --status-success-glow-strong: var(--accent-green-glow-strong);
+  --status-error: #ef4444; /* Clean clear red */
+  --status-warning: #f59e0b; /* Gold/Amber */
+  --status-info: var(--accent-cyan);
 
   /* Typography */
   --font-heading: 'Bebas Neue', 'Outfit', sans-serif;
@@ -63,65 +71,73 @@
 
   /* Opacities & Default Glows */
   --opacity-bg-art: 1.0;
-  --default-card-glow: 0 4px 30px rgba(223, 186, 107, 0.04);
+  --default-card-glow: 0 4px 30px rgba(22, 163, 74, 0.03), 0 4px 20px rgba(229, 185, 92, 0.04);
   --default-btn-glow: 0 4px 15px var(--accent-gold-glow);
 }
 
 html[data-theme="light"] {
-  /* Light Theme Tokens - Sporty Warm Ivory & Premium Dark Slate */
-  --bg-obsidian: #faf9f6;
-  --bg-charcoal: #f3f2ed;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  /* Light Theme Tokens - Warm Stadium Ivory & Premium Dark Slate */
+  --bg-obsidian: #f6f1e7;
+  --bg-charcoal: #fffaf0;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fff7e6;
   
   --foreground-primary: #0f172a;
-  --foreground-secondary: #475569;
-  --foreground-muted: #64748b;
+  --foreground-secondary: #334155;
+  --foreground-muted: #475569;
   
-  /* Champagne Gold Accent Palette - darker for readability */
-  --accent-gold: #c5a059;
-  --accent-gold-hover: #b48e47;
-  --accent-gold-glow: rgba(197, 160, 89, 0.1);
-  --accent-gold-glow-strong: rgba(197, 160, 89, 0.25);
-  --border-gold: rgba(197, 160, 89, 0.28);
-  --shadow-gold: 0 4px 20px 0 rgba(197, 160, 89, 0.08);
+  /* Champagne Gold Accent Palette in Light mode */
+  --accent-gold: #b7791f;
+  --accent-gold-hover: #9c6014;
+  --accent-gold-glow: rgba(183, 121, 31, 0.1);
+  --accent-gold-glow-strong: rgba(183, 121, 31, 0.22);
+  --border-gold: rgba(183, 121, 31, 0.25);
+  --shadow-gold: 0 4px 20px 0 rgba(183, 121, 31, 0.08);
 
-  /* Ice Cyan Accent Palette - darker for readability */
+  /* Ice Blue Accent Palette in Light mode */
   --accent-cyan: #0284c7;
   --accent-cyan-hover: #0369a1;
   --accent-cyan-glow: rgba(2, 132, 199, 0.1);
-  --border-cyan: rgba(2, 132, 199, 0.28);
-  --shadow-cyan: 0 4px 20px 0 rgba(2, 132, 199, 0.08);
+  --border-cyan: rgba(2, 132, 199, 0.22);
+  --shadow-cyan: 0 4px 20px 0 rgba(2, 132, 199, 0.06);
 
-  /* Map primary accents to luxury Gold */
-  --accent-lime: var(--accent-gold);
-  --accent-lime-hover: var(--accent-gold-hover);
-  --accent-lime-glow: var(--accent-gold-glow);
-  --accent-lime-glow-strong: var(--accent-gold-glow-strong);
-  --border-lime: var(--border-gold);
-  --shadow-lime: var(--shadow-gold);
+  /* Pitch Green Accent Palette in Light mode */
+  --accent-green: #15803d;
+  --accent-green-hover: #166534;
+  --accent-green-glow: rgba(21, 128, 61, 0.1);
+  --accent-green-glow-strong: rgba(21, 128, 61, 0.22);
+  --border-green: rgba(21, 128, 61, 0.22);
+  --shadow-green: 0 4px 20px 0 rgba(21, 128, 61, 0.06);
+
+  /* Backward Compatibility Aliases */
+  --accent-lime: var(--accent-green);
+  --accent-lime-hover: var(--accent-green-hover);
+  --accent-lime-glow: var(--accent-green-glow);
+  --accent-lime-glow-strong: var(--accent-green-glow-strong);
+  --border-lime: var(--border-green);
+  --shadow-lime: var(--shadow-green);
   
   /* Glassmorphism & High-Fi Borders */
-  --border-glass: rgba(15, 23, 42, 0.08);
-  --border-glass-hover: rgba(15, 23, 42, 0.15);
+  --border-glass: rgba(15, 23, 42, 0.12);
+  --border-glass-hover: rgba(15, 23, 42, 0.18);
   --border-accent: var(--border-gold);
   --shadow-accent: var(--shadow-gold);
   
-  /* Shadows & Depth - soft shadow instead of heavy dark glow */
-  --shadow-glass: 0 10px 30px -10px rgba(15, 23, 42, 0.15);
+  /* Shadows & Depth */
+  --shadow-glass: 0 10px 30px -10px rgba(15, 23, 42, 0.12);
   
   /* System States */
-  --status-success: #16a34a;
-  --status-success-glow: rgba(22, 163, 74, 0.1);
-  --status-success-glow-strong: rgba(22, 163, 74, 0.2);
+  --status-success: var(--accent-green);
+  --status-success-glow: var(--accent-green-glow);
+  --status-success-glow-strong: var(--accent-green-glow-strong);
   --status-error: #dc2626;
-  --status-warning: #ca8a04;
-  --status-info: #0284c7;
+  --status-warning: #d97706;
+  --status-info: var(--accent-cyan);
 
   /* Opacities & Default Glows */
-  --opacity-bg-art: 0.15;
-  --default-card-glow: 0 4px 25px rgba(15, 23, 42, 0.05);
-  --default-btn-glow: 0 4px 15px rgba(197, 160, 89, 0.15);
+  --opacity-bg-art: 0.12;
+  --default-card-glow: 0 4px 25px rgba(15, 23, 42, 0.04);
+  --default-btn-glow: 0 4px 15px rgba(183, 121, 31, 0.15);
 }
 
 * {

@@ -58,7 +58,7 @@
 }
 
 .cardHeaderIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .cardTitle {
@@ -86,15 +86,15 @@
 .referralCode {
   font-size: 24px;
   font-weight: 900;
-  color: var(--accent-lime);
-  text-shadow: 0 0 10px var(--accent-lime-glow);
+  color: var(--accent-gold);
+  text-shadow: 0 0 10px var(--accent-gold-glow);
 }
 
 .copyBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent-lime);
+  background: var(--accent-gold);
   color: #000000;
   border: none;
   font-family: var(--font-heading), sans-serif;
@@ -107,7 +107,7 @@
 }
 
 .copyBtn:hover {
-  background: var(--accent-lime-hover);
+  background: var(--accent-gold-hover);
   transform: translateY(-1px);
 }
 
@@ -144,7 +144,7 @@
 
 .conditionsList li::before {
   content: '✓';
-  color: var(--accent-lime);
+  color: var(--accent-green);
   font-weight: bold;
   position: absolute;
   left: 0;

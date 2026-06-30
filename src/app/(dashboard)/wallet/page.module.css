@@ -77,8 +77,8 @@
 .balanceValue {
   font-size: 44px;
   font-weight: 900;
-  color: var(--accent-lime);
-  text-shadow: 0 0 20px var(--accent-lime-glow);
+  color: var(--accent-gold);
+  text-shadow: 0 0 20px var(--accent-gold-glow);
   font-family: var(--font-data), sans-serif;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .cardHeaderIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .cardDesc {

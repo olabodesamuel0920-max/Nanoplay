@@ -76,15 +76,15 @@
 }
 
 .statIconContainer {
-  background: rgba(191, 255, 0, 0.05);
-  border: 1px solid var(--border-lime);
+  background: var(--accent-green-glow);
+  border: 1px solid var(--border-green);
   padding: 14px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-lime);
-  box-shadow: 0 0 15px rgba(191, 255, 0, 0.05);
+  color: var(--accent-green);
+  box-shadow: 0 0 15px var(--accent-green-glow);
 }
 
 .statIcon {
@@ -160,7 +160,7 @@
 }
 
 .cardHeaderIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .entryDetails,
@@ -181,7 +181,7 @@
 }
 
 .rewardPotential {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   font-weight: 900;
 }
 

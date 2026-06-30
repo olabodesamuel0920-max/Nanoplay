@@ -75,10 +75,10 @@
 }
 
 .trophyIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   width: 44px;
   height: 44px;
-  filter: drop-shadow(0 0 10px var(--accent-lime-glow));
+  filter: drop-shadow(0 0 10px var(--accent-gold-glow));
 }
 
 .title {
@@ -99,16 +99,16 @@
 
 .roundBadge {
   display: inline-block;
-  background: rgba(191, 255, 0, 0.05);
-  color: var(--accent-lime);
-  border: 1px solid var(--border-lime);
+  background: var(--accent-green-glow);
+  color: var(--accent-green);
+  border: 1px solid var(--border-green);
   padding: 6px 14px;
   border-radius: 20px;
   font-family: var(--font-heading), sans-serif;
   font-weight: 900;
   font-size: 13px;
   margin-bottom: 6px;
-  box-shadow: 0 0 15px rgba(191, 255, 0, 0.05);
+  box-shadow: 0 0 15px var(--accent-green-glow);
 }
 
 .roundDates {
@@ -206,7 +206,7 @@
 }
 
 .noRoundIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   width: 48px;
   height: 48px;
   margin-bottom: 20px;
@@ -384,13 +384,13 @@
 
 .standard {
   border: 1px solid rgba(223, 186, 107, 0.5) !important;
-  box-shadow: 0 8px 32px rgba(223, 186, 107, 0.12), inset 0 0 24px rgba(223, 186, 107, 0.05) !important;
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.08), 0 0 20px rgba(223, 186, 107, 0.12), inset 0 0 24px rgba(223, 186, 107, 0.05) !important;
   transform: scale(1.03);
 }
 
 .standard:hover {
   border-color: rgba(223, 186, 107, 0.8) !important;
-  box-shadow: 0 16px 40px rgba(223, 186, 107, 0.25), inset 0 0 24px rgba(223, 186, 107, 0.08) !important;
+  box-shadow: 0 16px 40px rgba(22, 163, 74, 0.15), 0 0 30px rgba(223, 186, 107, 0.2), inset 0 0 24px rgba(223, 186, 107, 0.08) !important;
   transform: scale(1.05);
 }
 
@@ -400,19 +400,19 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(223, 186, 107, 0.06) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
 
 .premium {
   border: 1px solid rgba(125, 211, 252, 0.3) !important;
-  box-shadow: 0 4px 24px rgba(125, 211, 252, 0.06) !important;
+  box-shadow: 0 4px 24px rgba(125, 211, 252, 0.06), 0 0 15px rgba(229, 185, 92, 0.06) !important;
 }
 
 .premium:hover {
   border-color: rgba(125, 211, 252, 0.6) !important;
-  box-shadow: 0 12px 36px rgba(125, 211, 252, 0.18) !important;
+  box-shadow: 0 12px 36px rgba(125, 211, 252, 0.18), 0 0 20px rgba(229, 185, 92, 0.1) !important;
 }
 
 /* Card Header elements */
@@ -608,9 +608,7 @@
 }
 
 .rewardValue {
-  font-size: 20px;
-  font-weight: 900;
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .standard .rewardValue {
@@ -643,7 +641,7 @@
   width: 14px;
   height: 14px;
   font-size: 10px;
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .standard .detailIcon {
@@ -960,7 +958,7 @@
 
 .rulesList li::before {
   content: '•';
-  color: var(--accent-lime);
+  color: var(--accent-green);
   font-weight: bold;
   position: absolute;
   left: 0;

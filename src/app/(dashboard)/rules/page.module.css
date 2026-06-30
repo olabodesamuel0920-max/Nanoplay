@@ -24,7 +24,7 @@
 }
 
 .bookIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   width: 40px;
   height: 40px;
 }
@@ -61,7 +61,7 @@
 }
 
 .cardIcon {
-  color: var(--accent-lime);
+  color: var(--accent-gold);
 }
 
 .list {
@@ -81,7 +81,7 @@
 
 .list li::before {
   content: '✓';
-  color: var(--accent-lime);
+  color: var(--accent-green);
   font-weight: bold;
   position: absolute;
   left: 0;

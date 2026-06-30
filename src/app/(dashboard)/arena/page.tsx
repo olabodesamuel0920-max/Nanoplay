@@ -325,23 +325,91 @@ export default function ArenaPage() {
               </div>
 
               <div className={styles.tiersGrid}>
-                {tiers.map((tier) => (
-                  <GlassCard key={tier.id} className={styles.tierCard} hoverEffect={true}>
-                    <h3 className={styles.tierName}>{tier.name}</h3>
-                    <div className={styles.tierPrice}>NGN {tier.price_ngn.toLocaleString()}</div>
-                    <div className={styles.tierReward}>
-                      Listed Reward: <strong>{cleanReward(tier.perks?.reward)}</strong>
-                    </div>
-                    <Button
-                      onClick={() => handleEnroll(tier.id, tier.price_ngn)}
-                      variant="premium"
-                      loading={actionLoading}
-                      className={styles.enrollBtn}
+                {tiers.map((tier) => {
+                  const isStarter = tier.name.toLowerCase().includes("starter");
+                  const isStandard = tier.name.toLowerCase().includes("standard");
+                  const isPremium = tier.name.toLowerCase().includes("premium");
+                  
+                  const passLabel = isStarter ? "ENTRY PASS" : isPremium ? "ELITE PASS" : "CHALLENGE PASS";
+                  const tierClass = isStarter ? styles.starter : isPremium ? styles.premium : styles.standard;
+                  const cleanedReward = cleanReward(tier.perks?.reward || "")
+                    .replace(/\s*potential\s*reward/gi, "")
+                    .trim();
+
+                  return (
+                    <GlassCard
+                      key={tier.id}
+                      className={[styles.tierCard, tierClass, isStandard ? styles.highlighted : ""].join(" ")}
+                      hoverEffect={!isStandard}
                     >
-                      Enroll Now
-                    </Button>
-                  </GlassCard>
-                ))}
+                      {/* Decorative/Atmosphere elements in the ticket card */}
+                      {isStandard && <div className={styles.standardGlow} aria-hidden="true" />}
+                      <span className={styles.cardWatermark} aria-hidden="true" />
+                      <span className={styles.cardTexture} aria-hidden="true" />
+                      <div className={styles.ticketNotchLeft} aria-hidden="true" />
+                      <div className={styles.ticketNotchRight} aria-hidden="true" />
+
+                      {isStandard && (
+                        <div className={styles.recommendedBadge}>
+                          MOST PICKED
+                        </div>
+                      )}
+
+                      <div className={styles.ticketMain}>
+                        <div className={styles.cardHeader}>
+                          <span className={styles.passLabel}>{passLabel}</span>
+                          <span className={styles.roundChip}>
+                            <span className={styles.statusOrb} aria-hidden="true" />
+                            Round #{activeRound.round_number}
+                          </span>
+                        </div>
+
+                        <h3 className={styles.tierTitle}>{tier.name.toUpperCase()}</h3>
+
+                        <div className={styles.priceContainer}>
+                          <span className={styles.priceLabel}>ENTRY FEE</span>
+                          <span className={[styles.priceValue, "font-data"].join(" ")}>NGN {tier.price_ngn.toLocaleString()}</span>
+                        </div>
+
+                        <div className={styles.rewardContainer}>
+                          <span className={styles.rewardLabel}>Listed Reward</span>
+                          <div className={styles.rewardStrip}>
+                            <span className={styles.rewardIcon} aria-hidden="true" />
+                            <span className={[styles.rewardValue, "font-data"].join(" ")}>{cleanedReward}</span>
+                          </div>
+                        </div>
+
+                        <div className={styles.detailsList}>
+                          <div className={styles.detailRow}>
+                            <span className={styles.detailIcon} aria-hidden="true">✓</span>
+                            <span>Streak target: 3 wins</span>
+                          </div>
+                          <div className={styles.detailRow}>
+                            <span className={styles.detailIcon} aria-hidden="true">✓</span>
+                            <span>Review required</span>
+                          </div>
+                          <div className={styles.detailRow}>
+                            <span className={styles.detailIcon} aria-hidden="true">✓</span>
+                            <span>Phone verified only</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={styles.ticketDivider} aria-hidden="true" />
+
+                      <div className={styles.ticketFooter}>
+                        <Button
+                          onClick={() => handleEnroll(tier.id, tier.price_ngn)}
+                          variant="premium"
+                          loading={actionLoading}
+                          className={styles.enrollBtn}
+                        >
+                          Enroll Now
+                        </Button>
+                      </div>
+                    </GlassCard>
+                  );
+                })}
               </div>
             </div>
           ) : (

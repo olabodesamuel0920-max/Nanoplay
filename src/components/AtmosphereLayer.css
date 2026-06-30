@@ -375,6 +375,31 @@
   .atmosphere-player {
     display: none !important;
   }
+  
+  .atmosphere-layer::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to top, rgba(16, 185, 129, 0.12) 0%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .atmosphere-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 100%;
+    background: radial-gradient(ellipse at top, rgba(212, 168, 83, 0.06) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+  }
 }
 
 /* prefers-reduced-motion safety */
@@ -388,5 +413,28 @@
   
   .atmosphere-winners .atmosphere-trophy {
     transform: translateX(-50%) !important;
+  }
+}
+
+/* Disable atmosphere entirely in light mode (PART 10) */
+html[data-theme="light"] .atmosphere-layer,
+html[data-theme="light"] .atmosphere-bg,
+html[data-theme="light"] .atmosphere-player,
+html[data-theme="light"] .atmosphere-floor,
+html[data-theme="light"] .atmosphere-crowd,
+html[data-theme="light"] .atmosphere-badge,
+html[data-theme="light"] .atmosphere-trophy {
+  display: none !important;
+}
+
+@media (prefers-color-scheme: light) {
+  .atmosphere-layer,
+  .atmosphere-bg,
+  .atmosphere-player,
+  .atmosphere-floor,
+  .atmosphere-crowd,
+  .atmosphere-badge,
+  .atmosphere-trophy {
+    display: none !important;
   }
 }

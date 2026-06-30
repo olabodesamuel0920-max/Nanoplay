@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import { getOrCreateProfile } from "@/app/actions/verification";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
-import { User, Wallet, Users, Award, ShieldAlert, CheckCircle, Zap, Trophy, HelpCircle } from "lucide-react";
+import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap, Wallet, Flame, Users, Calendar, Info, User } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
@@ -23,8 +23,13 @@ export default function DashboardPage() {
   const [predictionsCount, setPredictionsCount] = useState(0);
   const [referralsCount, setReferralsCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [showTimeout, setShowTimeout] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTimeout(true);
+    }, 5000);
+
     async function loadDashboard() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
@@ -77,16 +82,43 @@ export default function DashboardPage() {
       setReferralsCount(refCount || 0);
 
       setLoading(false);
+      clearTimeout(timer);
     }
     loadDashboard();
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
     return (
       <>
         <Navbar />
-        <div className="container-center" style={{ flex: 1 }}>
-          <div className="font-data">LOADING DASHBOARD...</div>
+        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
+          <div className="space-y-6">
+            {/* Header skeleton */}
+            <div className="skeleton-box" style={{ height: '2rem', width: '25%', marginBottom: '1.5rem' }}></div>
+            
+            {/* Stats row skeleton */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div className="skeleton-box" style={{ height: '7rem' }}></div>
+              <div className="skeleton-box" style={{ height: '7rem' }}></div>
+              <div className="skeleton-box" style={{ height: '7rem' }}></div>
+            </div>
+
+            {/* Main cards skeleton */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+              <div className="skeleton-box" style={{ height: '20rem' }}></div>
+              <div className="skeleton-box" style={{ height: '20rem' }}></div>
+            </div>
+
+            {showTimeout && (
+              <div className="text-center py-4" style={{ marginTop: '2rem', textAlign: 'center' }}>
+                <p className="text-sm mb-2" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Taking longer than expected to load dashboard...</p>
+                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: 'inline-flex', padding: '0.5rem 1rem' }}>
+                  Refresh Page
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </>
     );
@@ -104,10 +136,10 @@ export default function DashboardPage() {
               <div className={styles.controlRoomHeader}>
                 <span className={styles.matchdayControlBadge}>
                   <span className={styles.badgePulse} />
-                  MATCHDAY CONTROL ROOM
+                  Matchday Control Room
                 </span>
               </div>
-              <h1 className={styles.title}>WELCOME BACK, {profile?.username ? profile.username.toUpperCase() : "PLAYER"}</h1>
+              <h1 className={styles.title}>Welcome Back, {profile?.username ? profile.username : "Player"}</h1>
               <p className={styles.subtitle}>
                 Track your active challenges, prediction win streak, and account verification limits.
               </p>
@@ -123,12 +155,12 @@ export default function DashboardPage() {
           <div className={styles.statsGrid}>
             <GlassCard className={styles.statCard}>
               <span className={styles.cardWatermark} aria-hidden="true" />
-              <div className={styles.statIconContainer}>
-                <Wallet className={styles.statIcon} />
+              <div className={styles.statIconContainer} style={{ borderColor: 'var(--border-gold)' }}>
+                <Wallet className={styles.statIcon} style={{ color: 'var(--accent-gold)' }} />
               </div>
               <div className={styles.statInfo}>
                 <span className={styles.statLabel}>Wallet Balance</span>
-                <span className={[styles.statValue, "font-data"].join(" ")}>
+                <span className={[styles.statValue, "font-mono-numbers"].join(" ")} style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>
                   NGN {(wallet?.balance_ngn || 0).toLocaleString()}
                 </span>
               </div>
@@ -136,12 +168,12 @@ export default function DashboardPage() {
 
             <GlassCard className={styles.statCard}>
               <span className={styles.cardWatermark} aria-hidden="true" />
-              <div className={styles.statIconContainer}>
-                <Trophy className={styles.statIcon} />
+              <div className={styles.statIconContainer} style={{ borderColor: 'var(--border-green)' }}>
+                <Flame className={styles.statIcon} style={{ color: 'var(--accent-green)' }} />
               </div>
               <div className={styles.statInfo}>
                 <span className={styles.statLabel}>Active Streak</span>
-                <span className={[styles.statValue, "font-data"].join(" ")}>
+                <span className={[styles.statValue, "font-mono-numbers"].join(" ")} style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>
                   {activeEntry?.streak_count || 0} Wins
                 </span>
               </div>
@@ -149,12 +181,12 @@ export default function DashboardPage() {
 
             <GlassCard className={styles.statCard}>
               <span className={styles.cardWatermark} aria-hidden="true" />
-              <div className={styles.statIconContainer}>
-                <Users className={styles.statIcon} />
+              <div className={styles.statIconContainer} style={{ borderColor: 'var(--border-cyan)' }}>
+                <Users className={styles.statIcon} style={{ color: 'var(--accent-cyan)' }} />
               </div>
               <div className={styles.statInfo}>
                 <span className={styles.statLabel}>Total Referrals</span>
-                <span className={[styles.statValue, "font-data"].join(" ")}>
+                <span className={[styles.statValue, "font-mono-numbers"].join(" ")} style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>
                   {referralsCount} Users
                 </span>
               </div>
@@ -194,7 +226,7 @@ export default function DashboardPage() {
                     </div>
                     <div className={styles.detailRow}>
                       <span>Submitted Predictions:</span>
-                      <span className="font-data">{predictionsCount} / 3 Matches</span>
+                      <span className="font-mono-numbers">{predictionsCount} / 3 Matches</span>
                     </div>
                     <div className={styles.detailRow}>
                       <span>Target Round Reward:</span>
@@ -205,7 +237,7 @@ export default function DashboardPage() {
                     <div className={styles.streakVisualContainer}>
                       <div className={styles.streakVisualLabel}>
                         <span>Prediction Streak Progress</span>
-                        <span className="font-data">{activeEntry?.streak_count || 0} / 3 Wins</span>
+                        <span className="font-mono-numbers">{activeEntry?.streak_count || 0} / 3 Wins</span>
                       </div>
                       <div className={styles.streakProgressBarBg}>
                         <div 
@@ -237,12 +269,19 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 ) : (
-                  <div className={styles.noEntryDetails}>
-                    <Trophy className={styles.noEntryIcon} />
-                    <h4>You are not enrolled in the current round</h4>
-                    <p>Enroll today in the Play Arena to start your 3-match prediction streak.</p>
-                    <Link href="/arena" className="btn-premium">
-                      Enroll Now
+                  <div className="text-center py-16" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gold/10 flex items-center justify-center" style={{ width: '5rem', height: '5rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '1.5rem', borderRadius: '50%', backgroundColor: 'rgba(212, 168, 83, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Calendar className="w-10 h-10 text-gold" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--accent-gold)' }} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2" style={{ color: 'var(--foreground-primary)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Next Matchday: Arsenal vs Liverpool</h3>
+                    <p className="text-slate-400 mb-2" style={{ color: 'var(--foreground-muted)', marginBottom: '0.5rem' }}>Starts in 2 days, 14 hours</p>
+                    <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--foreground-muted)', marginBottom: '1.5rem' }}>
+                      <span>47 players enrolled</span>
+                      <span>•</span>
+                      <span>₦1,500 top reward</span>
+                    </div>
+                    <Link href="/arena" className="btn-premium" style={{ display: 'inline-flex' }}>
+                      Set Your Predictions
                     </Link>
                   </div>
                 )}
@@ -305,61 +344,69 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                <div className={styles.cardHeader} style={{ marginTop: '24px', borderTop: '1px solid var(--border-glass)', paddingTop: '20px' }}>
-                  <User className={styles.cardHeaderIcon} />
-                  <h3>Security & Payout Status</h3>
-                </div>
-
-                <div className={styles.profileList}>
-                  <div className={styles.profileRow}>
-                    <span>Username:</span>
-                    <strong>{profile?.username ? profile.username : (user?.email ? user.email.split("@")[0] : "Not set")}</strong>
-                  </div>
-                  
-                  <div className={styles.profileRow}>
-                    <span>Phone Verification:</span>
-                    {profile?.phone_verified ? (
-                      <span className={styles.statusSuccess}>
-                        <CheckCircle size={16} /> Phone Verified
-                      </span>
-                    ) : (
-                      <span className={styles.statusDanger}>
-                        <ShieldAlert size={16} /> Unverified
-                      </span>
-                    )}
-                  </div>
-
-                  <div className={styles.profileRow}>
-                    <span>Payout Verification:</span>
-                    {profile?.identity_status === "verified" ? (
-                      <span className="badge badge-success">Verified</span>
-                    ) : profile?.identity_status === "pending" ? (
-                      <span className="badge badge-warning">Pending Review</span>
-                    ) : profile?.identity_status === "under_review" ? (
-                      <span className="badge badge-warning">Under Review</span>
-                    ) : profile?.identity_status === "rejected" ? (
-                      <span className="badge badge-error">Rejected</span>
-                    ) : (
-                      <span className="badge badge-info">Unverified</span>
-                    )}
-                  </div>
-
-                  {profile?.bank_account_flagged && (
-                    <div className={styles.flaggedNotice}>
-                      <ShieldAlert size={16} />
-                      <span>Bank account flagged. Duplicate detected.</span>
-                    </div>
-                  )}
-
-                  <div className={styles.profileCta}>
-                    <Link href="/settings" className="btn-glass" style={{ width: "100%" }}>
-                      Manage Verification
-                    </Link>
-                  </div>
-                </div>
               </GlassCard>
             </div>
           </div>
+
+          {/* Security & Payout Status row at bottom (PART 3 - 2) */}
+          <GlassCard className="mt-6" style={{ marginTop: '24px' }}>
+            <div className={styles.cardHeader} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <User className={styles.cardHeaderIcon} style={{ width: '1.25rem', height: '1.25rem', color: 'var(--accent-gold)' }} />
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: 'var(--foreground-primary)' }}>Security & Payout Status</h3>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+              <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
+                <span style={{ color: 'var(--foreground-muted)' }}>Username:</span>
+                <strong style={{ display: 'block', marginTop: '4px', fontSize: '1.125rem' }}>{profile?.username ? profile.username : (user?.email ? user.email.split("@")[0] : "Not set")}</strong>
+              </div>
+              
+              <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
+                <span style={{ color: 'var(--foreground-muted)' }}>Phone Verification:</span>
+                <div style={{ marginTop: '4px' }}>
+                  {profile?.phone_verified ? (
+                    <span className={styles.statusSuccess} style={{ color: 'var(--accent-green)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <CheckCircle size={16} /> Phone Verified
+                    </span>
+                  ) : (
+                    <span className={styles.statusDanger} style={{ color: 'var(--status-error)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <ShieldAlert size={16} /> Unverified
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.profileRow} style={{ borderBottom: 'none' }}>
+                <span style={{ color: 'var(--foreground-muted)' }}>Payout Verification:</span>
+                <div style={{ marginTop: '4px' }}>
+                  {profile?.identity_status === "verified" ? (
+                    <span className="badge badge-success" style={{ backgroundColor: 'rgba(18, 183, 106, 0.1)', color: 'var(--accent-green)', border: '1px solid var(--border-green)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Verified</span>
+                  ) : profile?.identity_status === "pending" ? (
+                    <span className="badge badge-warning" style={{ backgroundColor: 'rgba(214, 162, 58, 0.1)', color: 'var(--accent-gold)', border: '1px solid var(--border-gold)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Pending Review</span>
+                  ) : profile?.identity_status === "under_review" ? (
+                    <span className="badge badge-warning" style={{ backgroundColor: 'rgba(214, 162, 58, 0.1)', color: 'var(--accent-gold)', border: '1px solid var(--border-gold)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Under Review</span>
+                  ) : profile?.identity_status === "rejected" ? (
+                    <span className="badge badge-error" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: 'var(--status-error)', border: '1px solid var(--status-error)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Rejected</span>
+                  ) : (
+                    <span className="badge badge-info" style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: 'var(--accent-cyan)', border: '1px solid var(--border-cyan)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>Unverified</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {profile?.bank_account_flagged && (
+              <div className={styles.flaggedNotice} style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--status-error)' }}>
+                <ShieldAlert size={16} />
+                <span>Bank account flagged. Duplicate detected.</span>
+              </div>
+            )}
+
+            <div className={styles.profileCta} style={{ marginTop: '20px', borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
+              <Link href="/settings" className="btn-glass" style={{ display: 'inline-flex' }}>
+                Manage Verification
+              </Link>
+            </div>
+          </GlassCard>
         </div>
       </main>
     </>

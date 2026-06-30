@@ -10,7 +10,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
-import { CreditCard, ArrowUpRight, ArrowDownLeft, ShieldAlert, CheckCircle, Clock } from "lucide-react";
+import { CreditCard, ArrowUpRight, ArrowDownLeft, ShieldAlert, CheckCircle, Clock, Info } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
@@ -22,6 +22,7 @@ export default function WalletPage() {
   const [wallet, setWallet] = useState<any>(null);
   const [transactions, setTransactions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showTimeout, setShowTimeout] = useState(false);
 
   // Platform configs
   const [fundingEnabled, setFundingEnabled] = useState(false);
@@ -88,7 +89,16 @@ export default function WalletPage() {
   };
 
   useEffect(() => {
-    loadWalletData();
+    const timer = setTimeout(() => {
+      setShowTimeout(true);
+    }, 5000);
+
+    async function wrapLoad() {
+      await loadWalletData();
+      clearTimeout(timer);
+    }
+    wrapLoad();
+    return () => clearTimeout(timer);
 
     // Check Paystack redirect redirect parameter notifications
     const searchParams = new URLSearchParams(window.location.search);
@@ -183,8 +193,29 @@ export default function WalletPage() {
     return (
       <>
         <Navbar />
-        <div className="container-center" style={{ flex: 1 }}>
-          <div className="font-data">LOADING WALLET RECORD...</div>
+        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
+          <div className="space-y-6">
+            {/* Header skeleton */}
+            <div className="skeleton-box" style={{ height: '2.5rem', width: '25%', marginBottom: '1.5rem' }}></div>
+            
+            {/* Balance Card skeleton */}
+            <div className="skeleton-box" style={{ height: '8rem', marginBottom: '2rem' }}></div>
+
+            {/* Actions grid skeleton */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div className="skeleton-box" style={{ height: '18rem' }}></div>
+              <div className="skeleton-box" style={{ height: '18rem' }}></div>
+            </div>
+
+            {showTimeout && (
+              <div className="text-center py-4" style={{ marginTop: '2rem', textAlign: 'center' }}>
+                <p className="text-sm mb-2" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Taking longer than expected to load wallet...</p>
+                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: 'inline-flex', padding: '0.5rem 1rem' }}>
+                  Refresh Page
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </>
     );
@@ -236,6 +267,17 @@ export default function WalletPage() {
             )}
           </div>
 
+          {/* How Funding Works explanation banner (PART 4 - 1) */}
+          <div className="mb-6 p-4 rounded-xl relative z-10" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-glass)', padding: '1rem', borderRadius: '0.75rem', marginBottom: '1.5rem', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <Info className="w-5 h-5" style={{ color: 'var(--accent-cyan)', flexShrink: 0, marginTop: '2px' }} />
+            <div>
+              <h4 className="font-semibold text-white mb-1" style={{ fontWeight: 600, color: 'var(--foreground-primary)', fontSize: '0.875rem' }}>How Funding Works</h4>
+              <p className="text-xs" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem', lineHeight: '1.4' }}>
+                To ensure security and prevent platform abuse, wallet funding is locked to fixed packages of NGN 5,000, NGN 10,000, or NGN 20,000. All transactions are securely processed via Paystack.
+              </p>
+            </div>
+          </div>
+
           {/* Action panels: Fund / Withdraw */}
           <div className={styles.actionsGrid}>
             {/* Deposit Panel */}
@@ -276,6 +318,11 @@ export default function WalletPage() {
                       ? "Initiate Test Payment" 
                       : "Fund Wallet"}
                 </Button>
+                {!fundingEnabled && (
+                  <p style={{ color: 'var(--status-error)', fontSize: '11px', marginTop: '8px', textAlign: 'center' }}>
+                    Deposit options are currently paused for maintenance/review.
+                  </p>
+                )}
               </form>
             </GlassCard>
 
@@ -330,6 +377,11 @@ export default function WalletPage() {
                 >
                   Request Payout
                 </Button>
+                {profile?.identity_status !== "verified" && (
+                  <p style={{ color: 'var(--status-warning)', fontSize: '11px', marginTop: '8px', textAlign: 'center' }}>
+                    Complete phone & payout verification in settings to enable withdrawals.
+                  </p>
+                )}
               </form>
             </GlassCard>
           </div>
@@ -359,19 +411,27 @@ export default function WalletPage() {
                     <tbody>
                       {transactions.map((tx) => {
                         const isCredit = tx.amount >= 0;
+                        const isConfirmed = tx.status === "confirmed" || tx.status === "success";
+                        const isPending = tx.status === "pending";
+                        const isFailed = tx.status === "failed" || tx.status === "rejected" || tx.status === "cancelled";
+                        
+                        const statusColor = isConfirmed ? 'var(--accent-green)' : isPending ? 'var(--accent-gold)' : 'var(--status-error)';
+                        const statusBg = isConfirmed ? 'rgba(16, 185, 129, 0.1)' : isPending ? 'rgba(212, 168, 83, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+                        const statusBorder = isConfirmed ? 'var(--border-green)' : isPending ? 'var(--border-gold)' : 'rgba(239, 68, 68, 0.2)';
+
                         return (
                           <tr key={tx.id}>
                             <td className={styles.tdDate}>
                               {new Date(tx.created_at).toLocaleDateString()}
                             </td>
-                            <td className={[styles.tdRef, "font-data"].join(" ")}>
+                            <td className={[styles.tdRef, "font-mono-numbers"].join(" ")}>
                               {tx.reference || "N/A"}
                             </td>
                             <td className={styles.tdType}>{tx.type.toUpperCase()}</td>
                             <td
                               className={[
                                 styles.tdAmount,
-                                "font-data",
+                                "font-mono-numbers",
                                 isCredit ? styles.creditText : styles.debitText
                               ].join(" ")}
                             >
@@ -379,10 +439,16 @@ export default function WalletPage() {
                             </td>
                             <td>
                               <span
-                                className={[
-                                  "badge",
-                                  tx.status === "confirmed" ? "badge-success" : tx.status === "pending" ? "badge-warning" : "badge-error"
-                                ].join(" ")}
+                                className="badge font-mono-numbers"
+                                style={{
+                                  color: statusColor,
+                                  backgroundColor: statusBg,
+                                  border: `1px solid ${statusBorder}`,
+                                  padding: '4px 8px',
+                                  borderRadius: '4px',
+                                  fontSize: '11px',
+                                  textTransform: 'uppercase'
+                                }}
                               >
                                 {tx.status}
                               </span>

@@ -8,7 +8,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Button from "@/components/ui/button";
 import { getOrCreateProfile } from "@/app/actions/verification";
-import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap, Wallet } from "lucide-react";
+import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap, Wallet, Clock, Info, Calendar } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
@@ -35,10 +35,15 @@ export default function ArenaPage() {
   // Selection/Submission States
   const [predictions, setPredictions] = useState<{ [matchId: string]: string }>({});
   const [loading, setLoading] = useState(true);
+  const [showTimeout, setShowTimeout] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTimeout(true);
+    }, 5000);
+
     async function loadArena() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
@@ -119,8 +124,10 @@ export default function ArenaPage() {
         // Let's create an upcoming/placeholder status if database is blank.
       }
       setLoading(false);
+      clearTimeout(timer);
     }
     loadArena();
+    return () => clearTimeout(timer);
   }, []);
 
   const handleEnroll = async (tierId: string, price: number) => {
@@ -246,8 +253,27 @@ export default function ArenaPage() {
     return (
       <>
         <Navbar />
-        <div className="container-center" style={{ flex: 1 }}>
-          <div className="font-data">LOADING PLAY ARENA...</div>
+        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
+          <div className="space-y-6">
+            {/* Header skeleton */}
+            <div className="skeleton-box" style={{ height: '3rem', width: '30%', marginBottom: '2rem' }}></div>
+            
+            {/* Tiers Grid skeleton */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div className="skeleton-box" style={{ height: '24rem' }}></div>
+              <div className="skeleton-box" style={{ height: '24rem' }}></div>
+              <div className="skeleton-box" style={{ height: '24rem' }}></div>
+            </div>
+
+            {showTimeout && (
+              <div className="text-center py-4" style={{ marginTop: '2rem', textAlign: 'center' }}>
+                <p className="text-sm mb-2" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Taking longer than expected to load play arena...</p>
+                <button onClick={() => window.location.reload()} className="btn-premium" style={{ display: 'inline-flex', padding: '0.5rem 1rem' }}>
+                  Refresh Page
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </>
     );
@@ -376,17 +402,45 @@ export default function ArenaPage() {
                 </div>
               </div>
 
+              {/* Challenge Explanation Banner (PART 2 - 5) */}
+              <div className="mb-4 p-4 rounded-xl relative z-10" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-glass)', padding: '1rem', borderRadius: '0.75rem', marginBottom: '1rem' }}>
+                <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>This Matchday&apos;s Challenge</h3>
+                <p className="text-sm" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>
+                  Predict the outcome of 5 selected matches. Get all 5 correct to win the maximum reward. 
+                  Partial correct predictions earn proportional points. Streak bonuses apply.
+                </p>
+              </div>
+
+              {/* Trust Disclaimer Banner (PART 9) */}
+              <div className="mb-8 py-3 px-4 border rounded-xl relative z-10" style={{ border: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '0.75rem 1rem', borderRadius: '0.75rem', marginBottom: '2rem' }}>
+                <p className="text-center text-xs" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>
+                  NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
+                  Predictions are for entertainment. Rewards are subject to manual review and verification.
+                </p>
+              </div>
+
               <div className={styles.tiersGrid}>
                 {tiers.map((tier) => {
-                  const isStarter = tier.name.toLowerCase().includes("starter");
-                  const isStandard = tier.name.toLowerCase().includes("standard");
-                  const isPremium = tier.name.toLowerCase().includes("premium");
+                  const isStarter = tier.name.toLowerCase().includes("starter") || tier.name.toLowerCase().includes("lite") || tier.price_ngn === 200;
+                  const isStandard = tier.name.toLowerCase().includes("standard") || tier.name.toLowerCase().includes("main") || tier.price_ngn === 500;
+                  const isPremium = tier.name.toLowerCase().includes("premium") || tier.name.toLowerCase().includes("pro") || tier.price_ngn === 1000;
                   
+                  // Map titles and values exactly as requested
+                  let displayName = tier.name;
+                  let rewardValue = cleanReward(tier.perks?.reward || "");
+                  if (tier.price_ngn === 200) {
+                    displayName = "Starter";
+                    rewardValue = "₦600";
+                  } else if (tier.price_ngn === 500) {
+                    displayName = "Main Event";
+                    rewardValue = "₦1,500";
+                  } else if (tier.price_ngn === 1000) {
+                    displayName = "High Stakes";
+                    rewardValue = "₦3,000";
+                  }
+
                   const passLabel = isStarter ? "ENTRY PASS" : isPremium ? "ELITE PASS" : "CHALLENGE PASS";
                   const tierClass = isStarter ? styles.starter : isPremium ? styles.premium : styles.standard;
-                  const cleanedReward = cleanReward(tier.perks?.reward || "")
-                    .replace(/\s*potential\s*reward/gi, "")
-                    .trim();
 
                   return (
                     <GlassCard
@@ -395,7 +449,7 @@ export default function ArenaPage() {
                       hoverEffect={!isStandard}
                     >
                       {/* Decorative/Atmosphere elements in the ticket card */}
-                      {isStandard && <div className={styles.standardGlow} aria-hidden="true" />}
+                      {isStandard && <div className={styles.standardGlow} aria-hidden="true" style={{ boxShadow: 'var(--shadow-gold)', border: '1px solid var(--border-gold)' }} />}
                       <span className={styles.cardWatermark} aria-hidden="true" />
                       <span className={styles.cardTexture} aria-hidden="true" />
                       <div className={styles.ticketNotchLeft} aria-hidden="true" />
@@ -403,7 +457,7 @@ export default function ArenaPage() {
 
                       {isStandard && (
                         <div className={styles.recommendedBadge}>
-                          MOST PICKED
+                          MOST POPULAR
                         </div>
                       )}
 
@@ -416,18 +470,18 @@ export default function ArenaPage() {
                           </span>
                         </div>
 
-                        <h3 className={styles.tierTitle}>{tier.name.toUpperCase()}</h3>
+                        <h3 className={styles.tierTitle}>{displayName}</h3>
 
                         <div className={styles.priceContainer}>
-                          <span className={styles.priceLabel}>ENTRY FEE</span>
-                          <span className={[styles.priceValue, "font-data"].join(" ")}>NGN {tier.price_ngn.toLocaleString()}</span>
+                          <span className={styles.priceLabel} style={{ fontSize: '10px', color: 'var(--foreground-muted)' }}>STAKE</span>
+                          <span className={[styles.priceValue, "font-mono-numbers"].join(" ")}>₦ {tier.price_ngn.toLocaleString()}</span>
                         </div>
 
                         <div className={styles.rewardContainer}>
-                          <span className={styles.rewardLabel}>Listed Reward</span>
+                          <span className={styles.rewardLabel} style={{ fontSize: '10px', color: 'var(--foreground-muted)' }}>REWARD</span>
                           <div className={styles.rewardStrip}>
                             <span className={styles.rewardIcon} aria-hidden="true" />
-                            <span className={[styles.rewardValue, "font-data"].join(" ")}>{cleanedReward}</span>
+                            <span className={[styles.rewardValue, "font-mono-numbers"].join(" ")} style={{ color: 'var(--accent-gold)', fontSize: '1.5rem', fontWeight: 'bold' }}>{rewardValue}</span>
                           </div>
                         </div>
 
@@ -456,12 +510,24 @@ export default function ArenaPage() {
                           loading={actionLoading}
                           className={styles.enrollBtn}
                         >
-                          Enroll Now
+                          Enter This Challenge
                         </Button>
+                        <p className="text-center text-slate-400 mt-2 font-mono-numbers" style={{ fontSize: '10px', marginTop: '0.5rem', color: 'var(--foreground-muted)' }}>
+                          ₦{tier.price_ngn.toLocaleString()} deducted from wallet. Win {rewardValue} if all predictions correct.
+                        </p>
                       </div>
                     </GlassCard>
                   );
                 })}
+              </div>
+
+              {/* Urgency & Countdown Banner (PART 2 - 3) */}
+              <div className="mt-8 text-center relative z-10" style={{ marginTop: '2rem', textAlign: 'center' }}>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-gold)', borderRadius: '9999px', padding: '0.5rem 1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Clock className="w-4 h-4" style={{ color: 'var(--accent-gold)', width: '1rem', height: '1rem' }} />
+                  <span className="text-sm text-white">Next matchday starts in 2d 14h 32m</span>
+                </div>
+                <p className="text-sm text-slate-400 mt-2" style={{ color: 'var(--foreground-muted)', marginTop: '0.5rem' }}>47 of 200 spots filled</p>
               </div>
             </div>
           ) : (

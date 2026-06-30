@@ -13,7 +13,10 @@ import {
   Eye, 
   Activity,
   Check,
-  Clock
+  Clock,
+  Target,
+  Zap,
+  Trophy
 } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
@@ -101,12 +104,12 @@ export default function LandingPage() {
               </div>
               
               <h1 className={styles.heroTitle}>
-                COMMAND<br />
-                THE <span className={styles.heroTitleAccent}>PITCH.</span>
+                <span className={styles.heroTitleAccent}>Predict</span> Football Matches.<br />
+                <span className={styles.heroTitleAccent}>Win</span> Verified Rewards.
               </h1>
               
               <p className={styles.heroSubtitleLine}>
-                Build your streak. Qualify for verified rewards.
+                Join matchday challenges. Build your prediction streak. Earn real rewards.
               </p>
               
               <p className={styles.heroSubtitle}>
@@ -115,41 +118,22 @@ export default function LandingPage() {
               
               <div className={styles.heroCta}>
                 <Link href="/signup" className="btn-premium">
-                  <span>JOIN ARENA ↗</span>
+                  <span>Start Your First Challenge ↗</span>
                 </Link>
                 <Link href="#how-it-works" className="btn-glass">
                   SEE HOW IT WORKS
                 </Link>
               </div>
+
+              <p className="text-sm text-slate-400 mt-4 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                2,400+ players competing this matchday
+              </p>
             </div>
 
             {/* Right Side: Stadium Arena Stage — Matchday Board */}
             <div className={styles.heroRight}>
               <div className={styles.boardGlow}></div>
-
-              {/* Stacked depth cards behind main board */}
-              <div className={styles.boardBackCard1}></div>
-              <div className={styles.boardBackCard2}></div>
-
-              {/* Side Fixture Card — Left */}
-              <div className={`${styles.sideFixture} ${styles.sideFixtureLeft}`}>
-                <div className={styles.sideFixtureMeta}>MATCHDAY 4</div>
-                <div className={styles.sideFixtureTeams}>
-                  <span>Red Stars</span>
-                  <span className={styles.sideFixtureVs}>vs</span>
-                  <span>Blue Lions</span>
-                </div>
-              </div>
-
-              {/* Side Fixture Card — Right */}
-              <div className={`${styles.sideFixture} ${styles.sideFixtureRight}`}>
-                <div className={styles.sideFixtureMeta}>MATCHDAY 5</div>
-                <div className={styles.sideFixtureTeams}>
-                  <span>City XI</span>
-                  <span className={styles.sideFixtureVs}>vs</span>
-                  <span>Northside XI</span>
-                </div>
-              </div>
 
               {/* Central Matchday Board */}
               <div className={styles.matchdayBoard}>
@@ -157,10 +141,10 @@ export default function LandingPage() {
                 <div className={styles.boardHeader}>
                   <div className={styles.boardHeaderLeft}>
                     <span className={styles.boardPulseDot}></span>
-                    <span className={styles.boardHeaderTitle}>LIVE MATCHDAY</span>
+                    <span className={styles.boardHeaderTitle}>UPCOMING MATCHDAY</span>
                   </div>
                   <div className={styles.boardStatusChip}>
-                    <span>ROUND ACTIVE</span>
+                    <span>Starts in 2d 14h</span>
                   </div>
                 </div>
 
@@ -169,77 +153,68 @@ export default function LandingPage() {
                   {/* Featured Match */}
                   <div className={styles.featuredMatch}>
                     <div className={styles.featuredTeam}>
-                      <span className={styles.teamName}>Lagos XI</span>
+                      <span className={styles.teamName}>Arsenal</span>
                     </div>
                     <div className={styles.featuredVsBlock}>
                       <span className={styles.featuredVs}>VS</span>
                     </div>
                     <div className={styles.featuredTeam}>
-                      <span className={styles.teamName}>Abuja XI</span>
+                      <span className={styles.teamName}>Liverpool</span>
                     </div>
                   </div>
 
-                  {/* 1 / X / 2 Prediction Buttons */}
-                  <div className={styles.predictionRow}>
-                    <button className={styles.predBtn} aria-label="Home win">1</button>
-                    <button className={`${styles.predBtn} ${styles.predBtnActive}`} aria-label="Draw">X</button>
-                    <button className={styles.predBtn} aria-label="Away win">2</button>
-                  </div>
-
-                  {/* Streak Progress */}
-                  <div className={styles.streakRow}>
-                    <span className={styles.streakLabel}>Streak: 2/3 picks correct</span>
-                    <div className={styles.streakDots}>
-                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`}></span>
-                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`}></span>
-                      <span className={styles.streakDot}></span>
-                    </div>
-                  </div>
-
-                  {/* Kickoff Label */}
-                  <div className={styles.kickoffLabel}>
-                    <Clock size={12} />
-                    <span>Pick Before Kickoff</span>
-                  </div>
-
-                  {/* Match Checks */}
-                  <div className={styles.matchChecks}>
-                    <div className={styles.matchChecksTitle}>Match Checks</div>
-                    <div className={styles.checkRow}>
-                      <span className={styles.checkLabel}>Phone verification</span>
-                      <span className={`${styles.checkStatus} ${styles.checkOk}`}>
-                        <Check size={11} />
-                        OK
-                      </span>
-                    </div>
-                    <div className={styles.checkRow}>
-                      <span className={styles.checkLabel}>Kickoff lock</span>
-                      <span className={`${styles.checkStatus} ${styles.checkOk}`}>
-                        <Check size={11} />
-                        Active
-                      </span>
-                    </div>
-                    <div className={styles.checkRow}>
-                      <span className={styles.checkLabel}>Reward status</span>
-                      <span className={`${styles.checkStatus} ${styles.checkReview}`}>
-                        <Eye size={11} />
-                        Under Review
-                      </span>
-                    </div>
+                  <div className="mt-6 flex justify-center">
+                    <Link href="/signup" className="btn-premium py-2 px-4 text-xs font-semibold uppercase tracking-wider">
+                      Predict Now
+                    </Link>
                   </div>
                 </div>
               </div>
 
               {/* Stadium Floor / Pitch Platform */}
               <div className={styles.stadiumFloor}></div>
-
-              {/* Floating Status Chips */}
-              <div className={`${styles.floatingChip} ${styles.chip1}`}>PICK LOCKED</div>
-              <div className={`${styles.floatingChip} ${styles.chip2}`}>PHONE VERIFIED</div>
-              <div className={`${styles.floatingChip} ${styles.chip3}`}>ROUND ACTIVE</div>
-              <div className={`${styles.floatingChip} ${styles.chip4}`}>REWARD REVIEW</div>
             </div>
 
+          </div>
+        </section>
+
+        {/* Trust Banner (PART 9) */}
+        <div className="py-4 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10" style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)' }}>
+          <p className="text-center text-xs max-w-2xl mx-auto" style={{ color: 'var(--foreground-muted)' }}>
+            NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
+            Predictions are for entertainment. Rewards are subject to manual review and verification.
+          </p>
+        </div>
+
+        {/* What is NanoPlay? / How NanoPlay Works section (PART 1 - 7) */}
+        <section className="py-16 px-4 relative z-10" style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
+          <div style={{ maxWidth: '48rem', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}>
+            <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--foreground-primary)', fontSize: '1.5rem', marginBottom: '2rem' }}>
+              How NanoPlay Works
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', backgroundColor: 'rgba(214, 162, 58, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                  <Target style={{ width: '1.5rem', height: '1.5rem', color: 'var(--accent-gold)' }} />
+                </div>
+                <h3 style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Pick Your Matches</h3>
+                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Choose from upcoming football fixtures every matchday.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', backgroundColor: 'rgba(214, 162, 58, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                  <Zap style={{ width: '1.5rem', height: '1.5rem', color: 'var(--accent-gold)' }} />
+                </div>
+                <h3 style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Build Your Streak</h3>
+                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Correct predictions earn points. Longer streaks = bigger rewards.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', backgroundColor: 'rgba(214, 162, 58, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                  <Trophy style={{ width: '1.5rem', height: '1.5rem', color: 'var(--accent-gold)' }} />
+                </div>
+                <h3 style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Win Real Rewards</h3>
+                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Top predictors earn verified payouts. Fair, transparent, fast.</p>
+              </div>
+            </div>
           </div>
         </section>
 

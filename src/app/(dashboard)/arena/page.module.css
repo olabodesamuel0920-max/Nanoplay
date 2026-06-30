@@ -384,13 +384,13 @@
 
 .standard {
   border: 1px solid rgba(223, 186, 107, 0.5) !important;
-  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.08), 0 0 20px rgba(223, 186, 107, 0.12), inset 0 0 24px rgba(223, 186, 107, 0.05) !important;
+  box-shadow: 0 8px 32px var(--accent-green-glow), 0 0 20px rgba(223, 186, 107, 0.12), inset 0 0 24px rgba(223, 186, 107, 0.05) !important;
   transform: scale(1.03);
 }
 
 .standard:hover {
   border-color: rgba(223, 186, 107, 0.8) !important;
-  box-shadow: 0 16px 40px rgba(22, 163, 74, 0.15), 0 0 30px rgba(223, 186, 107, 0.2), inset 0 0 24px rgba(223, 186, 107, 0.08) !important;
+  box-shadow: 0 16px 40px var(--accent-green-glow-strong), 0 0 30px rgba(223, 186, 107, 0.2), inset 0 0 24px rgba(223, 186, 107, 0.08) !important;
   transform: scale(1.05);
 }
 
@@ -400,7 +400,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, transparent 60%);
+  background: radial-gradient(circle, var(--accent-green-glow) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }

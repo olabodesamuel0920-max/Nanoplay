@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  /* Design Tokens - Premium Midnight Stadium Navy & Gold/Green/Cyan */
-  --bg-obsidian: #030712;
-  --bg-charcoal: #07111f;
-  --bg-card: #0b1220;
-  --bg-card-hover: #101827;
+  /* Design Tokens - Premium Charcoal & Volt Green High-Volt Sports System */
+  --bg-obsidian: #0a0a0c;
+  --bg-charcoal: #121215;
+  --bg-card: #18181c;
+  --bg-card-hover: #1e1e24;
   
   --foreground-primary: #f8fafc;
-  --foreground-secondary: #cbd5e1;
+  --foreground-secondary: #e2e8f0;
   --foreground-muted: #94a3b8;
   
-  /* Premium Gold Accent Palette */
+  /* Premium Gold Accent Palette (Rewards & Prestige) */
   --accent-gold: #e5b95c;
   --accent-gold-hover: #f7d276;
   --accent-gold-glow: rgba(229, 185, 92, 0.18);
@@ -26,13 +26,13 @@
   --border-cyan: rgba(56, 189, 248, 0.24);
   --shadow-cyan: 0 0 30px 0 rgba(56, 189, 248, 0.1);
 
-  /* Pitch Green Accent Palette (Live/Sports Energy) */
-  --accent-green: #16a34a;
-  --accent-green-hover: #15803d;
-  --accent-green-glow: rgba(22, 163, 74, 0.18);
-  --accent-green-glow-strong: rgba(22, 163, 74, 0.3);
-  --border-green: rgba(22, 163, 74, 0.28);
-  --shadow-green: 0 0 30px 0 rgba(22, 163, 74, 0.12);
+  /* Volt Green Accent Palette (Live/Sports Energy) */
+  --accent-green: #ccff00;
+  --accent-green-hover: #b8e600;
+  --accent-green-glow: rgba(204, 255, 0, 0.15);
+  --accent-green-glow-strong: rgba(204, 255, 0, 0.3);
+  --border-green: rgba(204, 255, 0, 0.25);
+  --shadow-green: 0 0 30px 0 rgba(204, 255, 0, 0.12);
 
   /* Backward Compatibility Aliases */
   --accent-lime: var(--accent-green);
@@ -43,27 +43,27 @@
   --shadow-lime: var(--shadow-green);
   
   /* Glassmorphism & High-Fi Borders */
-  --border-glass: rgba(148, 163, 184, 0.18);
-  --border-glass-hover: rgba(148, 163, 184, 0.28);
+  --border-glass: rgba(255, 255, 255, 0.06);
+  --border-glass-hover: rgba(255, 255, 255, 0.12);
   --border-accent: var(--border-gold);
   --shadow-accent: var(--shadow-gold);
   
   /* Shadows & Depth */
-  --shadow-glass: 0 10px 40px 0 rgba(0, 0, 0, 0.9);
+  --shadow-glass: 0 10px 40px 0 rgba(0, 0, 0, 0.95);
   
   /* System States */
   --status-success: var(--accent-green);
   --status-success-glow: var(--accent-green-glow);
   --status-success-glow-strong: var(--accent-green-glow-strong);
-  --status-error: #ef4444; /* Clean clear red */
-  --status-warning: #f59e0b; /* Gold/Amber */
+  --status-error: #ef4444;
+  --status-warning: #f59e0b;
   --status-info: var(--accent-cyan);
 
   /* Typography */
-  --font-heading: 'Bebas Neue', 'Outfit', sans-serif;
-  --font-body: 'Inter', 'Space Grotesk', sans-serif;
-  --font-data: 'Inter', sans-serif;
-  --font-editorial: var(--font-playfair-display), serif;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-data: 'Space Mono', monospace;
+  --font-editorial: var(--font-heading), sans-serif;
 
   /* Transitions */
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -71,20 +71,20 @@
 
   /* Opacities & Default Glows */
   --opacity-bg-art: 1.0;
-  --default-card-glow: 0 4px 30px rgba(22, 163, 74, 0.03), 0 4px 20px rgba(229, 185, 92, 0.04);
+  --default-card-glow: 0 4px 30px rgba(204, 255, 0, 0.02), 0 4px 20px rgba(0, 0, 0, 0.4);
   --default-btn-glow: 0 4px 15px var(--accent-gold-glow);
 }
 
 html[data-theme="light"] {
-  /* Light Theme Tokens - Warm Stadium Ivory & Premium Dark Slate */
-  --bg-obsidian: #f6f1e7;
-  --bg-charcoal: #fffaf0;
+  /* Light Theme Tokens - Warm Ice Grey & Slate */
+  --bg-obsidian: #f1f5f9;
+  --bg-charcoal: #e2e8f0;
   --bg-card: #ffffff;
-  --bg-card-hover: #fff7e6;
+  --bg-card-hover: #f8fafc;
   
   --foreground-primary: #0f172a;
   --foreground-secondary: #334155;
-  --foreground-muted: #475569;
+  --foreground-muted: #64748b;
   
   /* Champagne Gold Accent Palette in Light mode */
   --accent-gold: #b7791f;
@@ -102,12 +102,12 @@ html[data-theme="light"] {
   --shadow-cyan: 0 4px 20px 0 rgba(2, 132, 199, 0.06);
 
   /* Pitch Green Accent Palette in Light mode */
-  --accent-green: #15803d;
-  --accent-green-hover: #166534;
-  --accent-green-glow: rgba(21, 128, 61, 0.1);
-  --accent-green-glow-strong: rgba(21, 128, 61, 0.22);
-  --border-green: rgba(21, 128, 61, 0.22);
-  --shadow-green: 0 4px 20px 0 rgba(21, 128, 61, 0.06);
+  --accent-green: #84cc16;
+  --accent-green-hover: #65a30d;
+  --accent-green-glow: rgba(132, 204, 22, 0.1);
+  --accent-green-glow-strong: rgba(132, 204, 22, 0.22);
+  --border-green: rgba(132, 204, 22, 0.22);
+  --shadow-green: 0 4px 20px 0 rgba(132, 204, 22, 0.06);
 
   /* Backward Compatibility Aliases */
   --accent-lime: var(--accent-green);
@@ -124,7 +124,7 @@ html[data-theme="light"] {
   --shadow-accent: var(--shadow-gold);
   
   /* Shadows & Depth */
-  --shadow-glass: 0 10px 30px -10px rgba(15, 23, 42, 0.12);
+  --shadow-glass: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
   
   /* System States */
   --status-success: var(--accent-green);

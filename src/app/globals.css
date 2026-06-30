@@ -140,6 +140,25 @@ html[data-theme="light"] {
   --default-btn-glow: 0 4px 15px rgba(179, 133, 43, 0.15);
 }
 
+/* Light mode specific background overrides (PART 10) */
+html[data-theme="light"] main,
+html[data-theme="light"] .main-layout main {
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(179, 133, 43, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(2, 132, 199, 0.04) 0%, transparent 45%) !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: top 20px left 5%, top 20px right 5% !important;
+  background-size: 450px 450px, 450px 450px !important;
+}
+
+html[data-theme="light"] [class*="matchesList"] {
+  background-image: none !important;
+}
+
+html[data-theme="light"] .sports-bg-pitch {
+  background-image: none !important;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

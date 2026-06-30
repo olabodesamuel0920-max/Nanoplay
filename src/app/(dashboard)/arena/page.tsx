@@ -8,7 +8,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Button from "@/components/ui/button";
 import { getOrCreateProfile } from "@/app/actions/verification";
-import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap } from "lucide-react";
+import { Lock, HelpCircle, ShieldAlert, CheckCircle, Sparkles, Zap, Wallet } from "lucide-react";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
@@ -316,11 +316,63 @@ export default function ArenaPage() {
             /* Enrollment View */
             <div className={styles.enrollSection}>
               <div className={styles.enrollHeader}>
-                <Zap className={styles.enrollIcon} />
-                <h2>Enroll in Round #{activeRound.round_number}</h2>
-                <p>Select your challenge tier using your wallet balance. Complete the round streak to qualify for the listed reward after review.</p>
+                <div className={styles.matchdayBanner}>
+                  <span className={styles.matchdayBadge}>
+                    <span className={styles.bannerPulse} />
+                    MATCHDAY LIVE
+                  </span>
+                  <h2>Round #{activeRound.round_number} Challenge Board</h2>
+                </div>
+                <p className={styles.enrollDescription}>
+                  Choose your challenge pass to enter the arena. Predict match outcomes, build your win streak, and claim the listed reward after verified review.
+                </p>
                 <div className={styles.sportsPitchAtmosphere}>
                   <div className={styles.soccerField}></div>
+                </div>
+              </div>
+
+              {/* Arena Lobby Navigation Tabs */}
+              <div className={styles.arenaTabs} aria-label="Arena Lobby filters">
+                <button className={[styles.arenaTab, styles.arenaTabActive].join(" ")}>
+                  <span>Active Predictions</span>
+                  <span className={styles.tabBadge}>1</span>
+                </button>
+                <button className={styles.arenaTab}>
+                  <span>Upcoming Rounds</span>
+                  <span className={styles.tabBadge}>3</span>
+                </button>
+                <button className={styles.arenaTab}>
+                  <span>Completed / Results</span>
+                </button>
+              </div>
+
+              {/* Arena Lobby Metadata: Wallet & Quick Rules */}
+              <div className={styles.lobbyMetaRow}>
+                {/* Compact Wallet Balance card */}
+                <div className={styles.lobbyWalletCard}>
+                  <div className={styles.lobbyWalletLabel}>
+                    <Wallet size={13} />
+                    <span>Your Balance</span>
+                  </div>
+                  <div className={styles.lobbyWalletValue}>
+                    NGN {(wallet?.balance_ngn || 0).toLocaleString()}
+                  </div>
+                </div>
+
+                {/* Quick Rules strip */}
+                <div className={styles.lobbyRulesStrip}>
+                  <div className={styles.rulesItem}>
+                    <span className={styles.rulesDot}>⚽</span>
+                    <span>3 picks per round</span>
+                  </div>
+                  <div className={styles.rulesItem}>
+                    <span className={styles.rulesDot}>🔒</span>
+                    <span>Locks at kickoff</span>
+                  </div>
+                  <div className={styles.rulesItem}>
+                    <span className={styles.rulesDot}>📱</span>
+                    <span>Phone verified required</span>
+                  </div>
                 </div>
               </div>
 

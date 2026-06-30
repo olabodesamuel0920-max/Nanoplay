@@ -220,24 +220,57 @@
 
 .enrollHeader {
   margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.enrollIcon {
-  color: var(--accent-lime);
-  width: 48px;
-  height: 48px;
-  margin-bottom: 20px;
+.matchdayBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.matchdayBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(223, 186, 107, 0.08);
+  border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 15px var(--accent-gold-glow);
+}
+
+.bannerPulse {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-gold-glow-strong);
+  animation: pulse-glow-orb 1.5s ease-in-out infinite;
 }
 
 .enrollHeader h2 {
-  font-size: 32px;
-  margin-bottom: 8px;
+  font-size: 36px;
+  margin: 0;
+  color: var(--foreground-primary);
+  text-shadow: 0 0 20px var(--accent-gold-glow);
 }
 
-.enrollHeader p {
+.enrollDescription {
   font-size: 16px;
   color: var(--foreground-secondary);
   font-family: var(--font-body), sans-serif;
+  max-width: 600px;
+  line-height: 1.6;
 }
 
 .tiersGrid {
@@ -428,6 +461,18 @@
   height: 6px;
   border-radius: 50%;
   margin-right: 6px;
+  animation: pulse-glow-orb 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow-orb {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
 }
 
 .starter .statusOrb {
@@ -1100,5 +1145,130 @@
   .badgeWrapper {
     width: 48px;
     height: 48px;
+  }
+}
+
+/* ── Arena Lobby Navigation Tabs ── */
+.arenaTabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 32px auto;
+  max-width: 600px;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 8px;
+}
+
+.arenaTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--foreground-secondary);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition-fast);
+}
+
+.arenaTab:hover {
+  color: var(--foreground-primary);
+}
+
+.arenaTabActive {
+  color: var(--accent-gold) !important;
+  border-bottom-color: var(--accent-gold) !important;
+}
+
+.tabBadge {
+  background: var(--bg-charcoal);
+  border: 1px solid var(--border-glass);
+  font-family: var(--font-data), monospace;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* ── Lobby Metadata Row ── */
+.lobbyMetaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto 32px auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 16px 24px;
+  box-shadow: var(--default-card-glow), var(--shadow-glass);
+}
+
+.lobbyWalletCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.lobbyWalletLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--foreground-secondary);
+  text-transform: uppercase;
+}
+
+.lobbyWalletValue {
+  font-family: var(--font-data), monospace;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--accent-gold);
+}
+
+.lobbyRulesStrip {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rulesItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground-secondary);
+}
+
+.rulesDot {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .lobbyMetaRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px;
+  }
+  .lobbyRulesStrip {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .arenaTabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
   }
 }

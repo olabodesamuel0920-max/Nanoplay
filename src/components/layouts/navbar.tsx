@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Trophy, Wallet, Users, Award, BookOpen, Shield, LogOut, Menu, X, User } from "lucide-react";
+import { Trophy, Wallet, Users, Award, BookOpen, Shield, LogOut, Menu, X, User, Sun, Moon } from "lucide-react";
 import Logo from "@/components/ui/logo";
 import styles from "./navbar.module.css";
 
@@ -17,6 +17,19 @@ export default function Navbar() {
   const [profile, setProfile] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const activeTheme = document.documentElement.getAttribute("data-theme") as "dark" | "light" || "dark";
+    setTheme(activeTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    setTheme(nextTheme);
+  };
 
   useEffect(() => {
     async function fetchUserSession() {
@@ -92,6 +105,15 @@ export default function Navbar() {
 
         {/* User Actions */}
         <div className={styles.actions}>
+          <button 
+            onClick={toggleTheme} 
+            className={styles.themeBtn} 
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
           {user ? (
             <>
               <div className={styles.walletContainer}>
@@ -161,6 +183,17 @@ export default function Navbar() {
                 <span>Admin Panel</span>
               </Link>
             )}
+            
+            {/* Mobile Theme Toggle in Menu */}
+            <button 
+              onClick={() => { toggleTheme(); setMobileMenuOpen(false); }} 
+              className={styles.mobileThemeBtn}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+            </button>
+
             {user ? (
               <>
                 <Link

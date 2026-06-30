@@ -60,6 +60,23 @@ export default function RootLayout({
         "--font-editorial": "var(--font-playfair-display)",
       } as React.CSSProperties}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (!theme) {
+                    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                  }
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `
+          }}
+        />
+      </head>
       <body>
         <div className="main-layout">
           {children}

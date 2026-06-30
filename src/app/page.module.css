@@ -8,6 +8,173 @@
   padding-bottom: 0;
 }
 
+/* ── Live Match Ticker Strip ── */
+.tickerStrip {
+  width: 100%;
+  background: rgba(11, 11, 14, 0.6);
+  border-bottom: 1px solid var(--border-glass);
+  overflow: hidden;
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 35s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.tickerItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  border-right: 1px solid var(--border-glass);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.tickerTeam {
+  font-weight: 700;
+  color: var(--foreground-primary);
+}
+
+.tickerVs {
+  color: var(--foreground-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.tickerScore {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--font-data), monospace;
+  font-weight: 800;
+  color: var(--accent-gold);
+}
+
+.tickerStatus {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--foreground-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusLive {
+  color: var(--status-success);
+  background: rgba(0, 184, 110, 0.1);
+  border: 1px solid rgba(0, 184, 110, 0.2);
+}
+
+.tickerPulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-success);
+  box-shadow: 0 0 6px var(--status-success);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tickerTrack {
+    animation: none;
+    overflow-x: auto;
+    width: 100%;
+  }
+  .tickerPulse {
+    animation: none;
+  }
+}
+
+
+/* ── Sportsbook-inspired Category Bar ── */
+.categoryBar {
+  width: 100%;
+  background: rgba(11, 11, 14, 0.4);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 8px 0;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  z-index: 19;
+  position: relative;
+}
+
+.categoryBar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.categoryContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.categoryTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: var(--foreground-secondary);
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.categoryTab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-glass-hover);
+  color: var(--foreground-primary);
+}
+
+.categoryTabActive {
+  background: rgba(223, 186, 107, 0.08) !important;
+  border-color: var(--border-gold) !important;
+  color: var(--accent-gold) !important;
+  box-shadow: 0 0 15px var(--accent-gold-glow);
+}
+
+.categoryIcon {
+  font-size: 14px;
+}
+
 /* Stadium lights spotlights projecting from top corners */
 .main::before {
   content: "";

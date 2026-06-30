@@ -9,7 +9,7 @@ import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
-import { ShieldCheck, Phone, Landmark, AlertTriangle, CheckCircle, Clock, XCircle, LogIn } from "lucide-react";
+import { ShieldCheck, Phone, Landmark, AlertTriangle, CheckCircle, Clock, XCircle, LogIn, Sun, Moon } from "lucide-react";
 import styles from "./page.module.css";
 
 export default function SettingsPage() {
@@ -19,6 +19,19 @@ export default function SettingsPage() {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const activeTheme = document.documentElement.getAttribute("data-theme") as "dark" | "light" || "dark";
+    setTheme(activeTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    setTheme(nextTheme);
+  };
   
   // OTP States
   const [phone, setPhone] = useState("");
@@ -256,6 +269,26 @@ export default function SettingsPage() {
               Verify your phone to enter prediction rounds. Complete payout verification only when you want to request withdrawals.
             </p>
           </div>
+
+          {/* Theme Settings Card */}
+          <GlassCard className={styles.themeCard} hoverEffect={false}>
+            <div className={styles.themeRow}>
+              <div className={styles.themeInfo}>
+                <div className={styles.themeIconWrapper}>
+                  {theme === "dark" ? <Moon size={20} className={styles.themeIcon} /> : <Sun size={20} className={styles.themeIcon} />}
+                </div>
+                <div>
+                  <h3 className={styles.themeTitle}>App Theme</h3>
+                  <p className={styles.themeDesc}>
+                    Switch between dark and light themes for the NanoPlay arena.
+                  </p>
+                </div>
+              </div>
+              <Button onClick={toggleTheme} variant="glass" className={styles.themeToggleBtn}>
+                {theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              </Button>
+            </div>
+          </GlassCard>
 
           {/* Suspended alert */}
           {profile?.status === "suspended" && (

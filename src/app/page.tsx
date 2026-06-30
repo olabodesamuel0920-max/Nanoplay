@@ -18,11 +18,71 @@ import {
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
+const TICKER_MATCHES = [
+  { id: 1, home: "Lagos XI", away: "Abuja XI", status: "LIVE", time: "74'", score: "2 - 1" },
+  { id: 2, home: "Kano Stars", away: "PH City FC", status: "18:00", date: "TODAY" },
+  { id: 3, home: "Kaduna Utd", away: "Ibadan Warriors", status: "20:30", date: "TODAY" },
+  { id: 4, home: "Enugu Rangers", away: "Bendel Insurance", status: "16:00", date: "TOMORROW" },
+  { id: 5, home: "Calabar Rovers", away: "Warri Wolves", status: "FINISHED", score: "0 - 1" },
+  { id: 6, home: "Plateau Utd", away: "Enyimba FC", status: "LIVE", time: "12'", score: "0 - 0" }
+];
+
 export default function LandingPage() {
   return (
     <>
       <Navbar />
       <main className={styles.main}>
+        {/* Live Match Ticker Strip */}
+        <div className={styles.tickerStrip} aria-hidden="true">
+          <div className={styles.tickerTrack}>
+            {[...TICKER_MATCHES, ...TICKER_MATCHES].map((match, idx) => (
+              <div key={`${match.id}-${idx}`} className={styles.tickerItem}>
+                <span className={styles.tickerTeam}>{match.home}</span>
+                {match.score ? (
+                  <span className={styles.tickerScore}>{match.score}</span>
+                ) : (
+                  <span className={styles.tickerVs}>vs</span>
+                )}
+                <span className={styles.tickerTeam}>{match.away}</span>
+                <span className={[
+                  styles.tickerStatus,
+                  match.status === "LIVE" ? styles.statusLive : ""
+                ].join(" ")}>
+                  {match.status === "LIVE" && <span className={styles.tickerPulse} />}
+                  {match.status} {match.time && `(${match.time})`}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
+        {/* Sportsbook-inspired Category Navigation Bar */}
+        <div className={styles.categoryBar} aria-label="Sports & Challenges Navigation">
+          <div className={styles.categoryContainer}>
+            <button className={`${styles.categoryTab} ${styles.categoryTabActive}`}>
+              <span className={styles.categoryIcon}>⚽</span>
+              <span>Football Arena</span>
+            </button>
+            <button className={styles.categoryTab}>
+              <span className={styles.categoryIcon}>⚡</span>
+              <span>Active Predictions</span>
+            </button>
+            <button className={styles.categoryTab}>
+              <span className={styles.categoryIcon}>📅</span>
+              <span>Today&apos;s Fixtures</span>
+            </button>
+            <button className={styles.categoryTab}>
+              <span className={styles.categoryIcon}>🏆</span>
+              <span>Champions Streak</span>
+            </button>
+            <button className={styles.categoryTab}>
+              <span className={styles.categoryIcon}>📖</span>
+              <span>Challenge Rules</span>
+            </button>
+          </div>
+        </div>
+
         <AtmosphereLayer variant="hero" />
         {/* Glow Spotlights */}
         <div className={styles.glowTop}></div>

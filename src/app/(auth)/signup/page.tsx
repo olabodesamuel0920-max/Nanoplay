@@ -59,7 +59,11 @@ export default function SignupPage() {
       });
 
       if (signUpError) {
-        setError(signUpError.message);
+        let msg = signUpError.message;
+        if (msg.toLowerCase().includes("rate limit") || msg.toLowerCase().includes("too many requests")) {
+          msg = "Too many signup attempts. Please wait a few minutes, or sign in with an existing account.";
+        }
+        setError(msg);
         setLoading(false);
         return;
       }
@@ -97,7 +101,11 @@ export default function SignupPage() {
       router.push("/settings");
       router.refresh();
     } catch (err: any) {
-      setError(err.message || "An unexpected error occurred.");
+      let msg = err.message || "An unexpected error occurred.";
+      if (msg.toLowerCase().includes("rate limit") || msg.toLowerCase().includes("too many requests")) {
+        msg = "Too many signup attempts. Please wait a few minutes, or sign in with an existing account.";
+      }
+      setError(msg);
       setLoading(false);
     }
   };

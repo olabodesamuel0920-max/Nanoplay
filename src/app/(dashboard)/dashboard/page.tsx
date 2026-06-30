@@ -101,12 +101,15 @@ export default function DashboardPage() {
           {/* Welcome row */}
           <div className={styles.welcomeRow}>
             <div>
-              <h1 className={styles.title}>WELCOME BACK</h1>
-              <p style={{ fontSize: "14px", color: "var(--accent-gold)", fontWeight: "600", marginTop: "2px", textTransform: "lowercase" }}>
-                {profile?.username || "player"}
-              </p>
-              <p className={styles.subtitle} style={{ marginTop: "4px" }}>
-                Track your active challenges, streak stats, and account limits.
+              <div className={styles.controlRoomHeader}>
+                <span className={styles.matchdayControlBadge}>
+                  <span className={styles.badgePulse} />
+                  MATCHDAY CONTROL ROOM
+                </span>
+              </div>
+              <h1 className={styles.title}>WELCOME BACK, {profile?.username ? profile.username.toUpperCase() : "PLAYER"}</h1>
+              <p className={styles.subtitle}>
+                Track your active challenges, prediction win streak, and account verification limits.
               </p>
             </div>
             {profile?.role === "admin" && (
@@ -119,6 +122,7 @@ export default function DashboardPage() {
           {/* Quick Stats Grid */}
           <div className={styles.statsGrid}>
             <GlassCard className={styles.statCard}>
+              <span className={styles.cardWatermark} aria-hidden="true" />
               <div className={styles.statIconContainer}>
                 <Wallet className={styles.statIcon} />
               </div>
@@ -131,6 +135,7 @@ export default function DashboardPage() {
             </GlassCard>
 
             <GlassCard className={styles.statCard}>
+              <span className={styles.cardWatermark} aria-hidden="true" />
               <div className={styles.statIconContainer}>
                 <Trophy className={styles.statIcon} />
               </div>
@@ -143,6 +148,7 @@ export default function DashboardPage() {
             </GlassCard>
 
             <GlassCard className={styles.statCard}>
+              <span className={styles.cardWatermark} aria-hidden="true" />
               <div className={styles.statIconContainer}>
                 <Users className={styles.statIcon} />
               </div>
@@ -173,6 +179,8 @@ export default function DashboardPage() {
             {/* Left Column: Play Status */}
             <div className={styles.leftColumn}>
               <GlassCard className={styles.challengeCard}>
+                <span className={styles.cardWatermark} aria-hidden="true" />
+                <span className={styles.cardTexture} aria-hidden="true" />
                 <div className={styles.cardHeader}>
                   <Zap className={styles.cardHeaderIcon} />
                   <h3>Active Challenge Entry</h3>
@@ -193,6 +201,35 @@ export default function DashboardPage() {
                       <span className={styles.rewardPotential}>Listed Tier Reward</span>
                     </div>
 
+                    {/* Streak Progress Mini-Bar */}
+                    <div className={styles.streakVisualContainer}>
+                      <div className={styles.streakVisualLabel}>
+                        <span>Prediction Streak Progress</span>
+                        <span className="font-data">{activeEntry?.streak_count || 0} / 3 Wins</span>
+                      </div>
+                      <div className={styles.streakProgressBarBg}>
+                        <div 
+                          className={styles.streakProgressBarFill} 
+                          style={{ width: `${Math.min(100, ((activeEntry?.streak_count || 0) / 3) * 100)}%` }} 
+                        />
+                      </div>
+                      <div className={styles.streakDots}>
+                        {[1, 2, 3].map((step) => {
+                          const isFilled = (activeEntry?.streak_count || 0) >= step;
+                          return (
+                            <span 
+                              key={step} 
+                              className={[
+                                styles.streakDot, 
+                                isFilled ? styles.streakDotFilled : ""
+                              ].join(" ")} 
+                              title={`Win ${step}`}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+
                     <div className={styles.ctaRow}>
                       <Link href="/arena" className="btn-premium" style={{ width: "100%" }}>
                         Manage Predictions
@@ -210,12 +247,65 @@ export default function DashboardPage() {
                   </div>
                 )}
               </GlassCard>
+
+              {/* Quick Actions Panel */}
+              <GlassCard className={styles.quickActionsCard} style={{ marginTop: '24px' }} hoverEffect={false}>
+                <span className={styles.cardWatermark} aria-hidden="true" />
+                <div className={styles.cardHeader}>
+                  <Zap className={styles.cardHeaderIcon} />
+                  <h3>Lobby Quick Actions</h3>
+                </div>
+                <div className={styles.quickActionsGrid}>
+                  <Link href="/arena" className={styles.quickActionBtn}>
+                    <span className={styles.actionIcon}>⚽</span>
+                    <span className={styles.actionName}>Enter Arena</span>
+                  </Link>
+                  <Link href="/settings" className={styles.quickActionBtn}>
+                    <span className={styles.actionIcon}>📱</span>
+                    <span className={styles.actionName}>Verify Phone</span>
+                  </Link>
+                  <Link href="/wallet" className={styles.quickActionBtn}>
+                    <span className={styles.actionIcon}>💳</span>
+                    <span className={styles.actionName}>View Wallet</span>
+                  </Link>
+                  <Link href="/referrals" className={styles.quickActionBtn}>
+                    <span className={styles.actionIcon}>🤝</span>
+                    <span className={styles.actionName}>Invite Friend</span>
+                  </Link>
+                </div>
+              </GlassCard>
             </div>
 
             {/* Right Column: Profile Overview */}
             <div className={styles.rightColumn}>
               <GlassCard className={styles.profileCard}>
+                <span className={styles.cardWatermark} aria-hidden="true" />
                 <div className={styles.cardHeader}>
+                  <User className={styles.cardHeaderIcon} />
+                  <h3>Player Checklists</h3>
+                </div>
+
+                {/* Checklist */}
+                <div className={styles.checklist}>
+                  <div className={[styles.checklistItem, styles.checklistDone].join(" ")}>
+                    <CheckCircle size={15} className={styles.checkIcon} />
+                    <span>Create Player Account</span>
+                  </div>
+                  <div className={[styles.checklistItem, profile?.phone_verified ? styles.checklistDone : ""].join(" ")}>
+                    {profile?.phone_verified ? <CheckCircle size={15} className={styles.checkIcon} /> : <div className={styles.todoCircle} />}
+                    <span>Verify Phone Number</span>
+                  </div>
+                  <div className={[styles.checklistItem, activeEntry ? styles.checklistDone : ""].join(" ")}>
+                    {activeEntry ? <CheckCircle size={15} className={styles.checkIcon} /> : <div className={styles.todoCircle} />}
+                    <span>Select Challenge Pass & Predict</span>
+                  </div>
+                  <div className={[styles.checklistItem, profile?.identity_status === "verified" ? styles.checklistDone : ""].join(" ")}>
+                    {profile?.identity_status === "verified" ? <CheckCircle size={15} className={styles.checkIcon} /> : <div className={styles.todoCircle} />}
+                    <span>Verify Payout Identity</span>
+                  </div>
+                </div>
+
+                <div className={styles.cardHeader} style={{ marginTop: '24px', borderTop: '1px solid var(--border-glass)', paddingTop: '20px' }}>
                   <User className={styles.cardHeaderIcon} />
                   <h3>Security & Payout Status</h3>
                 </div>

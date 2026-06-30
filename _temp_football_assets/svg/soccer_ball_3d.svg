@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="ballBg" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0a0a0a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="goldHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4A853;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="darkHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:1" />
+    </linearGradient>
+    <filter id="ballGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#D4A853" flood-opacity="0.2"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Ball shadow -->
+  <ellipse cx="256" cy="460" rx="160" ry="25" fill="#000000" opacity="0.4" filter="url(#ballGlow)" />
+
+  <!-- Main ball sphere -->
+  <circle cx="256" cy="256" r="220" fill="url(#ballBg)" />
+
+  <!-- Center gold hexagon -->
+  <polygon points="256,140 296,163 296,210 256,233 216,210 216,163" fill="url(#goldHex)" stroke="#B8860B" stroke-width="2" />
+
+  <!-- Surrounding dark pentagons/hexagons -->
+  <polygon points="256,100 276,113 276,137 256,150 236,137 236,113" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="196,163 216,176 216,200 196,213 176,200 176,176" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="316,163 336,176 336,200 316,213 296,200 296,176" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="226,243 246,256 246,280 226,293 206,280 206,256" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="286,243 306,256 306,280 286,293 266,280 266,256" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+
+  <!-- Outer gold hexagons -->
+  <polygon points="256,260 296,283 296,330 256,353 216,330 216,283" fill="url(#goldHex)" stroke="#B8860B" stroke-width="2" opacity="0.9" />
+  <polygon points="156,210 196,233 196,280 156,303 116,280 116,233" fill="url(#goldHex)" stroke="#B8860B" stroke-width="2" opacity="0.9" />
+  <polygon points="356,210 396,233 396,280 356,303 316,280 316,233" fill="url(#goldHex)" stroke="#B8860B" stroke-width="2" opacity="0.9" />
+
+  <!-- More dark pieces -->
+  <polygon points="116,163 136,176 136,200 116,213 96,200 96,176" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="396,163 416,176 416,200 396,213 376,200 376,176" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="196,303 216,316 216,340 196,353 176,340 176,316" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="316,303 336,316 336,340 316,353 296,340 296,316" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+
+  <!-- Bottom pieces -->
+  <polygon points="256,360 276,373 276,397 256,410 236,397 236,373" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="156,310 176,323 176,347 156,360 136,347 136,323" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+  <polygon points="356,310 376,323 376,347 356,360 336,347 336,323" fill="url(#darkHex)" stroke="#333" stroke-width="1" />
+
+  <!-- Highlight shine -->
+  <ellipse cx="180" cy="180" rx="60" ry="80" fill="white" opacity="0.12" transform="rotate(-25 180 180)" />
+  <ellipse cx="320" cy="320" rx="30" ry="40" fill="white" opacity="0.05" transform="rotate(15 320 320)" />
+
+  <!-- Outer rim light -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#D4A853" stroke-width="1.5" opacity="0.4" />
+</svg>

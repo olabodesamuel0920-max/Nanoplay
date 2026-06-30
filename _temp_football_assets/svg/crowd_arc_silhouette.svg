@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 300" width="1920" height="300" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="crowdGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Crowd arc base -->
+  <path d="M -100 300 L -100 200 Q 200 80 480 60 Q 960 20 1440 60 Q 1720 80 2020 200 L 2020 300 Z" fill="url(#crowdGrad)" />
+
+  <!-- Individual crowd silhouettes - raised hands -->
+  <g fill="#0d0d0d">
+    <!-- Row 1 - front -->
+    <ellipse cx="100" cy="260" rx="12" ry="18" />
+    <rect x="94" y="240" width="4" height="25" rx="2" transform="rotate(-20 96 240)" />
+    <rect x="102" y="240" width="4" height="25" rx="2" transform="rotate(20 104 240)" />
+
+    <ellipse cx="160" cy="255" rx="12" ry="18" />
+    <rect x="154" y="235" width="4" height="25" rx="2" transform="rotate(-15 156 235)" />
+    <rect x="162" y="235" width="4" height="25" rx="2" transform="rotate(25 164 235)" />
+
+    <ellipse cx="220" cy="250" rx="12" ry="18" />
+    <rect x="214" y="230" width="4" height="25" rx="2" transform="rotate(-25 216 230)" />
+    <rect x="222" y="230" width="4" height="25" rx="2" transform="rotate(15 224 230)" />
+
+    <ellipse cx="280" cy="245" rx="12" ry="18" />
+    <rect x="274" y="225" width="4" height="25" rx="2" transform="rotate(-10 276 225)" />
+    <rect x="282" y="225" width="4" height="25" rx="2" transform="rotate(30 284 225)" />
+
+    <ellipse cx="340" cy="240" rx="12" ry="18" />
+    <rect x="334" y="220" width="4" height="25" rx="2" transform="rotate(-20 336 220)" />
+    <rect x="342" y="220" width="4" height="25" rx="2" transform="rotate(20 344 220)" />
+
+    <ellipse cx="400" cy="235" rx="12" ry="18" />
+    <rect x="394" y="215" width="4" height="25" rx="2" transform="rotate(-15 396 215)" />
+    <rect x="402" y="215" width="4" height="25" rx="2" transform="rotate(25 404 215)" />
+
+    <ellipse cx="460" cy="230" rx="12" ry="18" />
+    <rect x="454" y="210" width="4" height="25" rx="2" transform="rotate(-30 456 210)" />
+    <rect x="462" y="210" width="4" height="25" rx="2" transform="rotate(10 464 210)" />
+
+    <ellipse cx="520" cy="225" rx="12" ry="18" />
+    <rect x="514" y="205" width="4" height="25" rx="2" transform="rotate(-20 516 205)" />
+    <rect x="522" y="205" width="4" height="25" rx="2" transform="rotate(20 524 205)" />
+
+    <ellipse cx="580" cy="220" rx="12" ry="18" />
+    <rect x="574" y="200" width="4" height="25" rx="2" transform="rotate(-15 576 200)" />
+    <rect x="582" y="200" width="4" height="25" rx="2" transform="rotate(25 584 200)" />
+
+    <ellipse cx="640" cy="215" rx="12" ry="18" />
+    <rect x="634" y="195" width="4" height="25" rx="2" transform="rotate(-25 636 195)" />
+    <rect x="642" y="195" width="4" height="25" rx="2" transform="rotate(15 644 195)" />
+
+    <ellipse cx="700" cy="210" rx="12" ry="18" />
+    <rect x="694" y="190" width="4" height="25" rx="2" transform="rotate(-10 696 190)" />
+    <rect x="702" y="190" width="4" height="25" rx="2" transform="rotate(30 704 190)" />
+
+    <ellipse cx="760" cy="205" rx="12" ry="18" />
+    <rect x="754" y="185" width="4" height="25" rx="2" transform="rotate(-20 756 185)" />
+    <rect x="762" y="185" width="4" height="25" rx="2" transform="rotate(20 764 185)" />
+
+    <ellipse cx="820" cy="200" rx="12" ry="18" />
+    <rect x="814" y="180" width="4" height="25" rx="2" transform="rotate(-15 816 180)" />
+    <rect x="822" y="180" width="4" height="25" rx="2" transform="rotate(25 824 180)" />
+
+    <ellipse cx="880" cy="195" rx="12" ry="18" />
+    <rect x="874" y="175" width="4" height="25" rx="2" transform="rotate(-30 876 175)" />
+    <rect x="882" y="175" width="4" height="25" rx="2" transform="rotate(10 884 175)" />
+
+    <ellipse cx="940" cy="190" rx="12" ry="18" />
+    <rect x="934" y="170" width="4" height="25" rx="2" transform="rotate(-20 936 170)" />
+    <rect x="942" y="170" width="4" height="25" rx="2" transform="rotate(20 944 170)" />
+
+    <ellipse cx="1000" cy="190" rx="12" ry="18" />
+    <rect x="994" y="170" width="4" height="25" rx="2" transform="rotate(-15 996 170)" />
+    <rect x="1002" y="170" width="4" height="25" rx="2" transform="rotate(25 1004 170)" />
+
+    <ellipse cx="1060" cy="195" rx="12" ry="18" />
+    <rect x="1054" y="175" width="4" height="25" rx="2" transform="rotate(-25 1056 175)" />
+    <rect x="1062" y="175" width="4" height="25" rx="2" transform="rotate(15 1064 175)" />
+
+    <ellipse cx="1120" cy="200" rx="12" ry="18" />
+    <rect x="1114" y="180" width="4" height="25" rx="2" transform="rotate(-10 1116 180)" />
+    <rect x="1122" y="180" width="4" height="25" rx="2" transform="rotate(30 1124 180)" />
+
+    <ellipse cx="1180" cy="205" rx="12" ry="18" />
+    <rect x="1174" y="185" width="4" height="25" rx="2" transform="rotate(-20 1176 185)" />
+    <rect x="1182" y="185" width="4" height="25" rx="2" transform="rotate(20 1184 185)" />
+
+    <ellipse cx="1240" cy="210" rx="12" ry="18" />
+    <rect x="1234" y="190" width="4" height="25" rx="2" transform="rotate(-15 1236 190)" />
+    <rect x="1242" y="190" width="4" height="25" rx="2" transform="rotate(25 1244 190)" />
+
+    <ellipse cx="1300" cy="215" rx="12" ry="18" />
+    <rect x="1294" y="195" width="4" height="25" rx="2" transform="rotate(-30 1296 195)" />
+    <rect x="1302" y="195" width="4" height="25" rx="2" transform="rotate(10 1304 195)" />
+
+    <ellipse cx="1360" cy="220" rx="12" ry="18" />
+    <rect x="1354" y="200" width="4" height="25" rx="2" transform="rotate(-20 1356 200)" />
+    <rect x="1362" y="200" width="4" height="25" rx="2" transform="rotate(20 1364 200)" />
+
+    <ellipse cx="1420" cy="225" rx="12" ry="18" />
+    <rect x="1414" y="205" width="4" height="25" rx="2" transform="rotate(-15 1416 205)" />
+    <rect x="1422" y="205" width="4" height="25" rx="2" transform="rotate(25 1424 205)" />
+
+    <ellipse cx="1480" cy="230" rx="12" ry="18" />
+    <rect x="1474" y="210" width="4" height="25" rx="2" transform="rotate(-25 1476 210)" />
+    <rect x="1482" y="210" width="4" height="25" rx="2" transform="rotate(15 1484 210)" />
+
+    <ellipse cx="1540" cy="235" rx="12" ry="18" />
+    <rect x="1534" y="215" width="4" height="25" rx="2" transform="rotate(-10 1536 215)" />
+    <rect x="1542" y="215" width="4" height="25" rx="2" transform="rotate(30 1544 215)" />
+
+    <ellipse cx="1600" cy="240" rx="12" ry="18" />
+    <rect x="1594" y="220" width="4" height="25" rx="2" transform="rotate(-20 1596 220)" />
+    <rect x="1602" y="220" width="4" height="25" rx="2" transform="rotate(20 1604 220)" />
+
+    <ellipse cx="1660" cy="245" rx="12" ry="18" />
+    <rect x="1654" y="225" width="4" height="25" rx="2" transform="rotate(-15 1656 225)" />
+    <rect x="1662" y="225" width="4" height="25" rx="2" transform="rotate(25 1664 225)" />
+
+    <ellipse cx="1720" cy="250" rx="12" ry="18" />
+    <rect x="1714" y="230" width="4" height="25" rx="2" transform="rotate(-30 1716 230)" />
+    <rect x="1722" y="230" width="4" height="25" rx="2" transform="rotate(10 1724 230)" />
+
+    <ellipse cx="1780" cy="255" rx="12" ry="18" />
+    <rect x="1774" y="235" width="4" height="25" rx="2" transform="rotate(-20 1776 235)" />
+    <rect x="1782" y="235" width="4" height="25" rx="2" transform="rotate(20 1784 235)" />
+
+    <ellipse cx="1840" cy="260" rx="12" ry="18" />
+    <rect x="1834" y="240" width="4" height="25" rx="2" transform="rotate(-15 1836 240)" />
+    <rect x="1842" y="240" width="4" height="25" rx="2" transform="rotate(25 1844 240)" />
+  </g>
+</svg>

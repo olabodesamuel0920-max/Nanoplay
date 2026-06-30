@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <filter id="confettiBlur">
+      <feGaussianBlur stdDeviation="1" />
+    </filter>
+  </defs>
+
+  <!-- Gold confetti -->
+  <rect x="200" y="100" width="12" height="6" fill="#D4A853" opacity="0.6" transform="rotate(25 200 100)" />
+  <rect x="450" y="250" width="8" height="4" fill="#FFD700" opacity="0.5" transform="rotate(-15 450 250)" />
+  <rect x="800" y="150" width="10" height="5" fill="#B8860B" opacity="0.7" transform="rotate(40 800 150)" />
+  <rect x="1200" y="300" width="14" height="7" fill="#D4A853" opacity="0.4" transform="rotate(-30 1200 300)" />
+  <rect x="1600" y="180" width="9" height="4" fill="#FFD700" opacity="0.6" transform="rotate(20 1600 180)" />
+  <rect x="300" y="400" width="11" height="5" fill="#B8860B" opacity="0.5" transform="rotate(-45 300 400)" />
+  <rect x="700" y="500" width="7" height="3" fill="#D4A853" opacity="0.7" transform="rotate(35 700 500)" />
+  <rect x="1100" y="450" width="13" height="6" fill="#FFD700" opacity="0.4" transform="rotate(-20 1100 450)" />
+  <rect x="1500" y="550" width="10" height="5" fill="#B8860B" opacity="0.6" transform="rotate(15 1500 550)" />
+  <rect x="100" y="600" width="8" height="4" fill="#D4A853" opacity="0.5" transform="rotate(-35 100 600)" />
+
+  <!-- White/ice confetti -->
+  <rect x="350" y="200" width="6" height="6" fill="#7EC8E3" opacity="0.5" transform="rotate(15 350 200)" />
+  <rect x="600" y="350" width="8" height="8" fill="#ffffff" opacity="0.4" transform="rotate(-25 600 350)" />
+  <rect x="950" y="280" width="5" height="5" fill="#7EC8E3" opacity="0.6" transform="rotate(45 950 280)" />
+  <rect x="1300" y="420" width="7" height="7" fill="#ffffff" opacity="0.5" transform="rotate(-15 1300 420)" />
+  <rect x="1700" y="320" width="6" height="6" fill="#7EC8E3" opacity="0.4" transform="rotate(30 1700 320)" />
+  <rect x="250" y="500" width="8" height="8" fill="#ffffff" opacity="0.6" transform="rotate(-40 250 500)" />
+  <rect x="550" y="650" width="5" height="5" fill="#7EC8E3" opacity="0.5" transform="rotate(20 550 650)" />
+  <rect x="900" y="700" width="7" height="7" fill="#ffffff" opacity="0.4" transform="rotate(-30 900 700)" />
+  <rect x="1400" y="600" width="6" height="6" fill="#7EC8E3" opacity="0.6" transform="rotate(10 1400 600)" />
+
+  <!-- Circles -->
+  <circle cx="500" cy="150" r="4" fill="#D4A853" opacity="0.5" />
+  <circle cx="850" cy="400" r="5" fill="#FFD700" opacity="0.4" />
+  <circle cx="1250" cy="200" r="3" fill="#7EC8E3" opacity="0.6" />
+  <circle cx="1650" cy="450" r="4" fill="#ffffff" opacity="0.5" />
+  <circle cx="400" cy="550" r="5" fill="#B8860B" opacity="0.4" />
+  <circle cx="750" cy="300" r="3" fill="#D4A853" opacity="0.7" />
+  <circle cx="1050" cy="550" r="4" fill="#7EC8E3" opacity="0.5" />
+  <circle cx="1450" cy="350" r="5" fill="#FFD700" opacity="0.6" />
+  <circle cx="1850" cy="500" r="3" fill="#ffffff" opacity="0.4" />
+</svg>

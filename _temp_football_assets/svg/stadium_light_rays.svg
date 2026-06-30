@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="rayLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7EC8E3;stop-opacity:0.08" />
+      <stop offset="30%" style="stop-color:#7EC8E3;stop-opacity:0.04" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient id="rayRight" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7EC8E3;stop-opacity:0.08" />
+      <stop offset="30%" style="stop-color:#7EC8E3;stop-opacity:0.04" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient id="rayCenter" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.05" />
+      <stop offset="50%" style="stop-color:#D4A853;stop-opacity:0.02" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:0" />
+    </linearGradient>
+    <radialGradient id="floodlightLeft" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="30%" style="stop-color:#7EC8E3;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:0" />
+    </radialGradient>
+    <radialGradient id="floodlightRight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="30%" style="stop-color:#7EC8E3;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Left floodlight cluster -->
+  <circle cx="120" cy="80" r="60" fill="url(#floodlightLeft)" />
+  <circle cx="160" cy="100" r="50" fill="url(#floodlightLeft)" opacity="0.8" />
+  <circle cx="100" cy="120" r="55" fill="url(#floodlightLeft)" opacity="0.7" />
+
+  <!-- Right floodlight cluster -->
+  <circle cx="1800" cy="80" r="60" fill="url(#floodlightRight)" />
+  <circle cx="1760" cy="100" r="50" fill="url(#floodlightRight)" opacity="0.8" />
+  <circle cx="1820" cy="120" r="55" fill="url(#floodlightRight)" opacity="0.7" />
+
+  <!-- Left light ray -->
+  <polygon points="-100,-100 400,-100 960,1080 200,1080" fill="url(#rayLeft)" />
+
+  <!-- Right light ray -->
+  <polygon points="2020,-100 1520,-100 960,1080 1720,1080" fill="url(#rayRight)" />
+
+  <!-- Center subtle gold ray -->
+  <polygon points="700,-100 1220,-100 1080,1080 840,1080" fill="url(#rayCenter)" />
+
+  <!-- Additional subtle rays -->
+  <polygon points="200,-100 500,-100 700,1080 300,1080" fill="url(#rayLeft)" opacity="0.5" />
+  <polygon points="1720,-100 1420,-100 1220,1080 1620,1080" fill="url(#rayRight)" opacity="0.5" />
+</svg>

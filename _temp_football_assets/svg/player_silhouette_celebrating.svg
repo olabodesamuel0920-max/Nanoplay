@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600">
+  <defs>
+    <linearGradient id="playerGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#050505;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="rimLight2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#D4A853;stop-opacity:0" />
+    </linearGradient>
+    <filter id="playerGlow2">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#D4A853" flood-opacity="0.3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#playerGlow2)">
+    <!-- Head -->
+    <circle cx="200" cy="100" r="38" fill="url(#playerGrad2)" />
+    <!-- Neck -->
+    <rect x="182" y="135" width="36" height="28" fill="url(#playerGrad2)" />
+    <!-- Torso -->
+    <polygon points="155,160 245,160 235,280 165,280" fill="url(#playerGrad2)" />
+    <!-- Left arm (raised high) -->
+    <polygon points="155,165 80,60 70,70 150,175" fill="url(#playerGrad2)" />
+    <!-- Left hand -->
+    <circle cx="75" cy="65" r="15" fill="url(#playerGrad2)" />
+    <!-- Right arm (raised high) -->
+    <polygon points="245,165 320,60 330,70 250,175" fill="url(#playerGrad2)" />
+    <!-- Right hand -->
+    <circle cx="325" cy="65" r="15" fill="url(#playerGrad2)" />
+    <!-- Left leg -->
+    <polygon points="165,275 140,420 165,425 190,280" fill="url(#playerGrad2)" />
+    <!-- Left foot -->
+    <polygon points="140,420 120,435 125,445 168,428" fill="url(#playerGrad2)" />
+    <!-- Right leg (slightly bent) -->
+    <polygon points="235,275 260,400 240,405 210,280" fill="url(#playerGrad2)" />
+    <!-- Right foot -->
+    <polygon points="260,400 275,415 270,425 238,408" fill="url(#playerGrad2)" />
+  </g>
+
+  <!-- Gold rim light -->
+  <path d="M 200 62 Q 238 62 238 100 Q 238 138 245 160 L 320 60 L 330 70 L 250 175 L 235 275 L 260 400 L 275 415 L 270 425 L 210 280 L 190 280 L 165 425 L 125 445 L 120 435 L 140 420 L 165 275 L 150 175 L 70 70 L 80 60 L 155 160 L 162 138 Q 162 100 162 100 Q 162 62 200 62" 
+        fill="none" stroke="url(#rimLight2)" stroke-width="3" opacity="0.6" />
+</svg>

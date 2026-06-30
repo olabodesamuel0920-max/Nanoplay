@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="shieldGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B8860B;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#D4A853;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#D4A853;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shieldDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shieldGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#D4A853" flood-opacity="0.3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Shield shape -->
+  <path d="M 256 40 L 420 100 L 420 260 Q 420 380 256 470 Q 92 380 92 260 L 92 100 Z" fill="url(#shieldDark)" stroke="url(#shieldGold)" stroke-width="12" filter="url(#shieldGlow)" />
+
+  <!-- Inner border -->
+  <path d="M 256 60 L 400 112 L 400 255 Q 400 360 256 445 Q 112 360 112 255 L 112 112 Z" fill="none" stroke="url(#shieldGold)" stroke-width="3" opacity="0.6" />
+
+  <!-- Center soccer ball icon -->
+  <circle cx="256" cy="240" r="70" fill="none" stroke="url(#shieldGold)" stroke-width="3" />
+  <polygon points="256,190 286,210 286,250 256,270 226,250 226,210" fill="none" stroke="url(#shieldGold)" stroke-width="2" opacity="0.8" />
+  <polygon points="256,205 275,218 275,242 256,255 237,242 237,218" fill="none" stroke="url(#shieldGold)" stroke-width="1.5" opacity="0.5" />
+
+  <!-- Stars at top -->
+  <polygon points="256,90 262,108 280,108 266,120 272,138 256,126 240,138 246,120 232,108 250,108" fill="url(#shieldGold)" opacity="0.9" />
+
+  <!-- Bottom banner area -->
+  <rect x="156" y="340" width="200" height="40" rx="4" fill="url(#shieldGold)" opacity="0.9" />
+  <rect x="166" y="345" width="180" height="30" rx="2" fill="#050505" />
+
+  <!-- Shine -->
+  <ellipse cx="180" cy="140" rx="40" ry="80" fill="white" opacity="0.08" transform="rotate(-20 180 140)" />
+</svg>

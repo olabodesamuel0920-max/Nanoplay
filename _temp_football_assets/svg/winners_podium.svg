@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="podiumGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4A853;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="podiumSilver" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#c0c0c0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#666666;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="podiumBronze" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#cd7f32;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6b3a0f;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="stageSpotlight" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#050505;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Spotlight background -->
+  <ellipse cx="400" cy="350" rx="350" ry="100" fill="url(#stageSpotlight)" />
+
+  <!-- 1st place (center, tallest) -->
+  <rect x="300" y="150" width="200" height="200" fill="url(#podiumGold)" rx="4" />
+  <rect x="310" y="160" width="180" height="190" fill="#1a1a1a" rx="2" />
+  <text x="400" y="280" text-anchor="middle" fill="#D4A853" font-size="80" font-family="Arial" font-weight="bold">1</text>
+
+  <!-- 2nd place (left) -->
+  <rect x="80" y="220" width="200" height="130" fill="url(#podiumSilver)" rx="4" />
+  <rect x="90" y="230" width="180" height="120" fill="#1a1a1a" rx="2" />
+  <text x="180" y="310" text-anchor="middle" fill="#c0c0c0" font-size="60" font-family="Arial" font-weight="bold">2</text>
+
+  <!-- 3rd place (right) -->
+  <rect x="520" y="250" width="200" height="100" fill="url(#podiumBronze)" rx="4" />
+  <rect x="530" y="260" width="180" height="90" fill="#1a1a1a" rx="2" />
+  <text x="620" y="320" text-anchor="middle" fill="#cd7f32" font-size="50" font-family="Arial" font-weight="bold">3</text>
+
+  <!-- Stars above 1st place -->
+  <polygon points="400,60 406,78 424,78 410,90 416,108 400,96 384,108 390,90 376,78 394,78" fill="#FFD700" opacity="0.9" />
+  <polygon points="360,80 364,92 376,92 366,100 370,112 360,104 350,112 354,100 344,92 356,92" fill="#FFD700" opacity="0.7" />
+  <polygon points="440,80 444,92 456,92 446,100 450,112 440,104 430,112 434,100 424,92 436,92" fill="#FFD700" opacity="0.7" />
+</svg>

@@ -1,0 +1,749 @@
+# NANOPLAY 3D SPORTS VISUAL IMPLEMENTATION
+## Complete Prompt for Antigravity AI
+
+---
+
+## CONTEXT
+
+NanoPlay is a football prediction challenge platform built with Next.js 14 + React + TypeScript + Tailwind CSS + shadcn/ui. The site currently has a premium dark UI (black/gold/ice-blue) but feels like a fintech dashboard, not a live football arena. 
+
+**Current live site:** https://nanoplay.vercel.app
+**GitHub:** https://github.com/olabodesamuel0920-max/Nanoplay
+
+We need to add 3D football atmosphere assets to transform the experience from "dark dashboard" to "premium football challenge arena."
+
+---
+
+## ASSETS PROVIDED
+
+Place these PNG files in `public/assets/3d/`:
+
+| File | Dimensions | Type | Description |
+|------|-----------|------|-------------|
+| `3d-trophy-spotlight.png` | 1024×1024 | Transparent PNG | Gold trophy with radial spotlight glow |
+| `3d-soccer-ball.png` | 1024×1024 | Transparent PNG | Black/gold pentagon soccer ball |
+| `3d-stadium-floodlights.png` | 1920×1080 | Opaque PNG | Stadium with ice-blue/gold light beams |
+| `3d-player-kick.png` | 1024×1536 | Transparent PNG | Kicking pose silhouette with motion blur |
+| `3d-player-celebration.png` | 1024×1536 | Transparent PNG | Arms-raised celebration with confetti |
+| `3d-goalkeeper-dive.png` | 1024×1536 | Transparent PNG | Diving save with cyan rim light |
+| `3d-football-badge.png` | 1024×1024 | Transparent PNG | Circular shield with 3D bevel |
+| `3d-crowd-arc.png` | 1920×400 | Transparent PNG | Stadium crowd with raised arms |
+| `3d-pitch-floor.png` | 1920×600 | Transparent PNG | Perspective football pitch |
+
+**Note:** If any asset is missing, generate it using the SVG assets from `public/assets/svg/` (provided separately) or create with CSS gradients.
+
+---
+
+## COLOR SYSTEM (EXISTING — DO NOT CHANGE)
+
+```css
+:root {
+  --gold: #D4A853;
+  --gold-hover: #dfba6b;
+  --gold-bright: #FFD700;
+  --ice-blue: #7dd3fc;
+  --cyan: #38bdf8;
+  --obsidian: #020204;
+  --charcoal: #0b0b0e;
+  --dark-green: #1a2e1a;
+  --glass-border: rgba(212, 168, 83, 0.15);
+  --glass-bg: rgba(11, 11, 14, 0.7);
+}
+```
+
+---
+
+## STEP 1: CREATE ATMOSPHERE COMPONENT
+
+### File: `src/components/AtmosphereLayer.tsx`
+
+```tsx
+"use client";
+
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+interface AtmosphereLayerProps {
+  variant?: "hero" | "login" | "signup" | "arena" | "winners" | "tiers" | "dashboard" | "wallet";
+  className?: string;
+}
+
+export default function AtmosphereLayer({ variant = "hero", className }: AtmosphereLayerProps) {
+  const configs = {
+    hero: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: "/assets/3d/3d-player-kick.png",
+      floor: "/assets/3d/3d-pitch-floor.png",
+      crowd: null,
+      trophy: null,
+      badge: null,
+      confetti: false,
+    },
+    login: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: "/assets/3d/3d-player-kick.png",
+      floor: null,
+      crowd: "/assets/3d/3d-crowd-arc.png",
+      trophy: null,
+      badge: null,
+      confetti: false,
+    },
+    signup: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: "/assets/3d/3d-player-celebration.png",
+      floor: null,
+      crowd: "/assets/3d/3d-crowd-arc.png",
+      trophy: null,
+      badge: null,
+      confetti: false,
+    },
+    arena: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: "/assets/3d/3d-goalkeeper-dive.png",
+      floor: "/assets/3d/3d-pitch-floor.png",
+      crowd: "/assets/3d/3d-crowd-arc.png",
+      trophy: null,
+      badge: "/assets/3d/3d-football-badge.png",
+      confetti: false,
+    },
+    winners: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: "/assets/3d/3d-player-celebration.png",
+      floor: null,
+      crowd: "/assets/3d/3d-crowd-arc.png",
+      trophy: "/assets/3d/3d-trophy-spotlight.png",
+      badge: null,
+      confetti: true,
+    },
+    tiers: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: null,
+      floor: "/assets/3d/3d-pitch-floor.png",
+      crowd: null,
+      trophy: null,
+      badge: "/assets/3d/3d-football-badge.png",
+      confetti: false,
+    },
+    dashboard: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: "/assets/3d/3d-player-celebration.png",
+      floor: "/assets/3d/3d-pitch-floor.png",
+      crowd: null,
+      trophy: null,
+      badge: null,
+      confetti: false,
+    },
+    wallet: {
+      background: "/assets/3d/3d-stadium-floodlights.png",
+      player: null,
+      floor: null,
+      crowd: null,
+      trophy: null,
+      badge: null,
+      confetti: false,
+    },
+  };
+
+  const config = configs[variant];
+
+  return (
+    <div className={cn("atmosphere-layer", className)} aria-hidden="true">
+      {/* Background stadium lights */}
+      {config.background && (
+        <div className="atmosphere-bg">
+          <Image
+            src={config.background}
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-60"
+            sizes="100vw"
+          />
+        </div>
+      )}
+
+      {/* Player silhouette */}
+      {config.player && (
+        <div className={cn("atmosphere-player", `player-${variant}`)}>
+          <Image
+            src={config.player}
+            alt=""
+            fill
+            className="object-contain object-bottom"
+            sizes="(max-width: 768px) 50vw, 40vw"
+          />
+        </div>
+      )}
+
+      {/* Pitch floor */}
+      {config.floor && (
+        <div className="atmosphere-floor">
+          <Image
+            src={config.floor}
+            alt=""
+            fill
+            className="object-cover object-bottom"
+            sizes="100vw"
+          />
+        </div>
+      )}
+
+      {/* Crowd arc */}
+      {config.crowd && (
+        <div className="atmosphere-crowd">
+          <Image
+            src={config.crowd}
+            alt=""
+            fill
+            className="object-cover object-bottom"
+            sizes="100vw"
+          />
+        </div>
+      )}
+
+      {/* Trophy spotlight */}
+      {config.trophy && (
+        <div className="atmosphere-trophy">
+          <Image
+            src={config.trophy}
+            alt=""
+            width={200}
+            height={200}
+            className="trophy-glow"
+            priority
+          />
+        </div>
+      )}
+
+      {/* Football badge */}
+      {config.badge && (
+        <div className="atmosphere-badge">
+          <Image
+            src={config.badge}
+            alt=""
+            width={80}
+            height={80}
+            className="badge-float"
+          />
+        </div>
+      )}
+
+      {/* Confetti overlay */}
+      {config.confetti && <ConfettiOverlay />}
+    </div>
+  );
+}
+
+// Confetti particle component
+function ConfettiOverlay() {
+  const particles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    left: `${Math.random() * 100}%`,
+    delay: `${Math.random() * 8}s`,
+    duration: `${8 + Math.random() * 6}s`,
+    color: ["#D4A853", "#FFD700", "#7dd3fc", "#ffffff"][Math.floor(Math.random() * 4)],
+    size: 4 + Math.random() * 8,
+  }));
+
+  return (
+    <div className="confetti-overlay">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="confetti-particle"
+          style={{
+            left: p.left,
+            animationDelay: p.delay,
+            animationDuration: p.duration,
+            width: p.size,
+            height: p.size * 0.6,
+            backgroundColor: p.color,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+---
+
+## STEP 2: CREATE ATMOSPHERE CSS
+
+### File: `src/components/AtmosphereLayer.css`
+
+```css
+/* ============================================
+   NANOPLAY ATMOSPHERE LAYER STYLES
+   ============================================ */
+
+.atmosphere-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Background */
+.atmosphere-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.atmosphere-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Player silhouettes */
+.atmosphere-player {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+.player-hero,
+.player-login {
+  left: -5%;
+  width: 40vw;
+  height: 70vh;
+}
+
+.player-signup,
+.player-winners,
+.player-dashboard {
+  right: -5%;
+  width: 40vw;
+  height: 70vh;
+}
+
+.player-arena {
+  right: -5%;
+  top: 5%;
+  width: 35vw;
+  height: 50vh;
+  bottom: auto;
+}
+
+/* Pitch floor */
+.atmosphere-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35vh;
+  z-index: 0;
+}
+
+/* Crowd arc */
+.atmosphere-crowd {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  z-index: 1;
+}
+
+/* Trophy */
+.atmosphere-trophy {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.trophy-glow {
+  animation: trophy-glow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 40px rgba(212, 168, 83, 0.4));
+}
+
+/* Badge */
+.atmosphere-badge {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.badge-float {
+  animation: badge-float 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.2));
+}
+
+/* Confetti */
+.confetti-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti-particle {
+  position: absolute;
+  top: -20px;
+  border-radius: 1px;
+  opacity: 0;
+  animation: confetti-fall linear infinite;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes trophy-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(212, 168, 83, 0.3));
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    filter: drop-shadow(0 0 60px rgba(212, 168, 83, 0.5));
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+@keyframes badge-float {
+  0%, 100% {
+    transform: translateX(-50%) perspective(1000px) rotateY(0deg) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) perspective(1000px) rotateY(15deg) translateY(-6px);
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.6;
+  }
+  95% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   MOBILE RULES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .atmosphere-player {
+    opacity: 0.15 !important;
+  }
+
+  .player-hero,
+  .player-login,
+  .player-signup,
+  .player-winners,
+  .player-dashboard {
+    width: 60vw;
+    height: 50vh;
+  }
+
+  .player-arena {
+    width: 50vw;
+    height: 35vh;
+  }
+
+  .atmosphere-floor {
+    height: 20vh;
+  }
+
+  .atmosphere-crowd {
+    height: 80px;
+  }
+
+  .atmosphere-trophy {
+    top: 5%;
+  }
+
+  .trophy-glow {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .atmosphere-badge {
+    top: 8%;
+  }
+
+  .badge-float {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .confetti-overlay {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .atmosphere-player {
+    display: none !important;
+  }
+
+  .atmosphere-floor {
+    height: 15vh;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .trophy-glow,
+  .badge-float,
+  .confetti-particle {
+    animation: none !important;
+  }
+}
+```
+
+---
+
+## STEP 3: IMPORT CSS IN LAYOUT
+
+### File: `src/app/layout.tsx`
+
+Add import at top:
+```tsx
+import "@/components/AtmosphereLayer.css";
+```
+
+---
+
+## STEP 4: INTEGRATE INTO EACH PAGE
+
+### Homepage: `src/app/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+// Inside the main return, as FIRST child of <main>:
+<main className={styles.main}>
+  <AtmosphereLayer variant="hero" />
+  {/* existing content */}
+</main>
+```
+
+### Login: `src/app/(auth)/login/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+// Inside left panel div, as FIRST child:
+<div className={styles.leftPanel}>
+  <AtmosphereLayer variant="login" />
+  {/* existing content */}
+</div>
+```
+
+### Signup: `src/app/(auth)/signup/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+<div className={styles.leftPanel}>
+  <AtmosphereLayer variant="signup" />
+  {/* existing content */}
+</div>
+```
+
+### Arena: `src/app/(dashboard)/arena/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+<main className={styles.main}>
+  <AtmosphereLayer variant="arena" />
+  <div className={styles.container}>
+    {/* Header with badge */}
+    <div className={styles.headerContent}>
+      <AtmosphereLayer variant="arena" />
+      {/* existing trophy icon and title */}
+    </div>
+    {/* existing content */}
+  </div>
+</main>
+```
+
+### Winners: `src/app/(dashboard)/winners/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+<main className={styles.main}>
+  <AtmosphereLayer variant="winners" />
+  <div className={styles.container}>
+    <div className={styles.header}>
+      {/* Trophy will render from AtmosphereLayer */}
+      <div className={styles.headerContent}>
+        <Award className={styles.awardIcon} />
+        <div>
+          <h1 className={styles.title}>Hall of Champions</h1>
+          <p className={styles.subtitle}>...</p>
+        </div>
+      </div>
+    </div>
+    {/* existing content */}
+  </div>
+</main>
+```
+
+### Tiers: `src/app/tiers/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+<main className={styles.main}>
+  <AtmosphereLayer variant="tiers" />
+  <div className={styles.container}>
+    <div className={styles.header}>
+      {/* Badge will render from AtmosphereLayer */}
+      <h1 className={styles.title}>Challenge Tiers</h1>
+      <p className={styles.subtitle}>...</p>
+    </div>
+    {/* existing content */}
+  </div>
+</main>
+```
+
+### Dashboard: `src/app/(dashboard)/dashboard/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+<main className={styles.main}>
+  <AtmosphereLayer variant="dashboard" />
+  <div className={styles.container}>
+    {/* existing content */}
+  </div>
+</main>
+```
+
+### Wallet: `src/app/(dashboard)/wallet/page.tsx`
+
+```tsx
+import AtmosphereLayer from "@/components/AtmosphereLayer";
+
+<main className={styles.main}>
+  <AtmosphereLayer variant="wallet" />
+  <div className={styles.container}>
+    {/* existing content */}
+  </div>
+</main>
+```
+
+---
+
+## STEP 5: ENSURE Z-INDEX LAYERING
+
+Add to `src/app/globals.css`:
+
+```css
+/* Ensure content sits above atmosphere */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure glass cards stay readable */
+.glass-card,
+[class*="glass"] {
+  position: relative;
+  z-index: 10;
+}
+
+/* All interactive elements above atmosphere */
+button, a, input, select, textarea, [role="button"] {
+  position: relative;
+  z-index: 20;
+}
+```
+
+---
+
+## STEP 6: NEXT.JS IMAGE CONFIG
+
+Ensure `next.config.js` allows local images:
+
+```js
+const nextConfig = {
+  // existing config...
+  images: {
+    // existing config...
+    minimumCacheTTL: 60,
+  },
+};
+```
+
+No changes needed for local `/public` assets.
+
+---
+
+## STEP 7: PERFORMANCE NOTES
+
+1. All PNGs are optimized and < 500KB each
+2. Use `priority` prop on above-fold images (hero, login)
+3. Use `loading="lazy"` for below-fold (crowd, floor on some pages)
+4. The `AtmosphereLayer` uses `aria-hidden="true"` for accessibility
+5. All animations are CSS-only (GPU accelerated)
+
+---
+
+## STEP 8: BUILD & VERIFY
+
+```bash
+npm run lint
+npm run build
+```
+
+If build succeeds, deploy:
+```bash
+vercel --prod
+```
+
+---
+
+## DELIVERABLES
+
+1. All 7 pages modified with AtmosphereLayer
+2. New files created:
+   - `src/components/AtmosphereLayer.tsx`
+   - `src/components/AtmosphereLayer.css`
+3. Assets in `public/assets/3d/`
+4. `npm run lint` passes
+5. `npm run build` succeeds
+6. Screenshots of: Homepage, Login, Arena, Winners, Tiers, Dashboard
+7. Deployed Vercel URL
+
+---
+
+## CRITICAL RULES
+
+- NO backend changes
+- NO API modifications
+- NO auth changes
+- NO color system changes (preserve existing black/gold/ice-blue)
+- NO typography changes
+- NO layout structure changes (only add atmosphere layer)
+- All assets are original, no copyrighted football branding
+- Mobile-first: test on 375px, 768px, 1440px
+- prefers-reduced-motion must disable all animations
+- No horizontal overflow on any device

@@ -1,71 +1,76 @@
-# Walkthrough — NanoPlay Design Overhaul (B127)
+# Walkthrough — NanoPlay Final Audit & Launch Fixes
 
-I have successfully completed the visual design overhaul based on real mobile user feedback (B127) to refine NanoPlay's sports-tech aesthetic into a premium football challenge arena.
-
----
-
-## 🎨 Final Brand & Color Direction
-
-*   **Stadium Navy:** default dark mode uses a deep obsidian base (`#050505`) with a pitch-lit stadium navy backdrop and glowing elements.
-*   **Stadium Ivory:** light mode uses a soft warm ivory canvas (`#f7f1e5` / `#fffdf7`) with custom radial spotlight gradients.
-*   **Victory Gold (`#D6A23A` / `#D4A853`):** Primary brand accent color used for main actions, CTAs, VIP tier badges, active navigation underlines, rewards, and premium highlights.
-*   **Premium Live Green (`#12B76A`):** Used strictly for active states (LIVE, ACTIVE, verified, status indicators) and streak progress.
-*   **Clean Cyan (`#38bdf8`):** Tech details, support headers, and info boxes (resolved the blue+gold clash by replacing ice-blue `#7dd3fc` with a cleaner cyan).
+I have successfully resolved all critical launch blockers identified in the brutal audit, securing the platform for first-time unauthenticated visitors on both desktop and mobile layouts.
 
 ---
 
-## ✍️ Font System (Reduced to 2 Fonts)
+## 🔒 1. Guest Lock Screens & Loading Fixes (Part 1 & 8)
 
-*   **Plus Jakarta Sans:** Primary body copy, layout labels, and headings (Montserrat was dropped to resolve the font clutter).
-*   **Space Mono:** Clean, monospaced font for all prediction statistics, time countdowns, and currency numbers.
-
----
-
-## 🛠️ Redesigned Matchday Card
-
-*   **Betting-Site-Inspired Layout:** Features `1 - X - 2` prediction choices for the featured fixture (Arsenal vs Liverpool).
-*   **Permanent Ambient Glow:** The central card gets a 10% gold glow and 30% border opacity to stand out as the primary conversion element.
-*   **Streak Progress Indicator:** Green pulse dots (`#12B76A`) represent the user's active streak progress inside the card.
-*   **Kickoff Label:** High-contrast label warning: `⚡ PICK BEFORE KICKOFF`.
+*   **No Auto-Redirects for Visitors**: Visitors clicking "Arena", "Dashboard", "Wallet", or "Winners" are no longer immediately redirected to `/login` while showing an ugly "loading" text.
+*   **Access Control Screen**: If unauthenticated, visitors stay on the page and see a custom-designed lock box interface with two primary calls-to-action: "Sign In" and "Join Arena".
+*   **Skeletons & Timeouts**: If data retrieval takes longer than 5 seconds, a retry block triggers automatically:
+    ```tsx
+    Taking longer than expected. Check your connection or try refreshing.
+    [ Refresh Page ]
+    ```
 
 ---
 
-## ✨ Permanent Ambient Glows & Atmosphere
+## ⚽ 2. Redesigned Homepage Match Card (Part 2)
 
-*   **Subtle Glow Ceiling:** Standard glass cards get a subtle permanent ambient glow (3% opacity) instead of a harsh neon glow. Accent cards receive a 5% glow.
-*   **Hero Background:** An ultra-lightweight 7KB stadium spotlight WebP image (`stadium-depth-bg.webp`) with CSS gradient masks ensures first-load speeds.
-*   **Section Dividers & Labels:** Added gold gradient rules (`.section-divider`) and gold line markers (`.section-label`) to demarcate sections (e.g., `🔴 Live Matchday`, `How NanoPlay Works`, `Challenge Pass`, `Trust & Security`).
-*   **Pitch Textures:** Added generic white pitch outline markings at the bottom of homepage sections to reinforce the football arena theme.
-
----
-
-## 📸 Screenshots
-
-### Dark Homepage - Stadium Navy
-![Dark Homepage - Stadium Navy](docs/screenshots/phase-2r/dark-homepage-stadium-navy.png)
-
-### Light Homepage - Stadium Ivory
-![Light Homepage - Stadium Ivory](docs/screenshots/phase-2r/light-homepage-stadium-ivory.png)
-
-### Arena Lobby - Stadium Navy
-![Arena Lobby - Stadium Navy](docs/screenshots/phase-2r/arena-lobby-stadium-navy.png)
-
-### Dashboard - Stadium Navy
-![Dashboard - Stadium Navy](docs/screenshots/phase-2r/dashboard-stadium-navy.png)
-
-### Wallet & Transaction Ledger - Stadium Navy
-![Wallet - Stadium Navy](docs/screenshots/phase-2r/wallet-stadium-navy.png)
-
-### Split Screen Login - Stadium Navy
-![Login - Stadium Navy](docs/screenshots/phase-2r/login-stadium-navy.png)
-
-### Winners Podium & Empty State - Stadium Navy
-![Winners - Stadium Navy](docs/screenshots/phase-2r/winners-stadium-navy.png)
+*   **Betting-Inspired UI**: Replaced the score block with a clean `Arsenal vs Liverpool` match card containing home, draw, and away (`1 - X - 2`) prediction buttons.
+*   **Scores Representation**: Showcases proper kickoff time (`18:00 Today`) and `—` scores before games start (no fake numbers).
+*   **Gold Ambient Glow**: Added a permanent 10% victory gold glow and 30% border opacity to make this card the most dominant element on the page.
+*   **Streak Progress**: Interactive visual progress bar representing `2/3 correct` (66% fill width).
 
 ---
 
-## ✅ Compilation & Status
+## ⚡ 3. Ticker & Marquee Fix (Part 3)
 
-*   **Production Build:** Successfully built with Next.js Turbopack compiler.
-*   **TypeScript & Linter Checks:** Passed cleanly with zero exceptions.
-*   **Vercel Live URL:** [https://nanoplay-26w993m8e-olabodesamuel0920-maxs-projects.vercel.app](https://nanoplay-26w993m8e-olabodesamuel0920-maxs-projects.vercel.app)
+*   **Desktop Marquee**: Implemented a CSS keyframes-driven animated track showing `🔴 LIVE ARENA` alongside verified social stats in a continuous, smooth carousel.
+*   **Mobile Strip**: Replaced the marquee on mobile (preventing scroll performance issues) with a clean, static, left-aligned badge indicating live players.
+*   **Animation CSS**: Added scroll containment directly to prevent horizontal scrollbars:
+    ```css
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    ```
+
+---
+
+## 🔢 4. Spacing & Section Dividers (Part 4 & 5)
+
+*   **Step Badges**: Fixed step rendering concatenation (e.g., `1Choose your tier` -> `1` in a distinct gold circle next to `Choose Your Tier` title).
+*   **Gradient Rules**: Removed all asterisks (`* * *`) representing legacy markdown dividers and replaced them with styled horizontal rules:
+    ```tsx
+    <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
+    ```
+
+---
+
+## 📱 5. Visual Grid Layouts & Emojis (Part 6 & 7)
+
+*   **Trust Grid Cards**: Transformed the wall-of-text trust quotes into a grid of 6 clean, bordered glass cards containing emoji representations (`📱`, `🔒`, `📊`, `✓`, `🛡️`, `⚖️`).
+*   **Icons for Steps**: Added expressive emojis to the step-by-step instructions.
+
+---
+
+## ✍️ 6. Error Limits & Typography (Part 9 & 10)
+
+*   **Rate Limit Message**: Intercepted Supabase signup rate limits and mapped them to user-friendly messages:
+    `Too many attempts. Please wait 5 minutes before trying again.`
+*   **Punctuation Cleanup**: Removed trailing periods from headings:
+    *   `Welcome Back.` → `Welcome back`
+    *   `JOIN THE ARENA.` → `Join the Arena`
+*   **Optional Parameter**: Clarified the referral indicator:
+    *   `Referral Code, optional` → `Referral Code (optional)`
+
+---
+
+## ✅ Deployment Coordinates & Status
+
+*   **TypeScript & Linter Checks**: Completed with zero errors.
+*   **Production Build**: Next.js production build succeeded.
+*   **Pushed Commits**: Changes committed and pushed to remote branch `main`.
+*   **Vercel Live URL**: [https://nanoplay.vercel.app](https://nanoplay.vercel.app)

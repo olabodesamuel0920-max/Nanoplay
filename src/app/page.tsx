@@ -40,37 +40,30 @@ export default function LandingPage() {
         <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
         <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
         
-        {/* Live Match Ticker Strip */}
-        {/* Mobile: static badge */}
-        <div className="sm:hidden flex items-center justify-center gap-2 py-2" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '8px 0', backgroundColor: '#0b0b0e', borderBottom: '1px solid #1a1a1a', width: '100%' }}>
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block' }} />
-          <span className="text-xs font-medium text-green-400" style={{ fontSize: '12px', fontWeight: '500', color: 'var(--accent-green)' }}>LIVE ARENA</span>
+        {/* Live Match Ticker Strip (Part 3) */}
+        {/* Desktop: animated marquee */}
+        <div className="hidden md:block overflow-hidden bg-[#0b0b0e] border-y border-[#1a1a1a] py-3" style={{ overflow: 'hidden' }}>
+          <div className="flex animate-marquee whitespace-nowrap">
+            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
+            <span className="mx-8 text-sm text-slate-400">2,400+ players competing</span>
+            <span className="mx-8 text-sm text-slate-400">Verified picks</span>
+            <span className="mx-8 text-sm text-slate-400">Wallet protected</span>
+            <span className="mx-8 text-sm text-slate-400">Fair-play monitoring</span>
+            <span className="mx-8 text-sm text-slate-400">Manual review</span>
+            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
+            <span className="mx-8 text-sm text-slate-400">2,400+ players competing</span>
+            <span className="mx-8 text-sm text-slate-400">Verified picks</span>
+            <span className="mx-8 text-sm text-slate-400">Wallet protected</span>
+          </div>
         </div>
 
-        {/* Desktop: marquee ticker */}
-        <div className="hidden sm:block" style={{ width: '100%' }}>
-          <div className={styles.tickerStrip} aria-hidden="true">
-            <div className={styles.tickerTrack}>
-              {[...TICKER_MATCHES, ...TICKER_MATCHES].map((match, idx) => (
-                <div key={`${match.id}-${idx}`} className={styles.tickerItem}>
-                  <span className={styles.tickerTeam}>{match.home}</span>
-                  {match.score ? (
-                    <span className={styles.tickerScore}>{match.score}</span>
-                  ) : (
-                    <span className={styles.tickerVs}>vs</span>
-                  )}
-                  <span className={styles.tickerTeam}>{match.away}</span>
-                  <span className={[
-                    styles.tickerStatus,
-                    match.status === "LIVE" ? styles.statusLive : ""
-                  ].join(" ")}>
-                    {match.status === "LIVE" && <span className={styles.tickerPulse} />}
-                    {match.status} {match.time && `(${match.time})`}
-                  </span>
-                </div>
-              ))}
-            </div>
+        {/* Mobile: static badge + stats row */}
+        <div className="md:hidden flex items-center justify-between px-4 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'between', padding: '12px 16px', backgroundColor: '#0b0b0e', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
+          <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', display: 'inline-block' }} />
+            <span className="text-xs font-bold text-green-400 uppercase" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80' }}>Live</span>
           </div>
+          <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>2,400+ players</span>
         </div>
 
 
@@ -111,10 +104,10 @@ export default function LandingPage() {
             
             {/* Left Side: Editorial Typography & Copy */}
             <div className={styles.heroLeft}>
-              <div className={styles.badgeRow}>
-                <span className={styles.heroBadge}><span className={styles.pulseDot}></span>LIVE ARENA ACTIVE</span>
-                <span className={styles.heroBadge}>VERIFIED PICKS</span>
-                <span className={styles.heroBadge}>WALLET PROTECTED</span>
+              <div className={styles.badgeRow} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+                <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}><span className={styles.pulseDot} style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block', marginRight: '4px' }}></span>LIVE ARENA ACTIVE</span>
+                <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>VERIFIED PICKS</span>
+                <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>WALLET PROTECTED</span>
               </div>
               
               <h1 className={styles.heroTitle}>
@@ -145,80 +138,83 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Right Side: Stadium Arena Stage — Matchday Board */}
+            {/* Right Side: Stadium Arena Stage — Matchday Board (Part 2) */}
             <div className={styles.heroRight}>
-              <div className="section-label" style={{ marginBottom: '8px', opacity: 0.8 }}>🔴 Live Matchday</div>
-              <div className={styles.boardGlow}></div>
-
-              {/* Central Matchday Board */}
-              <div className={styles.matchdayBoard}>
-                {/* Board Header */}
-                <div className={styles.boardHeader}>
-                  <div className={styles.boardHeaderLeft}>
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-[#12B76A]/10 text-[#12B76A]" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '2px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold', backgroundColor: 'rgba(18, 183, 106, 0.1)', color: 'var(--accent-green)' }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block' }}></span>
-                      LIVE MATCHDAY
-                    </span>
+              <div className="relative rounded-2xl p-6 md:p-8 bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden max-w-md mx-auto" style={{ position: 'relative', borderRadius: '16px', padding: '24px', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', maxWidth: '28rem', margin: '0 auto' }}>
+                {/* Permanent ambient glow */}
+                <div className="absolute inset-0 bg-[#D4A853]/5 pointer-events-none" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212, 168, 83, 0.05)', pointerEvents: 'none' }} />
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" style={{ position: 'absolute', top: '-80px', right: '-80px', width: '160px', height: '160px', backgroundColor: 'rgba(212, 168, 83, 0.1)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none' }} />
+                
+                {/* Header */}
+                <div className="relative z-10 flex justify-between items-center mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'between', alignItems: 'center', marginBottom: '24px' }}>
+                  <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', display: 'inline-block' }} />
+                    <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Matchday</span>
                   </div>
-                  <div className={styles.boardStatusChip}>
-                    <span>Starts in 2d 14h</span>
+                  <span className="text-xs px-3 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 font-medium" style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)', fontWeight: 500 }}>
+                    Round Active
+                  </span>
+                </div>
+                
+                {/* Teams & Score */}
+                <div className="relative z-10 flex items-center justify-between mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'between', marginBottom: '24px' }}>
+                  <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
+                    <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arsenal</p>
+                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
+                    </div>
+                  </div>
+                  
+                  <div className="px-3 md:px-4 text-center" style={{ padding: '0 16px', textAlign: 'center' }}>
+                    <p className="text-xs text-slate-400 mb-1" style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>VS</p>
+                    <p className="text-2xl font-mono font-bold text-[#D4A853]" style={{ fontSize: '24px', fontFamily: 'monospace', fontWeight: 'bold', color: '#D4A853' }}>18:00</p>
+                    <p className="text-xs text-slate-400 mt-1" style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>Today</p>
+                  </div>
+                  
+                  <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
+                    <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Liverpool</p>
+                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Board Content */}
-                <div className={styles.boardContent}>
-                  {/* Pick Before Kickoff Banner */}
-                  <div className={styles.kickoffLabel} style={{ marginBottom: '16px' }}>
-                    <span>⚡ PICK BEFORE KICKOFF</span>
-                  </div>
-
-                  {/* Featured Match */}
-                  <div className={styles.featuredMatch} style={{ borderBottom: 'none', paddingBottom: '12px' }}>
-                    <div className={styles.featuredTeam}>
-                      <span className={styles.teamName} style={{ fontSize: '18px' }}>Arsenal</span>
-                    </div>
-                    <div className={styles.featuredVsBlock}>
-                      <span className={styles.featuredVs} style={{ fontStyle: 'normal', fontWeight: 'bold', color: 'var(--accent-gold)' }}>1 - X - 2</span>
-                    </div>
-                    <div className={styles.featuredTeam}>
-                      <span className={styles.teamName} style={{ fontSize: '18px' }}>Liverpool</span>
-                    </div>
-                  </div>
-
-                  {/* 1 - X - 2 Selection Buttons */}
-                  <div className={styles.predictionRow} style={{ marginBottom: '20px' }}>
-                    <button className={styles.predBtn}>
-                      1
-                    </button>
-                    <button className={`${styles.predBtn} ${styles.predBtnActive}`}>
-                      X
-                    </button>
-                    <button className={styles.predBtn}>
-                      2
-                    </button>
-                  </div>
-
-                  {/* Streak Progress Indicator */}
-                  <div className={styles.streakRow} style={{ marginBottom: '20px' }}>
-                    <span className={styles.streakLabel}>Streak Progress</span>
-                    <div className={styles.streakDots}>
-                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
-                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
-                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
-                      <span className={`${styles.streakDot} ${styles.streakDotFilled}`} style={{ backgroundColor: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 8px var(--accent-green-glow)' }}></span>
-                      <span className={styles.streakDot}></span>
-                    </div>
-                  </div>
-
-                  <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>
-                    <Link href="/signup" className="btn-premium" style={{ width: '100%', textAlign: 'center', display: 'block' }}>
-                      Start Your Prediction ↗
-                    </Link>
+                {/* Pick Before Kickoff Banner */}
+                <div className="text-center text-[10px] tracking-wider text-[#D4A853] font-bold uppercase mb-4" style={{ textAlign: 'center', fontSize: '10px', letterSpacing: '0.1em', color: '#D4A853', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '16px' }}>
+                  ⚡ PICK BEFORE KICKOFF
+                </div>
+                
+                {/* Prediction Buttons */}
+                <div className="relative z-10 grid grid-cols-3 gap-3 mb-6" style={{ position: 'relative', zIndex: 10, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '24px' }}>
+                  <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                    <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>1</span>
+                    <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Home</span>
+                  </button>
+                  <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                    <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>X</span>
+                    <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Draw</span>
+                  </button>
+                  <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                    <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>2</span>
+                    <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Away</span>
+                  </button>
+                </div>
+                
+                {/* Streak */}
+                <div className="relative z-10 text-center mb-6" style={{ position: 'relative', zIndex: 10, textAlign: 'center', marginBottom: '24px' }}>
+                  <p className="text-sm text-slate-400" style={{ fontSize: '14px', color: '#94a3b8' }}>
+                    Streak: <span className="text-[#D4A853] font-mono font-bold" style={{ color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold' }}>2/3</span> correct
+                  </p>
+                  <div className="w-full h-2 bg-[#1a1a1a] rounded-full mt-2 overflow-hidden" style={{ width: '100%', height: '8px', backgroundColor: '#1a1a1a', borderRadius: '9999px', marginTop: '8px', overflow: 'hidden' }}>
+                    <div className="h-full bg-[#D4A853] rounded-full" style={{ height: '100%', backgroundColor: '#D4A853', borderRadius: '9999px', width: '66%' }} />
                   </div>
                 </div>
+                
+                {/* CTA */}
+                <Link href="/signup" className="relative z-10 w-full h-12 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#dfba6b] transition-colors flex items-center justify-center" style={{ display: 'flex', zIndex: 10, width: '100%', height: '48px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none' }}>
+                  Lock Your Pick
+                </Link>
               </div>
-
-              {/* Stadium Floor / Pitch Platform */}
               <div className={styles.stadiumFloor}></div>
             </div>
 
@@ -249,187 +245,102 @@ export default function LandingPage() {
           </button>
         </div>
 
-        {/* What is NanoPlay? / How NanoPlay Works section (PART 1 - 7) */}
+        {/* How It Works section (PART 7) */}
         <section className="py-16 px-4 relative z-10" style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
-          <div style={{ maxWidth: '48rem', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}>
-            <div className="section-label">How NanoPlay Works</div>
-            <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--foreground-primary)', fontSize: '1.5rem', marginBottom: '2rem' }}>
+          <div style={{ maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <div className="section-label" style={{ display: 'block', textAlign: 'center', marginBottom: '1rem' }}>How NanoPlay Works</div>
+            <h2 className="text-3xl font-bold mb-12 text-center" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '3rem', textAlign: 'center' }}>
               How NanoPlay Works
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', backgroundColor: 'rgba(214, 162, 58, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                  <Target style={{ width: '1.5rem', height: '1.5rem', color: 'var(--accent-gold)' }} />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+              {[
+                { title: "Pick Your Matches", desc: "Choose from upcoming football fixtures every matchday.", icon: "⚽" },
+                { title: "Build Your Streak", desc: "Correct predictions earn points. Longer streaks = bigger rewards.", icon: "🔥" },
+                { title: "Win Real Rewards", desc: "Top predictors earn verified payouts. Fair, transparent, fast.", icon: "🏆" },
+              ].map((item) => (
+                <div key={item.title} className="text-center p-6 bg-[#0b0b0e] border border-[#1a1a1a] rounded-xl hover:border-[#D4A853]/30 transition-all duration-300" style={{ textAlign: 'center', padding: '24px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a', borderRadius: '12px' }}>
+                  <div className="text-4xl mb-4" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>{item.icon}</div>
+                  <h3 className="text-lg font-bold text-white mb-3" style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginBottom: '12px' }}>{item.title}</h3>
+                  <p className="text-sm text-slate-400" style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.6' }}>{item.desc}</p>
                 </div>
-                <h3 style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Pick Your Matches</h3>
-                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Choose from upcoming football fixtures every matchday.</p>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', backgroundColor: 'rgba(214, 162, 58, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                  <Zap style={{ width: '1.5rem', height: '1.5rem', color: 'var(--accent-gold)' }} />
-                </div>
-                <h3 style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Build Your Streak</h3>
-                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Correct predictions earn points. Longer streaks = bigger rewards.</p>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', backgroundColor: 'rgba(214, 162, 58, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                  <Trophy style={{ width: '1.5rem', height: '1.5rem', color: 'var(--accent-gold)' }} />
-                </div>
-                <h3 style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Win Real Rewards</h3>
-                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>Top predictors earn verified payouts. Fair, transparent, fast.</p>
-              </div>
+              ))}
             </div>
           </div>
           <div className="pitch-texture"></div>
         </section>
 
-        <hr className="section-divider" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
 
-        {/* 2. OPERATIONAL TRUST STRIP */}
-        <section className={styles.trustStrip}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto 1rem auto', padding: '0 24px' }}>
+        {/* 2. OPERATIONAL TRUST STRIP / Trust section (PART 6) */}
+        <section className={styles.trustStrip} style={{ display: 'block', padding: '2rem 0' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto 2rem auto', padding: '0 24px' }}>
             <div className="section-label">Trust & Security</div>
+            <h2 className="text-3xl font-bold mb-6 text-white" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '1.5rem' }}>
+              Elite Trust & Security Layer
+            </h2>
           </div>
-          <div className={styles.trustStripGrid}>
-            <div className={styles.trustStripItem}>
-              <Activity size={18} className={styles.trustIcon} />
-              <div className={styles.trustLabel}>
-                <span className={styles.trustDesc}>Live Arena</span>
-              </div>
-            </div>
-            <div className={styles.trustStripItem}>
-              <Eye size={18} className={styles.trustIcon} />
-              <div className={styles.trustLabel}>
-                <span className={styles.trustDesc}>Manual Reward Review</span>
-              </div>
-            </div>
-            <div className={styles.trustStripItem}>
-              <Wallet size={18} className={styles.trustIcon} />
-              <div className={styles.trustLabel}>
-                <span className={styles.trustDesc}>Secure Wallet History</span>
-              </div>
-            </div>
-            <div className={styles.trustStripItem}>
-              <ShieldCheck size={18} className={styles.trustIcon} />
-              <div className={styles.trustLabel}>
-                <span className={styles.trustDesc}>Verified Access</span>
-              </div>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+              {[
+                { title: "One Phone, One Account", desc: "Prevents duplicate accounts and keeps the arena fair.", icon: "📱" },
+                { title: "Pick Lock", desc: "Your picks freeze before kickoff. No changes after the whistle.", icon: "🔒" },
+                { title: "Wallet History", desc: "Every transaction recorded for full transparency.", icon: "📊" },
+                { title: "Winner Review", desc: "All winning streaks verified manually before payout.", icon: "✓" },
+                { title: "Account Safety", desc: "Suspicious activity flagged and reviewed by admins.", icon: "🛡️" },
+                { title: "Fair-Play Monitoring", desc: "Rule-breakers are restricted to protect honest players.", icon: "⚖️" },
+              ].map((item) => (
+                <div key={item.title} className="glass-card rounded-xl p-5 border border-[#1a1a1a]" style={{ padding: '20px', borderRadius: '12px', border: '1px solid #1a1a1a', backgroundColor: '#0b0b0e' }}>
+                  <div className="text-2xl mb-3" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>{item.icon}</div>
+                  <h3 className="text-sm font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>{item.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed" style={{ fontSize: '12px', color: '#94a3b8', lineHeight: '1.6' }}>{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
           <div className="pitch-texture"></div>
         </section>
 
-        <hr className="section-divider" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
 
-        {/* MATCHDAY READY STRIP */}
-        <section className={styles.matchdayReadySection}>
+        {/* MATCHDAY READY STEPS (PART 4) */}
+        <section className={styles.matchdayReadySection} style={{ padding: '3rem 0' }}>
           <div className={styles.matchdayContainer}>
             <div className="section-label" style={{ marginBottom: '1.5rem' }}>Matchday Ready</div>
-            <h3 className={styles.matchdayTitle}>MATCHDAY READY</h3>
-            <div className={styles.matchdayGrid}>
-              <div className={styles.matchdayItem}>
-                <span className={styles.matchdayStep}>1</span>
-                <span className={styles.matchdayText}>Choose your tier</span>
-              </div>
-              <div className={styles.matchdayItem}>
-                <span className={styles.matchdayStep}>2</span>
-                <span className={styles.matchdayText}>Lock your picks</span>
-              </div>
-              <div className={styles.matchdayItem}>
-                <span className={styles.matchdayStep}>3</span>
-                <span className={styles.matchdayText}>Watch the games</span>
-              </div>
-              <div className={styles.matchdayItem}>
-                <span className={styles.matchdayStep}>4</span>
-                <span className={styles.matchdayText}>Track your streak</span>
-              </div>
+            <h3 className={styles.matchdayTitle} style={{ marginBottom: '2rem' }}>MATCHDAY READY</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px' }}>
+              {[
+                { num: "1", title: "Choose Your Tier", desc: "Pick the challenge level you want." },
+                { num: "2", title: "Lock Your Picks", desc: "Predict match outcomes before kickoff." },
+                { num: "3", title: "Watch the Games", desc: "Follow the action live." },
+                { num: "4", title: "Track Your Streak", desc: "Get your picks right and keep your streak alive." },
+              ].map((step) => (
+                <div key={step.num} className="text-center md:text-left" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className="flex items-center gap-3 mb-3 justify-center md:justify-start" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                    <span className="w-10 h-10 rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 flex items-center justify-center text-[#D4A853] font-mono font-bold text-lg" style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold', fontSize: '18px', textAlign: 'center', lineHeight: '40px' }}>
+                      {step.num}
+                    </span>
+                    <h3 className="text-base font-bold text-white" style={{ fontSize: '16px', fontWeight: 'bold', color: '#ffffff' }}>{step.title}</h3>
+                  </div>
+                  <p className="text-sm text-slate-400 pl-0 md:pl-13" style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.6' }}>{step.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <hr className="section-divider" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
 
-        {/* 3. HOW NANOPLAY WORKS */}
-        <section id="how-it-works" className={styles.howItWorksSection}>
-          <div className={styles.sectionHeader}>
-            <div className="section-label">Step-by-Step Arena</div>
-            <h2 className={styles.sectionTitle}>
-              How <span className={styles.editorialItalicTitle}>NanoPlay</span> Works
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              Predict matches, build streaks, and qualify for verified rewards securely.
-            </p>
-          </div>
-
-          <div className={styles.stepsGrid}>
-            {[
-              { num: "1", title: "Choose Your Tier", desc: "Pick the challenge level you want." },
-              { num: "2", title: "Make Your Picks", desc: "Predict match outcomes before kickoff." },
-              { num: "3", title: "Build Your Streak", desc: "Get your picks right and keep your streak alive." },
-              { num: "4", title: "Get Reviewed", desc: "Winning streaks are checked before rewards are credited." }
-            ].map((step, i) => (
-              <div key={i} className={styles.stepCard}>
-                <span className={styles.stepNum}>{step.num}</span>
-                <h3 className={styles.stepTitle}>{step.title}</h3>
-                <p className={styles.stepDesc}>{step.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="pitch-texture"></div>
-        </section>
-
-        <hr className="section-divider" />
-
-        {/* 4. ELITE TRUST & SECURITY LAYER */}
-        <section className={styles.securitySection}>
-          <div className={styles.sectionHeader}>
-            <div className="section-label">Rules & Security</div>
-            <h2 className={styles.sectionTitle}>
-              Fair Play, <span className={styles.editorialItalicTitle}>Simple Rules</span>
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              We keep the arena fair with phone verification, locked picks, wallet history, and reward review.
-            </p>
-          </div>
-
-          <div className={styles.securityGrid}>
-            {[
-              { label: "One phone number per account", title: "One Phone, One Account", desc: "Helps keep the arena fair and prevents duplicate accounts." },
-              { label: "Picks lock before kickoff", title: "Pick Lock", desc: "Your picks lock before kickoff, so nobody can change selections after a match starts." },
-              { label: "Wallet history is recorded", title: "Wallet History", desc: "Every wallet movement is recorded clearly for transparency." },
-              { label: "Winners are reviewed", title: "Winner Review", desc: "Winning streaks are checked before rewards are credited." },
-              { label: "Shared bank details are flagged", title: "Account Safety Check", desc: "Shared bank details or suspicious activity can be flagged for review." },
-              { label: "Admins review suspicious activity", title: "Fair-Play Monitoring", desc: "Admins can restrict accounts that break the rules." }
-            ].map((sec, i) => {
-              return (
-                <div key={i} className={styles.securityCard}>
-                  <div className={styles.securityCardHeader}>
-                    <span className={styles.securityCmd}>{sec.label}</span>
-                    <span className={styles.securityStatus}>[ ACTIVE ]</span>
-                  </div>
-                  <h3 className={styles.securityCardTitle}>{sec.title}</h3>
-                  <p className={styles.securityCardDesc}>
-                    <span className={styles.cmdIndicator}>&gt;</span> {sec.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-          <div className="pitch-texture"></div>
-        </section>
-
-        <hr className="section-divider" />
-
-        {/* 5. FINAL CTA */}
+        {/* 5. FINAL CTA (with value prop context) */}
         <section className={styles.ctaSection}>
           <div className="section-label" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>Challenge Pass</div>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
-            <h2 className={styles.ctaTitle}>Ready for Matchday?</h2>
-            <p className={styles.ctaDesc}>
-              Make your picks before kickoff and build your streak.
+            <h2 className={styles.ctaTitle}>Ready to Claim Your Place?</h2>
+            <p className={styles.ctaDesc} style={{ marginBottom: '24px' }}>
+              Create your account now to access the live prediction matches, verify your phone status, lock your predictions, and start building your winning streak today.
             </p>
             <Link href="/signup" className="btn-premium">
-              <span>JOIN ARENA ↗</span>
+              <span>Join Arena ↗</span>
             </Link>
           </GlassCard>
         </section>

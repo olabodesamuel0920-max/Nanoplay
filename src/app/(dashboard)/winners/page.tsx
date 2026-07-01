@@ -6,12 +6,14 @@ import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/layouts/navbar";
 import GlassCard from "@/components/ui/glass-card";
 import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import { SkeletonTable } from "@/components/SkeletonLoader";
 import styles from "./page.module.css";
 import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function WinnersPage() {
   const supabase = createClient();
+  const [user, setUser] = useState<any>(null);
   const [winners, setWinners] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTimeout, setShowTimeout] = useState(false);
@@ -22,6 +24,15 @@ export default function WinnersPage() {
     }, 5000);
 
     async function fetchWinners() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setUser(null);
+        setLoading(false);
+        clearTimeout(timer);
+        return;
+      }
+      setUser(user);
+
       // Query only verified winners for the public list
       const { data } = await supabase
         .from("winners")
@@ -71,6 +82,33 @@ export default function WinnersPage() {
                 </button>
               </div>
             )}
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        <Navbar />
+        <main className={`${styles.main} main-with-bottom-nav relative`}>
+          <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '60vh', padding: '0 16px' }}>
+            <div className="text-6xl mb-6" style={{ fontSize: '3.75rem', marginBottom: '1.5rem' }}>🔒</div>
+            <h2 className="text-2xl font-bold text-white mb-3" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '0.75rem' }}>Arena Access Required</h2>
+            <p className="text-slate-400 mb-6 max-w-md" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem', maxWidth: '28rem', marginBottom: '1.5rem', lineHeight: '1.5' }}>
+              Sign in to view live challenges, make your picks, and track your streak.
+            </p>
+            <div className="flex gap-4" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+              <Link href="/login" className="btn-premium" style={{ padding: '0.75rem 2rem', display: 'inline-flex', alignItems: 'center', minHeight: '44px', fontWeight: 'bold', textDecoration: 'none' }}>
+                Sign In
+              </Link>
+              <Link href="/signup" className="btn-glass" style={{ padding: '0.75rem 2rem', display: 'inline-flex', alignItems: 'center', minHeight: '44px', fontWeight: 'bold', textDecoration: 'none', border: '1px solid var(--accent-gold)', color: 'var(--accent-gold)', borderRadius: '8px' }}>
+                Join Arena
+              </Link>
+            </div>
           </div>
         </main>
       </>

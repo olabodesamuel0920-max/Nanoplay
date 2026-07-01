@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { triggerDeposit, triggerWithdrawal } from "@/app/actions/wallet";
 import { getOrCreateProfile } from "@/app/actions/verification";
@@ -19,6 +20,7 @@ export default function WalletPage() {
   const router = useRouter();
   const supabase = createClient();
 
+  const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
   const [transactions, setTransactions] = useState<any[]>([]);
@@ -40,9 +42,10 @@ export default function WalletPage() {
   const loadWalletData = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
-      router.push("/login");
+      setLoading(false);
       return;
     }
+    setUser(user);
 
     // Fetch Profile details
     const res = await getOrCreateProfile();
@@ -203,7 +206,7 @@ export default function WalletPage() {
           <div className={styles.container}>
             <div className={styles.header} style={{ marginBottom: "2rem" }}>
               <h1 className={styles.title}>My Vault & Ledger</h1>
-              <p className={styles.subtitle}>Loading wallet balance...</p>
+              <p className={styles.subtitle}>Loading wallet...</p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
               <SkeletonCard />
@@ -218,6 +221,33 @@ export default function WalletPage() {
                 </button>
               </div>
             )}
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        <Navbar />
+        <main className={`${styles.main} main-with-bottom-nav relative`}>
+          <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '60vh', padding: '0 16px' }}>
+            <div className="text-6xl mb-6" style={{ fontSize: '3.75rem', marginBottom: '1.5rem' }}>🔒</div>
+            <h2 className="text-2xl font-bold text-white mb-3" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '0.75rem' }}>Arena Access Required</h2>
+            <p className="text-slate-400 mb-6 max-w-md" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem', maxWidth: '28rem', marginBottom: '1.5rem', lineHeight: '1.5' }}>
+              Sign in to view live challenges, make your picks, and track your streak.
+            </p>
+            <div className="flex gap-4" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+              <Link href="/login" className="btn-premium" style={{ padding: '0.75rem 2rem', display: 'inline-flex', alignItems: 'center', minHeight: '44px', fontWeight: 'bold', textDecoration: 'none' }}>
+                Sign In
+              </Link>
+              <Link href="/signup" className="btn-glass" style={{ padding: '0.75rem 2rem', display: 'inline-flex', alignItems: 'center', minHeight: '44px', fontWeight: 'bold', textDecoration: 'none', border: '1px solid var(--accent-gold)', color: 'var(--accent-gold)', borderRadius: '8px' }}>
+                Join Arena
+              </Link>
+            </div>
           </div>
         </main>
       </>

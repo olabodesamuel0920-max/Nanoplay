@@ -60,8 +60,8 @@ export default function SignupPage() {
 
       if (signUpError) {
         let msg = signUpError.message;
-        if (msg.toLowerCase().includes("rate limit") || msg.toLowerCase().includes("too many requests")) {
-          msg = "Too many signup attempts. Please wait a few minutes, or sign in with an existing account.";
+        if (msg.toLowerCase().includes("rate limit") || msg.toLowerCase().includes("too many requests") || msg.toLowerCase().includes("exceeded")) {
+          msg = "Too many attempts. Please wait 5 minutes before trying again.";
         }
         setError(msg);
         setLoading(false);
@@ -102,8 +102,8 @@ export default function SignupPage() {
       router.refresh();
     } catch (err: any) {
       let msg = err.message || "An unexpected error occurred.";
-      if (msg.toLowerCase().includes("rate limit") || msg.toLowerCase().includes("too many requests")) {
-        msg = "Too many signup attempts. Please wait a few minutes, or sign in with an existing account.";
+      if (msg.toLowerCase().includes("rate limit") || msg.toLowerCase().includes("too many requests") || msg.toLowerCase().includes("exceeded")) {
+        msg = "Too many attempts. Please wait 5 minutes before trying again.";
       }
       setError(msg);
       setLoading(false);
@@ -121,7 +121,7 @@ export default function SignupPage() {
 
         <div className={styles.panelMiddle}>
           <h1 className={styles.panelTitle}>
-            JOIN THE ARENA.
+            Join the Arena
           </h1>
           <p className={styles.panelSubtitle}>
             Create your account, verify your phone, and start building your football streak.
@@ -147,7 +147,7 @@ export default function SignupPage() {
       <div className={styles.rightPanel}>
         <GlassCard className={styles.signupCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Join the Arena.</h2>
+            <h2 className={styles.title}>Join the Arena</h2>
             <p className={styles.subtitle}>Create your account, verify your phone, and start building your football streak.</p>
           </div>
 
@@ -206,7 +206,7 @@ export default function SignupPage() {
               />
 
               <Input
-                label="Referral Code, optional"
+                label="Referral Code (optional)"
                 type="text"
                 placeholder="Referrer username"
                 value={referralCode}

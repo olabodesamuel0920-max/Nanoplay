@@ -835,3 +835,16 @@ html[data-theme="light"] .pitch-texture {
 html[data-theme="light"] .pitch-texture::before {
   border-color: rgba(8, 24, 38, 0.06);
 }
+
+/* Ticker Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+

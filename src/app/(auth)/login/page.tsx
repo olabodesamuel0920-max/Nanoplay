@@ -87,7 +87,7 @@ function LoginPageContent() {
       <div className={styles.rightPanel}>
         <GlassCard className={styles.loginCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Welcome Back.</h2>
+            <h2 className={styles.title}>Welcome back</h2>
             <p className={styles.subtitle}>Sign in to manage your picks, wallet, and reward status.</p>
           </div>
 

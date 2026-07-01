@@ -37,10 +37,11 @@ export default function LandingPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
+        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
         <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
         
-        {/* Live Match Ticker Strip (Part 3) */}
+        {/* Live Match Ticker Strip */}
         {/* Desktop: animated marquee */}
         <div className="hidden md:block overflow-hidden bg-[#0b0b0e] border-y border-[#1a1a1a] py-3" style={{ overflow: 'hidden' }}>
           <div className="flex animate-marquee whitespace-nowrap">
@@ -57,12 +58,14 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Mobile: static badge + stats row */}
-        <div className="md:hidden flex items-center justify-between px-4 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'between', padding: '12px 16px', backgroundColor: '#0b0b0e', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
-          <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', display: 'inline-block' }} />
-            <span className="text-xs font-bold text-green-400 uppercase" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80' }}>Live</span>
-          </div>
+        {/* Mobile ticker */}
+        <div className="md:hidden flex items-center justify-center gap-3 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '12px 0', backgroundColor: '#0b0b0e', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
+          <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
+          </span>
+          <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Arena</span>
+          <span className="text-xs text-slate-500" style={{ fontSize: '12px', color: '#64748b' }}>|</span>
           <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>2,400+ players</span>
         </div>
 
@@ -104,26 +107,42 @@ export default function LandingPage() {
             
             {/* Left Side: Editorial Typography & Copy */}
             <div className={styles.heroLeft}>
-              <div className={styles.badgeRow} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+              {/* Desktop Only Badges */}
+              <div className="hidden md:flex flex-wrap gap-2 mb-6" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
                 <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}><span className={styles.pulseDot} style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block', marginRight: '4px' }}></span>LIVE ARENA ACTIVE</span>
                 <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>VERIFIED PICKS</span>
                 <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>WALLET PROTECTED</span>
               </div>
               
-              <h1 className={styles.heroTitle}>
+              {/* Mobile Hero Headline (Part 2B) */}
+              <div className="md:hidden w-full mb-6">
+                <h1 className="text-[26px] leading-[1.15] font-bold text-white text-center px-4" style={{ fontSize: '26px', lineHeight: '1.15', fontWeight: 'bold', color: '#ffffff', textAlign: 'center', padding: '0 16px' }}>
+                  Predict Football Matches.<br />
+                  <span className="text-[#D4A853]">Win Verified Rewards.</span>
+                </h1>
+                <p className="text-sm text-slate-400 text-center px-6 mt-3" style={{ fontSize: '14px', color: '#94a3b8', textAlign: 'center', padding: '0 24px', marginTop: '12px' }}>
+                  Join matchday challenges. Build your prediction streak. Earn real rewards.
+                </p>
+              </div>
+
+              {/* Desktop Hero Title */}
+              <h1 className={`${styles.heroTitle} hidden md:block`}>
                 <span className={styles.heroTitleAccent}>Predict</span> Football Matches.<br />
                 <span className={styles.heroTitleAccent}>Win</span> Verified Rewards.
               </h1>
               
-              <p className={styles.heroSubtitleLine}>
+              {/* Desktop Hero Subtitle Line */}
+              <p className={`${styles.heroSubtitleLine} hidden md:block`}>
                 Join matchday challenges. Build your prediction streak. Earn real rewards.
               </p>
               
-              <p className={styles.heroSubtitle}>
+              {/* Desktop Hero Subtitle Description */}
+              <p className={`${styles.heroSubtitle} hidden md:block`}>
                 NanoPlay is a premium football challenge arena. Make your picks before kickoff, build your streak, and qualify for verified rewards after review.
               </p>
               
-              <div className={styles.heroCta}>
+              {/* Desktop Hero CTAs */}
+              <div className={`${styles.heroCta} hidden md:flex`}>
                 <Link href="/signup" className="btn-premium">
                   <span>Start Your First Challenge ↗</span>
                 </Link>
@@ -132,7 +151,8 @@ export default function LandingPage() {
                 </Link>
               </div>
 
-              <p className="text-sm text-slate-400 mt-4 flex items-center gap-2">
+              {/* Desktop Active Players counter */}
+              <p className="text-sm text-slate-400 mt-4 hidden md:flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 2,400+ players competing this matchday
               </p>
@@ -140,81 +160,164 @@ export default function LandingPage() {
 
             {/* Right Side: Stadium Arena Stage — Matchday Board (Part 2) */}
             <div className={styles.heroRight}>
-              <div className="relative rounded-2xl p-6 md:p-8 bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden max-w-md mx-auto" style={{ position: 'relative', borderRadius: '16px', padding: '24px', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', maxWidth: '28rem', margin: '0 auto' }}>
-                {/* Permanent ambient glow */}
-                <div className="absolute inset-0 bg-[#D4A853]/5 pointer-events-none" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212, 168, 83, 0.05)', pointerEvents: 'none' }} />
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" style={{ position: 'absolute', top: '-80px', right: '-80px', width: '160px', height: '160px', backgroundColor: 'rgba(212, 168, 83, 0.1)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none' }} />
-                
-                {/* Header */}
-                <div className="relative z-10 flex justify-between items-center mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'between', alignItems: 'center', marginBottom: '24px' }}>
-                  <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', display: 'inline-block' }} />
-                    <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Matchday</span>
-                  </div>
-                  <span className="text-xs px-3 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 font-medium" style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)', fontWeight: 500 }}>
-                    Round Active
-                  </span>
-                </div>
-                
-                {/* Teams & Score */}
-                <div className="relative z-10 flex items-center justify-between mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'between', marginBottom: '24px' }}>
-                  <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
-                    <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arsenal</p>
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
+              
+              {/* Desktop Matchday Board */}
+              <div className="hidden md:block">
+                <div className="relative rounded-2xl p-6 md:p-8 bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden max-w-md mx-auto" style={{ position: 'relative', borderRadius: '16px', padding: '24px', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', maxWidth: '28rem', margin: '0 auto' }}>
+                  {/* Permanent ambient glow */}
+                  <div className="absolute inset-0 bg-[#D4A853]/5 pointer-events-none" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212, 168, 83, 0.05)', pointerEvents: 'none' }} />
+                  <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" style={{ position: 'absolute', top: '-80px', right: '-80px', width: '160px', height: '160px', backgroundColor: 'rgba(212, 168, 83, 0.1)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none' }} />
+                  
+                  {/* Header */}
+                  <div className="relative z-10 flex justify-between items-center mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                    <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', display: 'inline-block' }} />
+                      <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Matchday</span>
                     </div>
+                    <span className="text-xs px-3 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 font-medium" style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)', fontWeight: 500 }}>
+                      Round Active
+                    </span>
                   </div>
                   
-                  <div className="px-3 md:px-4 text-center" style={{ padding: '0 16px', textAlign: 'center' }}>
-                    <p className="text-xs text-slate-400 mb-1" style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>VS</p>
-                    <p className="text-2xl font-mono font-bold text-[#D4A853]" style={{ fontSize: '24px', fontFamily: 'monospace', fontWeight: 'bold', color: '#D4A853' }}>18:00</p>
-                    <p className="text-xs text-slate-400 mt-1" style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>Today</p>
-                  </div>
-                  
-                  <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
-                    <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Liverpool</p>
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
+                  {/* Teams & Score */}
+                  <div className="relative z-10 flex items-center justify-between mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+                    <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
+                      <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arsenal</p>
+                      <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
+                      </div>
+                    </div>
+                    
+                    <div className="px-3 md:px-4 text-center" style={{ padding: '0 16px', textAlign: 'center' }}>
+                      <p className="text-xs text-slate-400 mb-1" style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>VS</p>
+                      <p className="text-2xl font-mono font-bold text-[#D4A853]" style={{ fontSize: '24px', fontFamily: 'monospace', fontWeight: 'bold', color: '#D4A853' }}>18:00</p>
+                      <p className="text-xs text-slate-400 mt-1" style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>Today</p>
+                    </div>
+                    
+                    <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
+                      <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Liverpool</p>
+                      <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Pick Before Kickoff Banner */}
-                <div className="text-center text-[10px] tracking-wider text-[#D4A853] font-bold uppercase mb-4" style={{ textAlign: 'center', fontSize: '10px', letterSpacing: '0.1em', color: '#D4A853', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '16px' }}>
-                  ⚡ PICK BEFORE KICKOFF
-                </div>
-                
-                {/* Prediction Buttons */}
-                <div className="relative z-10 grid grid-cols-3 gap-3 mb-6" style={{ position: 'relative', zIndex: 10, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '24px' }}>
-                  <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                    <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>1</span>
-                    <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Home</span>
-                  </button>
-                  <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                    <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>X</span>
-                    <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Draw</span>
-                  </button>
-                  <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                    <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>2</span>
-                    <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Away</span>
-                  </button>
-                </div>
-                
-                {/* Streak */}
-                <div className="relative z-10 text-center mb-6" style={{ position: 'relative', zIndex: 10, textAlign: 'center', marginBottom: '24px' }}>
-                  <p className="text-sm text-slate-400" style={{ fontSize: '14px', color: '#94a3b8' }}>
-                    Streak: <span className="text-[#D4A853] font-mono font-bold" style={{ color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold' }}>2/3</span> correct
-                  </p>
-                  <div className="w-full h-2 bg-[#1a1a1a] rounded-full mt-2 overflow-hidden" style={{ width: '100%', height: '8px', backgroundColor: '#1a1a1a', borderRadius: '9999px', marginTop: '8px', overflow: 'hidden' }}>
-                    <div className="h-full bg-[#D4A853] rounded-full" style={{ height: '100%', backgroundColor: '#D4A853', borderRadius: '9999px', width: '66%' }} />
+                  {/* Pick Before Kickoff Banner */}
+                  <div className="text-center text-[10px] tracking-wider text-[#D4A853] font-bold uppercase mb-4" style={{ textAlign: 'center', fontSize: '10px', letterSpacing: '0.1em', color: '#D4A853', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '16px' }}>
+                    ⚡ PICK BEFORE KICKOFF
                   </div>
+                  
+                  {/* Prediction Buttons */}
+                  <div className="relative z-10 grid grid-cols-3 gap-3 mb-6" style={{ position: 'relative', zIndex: 10, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '24px' }}>
+                    <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                      <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>1</span>
+                      <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Home</span>
+                    </button>
+                    <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                      <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>X</span>
+                      <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Draw</span>
+                    </button>
+                    <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#D4A853]/50 transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                      <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>2</span>
+                      <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Away</span>
+                    </button>
+                  </div>
+                  
+                  {/* Streak */}
+                  <div className="relative z-10 text-center mb-6" style={{ position: 'relative', zIndex: 10, textAlign: 'center', marginBottom: '24px' }}>
+                    <p className="text-sm text-slate-400" style={{ fontSize: '14px', color: '#94a3b8' }}>
+                      Streak: <span className="text-[#D4A853] font-mono font-bold" style={{ color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold' }}>2/3</span> correct
+                    </p>
+                    <div className="w-full h-2 bg-[#1a1a1a] rounded-full mt-2 overflow-hidden" style={{ width: '100%', height: '8px', backgroundColor: '#1a1a1a', borderRadius: '9999px', marginTop: '8px', overflow: 'hidden' }}>
+                      <div className="h-full bg-[#D4A853] rounded-full" style={{ height: '100%', backgroundColor: '#D4A853', borderRadius: '9999px', width: '66%' }} />
+                    </div>
+                  </div>
+                  
+                  {/* CTA */}
+                  <Link href="/signup" className="relative z-10 w-full h-12 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#dfba6b] transition-colors flex items-center justify-center" style={{ display: 'flex', zIndex: 10, width: '100%', height: '48px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none' }}>
+                    Lock Your Pick
+                  </Link>
                 </div>
-                
-                {/* CTA */}
-                <Link href="/signup" className="relative z-10 w-full h-12 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#dfba6b] transition-colors flex items-center justify-center" style={{ display: 'flex', zIndex: 10, width: '100%', height: '48px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none' }}>
-                  Lock Your Pick
-                </Link>
               </div>
+
+              {/* Mobile-Optimized Match Card (Part 2C) */}
+              <div className="md:hidden mx-4 rounded-2xl bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden relative" style={{ position: 'relative', borderRadius: '16px', padding: '0', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', margin: '0 16px' }}>
+                {/* Glow */}
+                <div className="absolute inset-0 bg-[#D4A853]/5 pointer-events-none" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212, 168, 83, 0.05)', pointerEvents: 'none' }} />
+                <div className="absolute -top-10 right-0 w-32 h-32 bg-[#D4A853]/10 rounded-full blur-2xl pointer-events-none" style={{ position: 'absolute', top: '-40px', right: 0, width: '128px', height: '128px', backgroundColor: 'rgba(212, 168, 83, 0.1)', borderRadius: '50%', filter: 'blur(16px)', pointerEvents: 'none' }} />
+                
+                <div className="relative z-10 p-5" style={{ position: 'relative', zIndex: 10, padding: '20px' }}>
+                  {/* Header */}
+                  <div className="flex justify-between items-center mb-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                    <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
+                      </span>
+                      <span className="text-xs font-bold text-green-400 uppercase" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase' }}>Live</span>
+                    </div>
+                    <span className="text-xs px-2 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20" style={{ fontSize: '12px', padding: '4px 8px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)' }}>
+                      Round 1
+                    </span>
+                  </div>
+                  
+                  {/* Teams */}
+                  <div className="flex items-center justify-between mb-5" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                    <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
+                      <p className="text-sm font-bold text-white mb-2 truncate" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arsenal</p>
+                      <div className="w-10 h-10 mx-auto rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '40px', height: '40px', margin: '0 auto', borderRadius: '8px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span className="text-lg font-mono font-bold text-slate-500" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#64748b' }}>—</span>
+                      </div>
+                    </div>
+                    
+                    <div className="px-3 text-center" style={{ padding: '0 12px', textAlign: 'center' }}>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1" style={{ fontSize: '10px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>VS</p>
+                      <p className="text-xl font-mono font-bold text-[#D4A853]" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#D4A853' }}>18:00</p>
+                      <p className="text-[10px] text-slate-500 mt-1" style={{ fontSize: '10px', color: '#64748b', marginTop: '4px' }}>Today</p>
+                    </div>
+                    
+                    <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
+                      <p className="text-sm font-bold text-white mb-2 truncate" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Liverpool</p>
+                      <div className="w-10 h-10 mx-auto rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '40px', height: '40px', margin: '0 auto', borderRadius: '8px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span className="text-lg font-mono font-bold text-slate-500" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#64748b' }}>—</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Prediction Buttons */}
+                  <div className="grid grid-cols-3 gap-2 mb-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '16px' }}>
+                    <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] active:bg-[#D4A853]/20 active:border-[#D4A853] transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                      <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>1</span>
+                      <span className="text-[10px] text-slate-500" style={{ fontSize: '10px', color: '#64748b' }}>Home</span>
+                    </button>
+                    <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] active:bg-[#D4A853]/20 active:border-[#D4A853] transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                      <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>X</span>
+                      <span className="text-[10px] text-slate-500" style={{ fontSize: '10px', color: '#64748b' }}>Draw</span>
+                    </button>
+                    <button className="h-14 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] active:bg-[#D4A853]/20 active:border-[#D4A853] transition-colors flex flex-col items-center justify-center" style={{ height: '56px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                      <span className="text-lg font-mono font-bold text-white" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>2</span>
+                      <span className="text-[10px] text-slate-500" style={{ fontSize: '10px', color: '#64748b' }}>Away</span>
+                    </button>
+                  </div>
+                  
+                  {/* Streak */}
+                  <div className="mb-4" style={{ marginBottom: '16px' }}>
+                    <div className="flex justify-between text-xs mb-2" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '8px' }}>
+                      <span className="text-slate-400" style={{ color: '#94a3b8' }}>Streak</span>
+                      <span className="text-[#D4A853] font-mono font-bold" style={{ color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold' }}>2/3</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#1a1a1a] rounded-full overflow-hidden" style={{ width: '100%', height: '6px', backgroundColor: '#1a1a1a', borderRadius: '9999px', overflow: 'hidden' }}>
+                      <div className="h-full bg-[#D4A853] rounded-full" style={{ height: '100%', backgroundColor: '#D4A853', borderRadius: '9999px', width: '66%' }} />
+                    </div>
+                  </div>
+                  
+                  {/* CTA */}
+                  <Link href="/signup" className="w-full h-12 bg-[#D4A853] text-black font-bold rounded-lg text-sm flex items-center justify-center" style={{ display: 'flex', width: '100%', height: '48px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '8px', fontSize: '14px', textDecoration: 'none', cursor: 'pointer' }}>
+                    Lock Your Pick
+                  </Link>
+                </div>
+              </div>
+              
               <div className={styles.stadiumFloor}></div>
             </div>
 
@@ -222,7 +325,8 @@ export default function LandingPage() {
         </section>
 
         {/* Trust Banner (PART 9) */}
-        <div className="py-3 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10" style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '12px 16px' }}>
+        {/* Desktop Trust Banner */}
+        <div className="hidden md:block py-3 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10" style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '12px 16px' }}>
           <p className={`text-center text-xs max-w-2xl mx-auto ${expanded ? "" : "line-clamp-2"}`} style={{ color: 'var(--foreground-muted)', fontSize: '12px', lineHeight: '1.5', margin: '0 auto', textAlign: 'center' }}>
             NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
             Predictions are for entertainment. Rewards are subject to manual review and verification.
@@ -245,8 +349,16 @@ export default function LandingPage() {
           </button>
         </div>
 
+        {/* Mobile Collapsible Trust Banner */}
+        <div className="md:hidden mx-4 mt-4 p-3 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a]" style={{ margin: '16px 16px 0 16px', padding: '12px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a' }}>
+          <p className="text-[11px] text-slate-500 text-center leading-relaxed" style={{ fontSize: '11px', color: '#64748b', textAlign: 'center', lineHeight: '1.625' }}>
+            Not betting. Not gambling. Predictions for entertainment only. 18+.
+          </p>
+        </div>
+
         {/* How It Works section (PART 7) */}
-        <section className="py-16 px-4 relative z-10" style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
+        {/* Desktop How It Works */}
+        <section className="hidden md:block py-16 px-4 relative z-10" style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
           <div style={{ maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto' }}>
             <div className="section-label" style={{ display: 'block', textAlign: 'center', marginBottom: '1rem' }}>How NanoPlay Works</div>
             <h2 className="text-3xl font-bold mb-12 text-center" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '3rem', textAlign: 'center' }}>
@@ -269,10 +381,33 @@ export default function LandingPage() {
           <div className="pitch-texture"></div>
         </section>
 
+        {/* Mobile How It Works */}
+        <div className="md:hidden px-4 mt-8" style={{ padding: '0 16px', marginTop: '32px' }}>
+          <p className="text-xs font-bold text-[#D4A853] uppercase tracking-wider mb-4 text-center" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', textAlign: 'center' }}>
+            How It Works
+          </p>
+          <div className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { icon: "⚽", title: "Pick Matches", desc: "Choose fixtures every matchday" },
+              { icon: "🔥", title: "Build Streak", desc: "Correct picks earn points" },
+              { icon: "🏆", title: "Win Rewards", desc: "Top predictors get verified payouts" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'start', gap: '12px', padding: '16px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a' }}>
+                <span className="text-xl shrink-0" style={{ fontSize: '20px', flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <p className="text-sm font-bold text-white" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff' }}>{item.title}</p>
+                  <p className="text-xs text-slate-400 mt-0.5" style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
 
         {/* 2. OPERATIONAL TRUST STRIP / Trust section (PART 6) */}
-        <section className={styles.trustStrip} style={{ display: 'block', padding: '2rem 0' }}>
+        {/* Desktop Trust Strip */}
+        <section className={`${styles.trustStrip} hidden md:block`} style={{ display: 'block', padding: '2rem 0' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto 2rem auto', padding: '0 24px' }}>
             <div className="section-label">Trust & Security</div>
             <h2 className="text-3xl font-bold mb-6 text-white" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '1.5rem' }}>
@@ -300,10 +435,32 @@ export default function LandingPage() {
           <div className="pitch-texture"></div>
         </section>
 
+        {/* Mobile Trust Grid (PART 6) */}
+        <div className="md:hidden px-4 mt-8" style={{ padding: '0 16px', marginTop: '32px' }}>
+          <p className="text-xs font-bold text-[#D4A853] uppercase tracking-wider mb-4 text-center" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', textAlign: 'center' }}>
+            Trust & Security
+          </p>
+          <div className="grid grid-cols-2 gap-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+            {[
+              { icon: "🔒", title: "Pick Lock", desc: "Picks freeze before kickoff" },
+              { icon: "📊", title: "Transparent", desc: "All transactions recorded" },
+              { icon: "✓", title: "Verified", desc: "Manual winner review" },
+              { icon: "🛡️", title: "Secure", desc: "Account safety checks" },
+            ].map((item, i) => (
+              <div key={i} className="p-3 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a] text-center" style={{ padding: '12px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a', textAlign: 'center' }}>
+                <span className="text-lg" style={{ fontSize: '18px' }}>{item.icon}</span>
+                <p className="text-xs font-bold text-white mt-1" style={{ fontSize: '12px', fontWeight: 'bold', color: '#ffffff', marginTop: '4px' }}>{item.title}</p>
+                <p className="text-[10px] text-slate-500 mt-0.5" style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
 
         {/* MATCHDAY READY STEPS (PART 4) */}
-        <section className={styles.matchdayReadySection} style={{ padding: '3rem 0' }}>
+        {/* Desktop Matchday Ready */}
+        <section className={`${styles.matchdayReadySection} hidden md:block`} style={{ padding: '3rem 0' }}>
           <div className={styles.matchdayContainer}>
             <div className="section-label" style={{ marginBottom: '1.5rem' }}>Matchday Ready</div>
             <h3 className={styles.matchdayTitle} style={{ marginBottom: '2rem' }}>MATCHDAY READY</h3>
@@ -329,10 +486,34 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Mobile Horizontal scroll steps (PART 4G) */}
+        <div className="md:hidden px-4 mt-8 overflow-x-auto pb-4 scroll-smooth-ios" style={{ overflowX: 'auto', paddingBottom: '16px', paddingLeft: '16px', paddingRight: '16px' }}>
+          <p className="text-xs font-bold text-[#D4A853] uppercase tracking-wider mb-4 text-center" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', textAlign: 'center' }}>
+            Matchday Ready
+          </p>
+          <div className="flex gap-3" style={{ display: 'flex', gap: '12px', width: 'max-content' }}>
+            {[
+              { num: "1", title: "Choose Tier", desc: "Pick your challenge level" },
+              { num: "2", title: "Lock Picks", desc: "Predict before kickoff" },
+              { num: "3", title: "Watch Live", desc: "Follow the action" },
+              { num: "4", title: "Track Streak", desc: "Build your record" },
+            ].map((step) => (
+              <div key={step.num} className="w-[140px] shrink-0 p-4 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a] text-center" style={{ width: '140px', flexShrink: 0, padding: '16px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a', textAlign: 'center' }}>
+                <div className="w-8 h-8 mx-auto rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 flex items-center justify-center text-[#D4A853] font-mono font-bold text-sm mb-2" style={{ width: '32px', height: '32px', margin: '0 auto 8px auto', borderRadius: '50%', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold', fontSize: '14px' }}>
+                  {step.num}
+                </div>
+                <p className="text-xs font-bold text-white mb-1" style={{ fontSize: '12px', fontWeight: 'bold', color: '#ffffff', marginBottom: '4px' }}>{step.title}</p>
+                <p className="text-[10px] text-slate-500" style={{ fontSize: '10px', color: '#64748b' }}>{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
 
         {/* 5. FINAL CTA (with value prop context) */}
-        <section className={styles.ctaSection}>
+        {/* Desktop CTA */}
+        <section className={`${styles.ctaSection} hidden md:block`}>
           <div className="section-label" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>Challenge Pass</div>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
             <h2 className={styles.ctaTitle}>Ready to Claim Your Place?</h2>
@@ -344,6 +525,18 @@ export default function LandingPage() {
             </Link>
           </GlassCard>
         </section>
+
+        {/* Mobile Footer CTA */}
+        <div className="md:hidden px-4 py-8 text-center" style={{ padding: '32px 16px', textAlign: 'center' }}>
+          <p className="text-lg font-bold text-white mb-2" style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Ready for Matchday?</p>
+          <p className="text-sm text-slate-400 mb-4" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '16px' }}>Join 2,400+ players competing now</p>
+          <Link href="/signup" className="w-full h-14 bg-[#D4A853] text-black font-bold rounded-xl text-base flex items-center justify-center" style={{ display: 'flex', width: '100%', height: '56px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '12px', fontSize: '16px', textDecoration: 'none', cursor: 'pointer' }}>
+            Join Arena ↗
+          </Link>
+          <p className="text-[10px] text-slate-600 mt-3" style={{ fontSize: '10px', color: '#475569', marginTop: '12px' }}>
+            Free to join • ₦500 challenge pass • 3x rewards
+          </p>
+        </div>
 
         {/* FOOTER */}
         <footer className={`${styles.footer} mb-20`} style={{ marginBottom: '80px' }}>

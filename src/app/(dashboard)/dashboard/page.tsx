@@ -131,20 +131,23 @@ export default function DashboardPage() {
       <>
         <Navbar />
         <main className={`${styles.main} main-with-bottom-nav relative`}>
-          <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+          <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
+          <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
           <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
-          <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '60vh', padding: '0 16px' }}>
-            <div className="text-6xl mb-6" style={{ fontSize: '3.75rem', marginBottom: '1.5rem' }}>🔒</div>
-            <h2 className="text-2xl font-bold text-white mb-3" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '0.75rem' }}>Arena Access Required</h2>
-            <p className="text-slate-400 mb-6 max-w-md" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem', maxWidth: '28rem', marginBottom: '1.5rem', lineHeight: '1.5' }}>
-              Sign in to view live challenges, make your picks, and track your streak.
+          <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '0 24px', textAlign: 'center' }}>
+            <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
+            </div>
+            <h2 className="text-xl font-bold text-white mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arena Access Required</h2>
+            <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '24px' }}>
+              Sign in to view live challenges, make picks, and track your streak.
             </p>
-            <div className="flex gap-4" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <Link href="/login" className="btn-premium" style={{ padding: '0.75rem 2rem', display: 'inline-flex', alignItems: 'center', minHeight: '44px', fontWeight: 'bold', textDecoration: 'none' }}>
+            <div className="flex flex-col gap-3 w-full max-w-[280px]" style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '280px' }}>
+              <Link href="/login" className="w-full h-12 bg-[#D4A853] text-black font-bold rounded-lg flex items-center justify-center" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '48px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '8px', textDecoration: 'none' }}>
                 Sign In
               </Link>
-              <Link href="/signup" className="btn-glass" style={{ padding: '0.75rem 2rem', display: 'inline-flex', alignItems: 'center', minHeight: '44px', fontWeight: 'bold', textDecoration: 'none', border: '1px solid var(--accent-gold)', color: 'var(--accent-gold)', borderRadius: '8px' }}>
-                Join Arena
+              <Link href="/signup" className="w-full h-12 border border-[#D4A853] text-[#D4A853] font-bold rounded-lg flex items-center justify-center" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '48px', border: '1px solid #D4A853', color: '#D4A853', fontWeight: 'bold', borderRadius: '8px', textDecoration: 'none' }}>
+                Create Account
               </Link>
             </div>
           </div>
@@ -158,7 +161,8 @@ export default function DashboardPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-atmosphere md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
+        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
         <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
         
         <AtmosphereLayer variant="dashboard" />

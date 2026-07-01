@@ -111,9 +111,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className={styles.splitLayout}>
+    <div className={`${styles.splitLayout} relative`}>
+      <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
+      <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
+      <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+
       {/* Left panel: Massive luxury branding & trust */}
-      <div className={styles.leftPanel}>
+      <div className={`${styles.leftPanel} hidden md:flex`}>
         <AtmosphereLayer variant="signup" />
         <div className={styles.panelHeader}>
           <Logo size={36} showText={true} />
@@ -144,7 +148,20 @@ export default function SignupPage() {
       </div>
 
       {/* Right panel: Grid Form input area */}
-      <div className={styles.rightPanel}>
+      <div className={styles.rightPanel} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        
+        {/* Mobile top banner */}
+        <div className="md:hidden relative w-full h-48 bg-[#0b0b0e] overflow-hidden flex flex-col items-center justify-center px-6 border-b border-[#1a1a1a]" style={{ position: 'relative', height: '192px', backgroundColor: '#0b0b0e', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 24px', borderBottom: '1px solid #1a1a1a' }}>
+          <div className="absolute inset-0 bg-[#D4A853]/5" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212,168,83,0.05)', pointerEvents: 'none' }} />
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 bg-[#D4A853]/10 rounded-full blur-3xl" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '160px', height: '160px', backgroundColor: 'rgba(212,168,83,0.1)', borderRadius: '50%', filter: 'blur(32px)', pointerEvents: 'none' }} />
+          <h2 className="relative z-10 text-2xl font-bold text-white text-center" style={{ position: 'relative', zIndex: 10, fontSize: '24px', fontWeight: 'bold', color: '#ffffff', textAlign: 'center' }}>
+            Join the Arena. Start your streak.
+          </h2>
+          <p className="relative z-10 text-xs text-slate-400 mt-2 text-center font-semibold tracking-wide uppercase" style={{ position: 'relative', zIndex: 10, fontSize: '11px', color: '#D4A853', marginTop: '8px', textAlign: 'center', letterSpacing: '0.05em' }}>
+            Step 1 of 2
+          </p>
+        </div>
+
         <GlassCard className={styles.signupCard} accent={true} hoverEffect={false}>
           <div className={styles.header}>
             <h2 className={styles.title}>Join the Arena</h2>
@@ -158,63 +175,80 @@ export default function SignupPage() {
           )}
 
           <form onSubmit={handleSignup} className={styles.form}>
-            {/* Form grid layout */}
-            <div className={styles.formGrid}>
-              <Input
-                label="Full Name"
-                type="text"
-                placeholder="John Doe"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                required
-              />
+            {/* Form grid layout with styled sections */}
+            <div className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              
+              {/* Account details */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="text-[11px] font-bold text-[#D4A853] uppercase tracking-wider mb-1" style={{ fontSize: '11px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Account details</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                  <Input
+                    label="Full Name"
+                    type="text"
+                    placeholder="John Doe"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                  />
+                  <Input
+                    label="Username"
+                    type="text"
+                    placeholder="johndoe"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
 
-              <Input
-                label="Username"
-                type="text"
-                placeholder="johndoe"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
+              {/* Contact details */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="text-[11px] font-bold text-[#D4A853] uppercase tracking-wider mb-1" style={{ fontSize: '11px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact details</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                  <Input
+                    label="Phone Number"
+                    type="tel"
+                    placeholder="+2348031234567"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                  <Input
+                    label="Email Address"
+                    type="email"
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
 
-              <Input
-                label="Phone Number"
-                type="tel"
-                placeholder="+2348031234567"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
+              {/* Security details */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="text-[11px] font-bold text-[#D4A853] uppercase tracking-wider mb-1" style={{ fontSize: '11px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Security details</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                  <Input
+                    label="Password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <Input
+                    label="Referral Code (optional)"
+                    type="text"
+                    placeholder="Referrer username"
+                    value={referralCode}
+                    onChange={(e) => setReferralCode(e.target.value)}
+                  />
+                </div>
+              </div>
 
-              <Input
-                label="Email Address"
-                type="email"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-
-              <Input
-                label="Password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-
-              <Input
-                label="Referral Code (optional)"
-                type="text"
-                placeholder="Referrer username"
-                value={referralCode}
-                onChange={(e) => setReferralCode(e.target.value)}
-              />
             </div>
 
-            <Button type="submit" variant="premium" loading={loading} className={styles.submitBtn}>
+            <Button type="submit" variant="premium" loading={loading} className={styles.submitBtn} style={{ marginTop: '16px' }}>
               Create Account ↗
             </Button>
           </form>

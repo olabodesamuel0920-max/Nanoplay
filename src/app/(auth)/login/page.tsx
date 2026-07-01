@@ -50,12 +50,12 @@ function LoginPageContent() {
 
   return (
     <div className={`${styles.splitLayout} relative`}>
-      <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-      <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-      <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+      <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+      <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+      <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
 
       {/* Left panel: Massive luxury sports branding & trust */}
-      <div className={`${styles.leftPanel} hidden md:flex`}>
+      <div className={`${styles.leftPanel} desktop-flex`}>
         <AtmosphereLayer variant="login" />
         <div className={styles.panelHeader}>
           <Logo size={36} showText={true} />
@@ -91,7 +91,7 @@ function LoginPageContent() {
       <div className={styles.rightPanel} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         
         {/* Mobile top banner */}
-        <div className="md:hidden relative w-full h-48 bg-[#0b0b0e] overflow-hidden flex flex-col items-center justify-center px-6 border-b border-[#1a1a1a]" style={{ position: 'relative', height: '192px', backgroundColor: '#0b0b0e', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 24px', borderBottom: '1px solid #1a1a1a' }}>
+        <div className="mobile-only relative w-full h-48 bg-[#0b0b0e] overflow-hidden flex flex-col items-center justify-center px-6 border-b border-[#1a1a1a]" style={{ position: 'relative', height: '192px', backgroundColor: '#0b0b0e', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 24px', borderBottom: '1px solid #1a1a1a' }}>
           <div className="absolute inset-0 bg-[#D4A853]/5" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212,168,83,0.05)', pointerEvents: 'none' }} />
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 bg-[#D4A853]/10 rounded-full blur-3xl" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '160px', height: '160px', backgroundColor: 'rgba(212,168,83,0.1)', borderRadius: '50%', filter: 'blur(32px)', pointerEvents: 'none' }} />
           <h2 className="relative z-10 text-2xl font-bold text-white text-center" style={{ position: 'relative', zIndex: 10, fontSize: '24px', fontWeight: 'bold', color: '#ffffff', textAlign: 'center' }}>
@@ -101,8 +101,8 @@ function LoginPageContent() {
             Sign in to manage your picks
           </p>
           <div className="relative z-10 flex gap-4 mt-4" style={{ position: 'relative', zIndex: 10, display: 'flex', gap: '16px', marginTop: '16px' }}>
-            <span className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20" style={{ fontSize: '12px', padding: '4px 8px', borderRadius: '9999px', backgroundColor: 'rgba(34,197,94,0.1)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.2)' }}>✓ Phone Verified</span>
-            <span className="text-xs px-2 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20" style={{ fontSize: '12px', padding: '4px 8px', borderRadius: '9999px', backgroundColor: 'rgba(212,168,83,0.1)', color: '#D4A853', border: '1px solid rgba(212,168,83,0.2)' }}>🛡️ Fair-Play</span>
+            <span className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20" style={{ fontSize: '12px', padding: '4px 8px', borderRadius: '9999px', backgroundColor: 'rgba(34,197,94,0.1)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.2)', marginRight: '8px', display: 'inline-block' }}>✓ Phone Verified</span>
+            <span className="text-xs px-2 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20" style={{ fontSize: '12px', padding: '4px 8px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'inline-block' }}>🛡️ Fair-Play</span>
           </div>
         </div>
 

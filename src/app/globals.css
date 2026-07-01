@@ -705,18 +705,35 @@ button, a, [role="button"], input[type="submit"], input[type="button"] {
   display: none !important;
 }
 
-@media (min-width: 768px) {
-  .md\:block {
-    display: block !important;
-  }
-  .md\:hidden {
+.mobile-only {
+  display: block !important;
+}
+.mobile-flex {
+  display: flex !important;
+}
+.mobile-grid {
+  display: grid !important;
+}
+
+.desktop-only {
+  display: block !important;
+}
+.desktop-flex {
+  display: flex !important;
+}
+.desktop-grid {
+  display: grid !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-only, .desktop-flex, .desktop-grid {
     display: none !important;
   }
-  .md\:grid {
-    display: grid !important;
-  }
-  .md\:flex {
-    display: flex !important;
+}
+
+@media (min-width: 769px) {
+  .mobile-only, .mobile-flex, .mobile-grid {
+    display: none !important;
   }
 }
 

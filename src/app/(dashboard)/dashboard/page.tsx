@@ -33,59 +33,61 @@ export default function DashboardPage() {
     }, 5000);
 
     async function loadDashboard() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          return;
+        }
+        setUser(user);
+
+        // Fetch profile
+        const res = await getOrCreateProfile();
+        let profileData = null;
+        if (res.ok && res.profile) {
+          profileData = res.profile;
+          setProfile(profileData);
+        }
+
+        // Fetch wallet
+        const { data: walletData } = await supabase
+          .from("wallets")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+        setWallet(walletData);
+
+        // Fetch active entry
+        const { data: entryData } = await supabase
+          .from("challenge_entries")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (entryData) {
+          setActiveEntry(entryData);
+
+          // Fetch predictions count
+          const { count } = await supabase
+            .from("predictions")
+            .select("*", { count: "exact", head: true })
+            .eq("entry_id", entryData.id);
+          setPredictionsCount(count || 0);
+        }
+
+        // Fetch referrals count
+        const { count: refCount } = await supabase
+          .from("referrals")
+          .select("*", { count: "exact", head: true })
+          .eq("referrer_id", user.id);
+        setReferralsCount(refCount || 0);
+      } catch (err) {
+        console.error("Error in loadDashboard:", err);
+      } finally {
         setLoading(false);
         clearTimeout(timer);
-        return;
       }
-      setUser(user);
-
-      // Fetch profile
-      const res = await getOrCreateProfile();
-      let profileData = null;
-      if (res.ok && res.profile) {
-        profileData = res.profile;
-        setProfile(profileData);
-      }
-
-      // Fetch wallet
-      const { data: walletData } = await supabase
-        .from("wallets")
-        .select("*")
-        .eq("user_id", user.id)
-        .single();
-      setWallet(walletData);
-
-      // Fetch active entry
-      const { data: entryData } = await supabase
-        .from("challenge_entries")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
-      if (entryData) {
-        setActiveEntry(entryData);
-
-        // Fetch predictions count
-        const { count } = await supabase
-          .from("predictions")
-          .select("*", { count: "exact", head: true })
-          .eq("entry_id", entryData.id);
-        setPredictionsCount(count || 0);
-      }
-
-      // Fetch referrals count
-      const { count: refCount } = await supabase
-        .from("referrals")
-        .select("*", { count: "exact", head: true })
-        .eq("referrer_id", user.id);
-      setReferralsCount(refCount || 0);
-
-      setLoading(false);
-      clearTimeout(timer);
     }
     loadDashboard();
     return () => clearTimeout(timer);
@@ -131,9 +133,9 @@ export default function DashboardPage() {
       <>
         <Navbar />
         <main className={`${styles.main} main-with-bottom-nav relative`}>
-          <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-          <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+          <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+          <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
           <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '0 24px', textAlign: 'center' }}>
             <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
@@ -161,9 +163,9 @@ export default function DashboardPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+        <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+        <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
         
         <AtmosphereLayer variant="dashboard" />
         <div className={styles.container}>

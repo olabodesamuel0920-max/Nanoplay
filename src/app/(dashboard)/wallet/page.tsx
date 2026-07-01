@@ -40,56 +40,60 @@ export default function WalletPage() {
   const [walletMessage, setWalletMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const loadWalletData = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      setLoading(false);
-      return;
-    }
-    setUser(user);
-
-    // Fetch Profile details
-    const res = await getOrCreateProfile();
-    let profileData = null;
-    if (res.ok && res.profile) {
-      profileData = res.profile;
-      setProfile(profileData);
-    }
-
-    // Fetch Wallet
-    const { data: walletData } = await supabase
-      .from("wallets")
-      .select("*")
-      .eq("user_id", user.id)
-      .single();
-    setWallet(walletData);
-
-    if (walletData) {
-      // Fetch Ledger Transactions
-      const { data: txs } = await supabase
-        .from("wallet_transactions")
-        .select("*")
-        .eq("wallet_id", walletData.id)
-        .order("created_at", { ascending: false });
-      setTransactions(txs || []);
-    }
-
-    // Fetch platform configurations
-    const { data: platformSettings } = await supabase
-      .from("platform_settings")
-      .select("key,value");
-
-    const settingsMap: { [key: string]: any } = {};
-    platformSettings?.forEach((s: any) => {
-      try {
-        settingsMap[s.key] = JSON.parse(s.value);
-      } catch {
-        settingsMap[s.key] = s.value;
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        return;
       }
-    });
+      setUser(user);
 
-    setFundingEnabled(settingsMap["wallet_funding_enabled"] || false);
-    setPaystackMode(settingsMap["paystack_mode"] || "disabled");
-    setLoading(false);
+      // Fetch Profile details
+      const res = await getOrCreateProfile();
+      let profileData = null;
+      if (res.ok && res.profile) {
+        profileData = res.profile;
+        setProfile(profileData);
+      }
+
+      // Fetch Wallet
+      const { data: walletData } = await supabase
+        .from("wallets")
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
+      setWallet(walletData);
+
+      if (walletData) {
+        // Fetch Ledger Transactions
+        const { data: txs } = await supabase
+          .from("wallet_transactions")
+          .select("*")
+          .eq("wallet_id", walletData.id)
+          .order("created_at", { ascending: false });
+        setTransactions(txs || []);
+      }
+
+      // Fetch platform configurations
+      const { data: platformSettings } = await supabase
+        .from("platform_settings")
+        .select("key,value");
+
+      const settingsMap: { [key: string]: any } = {};
+      platformSettings?.forEach((s: any) => {
+        try {
+          settingsMap[s.key] = JSON.parse(s.value);
+        } catch {
+          settingsMap[s.key] = s.value;
+        }
+      });
+
+      setFundingEnabled(settingsMap["wallet_funding_enabled"] || false);
+      setPaystackMode(settingsMap["paystack_mode"] || "disabled");
+    } catch (err) {
+      console.error("Error in loadWalletData:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -98,11 +102,15 @@ export default function WalletPage() {
     }, 5000);
 
     async function wrapLoad() {
-      await loadWalletData();
-      clearTimeout(timer);
+      try {
+        await loadWalletData();
+      } catch (err) {
+        console.error("Error loading wallet data:", err);
+      } finally {
+        clearTimeout(timer);
+      }
     }
     wrapLoad();
-    return () => clearTimeout(timer);
 
     // Check Paystack redirect redirect parameter notifications
     const searchParams = new URLSearchParams(window.location.search);
@@ -116,6 +124,8 @@ export default function WalletPage() {
       setWalletMessage({ type: "error", text: msg || "Transaction verification failed." });
       window.history.replaceState({}, document.title, window.location.pathname);
     }
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleDeposit = async (e: React.FormEvent) => {
@@ -232,9 +242,9 @@ export default function WalletPage() {
       <>
         <Navbar />
         <main className={`${styles.main} main-with-bottom-nav relative`}>
-          <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-          <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+          <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+          <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
           <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '0 24px', textAlign: 'center' }}>
             <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
@@ -262,9 +272,9 @@ export default function WalletPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+        <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+        <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
         
         <AtmosphereLayer variant="wallet" />
         <div className={styles.container}>

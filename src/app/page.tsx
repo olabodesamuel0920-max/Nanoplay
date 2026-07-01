@@ -37,13 +37,13 @@ export default function LandingPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+        <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+        <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
         
         {/* Live Match Ticker Strip */}
         {/* Desktop: animated marquee */}
-        <div className="hidden md:block overflow-hidden bg-[#0b0b0e] border-y border-[#1a1a1a] py-3" style={{ overflow: 'hidden' }}>
+        <div className="desktop-only overflow-hidden bg-[#0b0b0e] border-y border-[#1a1a1a] py-3" style={{ overflow: 'hidden' }}>
           <div className="flex animate-marquee whitespace-nowrap">
             <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
             <span className="mx-8 text-sm text-slate-400">2,400+ players competing</span>
@@ -59,7 +59,7 @@ export default function LandingPage() {
         </div>
 
         {/* Mobile ticker */}
-        <div className="md:hidden flex items-center justify-center gap-3 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '12px 0', backgroundColor: '#0b0b0e', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
+        <div className="mobile-flex items-center justify-center gap-3 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '12px 0', backgroundColor: '#0b0b0e', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
           <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
@@ -108,14 +108,14 @@ export default function LandingPage() {
             {/* Left Side: Editorial Typography & Copy */}
             <div className={styles.heroLeft}>
               {/* Desktop Only Badges */}
-              <div className="hidden md:flex flex-wrap gap-2 mb-6" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+              <div className={`${styles.desktopFlex} flex-wrap gap-2 mb-6`} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
                 <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}><span className={styles.pulseDot} style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-green)', display: 'inline-block', marginRight: '4px' }}></span>LIVE ARENA ACTIVE</span>
                 <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>VERIFIED PICKS</span>
                 <span className={styles.heroBadge} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>WALLET PROTECTED</span>
               </div>
               
               {/* Mobile Hero Headline (Part 2B) */}
-              <div className="md:hidden w-full mb-6">
+              <div className={`${styles.mobileOnly} w-full mb-6`}>
                 <h1 className="text-[26px] leading-[1.15] font-bold text-white text-center px-4" style={{ fontSize: '26px', lineHeight: '1.15', fontWeight: 'bold', color: '#ffffff', textAlign: 'center', padding: '0 16px' }}>
                   Predict Football Matches.<br />
                   <span className="text-[#D4A853]">Win Verified Rewards.</span>
@@ -126,23 +126,23 @@ export default function LandingPage() {
               </div>
 
               {/* Desktop Hero Title */}
-              <h1 className={`${styles.heroTitle} hidden md:block`}>
+              <h1 className={`${styles.heroTitle} ${styles.desktopOnly}`}>
                 <span className={styles.heroTitleAccent}>Predict</span> Football Matches.<br />
                 <span className={styles.heroTitleAccent}>Win</span> Verified Rewards.
               </h1>
               
               {/* Desktop Hero Subtitle Line */}
-              <p className={`${styles.heroSubtitleLine} hidden md:block`}>
+              <p className={`${styles.heroSubtitleLine} ${styles.desktopOnly}`}>
                 Join matchday challenges. Build your prediction streak. Earn real rewards.
               </p>
               
               {/* Desktop Hero Subtitle Description */}
-              <p className={`${styles.heroSubtitle} hidden md:block`}>
+              <p className={`${styles.heroSubtitle} ${styles.desktopOnly}`}>
                 NanoPlay is a premium football challenge arena. Make your picks before kickoff, build your streak, and qualify for verified rewards after review.
               </p>
               
               {/* Desktop Hero CTAs */}
-              <div className={`${styles.heroCta} hidden md:flex`}>
+              <div className={`${styles.heroCta} ${styles.desktopFlex}`}>
                 <Link href="/signup" className="btn-premium">
                   <span>Start Your First Challenge ↗</span>
                 </Link>
@@ -152,7 +152,7 @@ export default function LandingPage() {
               </div>
 
               {/* Desktop Active Players counter */}
-              <p className="text-sm text-slate-400 mt-4 hidden md:flex items-center gap-2">
+              <p className={`${styles.desktopFlex} text-sm text-slate-400 mt-4`} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 2,400+ players competing this matchday
               </p>
@@ -162,7 +162,7 @@ export default function LandingPage() {
             <div className={styles.heroRight}>
               
               {/* Desktop Matchday Board */}
-              <div className="hidden md:block">
+              <div className={styles.desktopOnly}>
                 <div className="relative rounded-2xl p-6 md:p-8 bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden max-w-md mx-auto" style={{ position: 'relative', borderRadius: '16px', padding: '24px', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', maxWidth: '28rem', margin: '0 auto' }}>
                   {/* Permanent ambient glow */}
                   <div className="absolute inset-0 bg-[#D4A853]/5 pointer-events-none" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212, 168, 83, 0.05)', pointerEvents: 'none' }} />
@@ -241,7 +241,7 @@ export default function LandingPage() {
               </div>
 
               {/* Mobile-Optimized Match Card (Part 2C) */}
-              <div className="md:hidden mx-4 rounded-2xl bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden relative" style={{ position: 'relative', borderRadius: '16px', padding: '0', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', margin: '0 16px' }}>
+              <div className={`${styles.mobileOnly} mx-4 rounded-2xl bg-[#0b0b0e] border border-[#D4A853]/30 overflow-hidden relative`} style={{ position: 'relative', borderRadius: '16px', padding: '0', backgroundColor: '#0b0b0e', border: '1px solid rgba(212, 168, 83, 0.3)', overflow: 'hidden', margin: '0 16px' }}>
                 {/* Glow */}
                 <div className="absolute inset-0 bg-[#D4A853]/5 pointer-events-none" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(212, 168, 83, 0.05)', pointerEvents: 'none' }} />
                 <div className="absolute -top-10 right-0 w-32 h-32 bg-[#D4A853]/10 rounded-full blur-2xl pointer-events-none" style={{ position: 'absolute', top: '-40px', right: 0, width: '128px', height: '128px', backgroundColor: 'rgba(212, 168, 83, 0.1)', borderRadius: '50%', filter: 'blur(16px)', pointerEvents: 'none' }} />
@@ -326,7 +326,7 @@ export default function LandingPage() {
 
         {/* Trust Banner (PART 9) */}
         {/* Desktop Trust Banner */}
-        <div className="hidden md:block py-3 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10" style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '12px 16px' }}>
+        <div className={`${styles.desktopOnly} py-3 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10`} style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '12px 16px' }}>
           <p className={`text-center text-xs max-w-2xl mx-auto ${expanded ? "" : "line-clamp-2"}`} style={{ color: 'var(--foreground-muted)', fontSize: '12px', lineHeight: '1.5', margin: '0 auto', textAlign: 'center' }}>
             NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
             Predictions are for entertainment. Rewards are subject to manual review and verification.
@@ -350,7 +350,7 @@ export default function LandingPage() {
         </div>
 
         {/* Mobile Collapsible Trust Banner */}
-        <div className="md:hidden mx-4 mt-4 p-3 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a]" style={{ margin: '16px 16px 0 16px', padding: '12px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a' }}>
+        <div className={`${styles.mobileOnly} mx-4 mt-4 p-3 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a]`} style={{ margin: '16px 16px 0 16px', padding: '12px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a' }}>
           <p className="text-[11px] text-slate-500 text-center leading-relaxed" style={{ fontSize: '11px', color: '#64748b', textAlign: 'center', lineHeight: '1.625' }}>
             Not betting. Not gambling. Predictions for entertainment only. 18+.
           </p>
@@ -358,7 +358,7 @@ export default function LandingPage() {
 
         {/* How It Works section (PART 7) */}
         {/* Desktop How It Works */}
-        <section className="hidden md:block py-16 px-4 relative z-10" style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
+        <section className={`${styles.desktopOnly} py-16 px-4 relative z-10`} style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
           <div style={{ maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto' }}>
             <div className="section-label" style={{ display: 'block', textAlign: 'center', marginBottom: '1rem' }}>How NanoPlay Works</div>
             <h2 className="text-3xl font-bold mb-12 text-center" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '3rem', textAlign: 'center' }}>
@@ -382,7 +382,7 @@ export default function LandingPage() {
         </section>
 
         {/* Mobile How It Works */}
-        <div className="md:hidden px-4 mt-8" style={{ padding: '0 16px', marginTop: '32px' }}>
+        <div className={`${styles.mobileOnly} px-4 mt-8`} style={{ padding: '0 16px', marginTop: '32px' }}>
           <p className="text-xs font-bold text-[#D4A853] uppercase tracking-wider mb-4 text-center" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', textAlign: 'center' }}>
             How It Works
           </p>
@@ -407,7 +407,7 @@ export default function LandingPage() {
 
         {/* 2. OPERATIONAL TRUST STRIP / Trust section (PART 6) */}
         {/* Desktop Trust Strip */}
-        <section className={`${styles.trustStrip} hidden md:block`} style={{ display: 'block', padding: '2rem 0' }}>
+        <section className={`${styles.trustStrip} ${styles.desktopOnly}`} style={{ display: 'block', padding: '2rem 0' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto 2rem auto', padding: '0 24px' }}>
             <div className="section-label">Trust & Security</div>
             <h2 className="text-3xl font-bold mb-6 text-white" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '1.5rem' }}>
@@ -436,7 +436,7 @@ export default function LandingPage() {
         </section>
 
         {/* Mobile Trust Grid (PART 6) */}
-        <div className="md:hidden px-4 mt-8" style={{ padding: '0 16px', marginTop: '32px' }}>
+        <div className={`${styles.mobileOnly} px-4 mt-8`} style={{ padding: '0 16px', marginTop: '32px' }}>
           <p className="text-xs font-bold text-[#D4A853] uppercase tracking-wider mb-4 text-center" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', textAlign: 'center' }}>
             Trust & Security
           </p>
@@ -460,7 +460,7 @@ export default function LandingPage() {
 
         {/* MATCHDAY READY STEPS (PART 4) */}
         {/* Desktop Matchday Ready */}
-        <section className={`${styles.matchdayReadySection} hidden md:block`} style={{ padding: '3rem 0' }}>
+        <section className={`${styles.matchdayReadySection} ${styles.desktopOnly}`} style={{ padding: '3rem 0' }}>
           <div className={styles.matchdayContainer}>
             <div className="section-label" style={{ marginBottom: '1.5rem' }}>Matchday Ready</div>
             <h3 className={styles.matchdayTitle} style={{ marginBottom: '2rem' }}>MATCHDAY READY</h3>
@@ -487,7 +487,7 @@ export default function LandingPage() {
         </section>
 
         {/* Mobile Horizontal scroll steps (PART 4G) */}
-        <div className="md:hidden px-4 mt-8 overflow-x-auto pb-4 scroll-smooth-ios" style={{ overflowX: 'auto', paddingBottom: '16px', paddingLeft: '16px', paddingRight: '16px' }}>
+        <div className={`${styles.mobileOnly} px-4 mt-8 overflow-x-auto pb-4 scroll-smooth-ios`} style={{ overflowX: 'auto', paddingBottom: '16px', paddingLeft: '16px', paddingRight: '16px' }}>
           <p className="text-xs font-bold text-[#D4A853] uppercase tracking-wider mb-4 text-center" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', textAlign: 'center' }}>
             Matchday Ready
           </p>
@@ -513,7 +513,7 @@ export default function LandingPage() {
 
         {/* 5. FINAL CTA (with value prop context) */}
         {/* Desktop CTA */}
-        <section className={`${styles.ctaSection} hidden md:block`}>
+        <section className={`${styles.ctaSection} ${styles.desktopOnly}`}>
           <div className="section-label" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>Challenge Pass</div>
           <GlassCard className={styles.ctaCard} accent={true} hoverEffect={false}>
             <h2 className={styles.ctaTitle}>Ready to Claim Your Place?</h2>
@@ -527,7 +527,7 @@ export default function LandingPage() {
         </section>
 
         {/* Mobile Footer CTA */}
-        <div className="md:hidden px-4 py-8 text-center" style={{ padding: '32px 16px', textAlign: 'center' }}>
+        <div className={`${styles.mobileOnly} px-4 py-8 text-center`} style={{ padding: '32px 16px', textAlign: 'center' }}>
           <p className="text-lg font-bold text-white mb-2" style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Ready for Matchday?</p>
           <p className="text-sm text-slate-400 mb-4" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '16px' }}>Join 2,400+ players competing now</p>
           <Link href="/signup" className="w-full h-14 bg-[#D4A853] text-black font-bold rounded-xl text-base flex items-center justify-center" style={{ display: 'flex', width: '100%', height: '56px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '12px', fontSize: '16px', textDecoration: 'none', cursor: 'pointer' }}>

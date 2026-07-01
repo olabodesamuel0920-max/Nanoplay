@@ -24,35 +24,38 @@ export default function WinnersPage() {
     }, 5000);
 
     async function fetchWinners() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setUser(null);
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          setUser(null);
+          return;
+        }
+        setUser(user);
+
+        // Query only verified winners for the public list
+        const { data } = await supabase
+          .from("winners")
+          .select(`
+            id,
+            payout_amount,
+            created_at,
+            profile:user_id (
+              username
+            ),
+            round:round_id (
+              round_number
+            )
+          `)
+          .eq("verified", true)
+          .order("created_at", { ascending: false });
+
+        setWinners(data || []);
+      } catch (err) {
+        console.error("Error in fetchWinners:", err);
+      } finally {
         setLoading(false);
         clearTimeout(timer);
-        return;
       }
-      setUser(user);
-
-      // Query only verified winners for the public list
-      const { data } = await supabase
-        .from("winners")
-        .select(`
-          id,
-          payout_amount,
-          created_at,
-          profile:user_id (
-            username
-          ),
-          round:round_id (
-            round_number
-          )
-        `)
-        .eq("verified", true)
-        .order("created_at", { ascending: false });
-
-      setWinners(data || []);
-      setLoading(false);
-      clearTimeout(timer);
     }
     fetchWinners();
     return () => clearTimeout(timer);
@@ -93,9 +96,9 @@ export default function WinnersPage() {
       <>
         <Navbar />
         <main className={`${styles.main} main-with-bottom-nav relative`}>
-          <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-          <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+          <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+          <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
           <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '0 24px', textAlign: 'center' }}>
             <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
@@ -123,9 +126,9 @@ export default function WinnersPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+        <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+        <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
         
         <AtmosphereLayer variant="winners" />
 

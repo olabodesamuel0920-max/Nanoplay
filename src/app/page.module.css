@@ -1685,3 +1685,48 @@ html[data-theme="light"] .stadiumFloor {
   opacity: 0.3;
 }
 
+.desktopOnly {
+  display: block !important;
+}
+
+.desktopFlex {
+  display: flex !important;
+}
+
+.desktopGrid {
+  display: grid !important;
+}
+
+.mobileOnly {
+  display: block !important;
+}
+
+.mobileFlex {
+  display: flex !important;
+}
+
+.mobileGrid {
+  display: grid !important;
+}
+
+@media (max-width: 768px) {
+  .desktopOnly, .desktopFlex, .desktopGrid {
+    display: none !important;
+  }
+  .mobileOnly {
+    display: block !important;
+  }
+  .mobileFlex {
+    display: flex !important;
+  }
+  .mobileGrid {
+    display: grid !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobileOnly, .mobileFlex, .mobileGrid {
+    display: none !important;
+  }
+}
+

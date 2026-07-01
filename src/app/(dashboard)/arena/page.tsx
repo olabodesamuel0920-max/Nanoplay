@@ -47,87 +47,87 @@ export default function ArenaPage() {
     }, 5000);
 
     async function loadArena() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setLoading(false);
-        clearTimeout(timer);
-        return;
-      }
-      setUser(user);
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          return;
+        }
+        setUser(user);
 
-      // Fetch Profile
-      const res = await getOrCreateProfile();
-      let profileData = null;
-      if (res.ok && res.profile) {
-        profileData = res.profile;
-        setProfile(profileData);
-      }
+        // Fetch Profile
+        const res = await getOrCreateProfile();
+        let profileData = null;
+        if (res.ok && res.profile) {
+          profileData = res.profile;
+          setProfile(profileData);
+        }
 
-      // Fetch Wallet
-      const { data: walletData } = await supabase
-        .from("wallets")
-        .select("*")
-        .eq("user_id", user.id)
-        .single();
-      setWallet(walletData);
-
-      // Fetch Tiers
-      const { data: tiersData } = await supabase
-        .from("account_tiers")
-        .select("*")
-        .eq("is_active", true);
-      setTiers(tiersData || []);
-
-      // Fetch Active Round
-      const { data: roundData } = await supabase
-        .from("challenge_rounds")
-        .select("*")
-        .eq("status", "active")
-        .limit(1)
-        .maybeSingle();
-
-      if (roundData) {
-        setActiveRound(roundData);
-
-        // Fetch Matches in Round
-        const { data: matchesData } = await supabase
-          .from("challenge_matches")
-          .select("*")
-          .eq("round_id", roundData.id)
-          .order("matchday", { ascending: true });
-        setMatches(matchesData || []);
-
-        // Fetch User's Entry for Active Round
-        const { data: entryData } = await supabase
-          .from("challenge_entries")
+        // Fetch Wallet
+        const { data: walletData } = await supabase
+          .from("wallets")
           .select("*")
           .eq("user_id", user.id)
-          .eq("round_id", roundData.id)
+          .single();
+        setWallet(walletData);
+
+        // Fetch Tiers
+        const { data: tiersData } = await supabase
+          .from("account_tiers")
+          .select("*")
+          .eq("is_active", true);
+        setTiers(tiersData || []);
+
+        // Fetch Active Round
+        const { data: roundData } = await supabase
+          .from("challenge_rounds")
+          .select("*")
+          .eq("status", "active")
+          .limit(1)
           .maybeSingle();
 
-        if (entryData) {
-          setEntry(entryData);
+        if (roundData) {
+          setActiveRound(roundData);
 
-          // Fetch existing predictions for this entry
-          const { data: predictionsData } = await supabase
-            .from("predictions")
+          // Fetch Matches in Round
+          const { data: matchesData } = await supabase
+            .from("challenge_matches")
             .select("*")
-            .eq("entry_id", entryData.id);
+            .eq("round_id", roundData.id)
+            .order("matchday", { ascending: true });
+          setMatches(matchesData || []);
 
-          if (predictionsData) {
-            const preds: { [matchId: string]: string } = {};
-            predictionsData.forEach((p: any) => {
-              preds[p.match_id] = p.prediction;
-            });
-            setPredictions(preds);
+          // Fetch User's Entry for Active Round
+          const { data: entryData } = await supabase
+            .from("challenge_entries")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("round_id", roundData.id)
+            .maybeSingle();
+
+          if (entryData) {
+            setEntry(entryData);
+
+            // Fetch existing predictions for this entry
+            const { data: predictionsData } = await supabase
+              .from("predictions")
+              .select("*")
+              .eq("entry_id", entryData.id);
+
+            if (predictionsData) {
+              const preds: { [matchId: string]: string } = {};
+              predictionsData.forEach((p: any) => {
+                preds[p.match_id] = p.prediction;
+              });
+              setPredictions(preds);
+            }
           }
         }
-      } else {
-        // If no active round exists, we can mock/simulate one or show "No active round"
-        // Let's create an upcoming/placeholder status if database is blank.
+      } catch (err) {
+        console.error("Error in loadArena:", err);
+      } finally {
+        setLoading(false);
+        clearTimeout(timer);
       }
-      setLoading(false);
-      clearTimeout(timer);
     }
     loadArena();
     return () => clearTimeout(timer);
@@ -292,9 +292,9 @@ export default function ArenaPage() {
       <>
         <Navbar />
         <main className={`${styles.main} main-with-bottom-nav relative`}>
-          <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-          <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-          <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+          <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+          <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+          <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
           <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '0 24px', textAlign: 'center' }}>
             <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
@@ -322,9 +322,9 @@ export default function ArenaPage() {
       <Navbar />
       <main className={`${styles.main} main-with-bottom-nav relative`}>
         {/* Mobile atmosphere — lightweight CSS only */}
-        <div className="mobile-hero-glow md:hidden" aria-hidden="true" />
-        <div className="mobile-stadium-lights md:hidden" aria-hidden="true" />
-        <div className="mobile-pitch-floor md:hidden" aria-hidden="true" />
+        <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
+        <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
+        <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
         
         <AtmosphereLayer variant="arena" />
         

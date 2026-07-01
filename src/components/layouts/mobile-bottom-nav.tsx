@@ -10,13 +10,10 @@ import styles from "./mobile-bottom-nav.module.css";
 export default function MobileBottomNav() {
   const pathname = usePathname();
 
-  // Hide on home, auth, admin, and utility routes
-  const isAuth = pathname.startsWith("/login") || pathname.startsWith("/signup") || pathname.startsWith("/auth");
+  // Hide only on admin routes
   const isAdmin = pathname.startsWith("/admin");
-  const isHome = pathname === "/";
-  const isUtility = pathname.startsWith("/faq") || pathname.startsWith("/terms") || pathname.startsWith("/privacy") || pathname.startsWith("/rules") || pathname.startsWith("/security") || pathname.startsWith("/tiers");
 
-  if (isAuth || isAdmin || isHome || isUtility) {
+  if (isAdmin) {
     return null;
   }
 

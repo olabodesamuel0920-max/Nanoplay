@@ -39,6 +39,45 @@ export default function WalletPage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [walletMessage, setWalletMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
+  const getMaskedBankAccount = (bankName: string, accountNum: string) => {
+    if (!accountNum) return "";
+    const cleanNum = accountNum.trim();
+    if (cleanNum.length <= 4) {
+      return `${bankName || "Bank"} •••• ${cleanNum}`;
+    }
+    const lastFour = cleanNum.slice(-4);
+    return `${bankName || "Bank"} •••• ${lastFour}`;
+  };
+
+  const getPayoutDisableReason = () => {
+    if (!profile?.phone_verified) {
+      return "Phone Verification Required";
+    }
+    if (!profile?.identity_status || profile.identity_status === "unverified") {
+      return "Identity Verification Required";
+    }
+    if (profile.identity_status === "pending" || profile.identity_status === "under_review") {
+      return "Verification Pending Review";
+    }
+    if (profile.identity_status === "rejected") {
+      return "Verification Rejected";
+    }
+    if (!profile.bank_account_number || !profile.bank_name) {
+      return "Bank Account Details Missing";
+    }
+    if ((wallet?.balance_ngn || 0) < 1000) {
+      return "Minimum ₦1,000 Balance Required";
+    }
+    const amountVal = parseInt(withdrawAmount);
+    if (!isNaN(amountVal) && (wallet?.balance_ngn || 0) < amountVal) {
+      return "Insufficient Wallet Balance";
+    }
+    return null; // Enabled
+  };
+
+  const disableReason = getPayoutDisableReason();
+  const isPayoutDisabled = disableReason !== null;
+
   const loadWalletData = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -319,15 +358,17 @@ export default function WalletPage() {
           </div>
 
           {/* How Funding Works explanation banner (PART 4 - 1) */}
-          <div className="mb-6 p-4 rounded-xl relative z-10" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-glass)', padding: '1rem', borderRadius: '0.75rem', marginBottom: '1.5rem', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-            <Info className="w-5 h-5" style={{ color: 'var(--accent-cyan)', flexShrink: 0, marginTop: '2px' }} />
-            <div>
-              <h4 className="font-semibold text-white mb-1" style={{ fontWeight: 600, color: 'var(--foreground-primary)', fontSize: '0.875rem' }}>How Funding Works</h4>
-              <p className="text-xs" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem', lineHeight: '1.4' }}>
-                To ensure security and prevent platform abuse, wallet funding is locked to fixed packages of NGN 5,000, NGN 10,000, or NGN 20,000. All transactions are securely processed via Paystack.
-              </p>
+          {fundingEnabled && (
+            <div className="mb-6 p-4 rounded-xl relative z-10" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-glass)', padding: '1rem', borderRadius: '0.75rem', marginBottom: '1.5rem', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <Info className="w-5 h-5" style={{ color: 'var(--accent-cyan)', flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <h4 className="font-semibold text-white mb-1" style={{ fontWeight: 600, color: 'var(--foreground-primary)', fontSize: '0.875rem' }}>How Funding Works</h4>
+                <p className="text-xs" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem', lineHeight: '1.4' }}>
+                  To ensure security and prevent platform abuse, wallet funding is locked to fixed packages of NGN 5,000, NGN 10,000, or NGN 20,000. All transactions are securely processed via Paystack.
+                </p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Action panels: Fund / Withdraw */}
           <div className={styles.actionsGrid}>
@@ -335,14 +376,14 @@ export default function WalletPage() {
              <GlassCard className={styles.actionCard}>
               <div className={styles.cardHeader}>
                 <ArrowUpRight className={styles.cardHeaderIcon} />
-                <h3>Fund Wallet{fundingEnabled && paystackMode === "test" ? " (Test Mode)" : ""}</h3>
+                <h3>{fundingEnabled ? `Fund Wallet${paystackMode === "test" ? " (Test Mode)" : ""}` : "Wallet funding is under review"}</h3>
               </div>
               <p className={styles.cardDesc}>
-                {!fundingEnabled 
-                  ? "Wallet funding is currently in launch review. Please check back when funding opens." 
-                  : paystackMode === "test" 
+                {fundingEnabled 
+                  ? (paystackMode === "test" 
                     ? "Test funding enabled. Enter NGN 5,000, NGN 10,000, or NGN 20,000 to initiate a test transaction."
-                    : "Deposit funds to increase your available balance."}
+                    : "Deposit funds to increase your available balance.")
+                  : "Deposits are currently unavailable during the controlled launch period."}
               </p>
 
               <form onSubmit={handleDeposit} className={styles.form}>
@@ -356,7 +397,7 @@ export default function WalletPage() {
                   required
                   disabled={!fundingEnabled}
                 />
-                <div style={{ position: 'relative', width: '100%' }} className="group">
+                <div style={{ position: 'relative', width: '100%' }}>
                   <Button 
                     type="submit" 
                     variant="premium" 
@@ -365,42 +406,13 @@ export default function WalletPage() {
                     className={styles.submitBtn}
                     style={{ width: '100%' }}
                   >
-                    {!fundingEnabled 
-                      ? "Funding Opening Soon" 
-                      : paystackMode === "test" 
+                    {fundingEnabled 
+                      ? (paystackMode === "test" 
                         ? "Initiate Test Payment" 
-                        : "Fund Wallet"}
+                        : "Fund Wallet")
+                      : "Funding Unavailable"}
                   </Button>
-                  {!fundingEnabled && (
-                    <span 
-                      style={{
-                        position: 'absolute',
-                        bottom: '100%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        marginBottom: '8px',
-                        padding: '6px 10px',
-                        backgroundColor: '#0b0b0e',
-                        color: '#94a3b8',
-                        fontSize: '11px',
-                        borderRadius: '6px',
-                        whiteSpace: 'nowrap',
-                        pointerEvents: 'none',
-                        transition: 'opacity 0.2s ease',
-                        border: '1px solid var(--border-glass)',
-                        zIndex: 100
-                      }}
-                      className="opacity-0 group-hover:opacity-100"
-                    >
-                      Opens 24h before matchday
-                    </span>
-                  )}
                 </div>
-                {!fundingEnabled && (
-                  <p style={{ color: 'var(--status-error)', fontSize: '11px', marginTop: '8px', textAlign: 'center' }}>
-                    Deposit options are currently paused for maintenance/review.
-                  </p>
-                )}
               </form>
             </GlassCard>
 
@@ -418,21 +430,17 @@ export default function WalletPage() {
                 {profile?.identity_status === "verified" ? (
                   <div className={styles.bankDetailsBox}>
                     <div className={styles.bankDetailItem}>
-                      <span>Bank:</span>
-                      <strong>{profile.bank_name}</strong>
+                      <span>Payout Account:</span>
+                      <strong>{getMaskedBankAccount(profile.bank_name, profile.bank_account_number)}</strong>
                     </div>
                     <div className={styles.bankDetailItem}>
-                      <span>Account:</span>
-                      <strong>{profile.bank_account_number}</strong>
-                    </div>
-                    <div className={styles.bankDetailItem}>
-                      <span>Name:</span>
+                      <span>Account Holder:</span>
                       <strong>{profile.bank_account_name}</strong>
                     </div>
                   </div>
                 ) : (
                   <div className={styles.bankDetailsMissing}>
-                    Complete payout verification to request withdrawals.
+                    Complete payout verification in settings to configure bank details.
                   </div>
                 )}
 
@@ -442,7 +450,7 @@ export default function WalletPage() {
                   placeholder="5000"
                   value={withdrawAmount}
                   onChange={(e) => setWithdrawAmount(e.target.value)}
-                  disabled={profile?.identity_status !== "verified"}
+                  disabled={isPayoutDisabled}
                   min={1000}
                   required
                 />
@@ -451,40 +459,22 @@ export default function WalletPage() {
                     type="submit"
                     variant="glass"
                     loading={actionLoading}
-                    disabled={profile?.identity_status !== "verified"}
+                    disabled={isPayoutDisabled}
                     className={styles.submitBtn}
                     style={{ width: '100%' }}
                   >
-                    Request Payout
+                    {isPayoutDisabled ? disableReason : "Request Payout"}
                   </Button>
-                  {profile?.identity_status !== "verified" && (
-                    <span 
-                      style={{
-                        position: 'absolute',
-                        bottom: '100%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        marginBottom: '8px',
-                        padding: '6px 10px',
-                        backgroundColor: '#0b0b0e',
-                        color: '#94a3b8',
-                        fontSize: '11px',
-                        borderRadius: '6px',
-                        whiteSpace: 'nowrap',
-                        pointerEvents: 'none',
-                        transition: 'opacity 0.2s ease',
-                        border: '1px solid var(--border-glass)',
-                        zIndex: 100
-                      }}
-                      className="opacity-0 group-hover:opacity-100"
-                    >
-                      Minimum ₦1,000 balance required
-                    </span>
-                  )}
                 </div>
-                {profile?.identity_status !== "verified" && (
+                {isPayoutDisabled && (
                   <p style={{ color: 'var(--status-warning)', fontSize: '11px', marginTop: '8px', textAlign: 'center' }}>
-                    Complete phone & payout verification in settings to enable withdrawals.
+                    {disableReason === "Phone Verification Required" && "Verify your phone number via OTP in settings."}
+                    {disableReason === "Identity Verification Required" && "Submit your identity details in settings."}
+                    {disableReason === "Verification Pending Review" && "Your payout verification is under review."}
+                    {disableReason === "Verification Rejected" && "Your payout verification was rejected. Please contact support."}
+                    {disableReason === "Bank Account Details Missing" && "Configure bank payout details in settings."}
+                    {disableReason === "Minimum ₦1,000 Balance Required" && "You must have at least NGN 1,000 in your wallet to withdraw."}
+                    {disableReason === "Insufficient Wallet Balance" && "The withdrawal amount exceeds your available balance."}
                   </p>
                 )}
               </form>

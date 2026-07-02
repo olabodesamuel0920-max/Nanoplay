@@ -49,7 +49,21 @@ export default function WinnersPage() {
           .eq("verified", true)
           .order("created_at", { ascending: false });
 
-        setWinners(data || []);
+        const filteredWinners = (data || []).filter((winner: any) => {
+          const username = (winner.profile?.username || "").toLowerCase().trim();
+          if (username.startsWith("qa_") || username.includes("test") || username.includes("demo")) {
+            return false;
+          }
+          const roundNumber = winner.round?.round_number;
+          if (roundNumber === 9999 || roundNumber === "9999") {
+            return false;
+          }
+          if (winner.payout_amount === 100000 || winner.payout_amount === 1000000) {
+            return false;
+          }
+          return true;
+        });
+        setWinners(filteredWinners);
       } catch (err) {
         console.error("Error in fetchWinners:", err);
       } finally {
@@ -103,8 +117,8 @@ export default function WinnersPage() {
             <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
             </div>
-            <h2 className="text-xl font-bold text-white mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arena Access Required</h2>
-            <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '24px' }}>
+            <h2 className="text-xl font-bold mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '8px' }}>Arena Access Required</h2>
+            <p className="text-sm mb-6" style={{ fontSize: '14px', color: 'var(--foreground-secondary)', marginBottom: '24px' }}>
               Sign in to view live challenges, make picks, and track your streak.
             </p>
             <div className="flex flex-col gap-3 w-full max-w-[280px]" style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '280px' }}>
@@ -152,8 +166,8 @@ export default function WinnersPage() {
             {winners.length === 0 ? (
               <GlassCard className={styles.noWinnersCard}>
                 <span className={styles.trophySpotlight} aria-hidden="true" />
-                <h3>No Verified Winners Yet</h3>
-                <p>Verified winners will appear here after the first challenge round is reviewed.</p>
+                <h3>No verified winners yet</h3>
+                <p>Completed and approved challenge results will appear here.</p>
                 <div className={styles.podium}>
                   <div className={`${styles.podiumStep} ${styles.step2}`}>
                     <span className={styles.podiumRank}>2</span>
@@ -226,8 +240,8 @@ export default function WinnersPage() {
                         {i + 1}
                       </div>
                       <div className="flex-1 min-w-0" style={{ flex: 1, minWidth: 0 }}>
-                        <p className="text-sm font-medium text-white truncate" style={{ fontWeight: '500', color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{winner.profile?.username || "Anonymous Player"}</p>
-                        <p className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Round #{winner.round?.round_number || "N/A"}</p>
+                        <p className="text-sm font-medium truncate" style={{ fontWeight: '500', color: 'var(--foreground-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{winner.profile?.username || "Anonymous Player"}</p>
+                        <p className="text-xs" style={{ fontSize: '12px', color: 'var(--foreground-secondary)' }}>Round #{winner.round?.round_number || "N/A"}</p>
                       </div>
                       <div className="text-right shrink-0" style={{ textAlign: 'right' }}>
                         <p className="text-sm font-bold text-[#D4A853] font-mono" style={{ fontWeight: 'bold', color: '#D4A853' }}>

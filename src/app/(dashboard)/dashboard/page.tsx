@@ -17,10 +17,33 @@ export default function DashboardPage() {
   const router = useRouter();
   const supabase = createClient();
 
+  const getGreetingName = () => {
+    if (profile?.full_name) {
+      const firstName = profile.full_name.trim().split(" ")[0];
+      if (firstName) {
+        return firstName.length > 15 ? `${firstName.substring(0, 15)}...` : firstName;
+      }
+    }
+    if (profile?.display_name) {
+      const displayName = profile.display_name.trim().split(" ")[0];
+      return displayName.length > 15 ? `${displayName.substring(0, 15)}...` : displayName;
+    }
+    if (user?.email) {
+      const emailPart = user.email.split("@")[0].split(/[._-]/)[0];
+      if (emailPart) {
+        const nameFormatted = emailPart.charAt(0).toUpperCase() + emailPart.slice(1);
+        return nameFormatted.length > 15 ? `${nameFormatted.substring(0, 15)}...` : nameFormatted;
+      }
+    }
+    return "Player";
+  };
+
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
   const [activeEntry, setActiveEntry] = useState<any>(null);
+  const [activeRound, setActiveRound] = useState<any>(null);
+  const [matches, setMatches] = useState<any[]>([]);
   const [predictionsCount, setPredictionsCount] = useState(0);
   const [referralsCount, setReferralsCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -55,6 +78,26 @@ export default function DashboardPage() {
           .eq("user_id", user.id)
           .single();
         setWallet(walletData);
+
+        // Fetch Active Round
+        const { data: roundData } = await supabase
+          .from("challenge_rounds")
+          .select("*")
+          .eq("status", "active")
+          .limit(1)
+          .maybeSingle();
+
+        if (roundData) {
+          setActiveRound(roundData);
+
+          // Fetch Matches in Round
+          const { data: matchesData } = await supabase
+            .from("challenge_matches")
+            .select("*")
+            .eq("round_id", roundData.id)
+            .order("matchday", { ascending: true });
+          setMatches(matchesData || []);
+        }
 
         // Fetch active entry
         const { data: entryData } = await supabase
@@ -140,8 +183,8 @@ export default function DashboardPage() {
             <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
             </div>
-            <h2 className="text-xl font-bold text-white mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arena Access Required</h2>
-            <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '24px' }}>
+            <h2 className="text-xl font-bold mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '8px' }}>Arena Access Required</h2>
+            <p className="text-sm mb-6" style={{ fontSize: '14px', color: 'var(--foreground-secondary)', marginBottom: '24px' }}>
               Sign in to view live challenges, make picks, and track your streak.
             </p>
             <div className="flex flex-col gap-3 w-full max-w-[280px]" style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '280px' }}>
@@ -178,7 +221,7 @@ export default function DashboardPage() {
                   Matchday Control Room
                 </span>
               </div>
-              <h1 className={styles.title}>Welcome Back, {profile?.username ? profile.username : "Player"}</h1>
+              <h1 className={styles.title}>Welcome back, {getGreetingName()}</h1>
               <p className={styles.subtitle}>
                 Track your active challenges, prediction win streak, and account verification limits.
               </p>
@@ -309,35 +352,44 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <div className="text-center py-8" style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                    <div className="mb-4" style={{ marginBottom: '16px' }}>
-                      <p className="text-sm text-slate-400 mb-1" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '4px' }}>Next Matchday</p>
-                      <p className="text-2xl md:text-3xl font-bold text-[#D4A853] mb-2" style={{ fontSize: '24px', fontWeight: 'bold', color: '#D4A853', marginBottom: '8px' }}>
-                        Arsenal vs Liverpool
-                      </p>
-                      <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '24px' }}>
-                        Starts in 2d 14h 32m
-                      </p>
-                    </div>
-                    <button 
-                      onClick={() => router.push("/arena")}
-                      className="w-full max-w-[280px] h-12 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#dfba6b]"
-                      style={{
-                        width: '100%',
-                        maxWidth: '280px',
-                        height: '48px',
-                        backgroundColor: '#D4A853',
-                        color: '#050505',
-                        fontWeight: 'bold',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Set Predictions
-                    </button>
-                    <p className="text-xs text-slate-500 mt-4" style={{ fontSize: '12px', color: '#64748b', marginTop: '16px' }}>
-                      No active challenges. Make your picks before kickoff.
-                    </p>
+                    {activeRound && matches.length > 0 ? (
+                      <div className="mb-4" style={{ marginBottom: '16px' }}>
+                        <p className="text-sm text-slate-400 mb-1" style={{ fontSize: '14px', color: 'var(--foreground-muted)', marginBottom: '4px' }}>Round #{activeRound.round_number} Challenge</p>
+                        <p className="text-2xl md:text-3xl font-bold text-[#D4A853] mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: '#D4A853', marginBottom: '8px' }}>
+                          {matches[0].home_team} vs {matches[0].away_team} {matches.length > 1 && `& ${matches.length - 1} more`}
+                        </p>
+                        <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: 'var(--foreground-muted)', marginBottom: '24px' }}>
+                          Kickoff: {new Date(matches[0].kickoff_time).toLocaleString()}
+                        </p>
+                        <button 
+                          onClick={() => router.push("/arena")}
+                          className="w-full max-w-[280px] h-12 bg-[#D4A853] text-black font-bold rounded-lg hover:bg-[#dfba6b]"
+                          style={{
+                            width: '100%',
+                            maxWidth: '280px',
+                            height: '48px',
+                            backgroundColor: '#D4A853',
+                            color: '#050505',
+                            fontWeight: 'bold',
+                            borderRadius: '8px',
+                            border: 'none',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          Enroll & Make Predictions
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="mb-4" style={{ marginBottom: '16px' }}>
+                        <p className="text-sm text-slate-400 mb-1" style={{ fontSize: '14px', color: 'var(--foreground-muted)', marginBottom: '4px' }}>Prediction Arena</p>
+                        <p className="text-2xl md:text-3xl font-bold text-[#D4A853] mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: '#D4A853', marginBottom: '8px' }}>
+                          No Active Challenge
+                        </p>
+                        <p className="text-sm text-slate-400 mb-6" style={{ fontSize: '14px', color: 'var(--foreground-muted)', marginBottom: '24px' }}>
+                          Next prediction matchday opens soon. Check back shortly.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
               </GlassCard>

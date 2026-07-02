@@ -1049,7 +1049,7 @@ html[data-theme="light"] .stadiumFloor {
 
 .stepsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   position: relative;
 }
@@ -1262,23 +1262,23 @@ html[data-theme="light"] .stadiumFloor {
 
 /* PREMIUM MULTI-COLUMN FOOTER */
 .footer {
-  background: #07111f;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-charcoal);
+  border-top: 1px solid var(--border-glass);
   padding: 80px 24px 40px 24px;
   position: relative;
   z-index: 2;
-  color: #cbd5e1;
+  color: var(--foreground-secondary);
 }
 
 .footerLink {
   font-size: 14px;
-  color: #94a3b8;
+  color: var(--foreground-muted);
   text-decoration: none;
-  transition: var(--transition-smooth);
+  transition: var(--transition-fast);
 }
 
 .footerLink:hover {
-  color: #ffffff;
+  color: var(--foreground-primary);
   transform: translateX(4px);
 }
 
@@ -1385,7 +1385,7 @@ html[data-theme="light"] .stadiumFloor {
 }
 
 /* RESPONSIVE LAYOUTS */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .heroGrid {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -1606,6 +1606,7 @@ html[data-theme="light"] .stadiumFloor {
 
   .footer {
     padding: 60px 16px 32px 16px;
+    margin-bottom: 80px;
   }
   .footerGrid {
     grid-template-columns: 1fr;

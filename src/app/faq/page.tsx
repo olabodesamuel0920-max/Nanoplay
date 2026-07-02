@@ -25,7 +25,7 @@ export default function FAQPage() {
     },
     {
       q: "How does the secure wallet function?",
-      a: "Unlike typical systems with arbitrary balances, your NanoPlay wallet balance is calculated as the sum of verified transactions. Deposits, entry fees, and approved rewards are recorded clearly.",
+      a: "Unlike typical systems with arbitrary balances, your NanoPlay wallet balance is calculated as the sum of verified transactions. Deposits, challenge passes, and approved rewards are recorded clearly.",
     },
     {
       q: "When are predictions locked?",

@@ -76,38 +76,39 @@
 }
 
 html[data-theme="light"] {
-  /* Light Theme Tokens - Warm Stadium Ivory & Slate */
-  --bg-obsidian: #f7f1e5;
-  --bg-charcoal: #ebe2cf;
-  --bg-card: #fffdf7;
-  --bg-card-hover: #fcf9f0;
+  /* Light Theme Tokens - Approved Semantic System */
+  --bg-obsidian: #F7F1E5;
+  --bg-charcoal: #EBE2CF;
+  --bg-card: #FFFDF7;
+  --bg-card-hover: #FFFFFF;
+  --bg-card-elevated: #FFFFFF;
   
   --foreground-primary: #081826;
-  --foreground-secondary: #2f4050;
-  --foreground-muted: #5e6f80;
+  --foreground-secondary: #526273;
+  --foreground-muted: #748295;
   
   /* Champagne Gold Accent Palette in Light mode */
-  --accent-gold: #b3852b;
-  --accent-gold-hover: #986f21;
-  --accent-gold-glow: rgba(179, 133, 43, 0.1);
-  --accent-gold-glow-strong: rgba(179, 133, 43, 0.22);
-  --border-gold: rgba(179, 133, 43, 0.25);
-  --shadow-gold: 0 4px 20px 0 rgba(179, 133, 43, 0.08);
+  --accent-gold: #D4A853;
+  --accent-gold-hover: #dfba6b;
+  --accent-gold-glow: rgba(212, 168, 83, 0.1);
+  --accent-gold-glow-strong: rgba(212, 168, 83, 0.22);
+  --border-gold: rgba(212, 168, 83, 0.25);
+  --shadow-gold: 0 4px 20px 0 rgba(212, 168, 83, 0.08);
 
   /* Ice Blue Accent Palette in Light mode */
-  --accent-cyan: #0284c7;
+  --accent-cyan: #38A8D8;
   --accent-cyan-hover: #0369a1;
-  --accent-cyan-glow: rgba(2, 132, 199, 0.1);
-  --border-cyan: rgba(2, 132, 199, 0.22);
-  --shadow-cyan: 0 4px 20px 0 rgba(2, 132, 199, 0.06);
+  --accent-cyan-glow: rgba(56, 168, 216, 0.1);
+  --border-cyan: rgba(56, 168, 216, 0.22);
+  --shadow-cyan: 0 4px 20px 0 rgba(56, 168, 216, 0.06);
 
   /* Premium Live Green Accent Palette in Light mode */
-  --accent-green: #12b76a;
+  --accent-green: #10B981;
   --accent-green-hover: #0ea15b;
-  --accent-green-glow: rgba(18, 183, 106, 0.1);
-  --accent-green-glow-strong: rgba(18, 183, 106, 0.22);
-  --border-green: rgba(18, 183, 106, 0.22);
-  --shadow-green: 0 4px 20px 0 rgba(18, 183, 106, 0.06);
+  --accent-green-glow: rgba(16, 185, 129, 0.1);
+  --accent-green-glow-strong: rgba(16, 185, 129, 0.22);
+  --border-green: rgba(16, 185, 129, 0.22);
+  --shadow-green: 0 4px 20px 0 rgba(16, 185, 129, 0.06);
 
   /* Backward Compatibility Aliases */
   --accent-lime: var(--accent-green);
@@ -118,8 +119,8 @@ html[data-theme="light"] {
   --shadow-lime: var(--shadow-green);
   
   /* Glassmorphism & High-Fi Borders */
-  --border-glass: rgba(8, 24, 38, 0.12);
-  --border-glass-hover: rgba(8, 24, 38, 0.18);
+  --border-glass: rgba(8, 24, 38, 0.14);
+  --border-glass-hover: rgba(8, 24, 38, 0.2);
   --border-accent: var(--border-gold);
   --shadow-accent: var(--shadow-gold);
   
@@ -137,7 +138,7 @@ html[data-theme="light"] {
   /* Opacities & Default Glows */
   --opacity-bg-art: 0.12;
   --default-card-glow: 0 4px 25px rgba(8, 24, 38, 0.04);
-  --default-btn-glow: 0 4px 15px rgba(179, 133, 43, 0.15);
+  --default-btn-glow: 0 4px 15px rgba(212, 168, 83, 0.15);
 }
 
 /* Light mode specific background overrides (PART 10) */
@@ -695,9 +696,19 @@ button, a, [role="button"], input[type="submit"], input[type="button"] {
   }
 }
 
-/* Bottom nav content padding */
-.main-with-bottom-nav {
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 16px);
+/* Bottom nav content padding (mobile only) */
+@media (max-width: 1023px) {
+  .main-with-bottom-nav {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 16px);
+  }
+}
+
+/* Shared desktop container and spacing helpers */
+.container-desktop {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 32px;
 }
 
 /* Responsive display helpers */
@@ -725,13 +736,13 @@ button, a, [role="button"], input[type="submit"], input[type="button"] {
   display: grid !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .desktop-only, .desktop-flex, .desktop-grid {
     display: none !important;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .mobile-only, .mobile-flex, .mobile-grid {
     display: none !important;
   }
@@ -866,7 +877,7 @@ html[data-theme="light"] .pitch-texture::before {
 }
 
 /* Mobile Attractiveness Overhaul Atmosphere & Layouts */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .mobile-hero-glow {
     position: absolute;
     top: -10%;
@@ -934,5 +945,52 @@ html[data-theme="light"] .pitch-texture::before {
 .scroll-smooth-ios::-webkit-scrollbar {
   display: none;
 }
+
+/* Consistent Desktop Layout & Spacing System (Width >= 1024px) */
+@media (min-width: 1024px) {
+  .container-desktop,
+  [class*="_container__"],
+  [class*="_heroGrid__"],
+  [class*="_howItWorksSection__"],
+  [class*="_trustStripGrid__"],
+  [class*="_matchdayContainer__"],
+  [class*="_ctaSection__"],
+  [class*="_footerContainer__"],
+  [class*="_categoryContainer__"] {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  /* Spacing: Page header to main content 32px */
+  [class*="_header__"], [class*="_adminHeader__"] {
+    margin-bottom: 32px !important;
+    margin-top: 0 !important;
+  }
+
+  /* Spacing: Major sections 48px */
+  [class*="_howItWorksSection__"],
+  [class*="_ctaSection__"],
+  [class*="_matchdayReadySection__"],
+  [class*="_queuesGrid__"] {
+    margin-top: 48px !important;
+    margin-bottom: 48px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Spacing: Card padding 24px to 32px */
+  .glass-card,
+  [class*="_card__"],
+  [class*="_metricCard__"],
+  [class*="_queueCard__"],
+  [class*="_rulesCard__"] {
+    padding: 24px !important;
+  }
+}
+
 
 

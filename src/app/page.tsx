@@ -46,27 +46,27 @@ export default function LandingPage() {
         <div className="desktop-only overflow-hidden bg-[#0b0b0e] border-y border-[#1a1a1a] py-3" style={{ overflow: 'hidden' }}>
           <div className="flex animate-marquee whitespace-nowrap">
             <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
-            <span className="mx-8 text-sm text-slate-400">2,400+ players competing</span>
+            <span className="mx-8 text-sm text-slate-400">Streak competitions</span>
             <span className="mx-8 text-sm text-slate-400">Verified picks</span>
             <span className="mx-8 text-sm text-slate-400">Wallet protected</span>
             <span className="mx-8 text-sm text-slate-400">Fair-play monitoring</span>
             <span className="mx-8 text-sm text-slate-400">Manual review</span>
             <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
-            <span className="mx-8 text-sm text-slate-400">2,400+ players competing</span>
+            <span className="mx-8 text-sm text-slate-400">Streak competitions</span>
             <span className="mx-8 text-sm text-slate-400">Verified picks</span>
             <span className="mx-8 text-sm text-slate-400">Wallet protected</span>
           </div>
         </div>
 
         {/* Mobile ticker */}
-        <div className="mobile-flex items-center justify-center gap-3 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '12px 0', backgroundColor: '#0b0b0e', borderTop: '1px solid #1a1a1a', borderBottom: '1px solid #1a1a1a' }}>
+        <div className="mobile-flex items-center justify-center gap-3 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '12px 0', backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
           <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
           </span>
           <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Arena</span>
-          <span className="text-xs text-slate-500" style={{ fontSize: '12px', color: '#64748b' }}>|</span>
-          <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>2,400+ players</span>
+          <span className="text-xs text-slate-500" style={{ fontSize: '12px', color: 'var(--foreground-muted)' }}>|</span>
+          <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: 'var(--foreground-secondary)' }}>Verified Picks</span>
         </div>
 
 
@@ -116,29 +116,29 @@ export default function LandingPage() {
               
               {/* Mobile Hero Headline (Part 2B) */}
               <div className={`${styles.mobileOnly} w-full mb-6`}>
-                <h1 className="text-[26px] leading-[1.15] font-bold text-white text-center px-4" style={{ fontSize: '26px', lineHeight: '1.15', fontWeight: 'bold', color: '#ffffff', textAlign: 'center', padding: '0 16px' }}>
-                  Predict Football Matches.<br />
-                  <span className="text-[#D4A853]">Win Verified Rewards.</span>
+                <h1 className="text-[26px] leading-[1.15] font-bold text-center px-4" style={{ fontSize: '26px', lineHeight: '1.15', fontWeight: 'bold', color: 'var(--foreground-primary)', textAlign: 'center', padding: '0 16px' }}>
+                  Predict Match Outcomes.<br />
+                  <span className="text-[#D4A853]">Build Your Streak.</span>
                 </h1>
-                <p className="text-sm text-slate-400 text-center px-6 mt-3" style={{ fontSize: '14px', color: '#94a3b8', textAlign: 'center', padding: '0 24px', marginTop: '12px' }}>
-                  Join matchday challenges. Build your prediction streak. Earn real rewards.
+                <p className="text-sm text-center px-6 mt-3" style={{ fontSize: '14px', color: 'var(--foreground-secondary)', textAlign: 'center', padding: '0 24px', marginTop: '12px' }}>
+                  Join football prediction challenges, lock your selections before kickoff and qualify for listed rewards after review.
                 </p>
               </div>
 
               {/* Desktop Hero Title */}
               <h1 className={`${styles.heroTitle} ${styles.desktopOnly}`}>
-                <span className={styles.heroTitleAccent}>Predict</span> Football Matches.<br />
-                <span className={styles.heroTitleAccent}>Win</span> Verified Rewards.
+                <span className={styles.heroTitleAccent}>Predict</span> Match Outcomes.<br />
+                <span className={styles.heroTitleAccent}>Build</span> Your Streak.
               </h1>
               
               {/* Desktop Hero Subtitle Line */}
               <p className={`${styles.heroSubtitleLine} ${styles.desktopOnly}`}>
-                Join matchday challenges. Build your prediction streak. Earn real rewards.
+                Join football prediction challenges, lock your selections before kickoff and qualify for listed rewards after review.
               </p>
               
               {/* Desktop Hero Subtitle Description */}
               <p className={`${styles.heroSubtitle} ${styles.desktopOnly}`}>
-                NanoPlay is a premium football challenge arena. Make your picks before kickoff, build your streak, and qualify for verified rewards after review.
+                NanoPlay is a premium football challenge arena. Make your picks before kickoff, build your streak, and qualify for listed rewards after review.
               </p>
               
               {/* Desktop Hero CTAs */}
@@ -150,12 +150,6 @@ export default function LandingPage() {
                   SEE HOW IT WORKS
                 </Link>
               </div>
-
-              {/* Desktop Active Players counter */}
-              <p className={`${styles.desktopFlex} text-sm text-slate-400 mt-4`} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                2,400+ players competing this matchday
-              </p>
             </div>
 
             {/* Right Side: Stadium Arena Stage — Matchday Board (Part 2) */}
@@ -356,29 +350,27 @@ export default function LandingPage() {
           </p>
         </div>
 
-        {/* How It Works section (PART 7) */}
+        {/* How It Works section */}
         {/* Desktop How It Works */}
-        <section className={`${styles.desktopOnly} py-16 px-4 relative z-10`} style={{ paddingTop: '4rem', paddingBottom: '4rem', paddingLeft: '1rem', paddingRight: '1rem' }}>
-          <div style={{ maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto' }}>
-            <div className="section-label" style={{ display: 'block', textAlign: 'center', marginBottom: '1rem' }}>How NanoPlay Works</div>
-            <h2 className="text-3xl font-bold mb-12 text-center" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '3rem', textAlign: 'center' }}>
-              How NanoPlay Works
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-              {[
-                { title: "Pick Your Matches", desc: "Choose from upcoming football fixtures every matchday.", icon: "⚽" },
-                { title: "Build Your Streak", desc: "Correct predictions earn points. Longer streaks = bigger rewards.", icon: "🔥" },
-                { title: "Win Real Rewards", desc: "Top predictors earn verified payouts. Fair, transparent, fast.", icon: "🏆" },
-              ].map((item) => (
-                <div key={item.title} className="text-center p-6 bg-[#0b0b0e] border border-[#1a1a1a] rounded-xl hover:border-[#D4A853]/30 transition-all duration-300" style={{ textAlign: 'center', padding: '24px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a', borderRadius: '12px' }}>
-                  <div className="text-4xl mb-4" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>{item.icon}</div>
-                  <h3 className="text-lg font-bold text-white mb-3" style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginBottom: '12px' }}>{item.title}</h3>
-                  <p className="text-sm text-slate-400" style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.6' }}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
+        <section className={`${styles.howItWorksSection} ${styles.desktopOnly}`}>
+          <div className="section-label" style={{ display: 'block', textAlign: 'center', marginBottom: '1rem' }}>How NanoPlay Works</div>
+          <h2 className="text-3xl font-bold mb-12 text-center" style={{ color: 'var(--foreground-primary)', fontSize: '2rem', marginBottom: '3rem', textAlign: 'center' }}>
+            How NanoPlay Works
+          </h2>
+          <div className={styles.stepsGrid}>
+            {[
+              { num: "1", title: "Pick Your Matches", desc: "Choose from upcoming football fixtures every matchday.", icon: "⚽" },
+              { num: "2", title: "Build Your Streak", desc: "Correct predictions earn points. Longer streaks qualify for rewards.", icon: "🔥" },
+              { num: "3", title: "Qualify for Rewards", desc: "Top predictors earn verified payouts after manual review.", icon: "🏆" },
+            ].map((item) => (
+              <div key={item.title} className={styles.stepCard}>
+                <div className={styles.stepNum}>{item.num}</div>
+                <div className="text-4xl mb-4" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>{item.icon}</div>
+                <h3 className="text-lg font-bold mb-3" style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>{item.title}</h3>
+                <p className="text-sm" style={{ fontSize: '14px', lineHeight: '1.6' }}>{item.desc}</p>
+              </div>
+            ))}
           </div>
-          <div className="pitch-texture"></div>
         </section>
 
         {/* Mobile How It Works */}
@@ -424,10 +416,10 @@ export default function LandingPage() {
                 { title: "Account Safety", desc: "Suspicious activity flagged and reviewed by admins.", icon: "🛡️" },
                 { title: "Fair-Play Monitoring", desc: "Rule-breakers are restricted to protect honest players.", icon: "⚖️" },
               ].map((item) => (
-                <div key={item.title} className="glass-card rounded-xl p-5 border border-[#1a1a1a]" style={{ padding: '20px', borderRadius: '12px', border: '1px solid #1a1a1a', backgroundColor: '#0b0b0e' }}>
+                <div key={item.title} className="glass-card rounded-xl p-5" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-card)' }}>
                   <div className="text-2xl mb-3" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>{item.icon}</div>
-                  <h3 className="text-sm font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>{item.title}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed" style={{ fontSize: '12px', color: '#94a3b8', lineHeight: '1.6' }}>{item.desc}</p>
+                  <h3 className="text-sm font-bold mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '8px' }}>{item.title}</h3>
+                  <p className="text-xs leading-relaxed" style={{ fontSize: '12px', color: 'var(--foreground-secondary)', lineHeight: '1.6' }}>{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -447,10 +439,10 @@ export default function LandingPage() {
               { icon: "✓", title: "Verified", desc: "Manual winner review" },
               { icon: "🛡️", title: "Secure", desc: "Account safety checks" },
             ].map((item, i) => (
-              <div key={i} className="p-3 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a] text-center" style={{ padding: '12px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a', textAlign: 'center' }}>
+              <div key={i} className="p-3 rounded-xl text-center" style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-glass)', textAlign: 'center' }}>
                 <span className="text-lg" style={{ fontSize: '18px' }}>{item.icon}</span>
-                <p className="text-xs font-bold text-white mt-1" style={{ fontSize: '12px', fontWeight: 'bold', color: '#ffffff', marginTop: '4px' }}>{item.title}</p>
-                <p className="text-[10px] text-slate-500 mt-0.5" style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>{item.desc}</p>
+                <p className="text-xs font-bold mt-1" style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginTop: '4px' }}>{item.title}</p>
+                <p className="text-[10px] mt-0.5" style={{ fontSize: '10px', color: 'var(--foreground-muted)', marginTop: '2px' }}>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -461,11 +453,11 @@ export default function LandingPage() {
         {/* MATCHDAY READY STEPS (PART 4) */}
         {/* Desktop Matchday Ready */}
         <section className={`${styles.matchdayReadySection} ${styles.desktopOnly}`} style={{ padding: '3rem 0' }}>
-          <div className={styles.matchdayContainer}>
+          <div className="max-w-[1200px] mx-auto px-6">
             <div className="section-label" style={{ marginBottom: '1.5rem' }}>Matchday Ready</div>
-            <h3 className={styles.matchdayTitle} style={{ marginBottom: '2rem' }}>MATCHDAY READY</h3>
+            <h3 className="text-2xl font-bold mb-8" style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', fontWeight: 900, color: 'var(--accent-gold)', marginBottom: '2rem' }}>MATCHDAY READY</h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
               {[
                 { num: "1", title: "Choose Your Tier", desc: "Pick the challenge level you want." },
                 { num: "2", title: "Lock Your Picks", desc: "Predict match outcomes before kickoff." },
@@ -477,9 +469,9 @@ export default function LandingPage() {
                     <span className="w-10 h-10 rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 flex items-center justify-center text-[#D4A853] font-mono font-bold text-lg" style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold', fontSize: '18px', textAlign: 'center', lineHeight: '40px' }}>
                       {step.num}
                     </span>
-                    <h3 className="text-base font-bold text-white" style={{ fontSize: '16px', fontWeight: 'bold', color: '#ffffff' }}>{step.title}</h3>
+                    <h3 className="text-base font-bold" style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--foreground-primary)' }}>{step.title}</h3>
                   </div>
-                  <p className="text-sm text-slate-400 pl-0 md:pl-13" style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.6' }}>{step.desc}</p>
+                  <p className="text-sm pl-0 md:pl-[52px]" style={{ fontSize: '14px', color: 'var(--foreground-secondary)', lineHeight: '1.6' }}>{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -498,12 +490,12 @@ export default function LandingPage() {
               { num: "3", title: "Watch Live", desc: "Follow the action" },
               { num: "4", title: "Track Streak", desc: "Build your record" },
             ].map((step) => (
-              <div key={step.num} className="w-[140px] shrink-0 p-4 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a] text-center" style={{ width: '140px', flexShrink: 0, padding: '16px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a', textAlign: 'center' }}>
+              <div key={step.num} className="w-[140px] shrink-0 p-4 rounded-xl text-center" style={{ width: '140px', flexShrink: 0, padding: '16px', borderRadius: '12px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-glass)', textAlign: 'center' }}>
                 <div className="w-8 h-8 mx-auto rounded-full bg-[#D4A853]/10 border border-[#D4A853]/30 flex items-center justify-center text-[#D4A853] font-mono font-bold text-sm mb-2" style={{ width: '32px', height: '32px', margin: '0 auto 8px auto', borderRadius: '50%', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D4A853', fontFamily: 'monospace', fontWeight: 'bold', fontSize: '14px' }}>
                   {step.num}
                 </div>
-                <p className="text-xs font-bold text-white mb-1" style={{ fontSize: '12px', fontWeight: 'bold', color: '#ffffff', marginBottom: '4px' }}>{step.title}</p>
-                <p className="text-[10px] text-slate-500" style={{ fontSize: '10px', color: '#64748b' }}>{step.desc}</p>
+                <p className="text-xs font-bold mb-1" style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '4px' }}>{step.title}</p>
+                <p className="text-[10px]" style={{ fontSize: '10px', color: 'var(--foreground-muted)' }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -528,18 +520,18 @@ export default function LandingPage() {
 
         {/* Mobile Footer CTA */}
         <div className={`${styles.mobileOnly} px-4 py-8 text-center`} style={{ padding: '32px 16px', textAlign: 'center' }}>
-          <p className="text-lg font-bold text-white mb-2" style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Ready for Matchday?</p>
-          <p className="text-sm text-slate-400 mb-4" style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '16px' }}>Join 2,400+ players competing now</p>
+          <p className="text-lg font-bold mb-2" style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '8px' }}>Ready for Matchday?</p>
+          <p className="text-sm mb-4" style={{ fontSize: '14px', color: 'var(--foreground-secondary)', marginBottom: '16px' }}>Join the prediction challenge now</p>
           <Link href="/signup" className="w-full h-14 bg-[#D4A853] text-black font-bold rounded-xl text-base flex items-center justify-center" style={{ display: 'flex', width: '100%', height: '56px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '12px', fontSize: '16px', textDecoration: 'none', cursor: 'pointer' }}>
             Join Arena ↗
           </Link>
-          <p className="text-[10px] text-slate-600 mt-3" style={{ fontSize: '10px', color: '#475569', marginTop: '12px' }}>
-            Free to join • ₦500 challenge pass • 3x rewards
+          <p className="text-[10px] mt-3" style={{ fontSize: '10px', color: 'var(--foreground-muted)', marginTop: '12px' }}>
+            Free to join • ₦500 challenge pass • Listed rewards
           </p>
         </div>
 
         {/* FOOTER */}
-        <footer className={`${styles.footer} mb-20`} style={{ marginBottom: '80px' }}>
+        <footer className={styles.footer}>
           <div className={styles.footerContainer}>
             <div className={styles.footerGrid}>
               

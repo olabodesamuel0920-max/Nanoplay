@@ -43,10 +43,17 @@ export default function TiersPage() {
   }, []);
 
   const fallbackTiers = [
-    { name: "Starter", price_ngn: 5000, perks: { reward: "NGN 50,000 potential reward", predictions_per_round: 3, referral_bonus: 1000 } },
-    { name: "Standard", price_ngn: 10000, perks: { reward: "NGN 100,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true } },
-    { name: "Premium", price_ngn: 20000, perks: { reward: "NGN 200,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true, elite_badge: true } }
+    { name: "Starter Challenge", price_ngn: 5000, perks: { reward: "NGN 50,000 potential reward", predictions_per_round: 3, referral_bonus: 1000 } },
+    { name: "Main Event", price_ngn: 10000, perks: { reward: "NGN 100,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true } },
+    { name: "Premium Challenge", price_ngn: 20000, perks: { reward: "NGN 200,000 potential reward", predictions_per_round: 3, referral_bonus: 1000, priority: true, elite_badge: true } }
   ];
+
+  const getTierDisplayName = (name: string) => {
+    if (name === "Starter") return "Starter Challenge";
+    if (name === "Standard" || name === "Main Event") return "Main Event";
+    if (name === "Premium" || name === "High Stakes") return "Premium Challenge";
+    return name;
+  };
 
   const displayTiers = tiers.length > 0 ? tiers : fallbackTiers;
 
@@ -84,48 +91,51 @@ export default function TiersPage() {
             </div>
           ) : (
             <div className={styles.grid}>
-              {displayTiers.map((tier) => (
-                <GlassCard key={tier.name} className={styles.card} accent={tier.name !== "Starter"} hoverEffect={true}>
-                  <div className={styles.cardHeader}>
-                    <h3 className={styles.tierName}>{tier.name}</h3>
-                    <div className={styles.priceRow}>
-                      <span className={[styles.price, "font-data"].join(" ")}>NGN {tier.price_ngn.toLocaleString()}</span>
-                      <span className={styles.period}>/ entry fee</span>
+              {displayTiers.map((tier) => {
+                const displayName = getTierDisplayName(tier.name);
+                return (
+                  <GlassCard key={tier.name} className={styles.card} accent={displayName !== "Starter Challenge"} hoverEffect={true}>
+                    <div className={styles.cardHeader}>
+                      <h3 className={styles.tierName}>{displayName}</h3>
+                      <div className={styles.priceRow}>
+                        <span className={[styles.price, "font-data"].join(" ")}>NGN {tier.price_ngn.toLocaleString()}</span>
+                        <span className={styles.period}>/ entry amount</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <ul className={styles.perksList}>
-                    <li className={styles.perkItem}>
-                      <Check size={14} className={styles.checkIcon} />
-                      <span>Potential reward: <strong>{tier.perks?.reward || `NGN ${(tier.price_ngn * 10).toLocaleString()}`}</strong></span>
-                    </li>
-                    <li className={styles.perkItem}>
-                      <Check size={14} className={styles.checkIcon} />
-                      <span>Round limit: 3 predictions per kickoff cycle</span>
-                    </li>
-                    <li className={styles.perkItem}>
-                      <Check size={14} className={styles.checkIcon} />
-                      <span>Secure reward tracking</span>
-                    </li>
-                    {tier.perks?.priority && (
+                    <ul className={styles.perksList}>
                       <li className={styles.perkItem}>
                         <Check size={14} className={styles.checkIcon} />
-                        <span>Priority manual winner review queue</span>
+                        <span>Potential reward: <strong>{tier.perks?.reward || `NGN ${(tier.price_ngn * 10).toLocaleString()}`}</strong></span>
                       </li>
-                    )}
-                    {tier.perks?.elite_badge && (
                       <li className={styles.perkItem}>
                         <Check size={14} className={styles.checkIcon} />
-                        <span>Elite profile status badges</span>
+                        <span>Round limit: 3 predictions per kickoff cycle</span>
                       </li>
-                    )}
-                  </ul>
+                      <li className={styles.perkItem}>
+                        <Check size={14} className={styles.checkIcon} />
+                        <span>Secure reward tracking</span>
+                      </li>
+                      {tier.perks?.priority && (
+                        <li className={styles.perkItem}>
+                          <Check size={14} className={styles.checkIcon} />
+                          <span>Priority manual winner review queue</span>
+                        </li>
+                      )}
+                      {tier.perks?.elite_badge && (
+                        <li className={styles.perkItem}>
+                          <Check size={14} className={styles.checkIcon} />
+                          <span>Elite profile status badges</span>
+                        </li>
+                      )}
+                    </ul>
 
-                  <button className={styles.selectBtn}>
-                    Select {tier.name}
-                  </button>
-                </GlassCard>
-              ))}
+                    <button className={styles.selectBtn}>
+                      Select {displayName}
+                    </button>
+                  </GlassCard>
+                );
+              })}
             </div>
           )}
 

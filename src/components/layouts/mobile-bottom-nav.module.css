@@ -17,7 +17,7 @@
 }
 
 /* Hide on desktop viewports */
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .bottomNavContainer {
     display: none !important;
   }

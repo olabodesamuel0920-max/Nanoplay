@@ -34,7 +34,7 @@ export default function RulesPage() {
               <ul className={styles.list}>
                 <li>A challenge round consists of exactly 3 scheduled football matches.</li>
                 <li>To win, you must correctly predict the outcome (Home Win [1], Draw [X], Away Win [2]) for all 3 matches.</li>
-                <li>Your entry fee is determined by your chosen challenge tier: Starter (NGN 5,000), Standard (NGN 10,000), or Premium (NGN 20,000).</li>
+                <li>Your entry amount is determined by your chosen challenge tier: Starter Challenge (NGN 5,000), Main Event (NGN 10,000), or Premium Challenge (NGN 20,000).</li>
                 <li>Completing a 3-match winning streak qualifies you for the listed tier reward after manual review.</li>
               </ul>
             </GlassCard>
@@ -59,9 +59,9 @@ export default function RulesPage() {
                 <h3>3. Anti-Abuse Policies</h3>
               </div>
               <ul className={styles.list}>
-                <li><strong>One Phone = One Account:</strong> Users must verify their phone number via Termii/Twilio OTP before they can submit predictions.</li>
+                <li><strong>One Phone = One Account:</strong> Users must verify their phone number via one-time password (OTP) before they can submit predictions.</li>
                 <li><strong>Unique Bank Payouts:</strong> Entering a bank account number shared by another user immediately flags both accounts for manual security review.</li>
-                <li><strong>Risk Scoring:</strong> Our security engine monitors shared IP addresses, device fingerprints, and self-referral patterns. High-risk accounts (Score &gt;= 70) are blocked from making predictions and requesting payouts.</li>
+                <li><strong>Security Monitoring:</strong> We monitor account logs for shared details and self-referral patterns. Duplicate or high-risk accounts are flagged for manual security review and may be blocked.</li>
               </ul>
             </GlassCard>
 

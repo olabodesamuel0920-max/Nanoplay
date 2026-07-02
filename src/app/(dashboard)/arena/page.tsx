@@ -449,8 +449,8 @@ export default function ArenaPage() {
               <div className="mb-4 p-4 rounded-xl relative z-10" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-glass)', padding: '1rem', borderRadius: '0.75rem', marginBottom: '1rem' }}>
                 <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>This Matchday&apos;s Challenge</h3>
                 <p className="text-sm" style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>
-                  Predict the outcome of 5 selected matches. Get all 5 correct to win the maximum reward. 
-                  Partial correct predictions earn proportional points. Streak bonuses apply.
+                  Predict the outcome of 3 selected matches. Get all 3 correct to qualify for the listed reward. 
+                  Predictions freeze at kickoff. All predictions are manually reviewed before payouts are approved.
                 </p>
               </div>
 
@@ -465,7 +465,7 @@ export default function ArenaPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
                 {tiers.map((tier, i) => {
                   const isRecommended = i === 1; // Main Event is index 1
-                  const tierNames = ["Starter", "Main Event", "High Stakes"];
+                  const tierNames = ["Starter Challenge", "Main Event", "Premium Challenge"];
                   const tierName = tierNames[i] || tier.name;
 
                   return (
@@ -473,20 +473,21 @@ export default function ArenaPage() {
                       key={tier.id}
                       className={`relative rounded-xl p-5 md:p-6 ${
                         isRecommended
-                          ? "bg-[#0b0b0e] border-2 border-[#D4A853] shadow-[0_0_20px_rgba(212,168,83,0.15)]"
-                          : "glass-card border border-[#1a1a1a]"
+                          ? "border-2 border-[#D4A853] shadow-[0_0_20px_rgba(212,168,83,0.15)]"
+                          : "border border-glass"
                       }`}
                       style={{
                         position: 'relative',
                         borderRadius: '12px',
                         padding: '24px',
-                        backgroundColor: isRecommended ? '#0b0b0e' : 'rgba(255, 255, 255, 0.02)',
+                        backgroundColor: isRecommended ? '#0b0b0e' : 'var(--bg-card)',
                         border: isRecommended ? '2px solid #D4A853' : '1px solid var(--border-glass)',
                         boxShadow: isRecommended ? '0 0 20px rgba(212,168,83,0.15)' : 'none',
+                        color: isRecommended ? '#ffffff' : 'var(--foreground-primary)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        minHeight: '340px'
+                        minHeight: '280px'
                       }}
                     >
                       {isRecommended && (
@@ -512,40 +513,26 @@ export default function ArenaPage() {
 
                       <div>
                         <div className="flex justify-between items-center mb-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                          <h3 className="text-lg font-bold text-white" style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>{tierName}</h3>
-                          <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>
+                          <h3 className="text-lg font-bold" style={{ fontSize: '18px', fontWeight: 'bold', color: isRecommended ? '#ffffff' : 'var(--foreground-primary)' }}>{tierName}</h3>
+                          <span className="text-xs" style={{ fontSize: '12px', color: isRecommended ? 'var(--foreground-muted)' : 'var(--foreground-muted)' }}>
                             Round #{activeRound.round_number}
                           </span>
                         </div>
 
-                        <div className="flex justify-between mb-4" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+                        <div className="flex justify-between mb-6" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
                           <div>
-                            <p className="text-2xl font-bold text-white font-mono-numbers" style={{ fontSize: '24px', fontWeight: 'bold', color: '#fff' }}>
+                            <p className="text-2xl font-bold font-mono-numbers" style={{ fontSize: '24px', fontWeight: 'bold', color: isRecommended ? '#ffffff' : 'var(--foreground-primary)' }}>
                               ₦{tier.price_ngn.toLocaleString()}
                             </p>
-                            <p className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Stake</p>
+                            <p className="text-xs" style={{ fontSize: '12px', color: 'var(--foreground-muted)' }}>Entry amount</p>
                           </div>
                           <div className="text-right" style={{ textAlign: 'right' }}>
                             <p className="text-2xl font-bold text-[#D4A853] font-mono-numbers" style={{ fontSize: '24px', fontWeight: 'bold', color: '#D4A853' }}>
                               ₦{(tier.price_ngn * 3).toLocaleString()}
                             </p>
-                            <p className="text-xs text-slate-400" style={{ fontSize: '12px', color: '#94a3b8' }}>Reward</p>
+                            <p className="text-xs" style={{ fontSize: '12px', color: 'var(--foreground-muted)' }}>Listed reward</p>
                           </div>
                         </div>
-
-                        <div className="mb-4" style={{ marginBottom: '16px' }}>
-                          <div className="flex justify-between text-xs text-slate-400 mb-1" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
-                            <span>Spots filled</span>
-                            <span>47/100</span>
-                          </div>
-                          <div className="h-1.5 bg-[#1a1a1a] rounded-full overflow-hidden" style={{ height: '6px', backgroundColor: '#1a1a1a', borderRadius: '9999px', overflow: 'hidden' }}>
-                            <div className="h-full bg-[#D4A853] rounded-full w-[47%]" style={{ height: '100%', backgroundColor: '#D4A853', width: '47%' }} />
-                          </div>
-                        </div>
-
-                        <p className="text-xs text-slate-400 mb-4" style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '16px' }}>
-                          Closes in 2d 14h
-                        </p>
                       </div>
 
                       <Button
@@ -558,9 +545,9 @@ export default function ArenaPage() {
                           borderRadius: '8px',
                           fontWeight: 'bold',
                           fontSize: '14px',
-                          backgroundColor: isRecommended ? '#D4A853' : 'transparent',
-                          color: isRecommended ? '#050505' : '#D4A853',
-                          border: '1px solid #D4A853',
+                          backgroundColor: isRecommended ? '#D4A853' : 'var(--bg-obsidian)',
+                          color: isRecommended ? '#050505' : 'var(--foreground-primary)',
+                          border: isRecommended ? '1px solid #D4A853' : '1px solid var(--border-glass)',
                           cursor: 'pointer'
                         }}
                       >
@@ -569,15 +556,6 @@ export default function ArenaPage() {
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Urgency & Countdown Banner (PART 2 - 3) */}
-              <div className="mt-8 text-center relative z-10" style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border" style={{ backgroundColor: 'var(--bg-charcoal)', border: '1px solid var(--border-gold)', borderRadius: '9999px', padding: '0.5rem 1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Clock className="w-4 h-4" style={{ color: 'var(--accent-gold)', width: '1rem', height: '1rem' }} />
-                  <span className="text-sm text-white">Next matchday starts in 2d 14h 32m</span>
-                </div>
-                <p className="text-sm text-slate-400 mt-2" style={{ color: 'var(--foreground-muted)', marginTop: '0.5rem' }}>47 of 200 spots filled</p>
               </div>
             </div>
           ) : (

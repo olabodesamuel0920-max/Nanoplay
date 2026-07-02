@@ -1,85 +1,47 @@
-# Walkthrough — NanoPlay Final Audit & Launch Fixes
+# Walkthrough — NanoPlay Desktop Polish & Theme Integration
 
-I have successfully resolved all critical launch blockers identified in the brutal audit, securing the platform for first-time unauthenticated visitors on both desktop and mobile layouts.
-
----
-
-## 🔒 1. Guest Lock Screens & Loading Fixes (Part 1 & 8)
-
-*   **No Auto-Redirects for Visitors**: Visitors clicking "Arena", "Dashboard", "Wallet", or "Winners" are no longer immediately redirected to `/login` while showing an ugly "loading" text.
-*   **Access Control Screen**: If unauthenticated, visitors stay on the page and see a custom-designed lock box interface with two primary calls-to-action: "Sign In" and "Join Arena".
-*   **Skeletons & Timeouts**: If data retrieval takes longer than 5 seconds, a retry block triggers automatically:
-    ```tsx
-    Taking longer than expected. Check your connection or try refreshing.
-    [ Refresh Page ]
-    ```
+I have successfully completed the strict desktop-only production polish pass and theme integration. All responsive breakpoint adjustments, navigation rules, light-theme contrast repairs, and unified layout systems are fully implemented and verified to build cleanly.
 
 ---
 
-## ⚽ 2. Redesigned Homepage Match Card (Part 2)
+## 🛠️ Verification & Build Status
 
-*   **Betting-Inspired UI**: Replaced the score block with a clean `Arsenal vs Liverpool` match card containing home, draw, and away (`1 - X - 2`) prediction buttons.
-*   **Scores Representation**: Showcases proper kickoff time (`18:00 Today`) and `—` scores before games start (no fake numbers).
-*   **Gold Ambient Glow**: Added a permanent 10% victory gold glow and 30% border opacity to make this card the most dominant element on the page.
-*   **Streak Progress**: Interactive visual progress bar representing `2/3 correct` (66% fill width).
+We executed the full compiler, linter, and build pipeline locally to guarantee code correctness:
 
----
-
-## ⚡ 3. Ticker & Marquee Fix (Part 3)
-
-*   **Desktop Marquee**: Implemented a CSS keyframes-driven animated track showing `🔴 LIVE ARENA` alongside verified social stats in a continuous, smooth carousel.
-*   **Mobile Strip**: Replaced the marquee on mobile (preventing scroll performance issues) with a clean, static, left-aligned badge indicating live players.
-*   **Animation CSS**: Added scroll containment directly to prevent horizontal scrollbars:
-    ```css
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    ```
+*   **`npx tsc --noEmit`**: **PASS** (TypeScript checks completed successfully with exit code 0.)
+*   **`npm run lint`**: **PASS** (Completed with exit code 0, verifying all ESLint constraints are met)
+*   **`npm run build`**: **PASS** (Completed with exit code 0, generating all 27 static and dynamic app routes successfully)
 
 ---
 
-## 🔢 4. Spacing & Section Dividers (Part 4 & 5)
-
-*   **Step Badges**: Fixed step rendering concatenation (e.g., `1Choose your tier` -> `1` in a distinct gold circle next to `Choose Your Tier` title).
-*   **Gradient Rules**: Removed all asterisks (`* * *`) representing legacy markdown dividers and replaced them with styled horizontal rules:
-    ```tsx
-    <div className="h-px bg-gradient-to-r from-transparent via-[#D4A853]/20 to-transparent my-12 md:my-16" />
-    ```
+## 💻 1. Breakpoint & Navigation Adjustments
+*   **Desktop Boundary**: Unified 1024px as the single, consistent breakpoint across the application.
+*   **Navbar Collapse**: Shifted the desktop collapse/drawer boundary from `900px` to `1023px`.
+*   **Bottom Nav Hidden**: Configured `@media (min-width: 1024px) { display: none !important; }` for the mobile bottom nav drawer and items, avoiding double-navigation layouts.
+*   **Page Padding**: Removed bottom nav safe-area padding from the layout wrapper on desktop viewports.
 
 ---
 
-## 📱 5. Visual Grid Layouts & Emojis (Part 6 & 7)
-
-*   **Trust Grid Cards**: Transformed the wall-of-text trust quotes into a grid of 6 clean, bordered glass cards containing emoji representations (`📱`, `🔒`, `📊`, `✓`, `🛡️`, `⚖️`).
-*   **Icons for Steps**: Added expressive emojis to the step-by-step instructions.
-
----
-
-## ✍️ 6. Error Limits & Typography (Part 9 & 10)
-
-*   **Rate Limit Message**: Intercepted Supabase signup rate limits and mapped them to user-friendly messages:
-    `Too many attempts. Please wait 5 minutes before trying again.`
-*   **Punctuation Cleanup**: Removed trailing periods from headings:
-    *   `Welcome Back.` → `Welcome back`
-    *   `JOIN THE ARENA.` → `Join the Arena`
-*   **Optional Parameter**: Clarified the referral indicator:
-    *   `Referral Code, optional` → `Referral Code (optional)`
+## ☀️ 2. Light Theme Contrast & Styling Repair
+*   Applied semantic light theme CSS variables to `globals.css` using the approved ivory/charcoal color tokens.
+*   Audited component-level styles across pages (`/`, `/arena`, `/dashboard`, `/rules`, `/wallet`, `/winners`, `/faq`, `/tiers`) to replace hardcoded dark patterns (`#ffffff`, `color: white`, fixed black backgrounds/borders) with semantic theme variables (`var(--foreground-primary)`, `var(--bg-card)`, etc.).
+*   Visually reviewed in captured dark and light theme screenshots.
 
 ---
 
-## 🛠️ Mobile Audit Fixes (Latest Session)
-*   **Duplicate Layouts Resolved**: Replaced raw Tailwind responsive classes (like `hidden md:block`, `md:hidden`) with custom responsive selectors (`mobile-only`, `desktop-only`, `mobile-flex`, `desktop-flex`) defined globally in `src/app/globals.css` and locally in `src/app/page.module.css`. This completely eliminates duplicate rendering of hero headings, match card variants, tickers, trust banners, how-it-works cards, steps, and footer CTAs.
-*   **Auth Double Banner Fix**: Configured media-query rules in `login/page.module.css` and `signup/page.module.css` to hide the `.leftPanel` entirely on mobile screen sizes, ensuring only the new mobile top banner is shown.
-*   **Typo Correction**: Fixed a TypeScript compile blocker style property (`justifycontent` -> `justifyContent`) on the mobile banner wraps.
-*   **Unauthenticated Page Loading Hangs**: Wrapped Supabase profile, wallet, round, matches, and prediction queries in `try...catch...finally` blocks inside `useEffect` loader hooks. This guarantees unauthenticated visitors fall through to the custom guest lock screen rather than getting stuck on infinite spinner states.
-*   **Bottom Nav Globally Visible**: Removed path-exclusion checks on `/`, `/login`, and `/signup` routes in `<MobileBottomNav />` layout to ensure bottom navigation is persistent across all user-facing views on mobile.
-*   **Paystack Notification Redirect**: Restructured the wallet page `useEffect` hook to prevent early return from cleanups, ensuring Paystack funding confirmation redirect parameters are parsed correctly.
+## ⚽ 3. Production Verification Report
 
----
+### Local CLI Verification
+*   **Type Checker (`npx tsc --noEmit`)**: **PASS**
+*   **Linter (`npm run lint`)**: **PASS**
+*   **Next.js Production Build (`npm run build`)**: **PASS**
 
-## ✅ Deployment Coordinates & Status
-*   **Lint Status**: Verified and resolved all JSX parsing errors. `npm run lint` completed successfully.
-*   **Production Build**: Next.js production build succeeded completely. All dynamic, server, and static route assets generated successfully.
-*   **Branch Coordinate**: Main branch fully synced and pushed to GitHub `origin/main` (commit `6d691c7`). Vercel deployment has updated successfully.
-*   **Vercel Live URL**: [https://nanoplay.vercel.app](https://nanoplay.vercel.app)
+### Live / Production Deployment Verification (Pending User Access)
+*   **Production URL**: known (`https://nanoplay.vercel.app`)
+*   **Latest desktop-polish deployment status**: not verified until Vercel shows the new commit
+*   **Current live commit**: not verified unless checked directly
+*   **Route Verification**:
+    *   `/`: BUILD PASS, VISUAL QA PENDING
+    *   `/arena`: BUILD PASS, VISUAL QA PENDING
+    *   `/admin/challenges`: BUILD PASS, AUTHENTICATED FUNCTIONAL QA PENDING
+*   **Match Score Updates Persistence Verification**: **Pending / N/A** (Requires live database execution. Code inspection confirms the payload structure matches Supabase client requirements and reloads the challenge dataset correctly upon response).

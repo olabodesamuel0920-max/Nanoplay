@@ -26,20 +26,17 @@ export default function MobileBottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-16 bg-[#0b0b0e]/95 backdrop-blur-xl border-t border-[#1a1a1a] z-50 flex items-center justify-around px-2 pb-safe" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, height: '64px', backgroundColor: 'rgba(11, 11, 14, 0.95)', backdropFilter: 'blur(24px)', borderTop: '1px solid #1a1a1a', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-around', padding: '0 8px', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <div className={styles.bottomNavContainer}>
       {navItems.map((item) => {
         const isActive = pathname === item.href;
         return (
           <Link
             key={item.label}
             href={item.href}
-            className={`flex flex-col items-center justify-center gap-1 min-w-[48px] min-h-[44px] rounded-lg ${
-              isActive ? "text-[#D4A853]" : "text-slate-500"
-            }`}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '4px', minWidth: '48px', minHeight: '44px', textDecoration: 'none', color: isActive ? '#D4A853' : '#64748b' }}
+            className={`${styles.navItem} ${isActive ? styles.active : ""}`}
           >
-            <span className="text-lg" style={{ fontSize: '18px' }}>{item.icon}</span>
-            <span className="text-[10px] font-medium" style={{ fontSize: '10px', fontWeight: 500 }}>{item.label}</span>
+            <span className={styles.icon}>{item.icon}</span>
+            <span className={styles.label}>{item.label}</span>
           </Link>
         );
       })}

@@ -148,9 +148,9 @@ export default function SettingsPage() {
             .select("*")
             .eq("id", profile.id)
             .single()
-            .then(({ data }) => {
-              if (data) {
-                setProfile(data);
+            .then((res: { data: any }) => {
+              if (res.data) {
+                setProfile(res.data);
               }
             });
         }
@@ -201,9 +201,9 @@ export default function SettingsPage() {
           .select("*")
           .eq("id", profile.id)
           .single()
-          .then(({ data }) => {
-            if (data) {
-              setProfile(data);
+          .then((res: { data: any }) => {
+            if (res.data) {
+              setProfile(res.data);
             }
           });
       } else {

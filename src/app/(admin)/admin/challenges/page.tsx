@@ -14,6 +14,18 @@ import Button from "@/components/ui/button";
 import { Shield, Trophy, FileCheck, ShieldAlert, Plus, Save } from "lucide-react";
 import styles from "./page.module.css";
 
+interface ChallengeMatch {
+  id: string;
+  round_id: string;
+  home_team: string;
+  away_team: string;
+  kickoff_time: string;
+  matchday: number;
+  home_score: number | null;
+  away_score: number | null;
+  status: string;
+}
+
 export default function AdminChallengesPage() {
   const router = useRouter();
   const supabase = createClient();
@@ -21,7 +33,7 @@ export default function AdminChallengesPage() {
 
   // Challenge Rounds
   const [rounds, setRounds] = useState<any[]>([]);
-  const [matches, setMatches] = useState<any[]>([]);
+  const [matches, setMatches] = useState<ChallengeMatch[]>([]);
 
   // Create Round Form
   const [newRoundNum, setNewRoundNum] = useState("");
@@ -77,11 +89,17 @@ export default function AdminChallengesPage() {
       .from("challenge_matches")
       .select("*")
       .order("matchday", { ascending: true });
-    setMatches(matchesData || []);
+    
+    const typedMatches = (matchesData ?? []) as ChallengeMatch[];
+    setMatches(typedMatches);
 
     // Preset score inputs for existing matches
-    const scoreInputs: typeof scores = {};
-    matchesData?.forEach((m) => {
+    const scoreInputs: Record<
+      string,
+      { homeScore: string; awayScore: string }
+    > = {};
+
+    typedMatches.forEach((m) => {
       scoreInputs[m.id] = {
         homeScore: m.home_score !== null ? m.home_score.toString() : "",
         awayScore: m.away_score !== null ? m.away_score.toString() : "",

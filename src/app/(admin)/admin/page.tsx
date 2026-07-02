@@ -111,7 +111,7 @@ export default function AdminOverviewPage() {
         .eq("type", "deposit")
         .eq("status", "confirmed");
 
-      const depositVolume = deposits?.reduce((sum, tx) => sum + tx.amount, 0) || 0;
+      const depositVolume = deposits?.reduce((sum: number, tx: { amount: number }) => sum + tx.amount, 0) || 0;
 
       setMetrics({
         totalUsers: userCount || 0,

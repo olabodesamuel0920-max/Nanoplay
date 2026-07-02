@@ -68,9 +68,18 @@ I have successfully resolved all critical launch blockers identified in the brut
 
 ---
 
-## ✅ Deployment Coordinates & Status
+## 🛠️ Mobile Audit Fixes (Latest Session)
+*   **Duplicate Layouts Resolved**: Replaced raw Tailwind responsive classes (like `hidden md:block`, `md:hidden`) with custom responsive selectors (`mobile-only`, `desktop-only`, `mobile-flex`, `desktop-flex`) defined globally in `src/app/globals.css` and locally in `src/app/page.module.css`. This completely eliminates duplicate rendering of hero headings, match card variants, tickers, trust banners, how-it-works cards, steps, and footer CTAs.
+*   **Auth Double Banner Fix**: Configured media-query rules in `login/page.module.css` and `signup/page.module.css` to hide the `.leftPanel` entirely on mobile screen sizes, ensuring only the new mobile top banner is shown.
+*   **Typo Correction**: Fixed a TypeScript compile blocker style property (`justifycontent` -> `justifyContent`) on the mobile banner wraps.
+*   **Unauthenticated Page Loading Hangs**: Wrapped Supabase profile, wallet, round, matches, and prediction queries in `try...catch...finally` blocks inside `useEffect` loader hooks. This guarantees unauthenticated visitors fall through to the custom guest lock screen rather than getting stuck on infinite spinner states.
+*   **Bottom Nav Globally Visible**: Removed path-exclusion checks on `/`, `/login`, and `/signup` routes in `<MobileBottomNav />` layout to ensure bottom navigation is persistent across all user-facing views on mobile.
+*   **Paystack Notification Redirect**: Restructured the wallet page `useEffect` hook to prevent early return from cleanups, ensuring Paystack funding confirmation redirect parameters are parsed correctly.
 
-*   **TypeScript & Linter Checks**: Completed with zero errors.
-*   **Production Build**: Next.js production build succeeded.
-*   **Pushed Commits**: Changes committed and pushed to remote branch `main`.
+---
+
+## ✅ Deployment Coordinates & Status
+*   **Lint Status**: Verified and resolved all JSX parsing errors. `npm run lint` completed successfully.
+*   **Production Build**: Next.js production build succeeded completely. All dynamic, server, and static route assets generated successfully.
+*   **Branch Coordinate**: Main branch fully synced and pushed to GitHub `origin/main` (commit `6d691c7`). Vercel deployment has updated successfully.
 *   **Vercel Live URL**: [https://nanoplay.vercel.app](https://nanoplay.vercel.app)

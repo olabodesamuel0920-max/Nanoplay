@@ -71,7 +71,15 @@ export default function ReferralsPage() {
       <>
         <Navbar />
         <div className="container-center" style={{ flex: 1 }}>
-          <div className="font-data">LOADING REFERRAL NETWORK...</div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+            <div
+              className="animate-spin rounded-full"
+              style={{ width: "32px", height: "32px", border: "2px solid #D4A853", borderTopColor: "transparent" }}
+              role="status"
+              aria-label="Loading"
+            />
+            <div className="font-data" style={{ fontSize: "12px", color: "#94a3b8" }}>Loading referral network</div>
+          </div>
         </div>
       </>
     );

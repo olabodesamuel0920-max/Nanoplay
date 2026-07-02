@@ -164,8 +164,13 @@ function LoginPageContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="container-center" style={{ flex: 1 }}>
-        <div className="font-data">LOADING...</div>
+      <div className="container-center" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
+        <div
+          className="animate-spin rounded-full"
+          style={{ width: "32px", height: "32px", border: "2px solid #D4A853", borderTopColor: "transparent" }}
+          role="status"
+          aria-label="Loading"
+        />
       </div>
     }>
       <LoginPageContent />

@@ -74,7 +74,15 @@ export default function LeaderboardPage() {
 
             <div className={styles.tableBody}>
               {loading ? (
-                <div className={styles.loading}>LOADING LEADERBOARD...</div>
+                <div className={styles.loading} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+                  <div
+                    className="animate-spin rounded-full"
+                    style={{ width: "32px", height: "32px", border: "2px solid #D4A853", borderTopColor: "transparent" }}
+                    role="status"
+                    aria-label="Loading"
+                  />
+                  <span>Loading leaderboard</span>
+                </div>
               ) : hasRealData ? (
                 realWinners.map((w, index) => (
                   <div key={w.id} className={styles.tableRow}>

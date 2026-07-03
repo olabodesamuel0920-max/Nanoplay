@@ -1,0 +1,190 @@
+[
+  {
+    "filename": "homepage-dark-1440.png",
+    "route": "/",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/"
+  },
+  {
+    "filename": "homepage-light-1440.png",
+    "route": "/",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/"
+  },
+  {
+    "filename": "rules-dark-1440.png",
+    "route": "/rules",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/rules"
+  },
+  {
+    "filename": "rules-light-1440.png",
+    "route": "/rules",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/rules"
+  },
+  {
+    "filename": "winners-dark-1440.png",
+    "route": "/winners",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/winners"
+  },
+  {
+    "filename": "winners-light-1440.png",
+    "route": "/winners",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/winners"
+  },
+  {
+    "filename": "desktop-boundary-1024.png",
+    "route": "/",
+    "theme": "dark",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "authState": "unauthenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/"
+  },
+  {
+    "filename": "arena-dark-1440.png",
+    "route": "/arena",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/arena",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "arena-light-1440.png",
+    "route": "/arena",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/arena",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "dashboard-dark-1440.png",
+    "route": "/dashboard",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/dashboard",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "dashboard-light-1440.png",
+    "route": "/dashboard",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/dashboard",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "wallet-dark-1440.png",
+    "route": "/wallet",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/wallet",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "wallet-light-1440.png",
+    "route": "/wallet",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/wallet",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "admin-dark-1440.png",
+    "route": "/admin",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/admin",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  },
+  {
+    "filename": "admin-light-1440.png",
+    "route": "/admin",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "authState": "authenticated",
+    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "sourceUrl": "http://localhost:3000/admin",
+    "status": "Screenshot unavailable — valid authenticated session not available."
+  }
+]

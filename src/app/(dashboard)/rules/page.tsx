@@ -6,6 +6,14 @@ import { BookOpen, ShieldCheck, Lock, Users, Wallet, Landmark } from "lucide-rea
 import styles from "./page.module.css";
 
 export default function RulesPage() {
+  const supportEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL;
+  const supportWhatsapp = process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP;
+  const showSupportLine = supportEmail && 
+                          supportEmail !== "support@nanoplay.com" && 
+                          supportWhatsapp && 
+                          supportWhatsapp !== "+2348000000000" &&
+                          supportWhatsapp !== "";
+
   return (
     <>
       <Navbar />
@@ -48,7 +56,7 @@ export default function RulesPage() {
               <ul className={styles.list}>
                 <li>Matches lock automatically at their scheduled kickoff time.</li>
                 <li>No predictions can be created, updated, or deleted once a match has kicked off.</li>
-                <li>Database triggers enforce this constraint. Backdated or modified predictions are rejected immediately.</li>
+                <li>Selections lock at kickoff.</li>
               </ul>
             </GlassCard>
 
@@ -59,9 +67,9 @@ export default function RulesPage() {
                 <h3>3. Anti-Abuse Policies</h3>
               </div>
               <ul className={styles.list}>
-                <li><strong>One Phone = One Account:</strong> Users must verify their phone number via one-time password (OTP) before they can submit predictions.</li>
-                <li><strong>Unique Bank Payouts:</strong> Entering a bank account number shared by another user immediately flags both accounts for manual security review.</li>
-                <li><strong>Security Monitoring:</strong> We monitor account logs for shared details and self-referral patterns. Duplicate or high-risk accounts are flagged for manual security review and may be blocked.</li>
+                <li>Users must verify their phone number before they can submit predictions.</li>
+                <li>Accounts and transactions may be reviewed to protect platform integrity.</li>
+                <li>Duplicate or suspicious activity may be restricted.</li>
               </ul>
             </GlassCard>
 
@@ -74,7 +82,7 @@ export default function RulesPage() {
               <ul className={styles.list}>
                 <li>NanoPlay uses a secure transaction record. Your wallet balance is the sum of transaction records.</li>
                 <li>Tiers are purchased directly using your wallet balance.</li>
-                <li>Webhooks with unique Paystack references prevent duplicate payments or double-credits.</li>
+                <li>Payout requests are reviewed before processing.</li>
               </ul>
             </GlassCard>
 
@@ -85,8 +93,8 @@ export default function RulesPage() {
                 <h3>5. Winner & Payout Reviews</h3>
               </div>
               <ul className={styles.list}>
-                <li>When you complete a streak, your entry goes into the <strong>Admin Winner Review Queue</strong>.</li>
-                <li>Admin manually audits your account logs (IP, phone, payout details) before verifying the win.</li>
+                <li>When you complete a streak, your entry goes into the Admin Winner Review Queue.</li>
+                <li>Win verifications and payouts are reviewed manually before processing.</li>
                 <li>Once approved, the round reward is credited to your wallet balance.</li>
                 <li>Payouts require completed payout verification (Full Name, Date of Birth, ID type, bank details).</li>
               </ul>
@@ -99,19 +107,21 @@ export default function RulesPage() {
                 <h3>6. Referral Terms</h3>
               </div>
               <ul className={styles.list}>
-                 <li>Earn NGN 1,000 for every friend who joins, verifies their phone number, enters a round, and submits predictions.</li>
-                <li>Self-referrals (sharing IP, bank accounts, or device fingerprints with your referee) are blocked, flag both profiles, and suspend payouts.</li>
+                <li>Earn NGN 1,000 for every friend who joins, verifies their phone number, enters a round, and submits predictions.</li>
+                <li>Duplicate or suspicious referral patterns may be restricted.</li>
               </ul>
             </GlassCard>
           </div>
 
           <div style={{ marginTop: "32px", padding: "20px 24px", background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border-glass)", borderRadius: "12px", textAlign: "center" }}>
             <p style={{ fontSize: "12px", color: "var(--foreground-muted)", lineHeight: "1.6" }}>
-              <strong>Public Disclaimer:</strong> NanoPlay is an independent sports gaming arena. We are not affiliated, associated, authorized, or in any way officially connected with FIFA, UEFA, European Premier League, or any professional football clubs or players. All team names, marks, and visuals used inside the arena are generic.
+              <strong>Public Disclaimer:</strong> NanoPlay is an independent football prediction challenge platform. We are not affiliated, associated, authorized, or in any way officially connected with FIFA, UEFA, European Premier League, or any professional football clubs or players. All team names, marks, and visuals used inside the arena are generic.
             </p>
-            <p style={{ fontSize: "12px", color: "var(--foreground-secondary)", marginTop: "8px" }}>
-              For support inquiries, reach out to <strong>{process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@nanoplay.com"}</strong> or WhatsApp: <strong>{process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "+2348000000000"}</strong>.
-            </p>
+            {showSupportLine && (
+              <p style={{ fontSize: "12px", color: "var(--foreground-secondary)", marginTop: "8px" }}>
+                For support inquiries, reach out to <strong>{supportEmail}</strong> or WhatsApp: <strong>{supportWhatsapp}</strong>.
+              </p>
+            )}
           </div>
         </div>
       </main>

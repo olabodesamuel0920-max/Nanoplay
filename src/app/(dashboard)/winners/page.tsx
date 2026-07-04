@@ -26,11 +26,7 @@ export default function WinnersPage() {
     async function fetchWinners() {
       try {
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          setUser(null);
-          return;
-        }
-        setUser(user);
+        setUser(user || null);
 
         // Query only verified winners for the public list
         const { data } = await supabase
@@ -99,36 +95,6 @@ export default function WinnersPage() {
                 </button>
               </div>
             )}
-          </div>
-        </main>
-      </>
-    );
-  }
-
-  if (!user) {
-    return (
-      <>
-        <Navbar />
-        <main className={`${styles.main} main-with-bottom-nav relative`}>
-          <div className="mobile-hero-glow mobile-only" aria-hidden="true" />
-          <div className="mobile-stadium-lights mobile-only" aria-hidden="true" />
-          <div className="mobile-pitch-floor mobile-only" aria-hidden="true" />
-          <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '0 24px', textAlign: 'center' }}>
-            <div className="w-16 h-16 rounded-2xl bg-[#D4A853]/10 border border-[#D4A853]/20 flex items-center justify-center mb-4" style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 168, 83, 0.1)', border: '1px solid rgba(212, 168, 83, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <span className="text-3xl" style={{ fontSize: '30px' }}>🔒</span>
-            </div>
-            <h2 className="text-xl font-bold mb-2" style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--foreground-primary)', marginBottom: '8px' }}>Arena Access Required</h2>
-            <p className="text-sm mb-6" style={{ fontSize: '14px', color: 'var(--foreground-secondary)', marginBottom: '24px' }}>
-              Sign in to view live challenges, make picks, and track your streak.
-            </p>
-            <div className="flex flex-col gap-3 w-full max-w-[280px]" style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '280px' }}>
-              <Link href="/login" className="w-full h-12 bg-[#D4A853] text-black font-bold rounded-lg flex items-center justify-center" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '48px', backgroundColor: '#D4A853', color: '#000000', fontWeight: 'bold', borderRadius: '8px', textDecoration: 'none' }}>
-                Sign In
-              </Link>
-              <Link href="/signup" className="w-full h-12 border border-[#D4A853] text-[#D4A853] font-bold rounded-lg flex items-center justify-center" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '48px', border: '1px solid #D4A853', color: '#D4A853', fontWeight: 'bold', borderRadius: '8px', textDecoration: 'none' }}>
-                Create Account
-              </Link>
-            </div>
           </div>
         </main>
       </>

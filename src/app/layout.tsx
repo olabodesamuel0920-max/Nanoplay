@@ -44,10 +44,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // suppressHydrationWarning is applied to <html> because data-theme is dynamically
+  // determined on the client side via the inline script below to prevent flash of theme (FOUC).
   return (
     <html 
       lang="en" 
       className={`${plusJakartaSans.variable} ${spaceMono.variable}`}
+      suppressHydrationWarning={true}
       style={{
         "--font-heading": "var(--font-plus-jakarta-sans)",
         "--font-body": "var(--font-plus-jakarta-sans)",

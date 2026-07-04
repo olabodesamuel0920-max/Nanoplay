@@ -1,3 +1,4 @@
+/* eslint-disable */
 // docs/screenshots/desktop-polish/capture.js
 const puppeteer = require('puppeteer-core');
 const fs = require('fs');

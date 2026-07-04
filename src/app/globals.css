@@ -876,6 +876,16 @@ html[data-theme="light"] .pitch-texture::before {
   animation: marquee 30s linear infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
 /* Mobile Attractiveness Overhaul Atmosphere & Layouts */
 @media (max-width: 1023px) {
   .mobile-hero-glow {

@@ -43,30 +43,43 @@ export default function LandingPage() {
         
         {/* Live Match Ticker Strip */}
         {/* Desktop: animated marquee */}
-        <div className="desktop-only overflow-hidden bg-[#0b0b0e] border-y border-[#1a1a1a] py-3" style={{ overflow: 'hidden' }}>
-          <div className="flex animate-marquee whitespace-nowrap">
-            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
-            <span className="mx-8 text-sm text-slate-400">Streak competitions</span>
-            <span className="mx-8 text-sm text-slate-400">Verified picks</span>
-            <span className="mx-8 text-sm text-slate-400">Wallet protected</span>
-            <span className="mx-8 text-sm text-slate-400">Fair-play monitoring</span>
-            <span className="mx-8 text-sm text-slate-400">Manual review</span>
-            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔴 LIVE ARENA</span>
-            <span className="mx-8 text-sm text-slate-400">Streak competitions</span>
-            <span className="mx-8 text-sm text-slate-400">Verified picks</span>
-            <span className="mx-8 text-sm text-slate-400">Wallet protected</span>
+        <div className="desktop-only overflow-hidden py-3" style={{ overflow: 'hidden', backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
+          <div className="animate-marquee whitespace-nowrap" style={{ display: 'flex', width: 'max-content' }}>
+            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔥 ARENA ACTIVE</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Streak Competitions</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Verified Picks</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Wallet Protected</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Manual Payout Review</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Fair Play Checking</span>
+            
+            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔥 ARENA ACTIVE</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Streak Competitions</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Verified Picks</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Wallet Protected</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Manual Payout Review</span>
+            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
+            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Fair Play Checking</span>
           </div>
         </div>
 
         {/* Mobile ticker */}
-        <div className="mobile-flex items-center justify-center gap-3 py-3 bg-[#0b0b0e] border-y border-[#1a1a1a]" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '12px 0', backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
-          <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
-          </span>
-          <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Arena</span>
-          <span className="text-xs text-slate-500" style={{ fontSize: '12px', color: 'var(--foreground-muted)' }}>|</span>
-          <span className="text-xs text-slate-400" style={{ fontSize: '12px', color: 'var(--foreground-secondary)' }}>Verified Picks</span>
+        <div className="mobile-only py-3 border-y" style={{ backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
+          <div className="flex items-center justify-center gap-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+            <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
+            </span>
+            <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Arena Active</span>
+            <span className="text-xs text-[var(--foreground-muted)]">|</span>
+            <span className="text-xs text-[var(--foreground-secondary)]" style={{ fontSize: '12px' }}>Verified Picks Only</span>
+          </div>
         </div>
 
 
@@ -165,18 +178,18 @@ export default function LandingPage() {
                   {/* Header */}
                   <div className="relative z-10 flex justify-between items-center mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                     <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', display: 'inline-block' }} />
-                      <span className="text-xs font-bold text-green-400 uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Live Matchday</span>
+                      <span className="w-2 h-2 rounded-full bg-[#D4A853] animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#D4A853', display: 'inline-block' }} />
+                      <span className="text-xs font-bold text-[#D4A853] uppercase tracking-wider" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Matchday Preview</span>
                     </div>
                     <span className="text-xs px-3 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20 font-medium" style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)', fontWeight: 500 }}>
-                      Round Active
+                      Preview Mode
                     </span>
                   </div>
                   
                   {/* Teams & Score */}
                   <div className="relative z-10 flex items-center justify-between mb-6" style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
                     <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
-                      <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arsenal</p>
+                      <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Team Alpha</p>
                       <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
                       </div>
@@ -189,7 +202,7 @@ export default function LandingPage() {
                     </div>
                     
                     <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
-                      <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Liverpool</p>
+                      <p className="text-sm md:text-base font-bold text-white mb-2" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Team Omega</p>
                       <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '48px', height: '48px', margin: '0 auto', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span className="text-xl font-mono font-bold text-white" style={{ fontSize: '20px', fontFamily: 'monospace', fontWeight: 'bold', color: '#ffffff' }}>—</span>
                       </div>
@@ -245,20 +258,20 @@ export default function LandingPage() {
                   <div className="flex justify-between items-center mb-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                     <div className="flex items-center gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span className="relative flex h-2 w-2" style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#4ade80', opacity: 0.75 }} />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#22c55e' }} />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4A853]/70 opacity-75" style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#D4A853', opacity: 0.75 }} />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4A853]" style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#D4A853' }} />
                       </span>
-                      <span className="text-xs font-bold text-green-400 uppercase" style={{ fontSize: '12px', fontWeight: 'bold', color: '#4ade80', textTransform: 'uppercase' }}>Live</span>
+                      <span className="text-xs font-bold text-[#D4A853] uppercase" style={{ fontSize: '12px', fontWeight: 'bold', color: '#D4A853', textTransform: 'uppercase' }}>Preview</span>
                     </div>
                     <span className="text-xs px-2 py-1 rounded-full bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/20" style={{ fontSize: '12px', padding: '4px 8px', borderRadius: '9999px', backgroundColor: 'rgba(212, 168, 83, 0.1)', color: '#D4A853', border: '1px solid rgba(212, 168, 83, 0.2)' }}>
-                      Round 1
+                      Preview Mode
                     </span>
                   </div>
                   
                   {/* Teams */}
                   <div className="flex items-center justify-between mb-5" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
                     <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
-                      <p className="text-sm font-bold text-white mb-2 truncate" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Arsenal</p>
+                      <p className="text-sm font-bold text-white mb-2 truncate" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Team Alpha</p>
                       <div className="w-10 h-10 mx-auto rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '40px', height: '40px', margin: '0 auto', borderRadius: '8px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span className="text-lg font-mono font-bold text-slate-500" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#64748b' }}>—</span>
                       </div>
@@ -271,7 +284,7 @@ export default function LandingPage() {
                     </div>
                     
                     <div className="text-center flex-1" style={{ textAlign: 'center', flex: 1 }}>
-                      <p className="text-sm font-bold text-white mb-2 truncate" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Liverpool</p>
+                      <p className="text-sm font-bold text-white mb-2 truncate" style={{ fontSize: '14px', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>Team Omega</p>
                       <div className="w-10 h-10 mx-auto rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center" style={{ width: '40px', height: '40px', margin: '0 auto', borderRadius: '8px', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span className="text-lg font-mono font-bold text-slate-500" style={{ fontSize: '18px', fontFamily: 'monospace', fontWeight: 'bold', color: '#64748b' }}>—</span>
                       </div>
@@ -320,19 +333,28 @@ export default function LandingPage() {
 
         {/* Trust Banner (PART 9) */}
         {/* Desktop Trust Banner */}
-        <div className={`${styles.desktopOnly} py-3 px-4 border-y border-gold/10 bg-charcoal/50 relative z-10`} style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-charcoal)', padding: '12px 16px' }}>
-          <p className={`text-center text-xs max-w-2xl mx-auto ${expanded ? "" : "line-clamp-2"}`} style={{ color: 'var(--foreground-muted)', fontSize: '12px', lineHeight: '1.5', margin: '0 auto', textAlign: 'center' }}>
+        <div className={`${styles.desktopOnly} py-4 px-6 border-y relative z-10`} style={{ backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', padding: '16px 24px' }}>
+          <p className="text-center text-xs max-w-2xl mx-auto" style={{ color: 'var(--foreground-muted)', fontSize: '12px', lineHeight: '1.6', margin: '0 auto', textAlign: 'center' }}>
+            NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
+            Predictions are for entertainment. Rewards are subject to manual review and verification.
+            All players must be 18+. Play responsibly.
+          </p>
+        </div>
+
+        {/* Mobile Collapsible Trust Banner */}
+        <div className={`${styles.mobileOnly} mx-4 mt-4 p-3 rounded-xl`} style={{ margin: '16px 16px 0 16px', padding: '12px', borderRadius: '12px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-glass)' }}>
+          <p className={`text-[11px] text-center leading-relaxed ${expanded ? "" : "line-clamp-2"}`} style={{ fontSize: '11px', color: 'var(--foreground-muted)', textAlign: 'center', lineHeight: '1.625' }}>
             NanoPlay is a football prediction challenge platform. Not betting. Not gambling. 
             Predictions are for entertainment. Rewards are subject to manual review and verification.
             All players must be 18+. Play responsibly.
           </p>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="block mx-auto mt-1 text-xs text-[#D4A853] hover:underline md:hidden"
+            className="block mx-auto mt-2 text-xs text-[#D4A853] hover:underline"
             style={{
               display: 'block',
-              margin: '4px auto 0 auto',
-              fontSize: '12px',
+              margin: '8px auto 0 auto',
+              fontSize: '11px',
               color: '#D4A853',
               background: 'none',
               border: 'none',
@@ -341,13 +363,6 @@ export default function LandingPage() {
           >
             {expanded ? "Show less" : "Read more"}
           </button>
-        </div>
-
-        {/* Mobile Collapsible Trust Banner */}
-        <div className={`${styles.mobileOnly} mx-4 mt-4 p-3 rounded-xl bg-[#0b0b0e] border border-[#1a1a1a]`} style={{ margin: '16px 16px 0 16px', padding: '12px', borderRadius: '12px', backgroundColor: '#0b0b0e', border: '1px solid #1a1a1a' }}>
-          <p className="text-[11px] text-slate-500 text-center leading-relaxed" style={{ fontSize: '11px', color: '#64748b', textAlign: 'center', lineHeight: '1.625' }}>
-            Not betting. Not gambling. Predictions for entertainment only. 18+.
-          </p>
         </div>
 
         {/* How It Works section */}
@@ -453,7 +468,7 @@ export default function LandingPage() {
         {/* MATCHDAY READY STEPS (PART 4) */}
         {/* Desktop Matchday Ready */}
         <section className={`${styles.matchdayReadySection} ${styles.desktopOnly}`} style={{ padding: '3rem 0' }}>
-          <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-[1240px] mx-auto px-8" style={{ maxWidth: '1240px', padding: '0 32px', margin: '0 auto' }}>
             <div className="section-label" style={{ marginBottom: '1.5rem' }}>Matchday Ready</div>
             <h3 className="text-2xl font-bold mb-8" style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', fontWeight: 900, color: 'var(--accent-gold)', marginBottom: '2rem' }}>MATCHDAY READY</h3>
             

@@ -13,8 +13,8 @@ const targets = [
   { filename: 'homepage-light-1440.png', route: '/', theme: 'light', width: 1440, height: 900 },
   { filename: 'rules-dark-1440.png', route: '/rules', theme: 'dark', width: 1440, height: 900 },
   { filename: 'rules-light-1440.png', route: '/rules', theme: 'light', width: 1440, height: 900 },
-  { filename: 'winners-dark-1440.png', route: '/winners?offline=true', theme: 'dark', width: 1440, height: 900 },
-  { filename: 'winners-light-1440.png', route: '/winners?offline=true', theme: 'light', width: 1440, height: 900 },
+  { filename: 'winners-dark-1440.png', route: '/winners', theme: 'dark', width: 1440, height: 900 },
+  { filename: 'winners-light-1440.png', route: '/winners', theme: 'light', width: 1440, height: 900 },
   { filename: 'desktop-boundary-1024.png', route: '/', theme: 'dark', width: 1024, height: 900 }
 ];
 
@@ -27,7 +27,7 @@ async function run() {
   });
 
   const metadata = [];
-  const sourceCommit = 'ca90c7b450b01d11a5b517650956e69093a4da78';
+  const sourceCommit = 'bc9ad8101cb1fcb2f71da54c4367920d28a06291';
 
   try {
     for (const t of targets) {

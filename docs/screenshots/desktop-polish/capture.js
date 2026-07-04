@@ -27,7 +27,7 @@ async function run() {
   });
 
   const metadata = [];
-  const sourceCommit = 'bc9ad8101cb1fcb2f71da54c4367920d28a06291';
+  const sourceCommit = '485762ed3e3fd62e86a7950c565ff3c101e5a910';
 
   try {
     for (const t of targets) {

@@ -210,18 +210,16 @@ html[data-theme="light"] .atmosphere-arena .atmosphere-bg {
 .atmosphere-winners .atmosphere-bg {
   display: block;
   background-image: 
-    linear-gradient(to right, rgba(8, 24, 38, 0.95), rgba(8, 24, 38, 0.95)),
-    url('/assets/football-spirit/entering_the_stadium_tunnel_at_night.webp');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.2;
+    radial-gradient(circle at 50% 10%, rgba(212, 168, 83, 0.08) 0%, rgba(5, 5, 5, 0) 70%);
+  background-color: var(--bg-obsidian);
+  opacity: 1;
 }
 
 html[data-theme="light"] .atmosphere-winners .atmosphere-bg {
   background-image: 
-    linear-gradient(to right, rgba(247, 241, 229, 0.98), rgba(247, 241, 229, 0.98)),
-    url('/assets/football-spirit/entering_the_stadium_tunnel_at_night.webp');
-  opacity: 0.15;
+    radial-gradient(circle at 50% 10%, rgba(212, 168, 83, 0.05) 0%, rgba(247, 241, 229, 0) 70%);
+  background-color: var(--bg-obsidian);
+  opacity: 1;
 }
 .atmosphere-winners .atmosphere-crowd {
   display: none !important;

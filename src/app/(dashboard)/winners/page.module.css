@@ -36,6 +36,8 @@
   background-size: contain;
   background-position: center;
   animation: trophy-glow 4s ease-in-out infinite alternate;
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 85%);
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 85%);
 }
 
 .podiumBadge {
@@ -66,6 +68,9 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  background-color: #0b0b0e !important;
+  border: 1px solid rgba(212, 168, 83, 0.28) !important;
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.8), var(--shadow-gold) !important;
   position: relative;
   z-index: 2;
 }
@@ -109,11 +114,12 @@
 .noWinnersCard h3 {
   font-size: 20px;
   margin-bottom: 8px;
+  color: #FFFDF7 !important;
 }
 
 .noWinnersCard p {
   font-size: 14px;
-  color: var(--foreground-secondary);
+  color: #94a3b8 !important;
 }
 
 .tableCard {
@@ -190,9 +196,9 @@
 
 .podiumStep {
   flex: 1;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-glass);
-  border-bottom: none;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: none !important;
   border-radius: 8px 8px 0 0;
   display: flex;
   flex-direction: column;
@@ -204,8 +210,8 @@
 
 .step1 {
   height: 100px;
-  border-color: var(--border-gold);
-  background: linear-gradient(to top, rgba(223, 186, 107, 0.05), rgba(255, 255, 255, 0.01));
+  border-color: #D4A853 !important;
+  background: linear-gradient(to top, rgba(212, 168, 83, 0.12), rgba(255, 255, 255, 0.02)) !important;
 }
 
 .step2 {
@@ -220,11 +226,11 @@
   font-family: var(--font-heading), sans-serif;
   font-size: 20px;
   font-weight: 900;
-  color: var(--foreground-muted);
+  color: #64748b !important;
 }
 
 .step1 .podiumRank {
-  color: var(--accent-gold);
+  color: #D4A853 !important;
 }
 
 .podiumTrophy {

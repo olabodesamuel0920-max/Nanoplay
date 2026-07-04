@@ -45,27 +45,27 @@ export default function LandingPage() {
         {/* Desktop: animated marquee */}
         <div className="desktop-only overflow-hidden py-3" style={{ overflow: 'hidden', backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
           <div className="animate-marquee whitespace-nowrap" style={{ display: 'flex', width: 'max-content' }}>
-            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔥 ARENA ACTIVE</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Streak Competitions</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Verified Picks</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Wallet Protected</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Manual Payout Review</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Fair Play Checking</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', fontWeight: 'bold', color: '#D4A853', display: 'inline-block' }}>🔥 ARENA ACTIVE</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Streak Competitions</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Verified Picks</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Wallet Protected</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Manual Payout Review</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Fair Play Checking</span>
             
-            <span className="mx-8 text-sm font-medium text-[#D4A853]">🔥 ARENA ACTIVE</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Streak Competitions</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Verified Picks</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Wallet Protected</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Manual Payout Review</span>
-            <span className="mx-8 text-sm text-[var(--foreground-muted)]">•</span>
-            <span className="mx-8 text-sm text-[var(--foreground-secondary)]">Fair Play Checking</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', fontWeight: 'bold', color: '#D4A853', display: 'inline-block' }}>🔥 ARENA ACTIVE</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Streak Competitions</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Verified Picks</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Wallet Protected</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Manual Payout Review</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-muted)', display: 'inline-block' }}>•</span>
+            <span style={{ margin: '0 24px', fontSize: '14px', color: 'var(--foreground-secondary)', display: 'inline-block' }}>Fair Play Checking</span>
           </div>
         </div>
 

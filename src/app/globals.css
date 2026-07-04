@@ -342,6 +342,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   padding: 14px 28px;
+  white-space: nowrap;
   border-radius: 8px;
   border: 1px solid var(--accent-gold);
   cursor: pointer;
@@ -389,6 +390,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   padding: 14px 28px;
+  white-space: nowrap;
   border-radius: 8px;
   border: 1px solid var(--border-glass);
   cursor: pointer;
@@ -999,6 +1001,14 @@ html[data-theme="light"] .pitch-texture::before {
   [class*="_queueCard__"],
   [class*="_rulesCard__"] {
     padding: 24px !important;
+  }
+}
+
+/* Fix Hero CTA wrapping on 1024px-1100px viewports */
+@media (min-width: 1024px) and (max-width: 1100px) {
+  .btn-premium, .btn-glass {
+    font-size: 12px !important;
+    padding: 12px 18px !important;
   }
 }
 

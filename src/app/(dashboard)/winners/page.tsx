@@ -13,23 +13,41 @@ import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function WinnersPage() {
   const supabase = createClient();
-  const [user, setUser] = useState<any>(null);
   const [winners, setWinners] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTimeout, setShowTimeout] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTimeout(true);
-    }, 5000);
+    let active = true;
+
+    // Guaranteed loading completion fallback after 2.5 seconds
+    const fallbackTimer = setTimeout(() => {
+      if (active) {
+        setLoading(false);
+        setShowTimeout(true);
+      }
+    }, 2500);
 
     async function fetchWinners() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        setUser(user || null);
+      // Check query parameter and environment variables to detect offline state
+      const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+      const isOfflineMode = searchParams?.get("offline") === "true" ||
+                            process.env.NEXT_PUBLIC_SUPABASE_URL?.includes("127.0.0.1") ||
+                            process.env.NEXT_PUBLIC_SUPABASE_URL?.includes("localhost");
 
+      if (isOfflineMode) {
+        console.warn("Offline mode detected: skipping Supabase database fetch.");
+        if (active) {
+          setWinners([]);
+          setLoading(false);
+          clearTimeout(fallbackTimer);
+        }
+        return;
+      }
+
+      try {
         // Query only verified winners for the public list
-        const { data } = await supabase
+        const { data, error } = await supabase
           .from("winners")
           .select(`
             id,
@@ -45,30 +63,45 @@ export default function WinnersPage() {
           .eq("verified", true)
           .order("created_at", { ascending: false });
 
-        const filteredWinners = (data || []).filter((winner: any) => {
-          const username = (winner.profile?.username || "").toLowerCase().trim();
-          if (username.startsWith("qa_") || username.includes("test") || username.includes("demo")) {
-            return false;
+        if (error) {
+          console.warn("Supabase query error (handled):", error.message);
+          if (active) {
+            setWinners([]);
           }
-          const roundNumber = winner.round?.round_number;
-          if (roundNumber === 9999 || roundNumber === "9999") {
-            return false;
-          }
-          if (winner.payout_amount === 100000 || winner.payout_amount === 1000000) {
-            return false;
-          }
-          return true;
-        });
-        setWinners(filteredWinners);
+        } else if (data && active) {
+          const filteredWinners = data.filter((winner: any) => {
+            const username = (winner.profile?.username || "").toLowerCase().trim();
+            if (username.startsWith("qa_") || username.includes("test") || username.includes("demo")) {
+              return false;
+            }
+            const roundNumber = winner.round?.round_number;
+            if (roundNumber === 9999 || roundNumber === "9999") {
+              return false;
+            }
+            if (winner.payout_amount === 100000 || winner.payout_amount === 1000000) {
+              return false;
+            }
+            return true;
+          });
+          setWinners(filteredWinners);
+        }
       } catch (err) {
-        console.error("Error in fetchWinners:", err);
+        console.warn("Failed to fetch winners (handled):", err);
+        if (active) {
+          setWinners([]);
+        }
       } finally {
-        setLoading(false);
-        clearTimeout(timer);
+        if (active) {
+          setLoading(false);
+          clearTimeout(fallbackTimer);
+        }
       }
     }
     fetchWinners();
-    return () => clearTimeout(timer);
+    return () => {
+      active = false;
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   if (loading) {

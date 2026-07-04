@@ -14,8 +14,8 @@
     "sourceUrl": "http://localhost:3000/",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -35,8 +35,8 @@
     "sourceUrl": "http://localhost:3000/",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -56,8 +56,8 @@
     "sourceUrl": "http://localhost:3000/rules",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -77,8 +77,8 @@
     "sourceUrl": "http://localhost:3000/rules",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -98,8 +98,8 @@
     "sourceUrl": "http://localhost:3000/winners",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -119,8 +119,8 @@
     "sourceUrl": "http://localhost:3000/winners",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -140,8 +140,8 @@
     "sourceUrl": "http://localhost:3000/",
     "captureMode": "production",
     "authState": "unauthenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "consoleErrorCount": 0,
     "pageErrorCount": 0,
     "hydrationWarningCount": 0
@@ -158,8 +158,8 @@
     "sourceUrl": "http://localhost:3000/arena",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -174,8 +174,8 @@
     "sourceUrl": "http://localhost:3000/arena",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -190,8 +190,8 @@
     "sourceUrl": "http://localhost:3000/dashboard",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -206,8 +206,8 @@
     "sourceUrl": "http://localhost:3000/dashboard",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -222,8 +222,8 @@
     "sourceUrl": "http://localhost:3000/wallet",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -238,8 +238,8 @@
     "sourceUrl": "http://localhost:3000/wallet",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -254,8 +254,8 @@
     "sourceUrl": "http://localhost:3000/admin",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -270,8 +270,8 @@
     "sourceUrl": "http://localhost:3000/admin",
     "captureMode": "production",
     "authState": "authenticated",
-    "sourceCommit": "bc9ad8101cb1fcb2f71da54c4367920d28a06291",
-    "screenshotEvidenceCommit": "daadd2a3db92c38d1af7bb11f2d815b392f5df2b",
+    "sourceCommit": "a6c403f57d14cf3eac8f53655f0ff85235e0e184",
+    "screenshotEvidenceCommit": "fdfdb1a7e8d29bdeef675d51594eee5a8b60b8d4",
     "status": "Screenshot unavailable — valid authenticated session not available."
   }
 ]

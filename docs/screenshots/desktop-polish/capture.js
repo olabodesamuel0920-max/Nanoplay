@@ -27,12 +27,34 @@ async function run() {
   });
 
   const metadata = [];
+  const sourceCommit = '169ca58f9784e369a81eef3babd7bfa387496b78';
 
   try {
     for (const t of targets) {
       console.log(`Capturing ${t.filename} (route: ${t.route}, theme: ${t.theme})...`);
       const page = await browser.newPage();
       
+      let consoleErrorCount = 0;
+      let pageErrorCount = 0;
+      let hydrationWarningCount = 0;
+
+      page.on('console', msg => {
+        const text = msg.text();
+        if (msg.type() === 'error') {
+          consoleErrorCount++;
+          console.log(`[Browser Console Error]: ${text}`);
+        }
+        if (text.toLowerCase().includes('hydration') || text.toLowerCase().includes('did not match') || text.toLowerCase().includes('hydrated')) {
+          hydrationWarningCount++;
+          console.log(`[Browser Hydration Warning]: ${text}`);
+        }
+      });
+
+      page.on('pageerror', err => {
+        pageErrorCount++;
+        console.log(`[Browser Page Error]: ${err.message}`);
+      });
+
       // Set larger navigation timeout for cold compiles
       page.setDefaultNavigationTimeout(90000);
       
@@ -90,9 +112,18 @@ async function run() {
           width: t.width,
           height: t.height
         },
+        imageDimensions: {
+          width: t.width,
+          height: dimensions.height
+        },
+        sourceUrl: url,
+        captureMode: 'production',
         authState: 'unauthenticated',
-        commit: '64682253f5ff2400ee12f9ef02be97e9deeb6e28',
-        sourceUrl: url
+        sourceCommit: sourceCommit,
+        screenshotEvidenceCommit: '',
+        consoleErrorCount: consoleErrorCount,
+        pageErrorCount: pageErrorCount,
+        hydrationWarningCount: hydrationWarningCount
       });
 
       await page.close();
@@ -106,9 +137,12 @@ async function run() {
         route: route,
         theme: 'dark',
         viewport: { width: 1440, height: 900 },
-        authState: 'authenticated',
-        commit: '64682253f5ff2400ee12f9ef02be97e9deeb6e28',
+        imageDimensions: null,
         sourceUrl: `${baseUrl}${route}`,
+        captureMode: 'production',
+        authState: 'authenticated',
+        sourceCommit: sourceCommit,
+        screenshotEvidenceCommit: '',
         status: 'Screenshot unavailable — valid authenticated session not available.'
       });
       metadata.push({
@@ -116,9 +150,12 @@ async function run() {
         route: route,
         theme: 'light',
         viewport: { width: 1440, height: 900 },
-        authState: 'authenticated',
-        commit: '64682253f5ff2400ee12f9ef02be97e9deeb6e28',
+        imageDimensions: null,
         sourceUrl: `${baseUrl}${route}`,
+        captureMode: 'production',
+        authState: 'authenticated',
+        sourceCommit: sourceCommit,
+        screenshotEvidenceCommit: '',
         status: 'Screenshot unavailable — valid authenticated session not available.'
       });
     }

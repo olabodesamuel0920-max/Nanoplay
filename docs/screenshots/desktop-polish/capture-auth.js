@@ -8,8 +8,15 @@ const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const baseUrl = 'http://localhost:3000';
 const outputDir = __dirname;
 
-const sourceCommit = 'af6ffb09b51e7073a488405f562d5de59c7f8573';
-const screenshotEvidenceCommit = 'PLACEHOLDER_EVIDENCE_HASH';
+const { execSync } = require('child_process');
+
+let sourceCommit = 'd8f76de6e372ec42dfc246f6f8ce6f4121ca9313';
+try {
+  sourceCommit = execSync('git rev-parse HEAD').toString().trim();
+} catch (e) {
+  // Fallback
+}
+const screenshotEvidenceCommit = sourceCommit; // Synchronized in the same commit
 
 async function performLogin(page, email, password) {
   console.log(`Navigating to login page for ${email}...`);

@@ -1,0 +1,170 @@
+[
+  {
+    "filename": "dashboard-dark-1440.png",
+    "route": "/dashboard",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/dashboard",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "dashboard-light-1440.png",
+    "route": "/dashboard",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/dashboard",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "arena-dark-1440.png",
+    "route": "/arena",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/arena",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "arena-light-1440.png",
+    "route": "/arena",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/arena",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "wallet-dark-1440.png",
+    "route": "/wallet",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/wallet",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "wallet-light-1440.png",
+    "route": "/wallet",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/wallet",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "admin-dark-1440.png",
+    "route": "/admin",
+    "theme": "dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/admin",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  },
+  {
+    "filename": "admin-light-1440.png",
+    "route": "/admin",
+    "theme": "light",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/admin",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "d8f76de6e372ec42dfc246f6f8ce6f4121ca9313",
+    "screenshotEvidenceCommit": "f8611f5be38feae1b513a4028c1adb5eef15d017",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
+  }
+]

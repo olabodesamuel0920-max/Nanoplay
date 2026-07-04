@@ -82,7 +82,21 @@
 /* --- HERO VARIANT --- */
 .atmosphere-hero .atmosphere-bg {
   display: block;
-  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/hero-football-atmosphere.webp');
+  background-image: 
+    linear-gradient(to right, rgba(8, 24, 38, 0.92) 15%, rgba(8, 24, 38, 0.6) 50%, rgba(8, 24, 38, 0.8) 90%),
+    linear-gradient(to bottom, rgba(8, 24, 38, 0.3) 0%, rgba(8, 24, 38, 0.85) 90%),
+    url('/assets/football-spirit/empty_stadium_under_cinematic_lights.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.85;
+}
+
+html[data-theme="light"] .atmosphere-hero .atmosphere-bg {
+  background-image: 
+    linear-gradient(to right, rgba(247, 241, 229, 0.95) 20%, rgba(247, 241, 229, 0.8) 60%, rgba(247, 241, 229, 0.9) 90%),
+    linear-gradient(to bottom, rgba(247, 241, 229, 0.4) 0%, rgba(247, 241, 229, 0.95) 95%),
+    url('/assets/football-spirit/empty_stadium_under_cinematic_lights.webp');
+  opacity: 0.9;
 }
 .atmosphere-hero .atmosphere-player {
   display: block;
@@ -166,112 +180,102 @@
 /* --- ARENA VARIANT --- */
 .atmosphere-arena .atmosphere-bg {
   display: block;
-  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+  background-image: 
+    linear-gradient(to right, rgba(8, 24, 38, 0.92) 15%, rgba(8, 24, 38, 0.65) 50%, rgba(8, 24, 38, 0.85) 90%),
+    linear-gradient(to bottom, rgba(8, 24, 38, 0.3) 0%, rgba(8, 24, 38, 0.88) 90%),
+    url('/assets/football-spirit/entering_the_stadium_tunnel_at_night.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.75;
+}
+
+html[data-theme="light"] .atmosphere-arena .atmosphere-bg {
+  background-image: 
+    linear-gradient(to right, rgba(247, 241, 229, 0.95) 20%, rgba(247, 241, 229, 0.8) 60%, rgba(247, 241, 229, 0.9) 90%),
+    linear-gradient(to bottom, rgba(247, 241, 229, 0.4) 0%, rgba(247, 241, 229, 0.96) 95%),
+    url('/assets/football-spirit/entering_the_stadium_tunnel_at_night.webp');
+  opacity: 0.7;
 }
 .atmosphere-arena .atmosphere-player {
-  display: block;
-  top: 5%;
-  right: 5%;
-  width: 320px;
-  height: 320px;
-  background-image: url('/images/sports/goalkeeper-dive-silhouette.svg');
-  background-position: top right;
-  opacity: 0.15;
-  z-index: 1;
+  display: none !important;
 }
 .atmosphere-arena .atmosphere-crowd {
-  display: block;
-  background-image: url('/images/sports/crowd-arc.svg');
-  opacity: 0.8;
+  display: none !important;
 }
 .atmosphere-arena .atmosphere-badge {
-  display: block;
-  top: 24px;
-  left: 24px;
-  width: 64px;
-  height: 64px;
-  background-image: url('/images/sports/football-badge.svg');
-  animation: badge-float-local 6s ease-in-out infinite;
+  display: none !important;
 }
 
 /* --- WINNERS VARIANT --- */
 .atmosphere-winners .atmosphere-bg {
   display: block;
-  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+  background-image: 
+    linear-gradient(to right, rgba(8, 24, 38, 0.95), rgba(8, 24, 38, 0.95)),
+    url('/assets/football-spirit/entering_the_stadium_tunnel_at_night.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+}
+
+html[data-theme="light"] .atmosphere-winners .atmosphere-bg {
+  background-image: 
+    linear-gradient(to right, rgba(247, 241, 229, 0.98), rgba(247, 241, 229, 0.98)),
+    url('/assets/football-spirit/entering_the_stadium_tunnel_at_night.webp');
+  opacity: 0.15;
 }
 .atmosphere-winners .atmosphere-crowd {
-  display: block;
-  background-image: url('/images/sports/crowd-arc.svg');
-  opacity: 0.8;
+  display: none !important;
 }
 .atmosphere-winners .atmosphere-badge {
-  display: block;
-  top: 24px;
-  left: 24px;
-  width: 56px;
-  height: 56px;
-  background-image: url('/images/sports/football-badge.svg');
-  animation: badge-float-local 6s ease-in-out infinite;
+  display: none !important;
 }
 .atmosphere-winners .atmosphere-trophy {
-  display: block;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 180px;
-  height: 180px;
-  background-image: url('/images/sports/trophy-spotlight.svg');
-  animation: trophy-glow-pulse 4s ease-in-out infinite alternate;
+  display: none !important;
 }
 
 /* --- TIERS VARIANT --- */
 .atmosphere-tiers .atmosphere-bg {
   display: block;
-  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
-  opacity: 0.6;
+  background-image: url('/images/sports/stadium-light-rays.svg');
+  opacity: 0.3;
 }
 .atmosphere-tiers .atmosphere-floor {
-  display: block;
-  background-image: url('/images/sports/pitch-floor-projection.svg');
-  opacity: 0.5;
+  display: none !important;
 }
 .atmosphere-tiers .atmosphere-badge {
-  display: block;
-  top: 24px;
-  left: 24px;
-  width: 64px;
-  height: 64px;
-  background-image: url('/images/sports/football-badge.svg');
-  animation: badge-float-local 6s ease-in-out infinite;
+  display: none !important;
 }
 
 /* --- DASHBOARD VARIANT --- */
 .atmosphere-dashboard .atmosphere-bg {
   display: block;
-  background-image: url('/images/sports/stadium-light-rays.svg'), url('/images/sports/stadium-depth-bg.webp');
+  background-image: url('/assets/football-spirit/futuristic_soccer_pitch_blueprint_design.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.015;
+  filter: grayscale(100%);
 }
 .atmosphere-dashboard .atmosphere-floor {
-  display: block;
-  background-image: url('/images/sports/pitch-floor-projection.svg');
-  opacity: 0.5;
+  display: none !important;
 }
 .atmosphere-dashboard .atmosphere-player {
-  display: block;
-  bottom: 0;
-  right: 0;
-  width: 280px;
-  height: 280px;
-  background-image: url('/images/sports/player-celebration-silhouette.svg');
-  background-position: bottom right;
-  opacity: 0.15;
-  z-index: 2;
+  display: none !important;
 }
 
 /* --- WALLET VARIANT --- */
 .atmosphere-wallet .atmosphere-bg {
   display: block;
-  background-image: url('/images/sports/stadium-light-rays.svg');
-  opacity: 0.4;
+  background-image: url('/assets/football-spirit/futuristic_soccer_pitch_blueprint_design.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.012;
+  filter: grayscale(100%);
+}
+.atmosphere-wallet .atmosphere-floor {
+  display: none !important;
+}
+.atmosphere-wallet .atmosphere-player {
+  display: none !important;
 }
 
 /* ==========================================================================

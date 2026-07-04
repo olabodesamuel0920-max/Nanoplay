@@ -224,12 +224,12 @@ export async function settleChallengeRound(
         match_id,
         prediction
       `)
-      .in("match_id", matches.map((m) => m.id));
+      .in("match_id", matches.map((m: any) => m.id));
 
     if (predictions) {
       // Mark predictions as correct/incorrect
       for (const pred of predictions) {
-        const match = matches.find((m) => m.id === pred.match_id);
+        const match = matches.find((m: any) => m.id === pred.match_id);
         if (match) {
           const outcome =
             match.home_score > match.away_score
@@ -262,7 +262,7 @@ export async function settleChallengeRound(
           .select("is_correct")
           .eq("entry_id", entry.id);
 
-        if (entryPreds && entryPreds.length === 3 && entryPreds.every((p) => p.is_correct === true)) {
+        if (entryPreds && entryPreds.length === 3 && entryPreds.every((p: any) => p.is_correct === true)) {
           // Trigger atomic round winner RPC (verified = false queue)
           await supabase.rpc("settle_round_winner_atomic", {
             p_entry_id: entry.id,

@@ -46,3 +46,4 @@ next-env.d.ts
 GPT_UPDATE.md
 nanoplay-gpt-update.zip
 desktop-polish-screenshots.zip
+.env*

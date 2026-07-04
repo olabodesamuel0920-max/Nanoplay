@@ -7,9 +7,18 @@
       "width": 1440,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 3407
+    },
+    "sourceUrl": "http://localhost:3000/",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "homepage-light-1440.png",
@@ -19,9 +28,18 @@
       "width": 1440,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 3407
+    },
+    "sourceUrl": "http://localhost:3000/",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "rules-dark-1440.png",
@@ -31,9 +49,18 @@
       "width": 1440,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 1355
+    },
+    "sourceUrl": "http://localhost:3000/rules",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/rules"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "rules-light-1440.png",
@@ -43,9 +70,18 @@
       "width": 1440,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 1355
+    },
+    "sourceUrl": "http://localhost:3000/rules",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/rules"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "winners-dark-1440.png",
@@ -55,9 +91,18 @@
       "width": 1440,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/winners",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/winners"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 1,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "winners-light-1440.png",
@@ -67,9 +112,18 @@
       "width": 1440,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceUrl": "http://localhost:3000/winners",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/winners"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 2,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "desktop-boundary-1024.png",
@@ -79,9 +133,18 @@
       "width": 1024,
       "height": 900
     },
+    "imageDimensions": {
+      "width": 1024,
+      "height": 3581
+    },
+    "sourceUrl": "http://localhost:3000/",
+    "captureMode": "production",
     "authState": "unauthenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
-    "sourceUrl": "http://localhost:3000/"
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "hydrationWarningCount": 0
   },
   {
     "filename": "arena-dark-1440.png",
@@ -91,9 +154,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/arena",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -104,9 +170,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/arena",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -117,9 +186,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/dashboard",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -130,9 +202,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/dashboard",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -143,9 +218,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/wallet",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -156,9 +234,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/wallet",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -169,9 +250,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/admin",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   },
   {
@@ -182,9 +266,12 @@
       "width": 1440,
       "height": 900
     },
-    "authState": "authenticated",
-    "commit": "64682253f5ff2400ee12f9ef02be97e9deeb6e28",
+    "imageDimensions": null,
     "sourceUrl": "http://localhost:3000/admin",
+    "captureMode": "production",
+    "authState": "authenticated",
+    "sourceCommit": "0f3639f2fa203a0e870c0ac53c33c340d6b912b6",
+    "screenshotEvidenceCommit": "c96331de447eebeb34beabf9661ff98ec23d3f52",
     "status": "Screenshot unavailable — valid authenticated session not available."
   }
 ]

@@ -2,7 +2,15 @@
 BEGIN;
 SELECT plan(17);
 
--- 1. Setup mock users under default role (postgres) to have insert permissions on auth.users
+-- Grant privileges to service_role within this test transaction to allow setup and test operations
+GRANT USAGE ON SCHEMA public TO service_role;
+GRANT USAGE ON SCHEMA auth TO service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA auth TO service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA auth TO service_role;
+
+-- 1. Setup mock users under default role (postgres)
 INSERT INTO auth.users (id, email)
 VALUES 
   ('a0000000-0000-0000-0000-00000000000a', 'usera@nanoplay.test'),

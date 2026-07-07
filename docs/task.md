@@ -1,0 +1,44 @@
+# Task List — Desktop Polish & Light Theme Alignment
+
+- [x] 1. Hide Mobile Navigation on Desktop (>= 1024px)
+  - [x] Update `mobile-bottom-nav.module.css` media queries.
+  - [x] Clean up inline styles in `mobile-bottom-nav.tsx` to use CSS module classes.
+  - [x] Enforce 1024px boundary for navbar collapse in `navbar.module.css`.
+  - [x] Enforce 1024px helper breakpoints in `globals.css` and wrap `.main-with-bottom-nav` padding.
+- [x] 2. Repair the Light Theme Completely
+  - [x] Define approved light theme variables in `globals.css`.
+  - [x] Audit and remove hardcoded dark overrides/white colors in pages and style modules.
+- [x] 3. Establish Desktop Layout Container System
+  - [x] Add `.container-desktop` to `globals.css`.
+  - [x] Ensure spacing constants are applied across views.
+- [x] 4. Fix Homepage Desktop Structure & Copy
+  - [x] Update headline, support copy, and remove fake social proof.
+  - [x] Rebuild "How NanoPlay Works" into a balanced 2-column desktop grid.
+- [x] 5. Fix Arena Page Content Contradictions & Terminology
+  - [x] Remove fake scarcity, countdowns, and progress bars.
+  - [x] Clean up terminology (`Stake` -> `Entry amount`, `Entry fee` -> `Challenge pass`, etc.).
+  - [x] Format tier names: `Starter Challenge`, `Main Event`, `Premium Challenge`.
+- [x] 6. Fix Dashboard Greetings & Layout
+  - [x] Format greeting with user display name or first name fallback.
+  - [x] Clean up placeholder fixtures and match results.
+- [x] 7. Fix Wallet Privacy & Payout States
+  - [x] Mask bank account numbers in UI.
+  - [x] Disable inputs and submit button with single clear reason message.
+  - [x] Keep the wallet funding panel visible in a clear disabled launch-review state.
+- [x] 8. Filter Winners Page QA Data
+  - [x] Filter out `qa_` users and test rounds. Show proper empty state.
+- [x] 9. Neutralize Rules Page Operational Claims
+  - [x] Clean up provider names and security enforcement claims.
+- [x] 10. Balance Admin Page Grid
+  - [x] Restructure metrics grid to avoid isolated card.
+- [x] 11. Run Final QA Verification
+  - [x] Run `npx tsc --noEmit`.
+  - [x] Run `npm run lint`.
+  - [x] Run `npm run build`.
+- [x] 12. Urgent Security Correction Pass
+  - [x] Completely delete mock database client files (`mock.ts`).
+  - [x] Restore `client.ts`, `server.ts`, and `admin.ts` to production state.
+  - [x] Remove session bypass checks from `proxy.ts` and `middleware.ts`.
+  - [x] Add automated fail-closed regression tests in `tests/security/fail-closed.ts`.
+  - [x] Remove all authenticated mock screenshots from Git repository.
+  - [x] Align walkthrough documentation and checklist.

@@ -2,14 +2,15 @@
 BEGIN;
 SELECT plan(17);
 
--- 1. Setup mock users under service_role to bypass trigger checks
-SET LOCAL ROLE service_role;
-
+-- 1. Setup mock users under default role (postgres) to have insert permissions on auth.users
 INSERT INTO auth.users (id, email)
 VALUES 
   ('a0000000-0000-0000-0000-00000000000a', 'usera@nanoplay.test'),
   ('b0000000-0000-0000-0000-00000000000b', 'userb@nanoplay.test'),
   ('c0000000-0000-0000-0000-00000000000c', 'admin@nanoplay.test');
+
+-- 2. Switch role to service_role to update profiles to bypass trigger checks
+SET ROLE service_role;
 
 -- Update profiles to assign roles and verify status
 UPDATE public.profiles SET username = 'usera', role = 'user', status = 'active', phone_verified = true, identity_status = 'verified' WHERE id = 'a0000000-0000-0000-0000-00000000000a';
@@ -19,6 +20,9 @@ UPDATE public.profiles SET username = 'adminuser', role = 'admin', status = 'act
 -- Seed wallets
 UPDATE public.wallets SET balance_ngn = 10000 WHERE user_id = 'a0000000-0000-0000-0000-00000000000a';
 UPDATE public.wallets SET balance_ngn = 10000 WHERE user_id = 'b0000000-0000-0000-0000-00000000000b';
+
+-- 3. Reset role back to postgres for the rest of pgTAP tests execution
+RESET ROLE;
 
 
 -- Test 1: Verify auth.uid() claim simulation
@@ -193,7 +197,7 @@ SELECT throws_ok(
 
 -- Test 14: Demo user is excluded from public Winners select queries
 RESET ROLE;
-SET LOCAL ROLE service_role;
+SET ROLE service_role;
 
 INSERT INTO auth.users (id, email) VALUES ('d0000000-0000-0000-0000-00000000000d', 'demouser@nanoplay.test');
 UPDATE public.profiles SET username = 'demouser', status = 'demo' WHERE id = 'd0000000-0000-0000-0000-00000000000d';
@@ -215,7 +219,7 @@ DROP TABLE test_results_14;
 
 -- Test 15: Unique reference idempotency constraints
 RESET ROLE;
-SET LOCAL ROLE service_role;
+SET ROLE service_role;
 
 INSERT INTO public.wallet_transactions (wallet_id, amount, type, reference, status)
 VALUES 
@@ -233,6 +237,7 @@ SELECT throws_ok(
 
 
 -- Test 16: SECURITY DEFINER isolation
+RESET ROLE;
 SELECT is(
   (SELECT proconfig[1] FROM pg_proc WHERE proname = 'create_payout_request_atomic'),
   'search_path=',

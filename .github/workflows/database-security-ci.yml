@@ -1,6 +1,9 @@
 name: Database Security and Hardening Verification
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
   pull_request:
     paths:

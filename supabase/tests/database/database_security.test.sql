@@ -1,8 +1,10 @@
 -- pgTAP database security tests for NanoPlay
 BEGIN;
-SELECT plan(16);
+SELECT plan(17);
 
--- 1. Setup mock users
+-- 1. Setup mock users under service_role to bypass trigger checks
+SET LOCAL ROLE service_role;
+
 INSERT INTO auth.users (id, email)
 VALUES 
   ('a0000000-0000-0000-0000-00000000000a', 'usera@nanoplay.test'),
@@ -70,19 +72,30 @@ SELECT is(
 );
 
 
--- Test 7: Simulated admin user can update risk_score
+-- Test 7: Privileged workflow (service_role) can update risk_score
+RESET ROLE;
+SET LOCAL ROLE service_role;
+SELECT lives_ok(
+  $$ UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
+  'Privileged workflow (service_role) can update risk_score'
+);
+
+
+-- Test 8: Admin user cannot update risk_score directly via client SQL
 RESET ROLE;
 SELECT set_config('request.jwt.claim.sub', 'c0000000-0000-0000-0000-00000000000c', true);
 SELECT set_config('request.jwt.claim.role', 'authenticated', true);
 SET LOCAL ROLE authenticated;
 
-SELECT lives_ok(
+SELECT throws_ok(
   $$ UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
-  'Admin user can update User A risk_score'
+  'P0001',
+  'Unauthorized: You cannot update administrative or sensitive fields directly.',
+  'Admin user cannot update risk_score directly via client SQL'
 );
 
 
--- Test 8: User A cannot read User B wallet transactions
+-- Test 9: User A cannot read User B wallet transactions
 RESET ROLE;
 SELECT set_config('request.jwt.claim.sub', 'a0000000-0000-0000-0000-00000000000a', true);
 SELECT set_config('request.jwt.claim.role', 'authenticated', true);
@@ -95,7 +108,7 @@ SELECT is(
 );
 
 
--- Test 9: User A cannot request payout for User B
+-- Test 10: User A cannot request payout for User B
 SELECT throws_ok(
   $$ SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 1000, '{}'::jsonb) $$,
   'P0001',
@@ -104,16 +117,16 @@ SELECT throws_ok(
 );
 
 
--- Test 10: User A cannot purchase tier for User B
+-- Test 11: User A cannot purchase tier for User B
 SELECT throws_ok(
-  $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-000000000001'::uuid, 'ref_1') $$,
+  $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-000000000001'::uuid, '00000000-0000-0000-0000-000000000001'::uuid, 'ref_1') $$,
   'P0001',
   'Unauthorized: Cannot purchase tier for another user.',
   'User A cannot purchase tier for User B'
 );
 
 
--- Test 11: Unauthenticated anon callers cannot invoke create_payout_request_atomic
+-- Test 12: Unauthenticated anon callers cannot invoke create_payout_request_atomic
 RESET ROLE;
 SELECT set_config('request.jwt.claim.sub', NULL, true);
 SELECT set_config('request.jwt.claim.role', 'anon', true);
@@ -127,7 +140,7 @@ SELECT throws_ok(
 );
 
 
--- Test 12: Ordinary authenticated users cannot invoke admin RPCs
+-- Test 13: Ordinary authenticated users cannot invoke admin RPCs
 RESET ROLE;
 SELECT set_config('request.jwt.claim.sub', 'a0000000-0000-0000-0000-00000000000a', true);
 SELECT set_config('request.jwt.claim.role', 'authenticated', true);
@@ -141,7 +154,7 @@ SELECT throws_ok(
 );
 
 
--- Test 13: Demo user is excluded from public Winners select queries
+-- Test 14: Demo user is excluded from public Winners select queries
 RESET ROLE;
 SET LOCAL ROLE service_role;
 
@@ -166,7 +179,7 @@ SELECT is(
 );
 
 
--- Test 14: Unique reference idempotency constraints
+-- Test 15: Unique reference idempotency constraints
 RESET ROLE;
 SET LOCAL ROLE service_role;
 
@@ -183,7 +196,7 @@ SELECT throws_ok(
 );
 
 
--- Test 15: SECURITY DEFINER isolation
+-- Test 16: SECURITY DEFINER isolation
 SELECT is(
   (SELECT proconfig[1] FROM pg_proc WHERE proname = 'create_payout_request_atomic'),
   'search_path=',
@@ -191,7 +204,7 @@ SELECT is(
 );
 
 
--- Test 16: Verify execute privileges are revoked from PUBLIC
+-- Test 17: Verify execute privileges are revoked from PUBLIC
 SELECT is(
   (SELECT pg_catalog.has_function_privilege('nobody', 'public.create_payout_request_atomic(UUID, INTEGER, JSONB)', 'execute')),
   false,

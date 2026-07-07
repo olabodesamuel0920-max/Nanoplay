@@ -49,6 +49,10 @@ jobs:
         run: |
           npx supabase@2.109.1 db reset --local
 
+      - name: Debug pg_proc custom functions configuration
+        run: |
+          npx supabase@2.109.1 db query "SELECT proname, proconfig FROM pg_proc WHERE proname IN ('create_payout_request_atomic', 'purchase_tier_with_wallet_atomic', 'is_admin');"
+
       - name: Run pgTAP Database Tests
         run: |
           npx supabase@2.109.1 test db --local

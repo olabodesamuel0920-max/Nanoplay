@@ -12,7 +12,7 @@ import styles from "./navbar.module.css";
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const supabase = createClient();
+  const supabase = createClient()!;
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
@@ -33,6 +33,7 @@ export default function Navbar() {
 
   useEffect(() => {
     async function fetchUserSession() {
+      if (!supabase) return;
       const { data } = await supabase.auth.getSession();
       if (data?.session?.user) {
         setUser(data.session.user);
@@ -58,7 +59,9 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
     router.push("/login");
     router.refresh();
   };

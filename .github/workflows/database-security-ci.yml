@@ -1,0 +1,72 @@
+name: Database Security and Hardening Verification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/tests/**'
+      - 'tests/security/**'
+      - '.github/workflows/database-security-ci.yml'
+      - 'src/lib/utils/redirect.ts'
+
+jobs:
+  verify:
+    name: Database Security Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-size: '20'
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Start Docker Daemon
+        run: |
+          sudo systemctl start docker
+          docker info
+
+      - name: Start Local Supabase Stack
+        run: |
+          npx supabase@2.109.1 start --exclude storage,realtime,edge-functions,studio,analytics
+
+      - name: List Local Migrations
+        run: |
+          npx supabase@2.109.1 migration list --local
+
+      - name: Reset Local Database and Apply Migrations
+        run: |
+          npx supabase@2.109.1 db reset --local
+
+      - name: Run pgTAP Database Tests
+        run: |
+          npx supabase@2.109.1 test db --local
+
+      - name: Run TypeScript Runtime Security Tests
+        run: |
+          npm run test:security
+
+      - name: TypeScript Compilation Check
+        run: |
+          npx tsc --noEmit
+
+      - name: Code Linting
+        run: |
+          npm run lint
+
+      - name: Production Build Check
+        run: |
+          npm run build
+
+      - name: Stop Local Supabase Stack
+        if: always()
+        run: |
+          npx supabase@2.109.1 stop

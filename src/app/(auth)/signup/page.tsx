@@ -28,6 +28,17 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

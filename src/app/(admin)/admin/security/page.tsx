@@ -27,6 +27,7 @@ import styles from "./page.module.css";
 export default function AdminSecurityPage() {
   const router = useRouter();
   const supabase = createClient();
+  
   const [loading, setLoading] = useState(true);
 
   // Security Users List
@@ -62,6 +63,7 @@ export default function AdminSecurityPage() {
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
 
   const loadSecurityData = async () => {
+    if (!supabase) return;
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       router.push("/login");
@@ -88,11 +90,14 @@ export default function AdminSecurityPage() {
   };
 
   useEffect(() => {
-    loadSecurityData();
+    if (supabase) {
+      loadSecurityData();
+    }
   }, []);
 
   useEffect(() => {
     async function loadUserDetails() {
+      if (!supabase) return;
       if (!selectedUser) {
         setSelectedUserDetails(null);
         return;
@@ -120,6 +125,17 @@ export default function AdminSecurityPage() {
     }
     loadUserDetails();
   }, [selectedUser]);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   // ── Handlers ──
 

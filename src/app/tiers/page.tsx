@@ -12,6 +12,7 @@ import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function TiersPage() {
   const supabase = createClient();
+  
   const [tiers, setTiers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTimeout, setShowTimeout] = useState(false);
@@ -22,6 +23,7 @@ export default function TiersPage() {
     }, 5000);
 
     async function fetchTiers() {
+      if (!supabase) return;
       try {
         const { data } = await supabase
           .from("account_tiers")
@@ -41,6 +43,17 @@ export default function TiersPage() {
     fetchTiers();
     return () => clearTimeout(timer);
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   const fallbackTiers = [
     { name: "Starter Challenge", price_ngn: 5000, perks: { reward: "NGN 50,000 potential reward", predictions_per_round: 3, referral_bonus: 1000 } },

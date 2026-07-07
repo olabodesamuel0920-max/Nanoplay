@@ -30,6 +30,7 @@ export default function AdminOverviewPage() {
 
   useEffect(() => {
     async function loadAdminMetrics() {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push("/login");
@@ -129,6 +130,17 @@ export default function AdminOverviewPage() {
     }
     loadAdminMetrics();
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   const adminNav = [
     { name: "Overview", path: "/admin", icon: Shield, active: true },

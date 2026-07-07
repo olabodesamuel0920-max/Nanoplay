@@ -13,6 +13,7 @@ import AtmosphereLayer from "@/components/AtmosphereLayer";
 
 export default function WinnersPage() {
   const supabase = createClient();
+  
   const [winners, setWinners] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTimeout, setShowTimeout] = useState(false);
@@ -29,6 +30,14 @@ export default function WinnersPage() {
     }, 2500);
 
     async function fetchWinners() {
+      if (!supabase) {
+        if (active) {
+          setWinners([]);
+          setLoading(false);
+          clearTimeout(fallbackTimer);
+        }
+        return;
+      }
       // Check query parameter and environment variables to detect offline state
       const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
       const isOfflineMode = searchParams?.get("offline") === "true" ||
@@ -103,6 +112,17 @@ export default function WinnersPage() {
       clearTimeout(fallbackTimer);
     };
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

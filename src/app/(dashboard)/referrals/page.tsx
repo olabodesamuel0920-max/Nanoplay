@@ -12,7 +12,7 @@ import styles from "./page.module.css";
 export default function ReferralsPage() {
   const router = useRouter();
   const supabase = createClient();
-
+  
   const [profile, setProfile] = useState<any>(null);
   const [referrals, setReferrals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +20,7 @@ export default function ReferralsPage() {
 
   useEffect(() => {
     async function loadReferrals() {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push("/login");
@@ -55,6 +56,17 @@ export default function ReferralsPage() {
     }
     loadReferrals();
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   const handleCopyLink = () => {
     if (!profile) return;

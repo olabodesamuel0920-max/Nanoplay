@@ -348,47 +348,69 @@ export async function createDemoUser(formData: {
 
     const userId = authData.user.id;
 
-    // 2. Create profile row with status='demo'
-    const { error: profileError } = await adminClient
-      .from("profiles")
-      .insert({
-        id: userId,
-        username: demoUsername,
-        phone: demoPhone,
-        normalized_phone: demoPhone,
-        phone_verified: formData.phoneVerified || false,
-        role: "user",
-        status: "demo",
-      });
+    // Helper block to run profile & wallet updates with full rollback on error
+    try {
+      // 2. Retrieve trigger-created profile
+      const { data: profileRecord, error: fetchProfileError } = await adminClient
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .maybeSingle();
 
-    if (profileError) {
-      // Rollback: delete the auth user
+      if (fetchProfileError || !profileRecord) {
+        throw new Error(`Failed to retrieve trigger-created profile: ${fetchProfileError?.message || "Profile not found"}`);
+      }
+
+      // 3. Update profile row with status='demo'
+      const { error: profileError } = await adminClient
+        .from("profiles")
+        .update({
+          username: demoUsername,
+          phone: demoPhone,
+          normalized_phone: demoPhone,
+          phone_verified: formData.phoneVerified || false,
+          role: "user",
+          status: "demo",
+        })
+        .eq("id", userId);
+
+      if (profileError) {
+        throw new Error(`Failed to update trigger-created profile: ${profileError.message}`);
+      }
+
+      // 4. Retrieve existing trigger-created wallet
+      const { data: walletData, error: walletError } = await adminClient
+        .from("wallets")
+        .select("id")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+      if (walletError || !walletData) {
+        throw new Error(`Failed to retrieve trigger-created wallet: ${walletError?.message || "Wallet not found"}`);
+      }
+
+      // 5. If starting balance > 0, create an audited seed transaction
+      if (startBal > 0) {
+        const ref = `demo_seed_${userId.slice(0, 8)}_${timestamp}`;
+        const { error: transactionError } = await adminClient.from("wallet_transactions").insert({
+          wallet_id: walletData.id,
+          amount: startBal,
+          type: "admin_adjustment",
+          reference: ref,
+          status: "confirmed",
+        });
+
+        if (transactionError) {
+          throw new Error(`Failed to seed demo starting balance: ${transactionError.message}`);
+        }
+      }
+    } catch (innerErr: any) {
+      // Rollback: delete the created auth user
       await adminClient.auth.admin.deleteUser(userId);
-      return { ok: false, message: `Profile creation failed: ${profileError.message}` };
+      return { ok: false, message: `Demo user creation failed: ${innerErr.message}` };
     }
 
-    // 3. Create wallet row
-    const { data: walletData, error: walletError } = await adminClient
-      .from("wallets")
-      .insert({ user_id: userId, balance_ngn: 0 })
-      .select("id")
-      .single();
 
-    if (walletError || !walletData) {
-      return { ok: false, message: `Wallet creation failed: ${walletError?.message || "Unknown error"}` };
-    }
-
-    // 4. If starting balance > 0, create an audited seed transaction
-    if (startBal > 0) {
-      const ref = `demo_seed_${userId.slice(0, 8)}_${timestamp}`;
-      await adminClient.from("wallet_transactions").insert({
-        wallet_id: walletData.id,
-        amount: startBal,
-        type: "admin_adjustment",
-        reference: ref,
-        status: "confirmed",
-      });
-    }
 
     // 5. Audit log
     await adminClient.from("admin_audit_logs").insert({

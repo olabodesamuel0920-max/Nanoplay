@@ -16,6 +16,7 @@ import styles from "./page.module.css";
 export default function AdminKycPayoutsPage() {
   const router = useRouter();
   const supabase = createClient();
+
   const [loading, setLoading] = useState(true);
 
   // Queues
@@ -33,6 +34,7 @@ export default function AdminKycPayoutsPage() {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const loadQueuesData = async () => {
+    if (!supabase) return;
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       router.push("/login");
@@ -118,8 +120,21 @@ export default function AdminKycPayoutsPage() {
   };
 
   useEffect(() => {
-    loadQueuesData();
+    if (supabase) {
+      loadQueuesData();
+    }
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   const handleKycNoteChange = (userId: string, value: string) => {
     setKycNotes((prev) => ({ ...prev, [userId]: value }));

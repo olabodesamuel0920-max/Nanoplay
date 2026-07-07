@@ -1,23 +1,8 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import MobileBottomNav from "@/components/layouts/mobile-bottom-nav";
 import "./globals.css";
 import "@/components/AtmosphereLayer.css";
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta-sans",
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--font-space-mono",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "NanoPlay | Elite Football Prediction Arena",
@@ -49,9 +34,11 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${plusJakartaSans.variable} ${spaceMono.variable}`}
+      className=""
       suppressHydrationWarning={true}
       style={{
+        "--font-plus-jakarta-sans": "Plus Jakarta Sans, system-ui, sans-serif",
+        "--font-space-mono": "Space Mono, monospace",
         "--font-heading": "var(--font-plus-jakarta-sans)",
         "--font-body": "var(--font-plus-jakarta-sans)",
         "--font-data": "var(--font-space-mono)",

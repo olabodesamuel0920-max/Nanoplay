@@ -19,7 +19,7 @@ import { SkeletonCard, SkeletonTable } from "@/components/SkeletonLoader";
 export default function WalletPage() {
   const router = useRouter();
   const supabase = createClient();
-
+  
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
@@ -79,6 +79,7 @@ export default function WalletPage() {
   const isPayoutDisabled = disableReason !== null;
 
   const loadWalletData = async () => {
+    if (!supabase) return;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
@@ -141,6 +142,7 @@ export default function WalletPage() {
     }, 5000);
 
     async function wrapLoad() {
+      if (!supabase) return;
       try {
         await loadWalletData();
       } catch (err) {
@@ -166,6 +168,17 @@ export default function WalletPage() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   const handleDeposit = async (e: React.FormEvent) => {
     e.preventDefault();

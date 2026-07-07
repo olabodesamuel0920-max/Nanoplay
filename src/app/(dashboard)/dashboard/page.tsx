@@ -56,6 +56,7 @@ export default function DashboardPage() {
     }, 5000);
 
     async function loadDashboard() {
+      if (!supabase) return;
       try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
@@ -135,6 +136,17 @@ export default function DashboardPage() {
     loadDashboard();
     return () => clearTimeout(timer);
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

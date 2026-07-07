@@ -17,10 +17,22 @@ function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +51,9 @@ function LoginPageContent() {
         return;
       }
 
-      const redirectTo = searchParams.get("next") || "/dashboard";
+      const { safeInternalPath } = await import("@/lib/utils/redirect");
+      const nextParam = searchParams.get("next");
+      const redirectTo = safeInternalPath(nextParam);
       router.push(redirectTo);
       router.refresh();
     } catch (err: any) {

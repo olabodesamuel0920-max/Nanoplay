@@ -10,11 +10,13 @@ import styles from "./page.module.css";
 
 export default function LeaderboardPage() {
   const supabase = createClient();
+  
   const [realWinners, setRealWinners] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchLeaderboard() {
+      if (!supabase) return;
       try {
         const { data } = await supabase
           .from("winners")
@@ -40,6 +42,17 @@ export default function LeaderboardPage() {
     }
     fetchLeaderboard();
   }, []);
+
+  if (!supabase) {
+    return (
+      <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--foreground-muted)" }}>
+        <p style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--foreground-primary)" }}>
+          Platform services are temporarily unavailable.
+        </p>
+        <p>Please check your connection or try again later.</p>
+      </div>
+    );
+  }
 
   // Demo-safe fallbacks if no real verified winners exist
   const demoWinners = [

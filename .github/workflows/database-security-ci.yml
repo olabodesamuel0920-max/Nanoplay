@@ -55,7 +55,17 @@ jobs:
 
       - name: Run pgTAP Database Tests
         run: |
-          npx supabase@2.109.1 test db --local
+          npx supabase@2.109.1 test db --local > pgtap_output.txt 2>&1
+
+      - name: Print pgTAP Test Logs on Failure
+        if: failure()
+        run: |
+          if [ -f pgtap_output.txt ]; then
+            echo "=== pgTAP Test Log ==="
+            cat pgtap_output.txt
+          else
+            echo "pgtap_output.txt not found!"
+          fi
 
       - name: Run TypeScript Runtime Security Tests
         run: |

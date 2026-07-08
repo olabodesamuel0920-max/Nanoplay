@@ -10,6 +10,14 @@ GRANT ALL ON ALL TABLES IN SCHEMA auth TO service_role;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO service_role;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA auth TO service_role;
 
+-- Grant standard table privileges to authenticated and anon roles so that RLS can be evaluated
+GRANT USAGE ON SCHEMA public TO authenticated, anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO authenticated;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO anon;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon;
+
+
 -- 1. Setup mock users under default role (postgres)
 INSERT INTO auth.users (id, email)
 VALUES 
@@ -181,7 +189,7 @@ SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
 SET LOCAL "request.jwt.claim.role" = 'authenticated';
 SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$ SELECT public.adjust_user_wallet_admin('a0000000-0000-0000-0000-00000000000a', 'b0000000-0000-0000-0000-00000000000b', 1000, 'hack') $$,
+  $$ SELECT public.adjust_user_wallet_admin('a0000000-0000-0000-0000-00000000000b', 'b0000000-0000-0000-0000-00000000000b', 1000, 'hack') $$,
   '42501',
   NULL,
   'Ordinary user cannot execute adjust_user_wallet_admin due to privilege revocation'

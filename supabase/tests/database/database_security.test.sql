@@ -34,78 +34,70 @@ RESET ROLE;
 
 
 -- Test 1: Verify auth.uid() claim simulation
-CREATE TEMP TABLE test_results_1 (val uuid);
-EXECUTE $$
-  SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-  SET LOCAL "request.jwt.claim.role" = 'authenticated';
-  SET ROLE authenticated;
-  INSERT INTO test_results_1 SELECT auth.uid();
-$$;
-SELECT is((SELECT val FROM test_results_1), 'a0000000-0000-0000-0000-00000000000a'::uuid, 'Simulated auth.uid() should return User A UUID');
-DROP TABLE test_results_1;
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
+SELECT is(auth.uid(), 'a0000000-0000-0000-0000-00000000000a'::uuid, 'Simulated auth.uid() should return User A UUID');
+RESET ROLE;
 
 
 -- Test 2: User A can update allowed profile fields
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT lives_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    UPDATE public.profiles SET full_name = 'User A Renamed' WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-  $$,
+  $$ UPDATE public.profiles SET full_name = 'User A Renamed' WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'User A can update their own full_name'
 );
+RESET ROLE;
 
 
 -- Test 3: User A cannot change role
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    UPDATE public.profiles SET role = 'admin' WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-  $$,
+  $$ UPDATE public.profiles SET role = 'admin' WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'P0001',
   'Unauthorized: You cannot update administrative or sensitive fields directly.',
   'User A cannot escalate their own role to admin'
 );
+RESET ROLE;
 
 
 -- Test 4: User A cannot change status
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    UPDATE public.profiles SET status = 'demo' WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-  $$,
+  $$ UPDATE public.profiles SET status = 'demo' WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'P0001',
   'Unauthorized: You cannot update administrative or sensitive fields directly.',
   'User A cannot change their status to demo'
 );
+RESET ROLE;
 
 
 -- Test 5: User A cannot change phone_verified
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    UPDATE public.profiles SET phone_verified = true WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-  $$,
+  $$ UPDATE public.profiles SET phone_verified = true WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'P0001',
   'Unauthorized: You cannot update administrative or sensitive fields directly.',
   'User A cannot directly modify phone_verified status'
 );
+RESET ROLE;
 
 
 -- Test 6: User A cannot update User B profile (RLS)
-EXECUTE $$
-  SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-  SET LOCAL "request.jwt.claim.role" = 'authenticated';
-  SET ROLE authenticated;
-  UPDATE public.profiles SET full_name = 'Hacked' WHERE id = 'b0000000-0000-0000-0000-00000000000b';
-$$;
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
+UPDATE public.profiles SET full_name = 'Hacked' WHERE id = 'b0000000-0000-0000-0000-00000000000b';
+RESET ROLE;
+
 SELECT is(
   (SELECT full_name FROM public.profiles WHERE id = 'b0000000-0000-0000-0000-00000000000b'),
   NULL,
@@ -114,93 +106,87 @@ SELECT is(
 
 
 -- Test 7: Privileged workflow (service_role) can update risk_score
+SET ROLE service_role;
 SELECT lives_ok(
-  $$
-    SET ROLE service_role;
-    UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-  $$,
+  $$ UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'Privileged workflow (service_role) can update risk_score'
 );
+RESET ROLE;
 
 
 -- Test 8: Admin user cannot update risk_score directly via client SQL
+SET LOCAL "request.jwt.claim.sub" = 'c0000000-0000-0000-0000-00000000000c';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'c0000000-0000-0000-0000-00000000000c';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-  $$,
+  $$ UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'P0001',
   'Unauthorized: You cannot update administrative or sensitive fields directly.',
   'Admin user cannot update risk_score directly via client SQL'
 );
+RESET ROLE;
 
 
 -- Test 9: User A cannot read User B wallet transactions
-CREATE TEMP TABLE test_results_9 (val integer);
-EXECUTE $$
-  SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-  SET LOCAL "request.jwt.claim.role" = 'authenticated';
-  SET ROLE authenticated;
-  INSERT INTO test_results_9 SELECT count(*)::integer FROM public.wallet_transactions WHERE wallet_id = (SELECT id FROM public.wallets WHERE user_id = 'b0000000-0000-0000-0000-00000000000b');
-$$;
-SELECT is((SELECT val FROM test_results_9), 0, 'User A cannot read User B wallet transactions due to RLS');
-DROP TABLE test_results_9;
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
+SELECT is(
+  (SELECT count(*)::integer FROM public.wallet_transactions WHERE wallet_id = (SELECT id FROM public.wallets WHERE user_id = 'b0000000-0000-0000-0000-00000000000b')),
+  0,
+  'User A cannot read User B wallet transactions due to RLS'
+);
+RESET ROLE;
 
 
 -- Test 10: User A cannot request payout for User B
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 1000, '{}'::jsonb);
-  $$,
+  $$ SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 1000, '{}'::jsonb) $$,
   'P0001',
   'Unauthorized: Cannot request payout for another user.',
   'User A cannot request payout for User B'
 );
+RESET ROLE;
 
 
 -- Test 11: User A cannot purchase tier for User B
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-000000000001'::uuid, 'ref_1');
-  $$,
+  $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-000000000001'::uuid, 'ref_1') $$,
   'P0001',
   'Unauthorized: Cannot purchase tier for another user.',
   'User A cannot purchase tier for User B'
 );
+RESET ROLE;
 
 
 -- Test 12: Unauthenticated anon callers cannot invoke create_payout_request_atomic
+SET ROLE anon;
 SELECT throws_ok(
-  $$
-    SET ROLE anon;
-    SELECT public.create_payout_request_atomic('a0000000-0000-0000-0000-00000000000a', 1000, '{}'::jsonb);
-  $$,
+  $$ SELECT public.create_payout_request_atomic('a0000000-0000-0000-0000-00000000000a', 1000, '{}'::jsonb) $$,
   '42501',
   NULL,
   'Unauthenticated caller cannot execute create_payout_request_atomic due to privilege revocation'
 );
+RESET ROLE;
 
 
 -- Test 13: Ordinary authenticated users cannot invoke admin RPCs
+SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$
-    SET LOCAL "request.jwt.claim.sub" = 'a0000000-0000-0000-0000-00000000000a';
-    SET LOCAL "request.jwt.claim.role" = 'authenticated';
-    SET ROLE authenticated;
-    SELECT public.adjust_user_wallet_admin('a0000000-0000-0000-0000-00000000000a', 'b0000000-0000-0000-0000-00000000000b', 1000, 'hack');
-  $$,
+  $$ SELECT public.adjust_user_wallet_admin('a0000000-0000-0000-0000-00000000000a', 'b0000000-0000-0000-0000-00000000000b', 1000, 'hack') $$,
   '42501',
   NULL,
   'Ordinary user cannot execute adjust_user_wallet_admin due to privilege revocation'
 );
+RESET ROLE;
 
 
 -- Test 14: Demo user is excluded from public Winners select queries
@@ -216,13 +202,13 @@ VALUES
   ('a0000000-0000-0000-0000-00000000000a', '10000000-0000-0000-0000-000000000001', 5000, true),
   ('d0000000-0000-0000-0000-00000000000d', '10000000-0000-0000-0000-000000000001', 10000, true);
 
-CREATE TEMP TABLE test_results_14 (val integer);
-EXECUTE $$
-  SET ROLE anon;
-  INSERT INTO test_results_14 SELECT count(*)::integer FROM public.winners;
-$$;
-SELECT is((SELECT val FROM test_results_14), 1, 'Winners select query as anon should exclude demo user winners');
-DROP TABLE test_results_14;
+SET ROLE anon;
+SELECT is(
+  (SELECT count(*)::integer FROM public.winners),
+  1,
+  'Winners select query as anon should exclude demo user winners'
+);
+RESET ROLE;
 
 
 -- Test 15: Unique reference idempotency constraints
@@ -242,10 +228,10 @@ SELECT throws_ok(
   NULL,
   'Inserting duplicate Paystack reference must fail with unique constraint violation'
 );
+RESET ROLE;
 
 
 -- Test 16: SECURITY DEFINER isolation
-RESET ROLE;
 SELECT is(
   (SELECT proconfig[1] FROM pg_proc WHERE proname = 'create_payout_request_atomic'),
   'search_path=',

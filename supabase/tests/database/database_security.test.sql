@@ -28,9 +28,9 @@ VALUES
 -- 2. Switch role to service_role to update profiles to bypass trigger checks
 SET ROLE service_role;
 
--- Update profiles to assign roles and verify status
-UPDATE public.profiles SET username = 'usera', role = 'user', status = 'active', phone_verified = true, identity_status = 'verified' WHERE id = 'a0000000-0000-0000-0000-00000000000a';
-UPDATE public.profiles SET username = 'userb', role = 'user', status = 'active', phone_verified = true, identity_status = 'verified' WHERE id = 'b0000000-0000-0000-0000-00000000000b';
+-- Update profiles to assign roles and verify status (User A starts with phone_verified = false)
+UPDATE public.profiles SET username = 'usera', full_name = 'User A', role = 'user', status = 'active', phone_verified = false, identity_status = 'verified' WHERE id = 'a0000000-0000-0000-0000-00000000000a';
+UPDATE public.profiles SET username = 'userb', full_name = 'User B', role = 'user', status = 'active', phone_verified = true, identity_status = 'verified' WHERE id = 'b0000000-0000-0000-0000-00000000000b';
 UPDATE public.profiles SET username = 'adminuser', role = 'admin', status = 'active' WHERE id = 'c0000000-0000-0000-0000-00000000000c';
 
 -- Seed wallets
@@ -108,7 +108,7 @@ RESET ROLE;
 
 SELECT is(
   (SELECT full_name FROM public.profiles WHERE id = 'b0000000-0000-0000-0000-00000000000b'),
-  NULL,
+  'User B',
   'User A cannot update User B profile due to RLS'
 );
 
@@ -127,7 +127,7 @@ SET LOCAL "request.jwt.claim.sub" = 'c0000000-0000-0000-0000-00000000000c';
 SET LOCAL "request.jwt.claim.role" = 'authenticated';
 SET LOCAL ROLE authenticated;
 SELECT throws_ok(
-  $$ UPDATE public.profiles SET risk_score = 42 WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
+  $$ UPDATE public.profiles SET risk_score = 99 WHERE id = 'a0000000-0000-0000-0000-00000000000a' $$,
   'P0001',
   'Unauthorized: You cannot update administrative or sensitive fields directly.',
   'Admin user cannot update risk_score directly via client SQL'
@@ -198,10 +198,10 @@ RESET ROLE;
 
 
 -- Test 14: Demo user is excluded from public Winners select queries
-RESET ROLE;
-SET ROLE service_role;
-
+-- Setup demo user and challenge rounds under default postgres role
 INSERT INTO auth.users (id, email) VALUES ('d0000000-0000-0000-0000-00000000000d', 'demouser@nanoplay.test');
+
+SET ROLE service_role;
 UPDATE public.profiles SET username = 'demouser', status = 'demo' WHERE id = 'd0000000-0000-0000-0000-00000000000d';
 INSERT INTO public.challenge_rounds (id, round_number, status) VALUES ('10000000-0000-0000-0000-000000000001', 1, 'active');
 
@@ -220,9 +220,7 @@ RESET ROLE;
 
 
 -- Test 15: Unique reference idempotency constraints
-RESET ROLE;
 SET ROLE service_role;
-
 INSERT INTO public.wallet_transactions (wallet_id, amount, type, reference, status)
 VALUES 
   ((SELECT id FROM public.wallets WHERE user_id = 'a0000000-0000-0000-0000-00000000000a'), 5000, 'deposit', 'paystack_tx_ref_1', 'confirmed');

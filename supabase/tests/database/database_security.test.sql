@@ -204,7 +204,7 @@ INSERT INTO auth.users (id, email) VALUES ('d0000000-0000-0000-0000-00000000000d
 SET ROLE service_role;
 UPDATE public.profiles SET username = 'demouser', status = 'demo' WHERE id = 'd0000000-0000-0000-0000-00000000000d';
 INSERT INTO public.challenge_rounds (id, round_number, status, start_date, end_date) 
-VALUES ('10000000-0000-0000-0000-000000000001', 1, 'active', NOW(), NOW() + INTERVAL '7 days');
+VALUES ('10000000-0000-0000-0000-000000000001', 999, 'active', NOW(), NOW() + INTERVAL '7 days');
 
 INSERT INTO public.winners (user_id, round_id, payout_amount, verified)
 VALUES 

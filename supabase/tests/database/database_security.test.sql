@@ -1,6 +1,6 @@
 -- pgTAP database security tests for NanoPlay
 BEGIN;
-SELECT plan(19);
+SELECT plan(21);
 
 -- Grant privileges to service_role within this test transaction to allow setup and test operations
 GRANT USAGE ON SCHEMA public TO service_role;
@@ -271,6 +271,27 @@ SELECT is(
   nanoplay_private.is_admin(),
   false,
   'is_admin() returns false for unauthenticated anon caller'
+);
+RESET ROLE;
+
+-- Test 20: Verify service_role can call create_payout_request_atomic
+SET ROLE service_role;
+SELECT lives_ok(
+  $$ SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 5000, '{"bank": "test"}'::jsonb) $$,
+  'service_role can execute create_payout_request_atomic without active web session'
+);
+RESET ROLE;
+
+
+-- Test 21: Verify service_role can call purchase_tier_with_wallet_atomic
+SET ROLE service_role;
+INSERT INTO public.account_tiers (id, name, price_ngn, perks) 
+VALUES ('00000000-0000-0000-0000-000000000002', 'Standard', 10000, '{}'::jsonb)
+ON CONFLICT (name) DO NOTHING;
+
+SELECT lives_ok(
+  $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', (SELECT id FROM public.account_tiers WHERE name = 'Standard'), 'payment_ref_test') $$,
+  'service_role can execute purchase_tier_with_wallet_atomic without active web session'
 );
 RESET ROLE;
 

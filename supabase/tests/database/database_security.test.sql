@@ -241,14 +241,14 @@ RESET ROLE;
 -- Test 16: SECURITY DEFINER isolation
 SELECT is(
   (SELECT proconfig[1] FROM pg_proc WHERE proname = 'create_payout_request_atomic'),
-  'search_path=',
+  'search_path=""',
   'Function create_payout_request_atomic search path must be set to empty'
 );
 
 
 -- Test 17: Verify execute privileges are revoked from PUBLIC
 SELECT is(
-  (SELECT pg_catalog.has_function_privilege('nobody', 'public.create_payout_request_atomic(UUID, INTEGER, JSONB)', 'execute')),
+  (SELECT pg_catalog.has_function_privilege('public', 'public.create_payout_request_atomic(UUID, INTEGER, JSONB)', 'execute')),
   false,
   'Public has no execute permission on create_payout_request_atomic'
 );

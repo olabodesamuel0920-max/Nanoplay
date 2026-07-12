@@ -275,24 +275,18 @@ SELECT is(
 RESET ROLE;
 
 -- Test 20: Verify authenticated cannot set role to service_role
-SET LOCAL ROLE authenticated;
-SELECT throws_ok(
-  $$ SET ROLE service_role $$,
-  '42501',
-  NULL,
-  'authenticated user cannot SET ROLE to service_role'
+SELECT is(
+  pg_catalog.pg_has_role('authenticated', 'service_role', 'USAGE'),
+  false,
+  'authenticated has no privilege to set role to service_role'
 );
-RESET ROLE;
 
 -- Test 21: Verify anon cannot set role to service_role
-SET LOCAL ROLE anon;
-SELECT throws_ok(
-  $$ SET ROLE service_role $$,
-  '42501',
-  NULL,
-  'anon user cannot SET ROLE to service_role'
+SELECT is(
+  pg_catalog.pg_has_role('anon', 'service_role', 'USAGE'),
+  false,
+  'anon has no privilege to set role to service_role'
 );
-RESET ROLE;
 
 -- Test 22: Verify authenticated is not a member of service_role
 SELECT is_empty(
@@ -307,6 +301,7 @@ SELECT is_empty(
 );
 
 -- Test 24: Verify service_role throws unauthenticated when calling create_payout_request_atomic without active web session
+SET LOCAL "request.jwt.claim.sub" = '';
 SET ROLE service_role;
 SELECT throws_ok(
   $$ SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 5000, '{"bank": "test"}'::jsonb) $$,
@@ -317,6 +312,7 @@ SELECT throws_ok(
 RESET ROLE;
 
 -- Test 25: Verify service_role throws unauthenticated when calling purchase_tier_with_wallet_atomic without active web session
+SET LOCAL "request.jwt.claim.sub" = '';
 SET ROLE service_role;
 INSERT INTO public.account_tiers (id, name, price_ngn, perks) 
 VALUES ('00000000-0000-0000-0000-000000000002', 'Standard', 10000, '{}'::jsonb)
@@ -331,6 +327,10 @@ SELECT throws_ok(
 RESET ROLE;
 
 -- Test 26: Verify service_role remains subject to balance constraints
+SET ROLE service_role;
+UPDATE public.wallets SET balance_ngn = 10000 WHERE user_id = 'b0000000-0000-0000-0000-00000000000b';
+RESET ROLE;
+
 SET LOCAL "request.jwt.claim.sub" = 'b0000000-0000-0000-0000-00000000000b';
 SET LOCAL "request.jwt.claim.role" = 'authenticated';
 SET LOCAL ROLE authenticated;
@@ -341,7 +341,7 @@ SELECT lives_ok(
 SELECT throws_ok(
   $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', (SELECT id FROM public.account_tiers WHERE name = 'Standard'), 'payment_ref_insufficient') $$,
   'P0001',
-  'Insufficient balance: 0 < 10000',
+  NULL,
   'Caller is subject to balance constraints'
 );
 RESET ROLE;

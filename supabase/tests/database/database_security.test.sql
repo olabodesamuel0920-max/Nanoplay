@@ -1,6 +1,6 @@
 -- pgTAP database security tests for NanoPlay
 BEGIN;
-SELECT plan(26);
+SELECT plan(27);
 
 -- Grant privileges to service_role within this test transaction to allow setup and test operations
 GRANT USAGE ON SCHEMA public TO service_role;

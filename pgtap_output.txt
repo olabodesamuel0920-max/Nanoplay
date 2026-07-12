@@ -7,12 +7,10 @@ a22cb17b3b93: Pulling fs layer
 4f4fb700ef54: Waiting
 a22cb17b3b93: Verifying Checksum
 a22cb17b3b93: Download complete
-dcccee43ad5d: Verifying Checksum
 dcccee43ad5d: Download complete
-4f4fb700ef54: Verifying Checksum
-4f4fb700ef54: Download complete
 06d62d0de6d7: Verifying Checksum
 06d62d0de6d7: Download complete
+4f4fb700ef54: Download complete
 dcccee43ad5d: Pull complete
 06d62d0de6d7: Pull complete
 a22cb17b3b93: Pull complete
@@ -24,26 +22,21 @@ psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_securi
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "oauth_consents"
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "oauth_authorizations"
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "oauth_client_states"
+psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "webauthn_challenges"
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "oauth_clients"
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "webauthn_credentials"
-psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "webauthn_challenges"
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:9: WARNING:  no privileges were granted for "custom_oauth_providers"
 psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:11: WARNING:  no privileges were granted for "refresh_tokens_id_seq"
-psql:/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql:254: ERROR:  role "nobody" does not exist
 /home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql .. 
-# Failed test 16: "Function create_payout_request_atomic search path must be set to empty"
-#         have: search_path=""
-#         want: search_path=
-Dubious, test returned 3 (wstat 768, 0x300)
-Failed 2/17 subtests 
+# Looks like you planned 26 tests but ran 27
+All 26 subtests passed 
 
 Test Summary Report
 -------------------
-/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql (Wstat: 768 (exited 3) Tests: 16 Failed: 1)
-  Failed test:  16
-  Non-zero exit status: 3
-  Parse errors: Bad plan.  You planned 17 tests but ran 16.
-Files=1, Tests=16,  0 wallclock secs ( 0.02 usr +  0.00 sys =  0.02 CPU)
+/home/runner/work/Nanoplay/Nanoplay/supabase/tests/database/database_security.test.sql (Wstat: 0 Tests: 27 Failed: 1)
+  Failed test:  27
+  Parse errors: Bad plan.  You planned 26 tests but ran 27.
+Files=1, Tests=27,  0 wallclock secs ( 0.02 usr  0.01 sys +  0.00 cusr  0.01 csys =  0.04 CPU)
 Result: FAIL
 [31merror running container: exit 1[39m
 Try rerunning the command with --debug to troubleshoot the error.

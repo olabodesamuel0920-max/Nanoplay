@@ -51,10 +51,15 @@ async function runQA() {
     // 2. TEST: PHONE OTP & DUPLICATE PHONE UNIQUE CONSTRAINT
     console.log("\n2. Testing Phone Normalization and Duplicate Uniqueness...");
     
+    const randomSuffix = Math.floor(Math.random() * 100000000).toString().padStart(8, "0");
+    const testPhoneA = `080${randomSuffix}`;
+    const testPhoneNormalizedA = `23480${randomSuffix}`;
+    const testPhoneB = `+23480${randomSuffix}`;
+    
     // Update User A phone (Nigeria local format)
     const { error: phoneErrorA } = await supabase
       .from("profiles")
-      .update({ phone: "08012345678" })
+      .update({ phone: testPhoneA })
       .eq("id", userA.id);
 
     if (phoneErrorA) throw new Error(`Failed to set User A phone: ${phoneErrorA.message}`);
@@ -66,16 +71,16 @@ async function runQA() {
       .eq("id", userA.id)
       .single();
 
-    if (profileA.normalized_phone !== "2348012345678") {
-      throw new Error(`Phone normalization failed. Expected 2348012345678, got: ${profileA.normalized_phone}`);
+    if (profileA.normalized_phone !== testPhoneNormalizedA) {
+      throw new Error(`Phone normalization failed. Expected ${testPhoneNormalizedA}, got: ${profileA.normalized_phone}`);
     }
-    console.log("   ✓ User A phone successfully normalized to 2348012345678.");
+    console.log(`   ✓ User A phone successfully normalized to ${testPhoneNormalizedA}.`);
 
     // Attempt to update User B to the same phone number (international format)
     // The unique constraint on normalized_phone should block this
     const { error: phoneErrorB } = await supabase
       .from("profiles")
-      .update({ phone: "+2348012345678" })
+      .update({ phone: testPhoneB })
       .eq("id", userB.id);
 
     if (!phoneErrorB) {

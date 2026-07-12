@@ -36,3 +36,4 @@ BEGIN
   RETURN NEW;
 END;
 $$;
+-- Trigger redeploy migrations workflow

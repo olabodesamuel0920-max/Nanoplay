@@ -15,6 +15,7 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 // Unique prefix for this test run to prevent collisions and support easy cleanup
 const testPrefix = `qa_test_${Math.random().toString(36).substr(2, 6)}`;
 const testUsers = [];
+const testRoundNumber = Math.floor(Math.random() * 100000) + 90000;
 
 async function runQA() {
   console.log("Starting NanoPlay Functional QA Test Suite...");
@@ -199,7 +200,7 @@ async function runQA() {
     const { data: round, error: roundErr } = await supabase
       .from("challenge_rounds")
       .insert({
-        round_number: 9999, // High round number to prevent collisions
+        round_number: testRoundNumber, // High round number to prevent collisions
         start_date: new Date().toISOString(),
         end_date: new Date(Date.now() + 24*60*60*1000).toISOString(),
         status: "active"
@@ -320,11 +321,11 @@ async function runQA() {
     }
 
     // Clean up temporary round if created
-    const { data: tempRounds } = await supabase.from("challenge_rounds").select("id").eq("round_number", 9999);
+    const { data: tempRounds } = await supabase.from("challenge_rounds").select("id").eq("round_number", testRoundNumber);
     if (tempRounds && tempRounds.length > 0) {
       for (const r of tempRounds) {
         await supabase.from("challenge_rounds").delete().eq("id", r.id);
-        console.log("   ✓ Cleaned up test challenge round #9999.");
+        console.log(`   ✓ Cleaned up test challenge round #${testRoundNumber}.`);
       }
     }
   }

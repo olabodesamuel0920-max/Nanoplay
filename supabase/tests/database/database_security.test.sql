@@ -1,6 +1,6 @@
 -- pgTAP database security tests for NanoPlay
 BEGIN;
-SELECT plan(17);
+SELECT plan(19);
 
 -- Grant privileges to service_role within this test transaction to allow setup and test operations
 GRANT USAGE ON SCHEMA public TO service_role;
@@ -252,6 +252,27 @@ SELECT is(
   false,
   'Public has no execute permission on create_payout_request_atomic'
 );
+
+
+-- Test 18: Verify anon cannot call is_admin() with parameters to query other users' status (throws signature error)
+SET ROLE anon;
+SELECT throws_ok(
+  $$ SELECT nanoplay_private.is_admin('a0000000-0000-0000-0000-00000000000a'::uuid) $$,
+  '42883',
+  NULL,
+  'Anon cannot query admin status of another user via is_admin arguments due to signature mismatch'
+);
+RESET ROLE;
+
+
+-- Test 19: Verify is_admin() returns false for anon (unauthenticated)
+SET ROLE anon;
+SELECT is(
+  nanoplay_private.is_admin(),
+  false,
+  'is_admin() returns false for unauthenticated anon caller'
+);
+RESET ROLE;
 
 SELECT * FROM finish();
 ROLLBACK;

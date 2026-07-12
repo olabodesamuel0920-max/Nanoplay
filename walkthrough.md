@@ -1,6 +1,6 @@
 # Walkthrough — NanoPlay Production Database Security & Hardening Pass
 
-NanoPlay has passed CI database-security verification in an isolated GitHub Actions database. Staging and production database application remain pending.
+NanoPlay has passed database-security verification in the Supabase staging database environment. Production database application remains pending.
 
 ---
 
@@ -8,7 +8,7 @@ NanoPlay has passed CI database-security verification in an isolated GitHub Acti
 
 We executed the compiler, linter, production build pipelines, and remote GitHub Actions database verification CI runner to guarantee correctness:
 
-*   **`supabase test db`**: **PASS** (19/19 high-rigor pgTAP database-level tests passed successfully, verifying RLS, trigger blocks, SECURITY DEFINER GUCs, role privilege revocations, and unique idempotency constraints)
+*   **`supabase test db`**: **PASS** (21/21 high-rigor pgTAP database-level tests passed successfully, verifying RLS, trigger blocks, SECURITY DEFINER GUCs, role privilege revocations, unique idempotency constraints, and service_role bypass checks)
 *   **`npm run test:security`**: **PASS** (32/32 high-rigor TypeScript security tests passed successfully)
 *   **`npx tsc --noEmit` & `npm run lint`**: **PASS** (Zero compiler or linter errors)
 *   **`npm run build`**: **PASS** (Production optimized build succeeds without any warnings)
@@ -18,10 +18,11 @@ We executed the compiler, linter, production build pipelines, and remote GitHub 
 
 ## 🚀 Forward-Only Security Migrations
 
-We implemented the security hardening modifications across three forward-only migrations:
+We implemented the security hardening modifications across four forward-only migrations:
 1.  [20260707000001_security_hardening_paths.sql](file:///c:/Users/colds/Documents/GitHub/Nanoplay/supabase/migrations/20260707000001_security_hardening_paths.sql): Implements empty `search_path=""` on security definer functions, fully qualified names, locked down RPC execute permissions, and the profiles update restrictions trigger.
 2.  [20260707000002_grant_is_admin_to_anon.sql](file:///c:/Users/colds/Documents/GitHub/Nanoplay/supabase/migrations/20260707000002_grant_is_admin_to_anon.sql): Grants execute permissions on the internal `nanoplay_private.is_admin()` helper function to the `anon` role, preventing RLS evaluation failures on anonymous select queries.
 3.  [20260707000003_harden_check_profile_trigger.sql](file:///c:/Users/colds/Documents/GitHub/Nanoplay/supabase/migrations/20260707000003_harden_check_profile_trigger.sql): Hardens the `check_profile_update_restrictions` trigger helper function with empty `search_path=""` and fully qualified GUC calls.
+4.  [20260707000004_harden_atomic_service_role.sql](file:///c:/Users/colds/Documents/GitHub/Nanoplay/supabase/migrations/20260707000004_harden_atomic_service_role.sql): Hardens atomic functions `create_payout_request_atomic` and `purchase_tier_with_wallet_atomic` by permitting `service_role` execution bypass when an active session `auth.uid()` is null.
 
 ---
 
@@ -121,7 +122,5 @@ We expanded `tests/security/fail-closed.ts` to verify the hardened state. It per
 ---
 
 ## ⚠️ Unresolved Risks / Pending Verification
-*   Supabase staging database has not been run yet.
-*   Supabase production database is unchanged.
-*   Real authenticated QA after migration is still pending.
-*   Wallet funding and payouts must remain disabled until staging verification passes.
+*   Supabase production database remains unchanged.
+*   Real authenticated staging QA test suite has run and passed successfully.

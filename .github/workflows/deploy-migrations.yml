@@ -42,17 +42,31 @@ jobs:
         run: |
           npm run test:security
 
+      - name: Verify Environment Isolation
+        env:
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY }}
+          WALLET_FUNDING_ENABLED: ${{ secrets.WALLET_FUNDING_ENABLED }}
+        run: |
+          node tmp/print_masked_env.js
+
       - name: Link Supabase Project
         run: |
           supabase link --project-ref "$SUPABASE_PROJECT_REF" -p "$SUPABASE_DB_PASSWORD"
+          supabase migration list > migration_list_before.txt 2>&1
 
       - name: Dry-Run Migrations
         run: |
-          supabase db push --dry-run
+          supabase db push --dry-run > dry_run_output.txt 2>&1
+          cat dry_run_output.txt
 
       - name: Push Migrations to Production
         run: |
-          supabase db push
+          supabase db push > push_output.txt 2>&1
+          cat push_output.txt
+          supabase migration list > migration_list_after.txt 2>&1
 
       - name: Install Verification Dependencies
         run: |
@@ -72,14 +86,16 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           node tmp/qa_functional_test.js > qa_test_output.txt 2>&1
+          cat qa_test_output.txt
 
-      - name: Commit and Push QA Test Logs on Failure
-        if: failure()
+      - name: Commit and Push Staging Evidence
+        if: always()
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git checkout -b test-results || git checkout test-results
-          git add qa_test_output.txt
-          git commit -m "test: record QA functional test results on failure"
-          git push -f origin test-results
+          git add migration_list_before.txt dry_run_output.txt push_output.txt migration_list_after.txt qa_test_output.txt || true
+          git commit -m "test: record staging migration and QA evidence" || true
+          git push -f origin test-results || true
+
 

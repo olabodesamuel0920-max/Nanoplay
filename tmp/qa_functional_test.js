@@ -222,6 +222,15 @@ async function runQA() {
 
     if (matchesErr) throw new Error(`Failed to create matches: ${matchesErr.message}`);
 
+    // Ensure "Standard" tier exists in the database
+    const { error: upsertTierErr } = await supabase.from("account_tiers").upsert({
+      name: "Standard",
+      price_ngn: 10000,
+      perks: { reward: "₦100,000", predictions_per_round: 3, referral_bonus: 1000, priority: true }
+    }, { onConflict: "name" });
+
+    if (upsertTierErr) throw new Error(`Failed to upsert Standard tier: ${upsertTierErr.message}`);
+
     // Fetch Standard Tier ID
     const { data: tier } = await supabase.from("account_tiers").select("id").eq("name", "Standard").single();
 

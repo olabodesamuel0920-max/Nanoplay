@@ -150,5 +150,5 @@ REVOKE ALL ON FUNCTION public.purchase_tier_with_wallet_atomic(UUID, UUID, TEXT)
 REVOKE ALL ON FUNCTION public.purchase_tier_with_wallet_atomic(UUID, UUID, TEXT) FROM anon;
 GRANT EXECUTE ON FUNCTION public.purchase_tier_with_wallet_atomic(UUID, UUID, TEXT) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.purchase_tier_with_wallet_atomic(UUID, UUID, TEXT) TO service_role;
--- Trigger final staging evidence pass v3
+-- Trigger final staging evidence pass v4
 

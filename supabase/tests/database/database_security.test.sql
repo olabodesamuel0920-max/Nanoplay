@@ -1,6 +1,6 @@
 -- pgTAP database security tests for NanoPlay
 BEGIN;
-SELECT plan(21);
+SELECT plan(26);
 
 -- Grant privileges to service_role within this test transaction to allow setup and test operations
 GRANT USAGE ON SCHEMA public TO service_role;
@@ -274,24 +274,75 @@ SELECT is(
 );
 RESET ROLE;
 
--- Test 20: Verify service_role can call create_payout_request_atomic
-SET ROLE service_role;
-SELECT lives_ok(
-  $$ SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 5000, '{"bank": "test"}'::jsonb) $$,
-  'service_role can execute create_payout_request_atomic without active web session'
+-- Test 20: Verify authenticated cannot set role to service_role
+SET LOCAL ROLE authenticated;
+SELECT throws_ok(
+  $$ SET ROLE service_role $$,
+  '42501',
+  NULL,
+  'authenticated user cannot SET ROLE to service_role'
 );
 RESET ROLE;
 
+-- Test 21: Verify anon cannot set role to service_role
+SET LOCAL ROLE anon;
+SELECT throws_ok(
+  $$ SET ROLE service_role $$,
+  '42501',
+  NULL,
+  'anon user cannot SET ROLE to service_role'
+);
+RESET ROLE;
 
--- Test 21: Verify service_role can call purchase_tier_with_wallet_atomic
+-- Test 22: Verify authenticated is not a member of service_role
+SELECT is_empty(
+  $$ SELECT * FROM pg_catalog.pg_auth_members WHERE member = 'authenticated'::regrole AND roleid = 'service_role'::regrole $$,
+  'authenticated is not a member of service_role'
+);
+
+-- Test 23: Verify anon is not a member of service_role
+SELECT is_empty(
+  $$ SELECT * FROM pg_catalog.pg_auth_members WHERE member = 'anon'::regrole AND roleid = 'service_role'::regrole $$,
+  'anon is not a member of service_role'
+);
+
+-- Test 24: Verify service_role throws unauthenticated when calling create_payout_request_atomic without active web session
+SET ROLE service_role;
+SELECT throws_ok(
+  $$ SELECT public.create_payout_request_atomic('b0000000-0000-0000-0000-00000000000b', 5000, '{"bank": "test"}'::jsonb) $$,
+  'P0001',
+  'Unauthorized: Unauthenticated user session.',
+  'service_role cannot execute create_payout_request_atomic without active web session'
+);
+RESET ROLE;
+
+-- Test 25: Verify service_role throws unauthenticated when calling purchase_tier_with_wallet_atomic without active web session
 SET ROLE service_role;
 INSERT INTO public.account_tiers (id, name, price_ngn, perks) 
 VALUES ('00000000-0000-0000-0000-000000000002', 'Standard', 10000, '{}'::jsonb)
 ON CONFLICT (name) DO NOTHING;
 
-SELECT lives_ok(
+SELECT throws_ok(
   $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', (SELECT id FROM public.account_tiers WHERE name = 'Standard'), 'payment_ref_test') $$,
-  'service_role can execute purchase_tier_with_wallet_atomic without active web session'
+  'P0001',
+  'Unauthorized: Unauthenticated user session.',
+  'service_role cannot execute purchase_tier_with_wallet_atomic without active web session'
+);
+RESET ROLE;
+
+-- Test 26: Verify service_role remains subject to balance constraints
+SET LOCAL "request.jwt.claim.sub" = 'b0000000-0000-0000-0000-00000000000b';
+SET LOCAL "request.jwt.claim.role" = 'authenticated';
+SET LOCAL ROLE authenticated;
+SELECT lives_ok(
+  $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', (SELECT id FROM public.account_tiers WHERE name = 'Standard'), 'payment_ref_ok') $$,
+  'User B can purchase tier with valid balance'
+);
+SELECT throws_ok(
+  $$ SELECT public.purchase_tier_with_wallet_atomic('b0000000-0000-0000-0000-00000000000b', (SELECT id FROM public.account_tiers WHERE name = 'Standard'), 'payment_ref_insufficient') $$,
+  'P0001',
+  'Insufficient balance: 0 < 10000',
+  'Caller is subject to balance constraints'
 );
 RESET ROLE;
 

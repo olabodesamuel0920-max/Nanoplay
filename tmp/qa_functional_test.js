@@ -4,6 +4,7 @@ const { createClient } = require("@supabase/supabase-js");
 // Load environment variables
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || supabaseServiceKey;
 
 if (!supabaseUrl || !supabaseServiceKey) {
   console.error("Error: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set.");
@@ -155,9 +156,19 @@ async function runQA() {
     }
     console.log("   ✓ Funded User A wallet ledger with ₦10,000.");
 
+    // Authenticate user client for User A
+    const userAClient = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+    const { error: signInError } = await userAClient.auth.signInWithPassword({
+      email: userEmails[0],
+      password: "password123"
+    });
+    if (signInError) throw new Error(`Failed to sign in User A: ${signInError.message}`);
+
     // Attempt payout request of ₦5,000 with unverified KYC
     // Should throw exception from create_payout_request_atomic
-    const { error: payoutError1 } = await supabase.rpc("create_payout_request_atomic", {
+    const { error: payoutError1 } = await userAClient.rpc("create_payout_request_atomic", {
       p_user_id: userA.id,
       p_amount: 5000,
       p_bank_info: { bank_name: "Test Bank", account_number: "0123456789", account_name: "QA User A Payout" }
@@ -180,7 +191,7 @@ async function runQA() {
       .eq("id", userA.id);
 
     // Re-attempt payout request of ₦5,000 (should succeed)
-    const { error: payoutError2 } = await supabase.rpc("create_payout_request_atomic", {
+    const { error: payoutError2 } = await userAClient.rpc("create_payout_request_atomic", {
       p_user_id: userA.id,
       p_amount: 5000,
       p_bank_info: { bank_name: "Test Bank", account_number: "0123456789", account_name: "QA User A Payout" }
